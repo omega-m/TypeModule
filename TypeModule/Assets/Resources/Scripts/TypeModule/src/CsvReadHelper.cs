@@ -77,7 +77,7 @@ namespace tpInner
                 FieldMax = Math.Max(list.Count, FieldMax);
             }
         }
-        #endregion
+#endregion
 
 #region プロパティ
         private List<List<string>> m_datas = new List<List<string>>();

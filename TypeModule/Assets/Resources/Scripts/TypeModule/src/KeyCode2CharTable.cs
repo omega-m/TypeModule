@@ -23,11 +23,11 @@ namespace tpInner
             => (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
     }
 #else
-public static class WindowsUtil 
-{
-    public static bool IsCapsLockOn
-        => return false;
-}
+    public static class WindowsUtil 
+    {
+        public static bool IsCapsLockOn
+            => return false;
+    }
 #endif
 
 
@@ -98,7 +98,7 @@ public static class WindowsUtil
             }
             return ret;
         }
-        #endregion
+#endregion
 
 #region プロパティ
         ///<summary>
@@ -106,7 +106,7 @@ public static class WindowsUtil
         ///<para>[true]の場合、CapsLock中には、英語の大小文字を反転させます。</para>
         /// </summary>
         public bool IsCheckCapsLock { get; set; }
-        #endregion
+#endregion
 
 #region 内部メソッド
         ///<summary>
@@ -135,11 +135,11 @@ public static class WindowsUtil
                 m_map.Add(key, record[CSV_CHAR_FIELD][0]);
             }
         }
-        #endregion
+#endregion
 
 #region メンバ
         private Dictionary<int, char> m_map       = new Dictionary<int, char>();
-        #endregion
+#endregion
 
 #region 内部定数
         private const int SHIFT_OFS     = (1 << 9);

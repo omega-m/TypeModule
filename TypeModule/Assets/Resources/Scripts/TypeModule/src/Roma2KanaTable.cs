@@ -194,7 +194,6 @@ namespace tpInner
 #region メンバ
         private Roma2KanaNode m_treeRoot;
 #endregion
-
     }
 
 
@@ -231,7 +230,7 @@ namespace tpInner
         {
             return new Roma2KanaNode("", "");
         }
-        #endregion
+#endregion
 
 #region メソッド
         /// <summary>
@@ -325,7 +324,7 @@ namespace tpInner
             }
             return ret;
         }
-        #endregion
+#endregion
 
 #region プロパティ
         /// <summary>
@@ -382,7 +381,7 @@ namespace tpInner
         {
             get { return m_possibilityKanas; }
         }
-        #endregion
+#endregion
 
 #region 静的メソッド
         /// <summary>
@@ -404,7 +403,7 @@ namespace tpInner
         {
             return (int)'z' - (int)'a' + 1;
         }
-        #endregion
+#endregion
 
 #region 内部メソッド
         /// <summary>

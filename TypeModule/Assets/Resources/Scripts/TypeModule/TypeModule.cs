@@ -26,7 +26,7 @@ public class TypeModule : MonoBehaviour
         ///</summary>
         MODE_COMPARE,
     }
-    #endregion
+#endregion
 
 #region Unity共通処理
     void Start()
@@ -75,7 +75,7 @@ public class TypeModule : MonoBehaviour
             }
         }
     }
-    #endregion
+#endregion
 
 #region メソッド
     //public void Clear(){}
@@ -201,7 +201,7 @@ public class TypeModule : MonoBehaviour
             m_key2char.IsCheckCapsLock = value;
         }
     }
-    #endregion
+#endregion
 
 #region 内部メソッド
     ///<summary>
