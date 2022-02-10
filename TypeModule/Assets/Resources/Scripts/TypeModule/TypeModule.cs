@@ -10,9 +10,7 @@ using tpInner;
 /// </summary>
 public class TypeModule : MonoBehaviour
 {
-    //===========================================
-    // 入力判定モード
-    //===========================================
+#region 入力判定モード
     ///<summary>文字入力判定モードです。</summary>
     public enum MODE
     {
@@ -28,11 +26,9 @@ public class TypeModule : MonoBehaviour
         ///</summary>
         MODE_COMPARE,
     }
+    #endregion
 
-
-    //===========================================
-    // Unity共通処理
-    //===========================================
+#region Unity共通処理
     void Start()
     {
         if (KeyCode2CharCsv == null)
@@ -79,20 +75,13 @@ public class TypeModule : MonoBehaviour
             }
         }
     }
+    #endregion
 
+#region メソッド
+    //public void Clear(){}
+#endregion
 
-    //===========================================
-    // 公開メソッド
-    //===========================================
-    public void Clear()
-    {
-
-    }
-
-
-    //===========================================
-    // プロパティ
-    //===========================================
+#region プロパティ
     [Tooltip(
         "文字入力判定モードです。\n" +
         "【MODE_INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。\n" +
@@ -107,7 +96,6 @@ public class TypeModule : MonoBehaviour
         get { return m_mode; }
         set { m_mode = value; }
     }
-
 
     [Header("以下詳細設定 (指定しなくても動きます)")]
     [Tooltip(
@@ -213,11 +201,9 @@ public class TypeModule : MonoBehaviour
             m_key2char.IsCheckCapsLock = value;
         }
     }
+    #endregion
 
-
-    //===========================================
-    // 内部メソッド
-    //===========================================
+#region 内部メソッド
     ///<summary>
     ///キーの入力(KeyCode) => 英語文字への変換テーブルを作成
     ///</summary>
@@ -234,6 +220,7 @@ public class TypeModule : MonoBehaviour
     {
         m_roma2Kana = new Roma2KanaTable(Roma2KanaCsv);
     }
+
     ///<summary>
     ///キーの入力(KeyCode) => 文字への変換テーブルを作成
     ///</summary>
@@ -242,61 +229,11 @@ public class TypeModule : MonoBehaviour
         m_key2kanaMid = new keyCode2CharTable(KeyCode2KanaMidCsv);
         m_key2kanaMid.IsCheckCapsLock = false; //こちらはCapsLockの影響を受けない
     }
+#endregion
 
-
-    //===========================================
-    // 内部メンバ
-    //===========================================
+#region メンバ
     keyCode2CharTable       m_key2char;
     keyCode2CharTable       m_key2kanaMid;
     Roma2KanaTable          m_roma2Kana;
+#endregion 
 }
-
-
-
-
-////-------------------------------------------
-/////
-/////<summary>MODE_COMPARE</summary>
-/////
-//public string m_inputText
-//{
-//    get { return m_inputText; }
-//    set { m_inputText = value; }
-//}
-
-////-------------------------------------------
-/////
-/////<summary>MODE_COMPARE</summary>
-/////
-//public string m_inputRow
-//{
-//    get { return m_inputRow; }
-//    private set { m_inputRow = value; }
-//}
-
-////-------------------------------------------
-/////
-/////<summary>MODE_COMPARE</summary>
-/////
-//public string m_targetText
-//{
-//    get { return m_targetText; }
-//    set { m_targetText = value; }
-//}
-
-
-
-////-------------------------------------------
-//public bool m_bsEnabled
-//{
-//    get { return m_bsEnabled; }
-//    set { m_bsEnabled = value; }
-//}
-//public Text m_OutInputText = null;
-//public Text m_OutInputRow = null;
-//public Text m_OutTargetText = null;
-
-//private bool m_dirty = true;
-
-

@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 namespace tpInner
 {
 
+#region メモ
     // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
     //
     // PossibilityKanasに関しては、見つかった地点から下方向に向けて、一致している数を事前にチェックし、そのぶんのデータを返却するだけで終わりそう
@@ -16,6 +17,7 @@ namespace tpInner
     // 頻度が多そうなCanConvert()は　どちらもlog2(n) しかし、木構造のが早期リターンが多い
     //
     // とりあえず木構造で実装しておいて、メモリ的な不安が多そうなら書き変えることにします。
+#endregion
 
 
     /// <summary>
@@ -189,7 +191,7 @@ namespace tpInner
         }
  #endregion
 
-#region 内部メンバ
+#region メンバ
         private Roma2KanaNode m_treeRoot;
 #endregion
 
@@ -220,9 +222,7 @@ namespace tpInner
     /// </code></example>
     public class Roma2KanaNode
     {
-        //===========================================
-        // 生成
-        //===========================================
+#region 生成
         ///<summary>
         /// <para>ルートノード生成関数</para>
         /// <para>外からこのクラスを作成する場合は、この関数を使用してください。</para>
@@ -231,11 +231,9 @@ namespace tpInner
         {
             return new Roma2KanaNode("", "");
         }
+        #endregion
 
-
-        //===========================================
-        // メソッド
-        //===========================================
+#region メソッド
         /// <summary>
         /// ローマ字列からひらがな文字列に変換する為の、新たな木ノードを追加(場合によっては、内部で再帰的に呼び出します)
         /// </summary>
@@ -327,11 +325,9 @@ namespace tpInner
             }
             return ret;
         }
+        #endregion
 
-
-        //===========================================
-        // プロパティ
-        //===========================================
+#region プロパティ
         /// <summary>
         /// <para>このノードの末尾アルファベット</para>
         /// <para>ルートノードの場合は[\0]を返却</para>
@@ -386,11 +382,9 @@ namespace tpInner
         {
             get { return m_possibilityKanas; }
         }
+        #endregion
 
-
-        //===========================================
-        // 静的メソッド
-        //===========================================
+#region 静的メソッド
         /// <summary>
         /// アルファベットから、子ノードアクセス用の配列idxを取得します
         /// </summary>
@@ -410,11 +404,9 @@ namespace tpInner
         {
             return (int)'z' - (int)'a' + 1;
         }
+        #endregion
 
-
-        //===========================================
-        // 内部メソッド
-        //===========================================
+#region 内部メソッド
         /// <summary>
         /// <para>クラス内部からの生成用。</para>
         /// <para>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</para>
@@ -445,5 +437,6 @@ namespace tpInner
             HasKana = (aKana.Length != 0);
             Kana = aKana;
         }
+#endregion
     }
 }
