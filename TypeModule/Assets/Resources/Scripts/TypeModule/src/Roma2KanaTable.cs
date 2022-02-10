@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace tpInner
 {
 
-#region メモ
+    #region メモ
     // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
     //
     // PossibilityKanasに関しては、見つかった地点から下方向に向けて、一致している数を事前にチェックし、そのぶんのデータを返却するだけで終わりそう
@@ -17,7 +17,7 @@ namespace tpInner
     // 頻度が多そうなCanConvert()は　どちらもlog2(n) しかし、木構造のが早期リターンが多い
     //
     // とりあえず木構造で実装しておいて、メモリ的な不安が多そうなら書き変えることにします。
-#endregion
+    #endregion
 
 
     /// <summary>
@@ -50,12 +50,12 @@ namespace tpInner
     ///
     /// 
     /// //将来打てる可能性があるひらがな文字列一覧を取得
-    /// List&lt;string&gt; kanaList1 = table.PossibilityKanaList("tya");
+    /// List&lt;string&gt; kanaList1 = table.GetPossibilityKanas("tya");
     /// foreach(string k in kanaList1){
     ///     Debug.Log(k);                                   // none
     /// }
     /// 
-    /// List&lt;string&gt; kanaList2 = table.PossibilityKanaList("ty");
+    /// List&lt;string&gt; kanaList2 = table.GetPossibilityKanas("ty");
     /// foreach(string k in kanaList2){
     ///     Debug.Log(k);                                   // "ちゃ","ちゅ","ちょ" ... 
     /// }
@@ -69,7 +69,6 @@ namespace tpInner
     /// Debug.Log(Roma2KanaTable.CanConverFirstN("nn"));        //false
     /// 
     /// </code></example>
-    /// 
     public class Roma2KanaTable
     {
 # region 生成
@@ -83,7 +82,7 @@ namespace tpInner
         ///</param>m_possibilityKanas
         public Roma2KanaTable(TextAsset aCSV)
         {
-            CreateTable(aCSV);
+            CreateTree(aCSV);
         }
 #endregion
 
@@ -124,7 +123,7 @@ namespace tpInner
         /// </summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
         /// <returns>true:追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧</returns>
-        public List<string> PossibilityKanaList(string aRoma)
+        public List<string> GetPossibilityKanas(string aRoma)
         {
             Roma2KanaNode node = GetNode(aRoma);
             if (node == null) { return new List<string>(); }
@@ -147,17 +146,17 @@ namespace tpInner
 
 #region 内部メソッド
         ///<summary>
-        ///ローマ字列からひらがな文字列に変換するテーブルを作成
+        ///ローマ字列からひらがな文字列に変換するためのツリーを作成
         ///</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
-        private void CreateTable(TextAsset aCSV)
+        private void CreateTree(TextAsset aCSV)
         {
             const int CSV_ROMA_FIELD = 0;
             const int CSV_KANA_FIELD = 1;
 
             m_treeRoot = Roma2KanaNode.CreateRoot();
 
-            csvReadHelper csv = new csvReadHelper(aCSV);
+            CsvReadHelper csv = new CsvReadHelper(aCSV);
             foreach (List<string> record in csv.Datas)
             {
                 m_treeRoot.AddNodes(record[CSV_ROMA_FIELD], record[CSV_KANA_FIELD]);
@@ -184,7 +183,7 @@ namespace tpInner
             {
                 if (ret.HasKana) { return null; }
                 if (ret.Children == null) { return null; }
-                ret = ret.Children[Roma2KanaNode.Alpha2NodeIdx(char.ToLower(aRoma[i]))];
+                ret = ret.Children[Roma2KanaNode.Alpha2ChildIdx(char.ToLower(aRoma[i]))];
                 if (ret == null) { return null; }
             }
             return ret;
@@ -249,7 +248,7 @@ namespace tpInner
             }
 #endif
             char chAlpha = aRoma[Depth];
-            int chIdx = Alpha2NodeIdx(chAlpha);
+            int chIdx = Alpha2ChildIdx(chAlpha);
 
             if(m_children == null)
             {
@@ -309,7 +308,7 @@ namespace tpInner
         /// 全ノーツ内で、ローマ字文字列の最長の長さを取得
         /// </summary>
         /// <returns>ローマ字列の最長の長さ</returns>
-        public int GetMaxRomaLength()
+        public int GetRomaMaxLength()
         {
             int ret = Depth - 1;
             if (Children != null)
@@ -318,7 +317,7 @@ namespace tpInner
                 {
                     if (child != null)
                     {
-                        ret = Mathf.Max(ret ,child.GetMaxRomaLength());
+                        ret = Mathf.Max(ret ,child.GetRomaMaxLength());
                     }
                 }
             }
@@ -364,10 +363,10 @@ namespace tpInner
             get { return Roma.Length; }
         }
 
+        private List<Roma2KanaNode> m_children;
         /// <summary>
         /// 子ノード
         /// </summary>
-        private List<Roma2KanaNode> m_children;
         public List<Roma2KanaNode> Children
         {
             get { return m_children; }
@@ -390,7 +389,7 @@ namespace tpInner
         /// <param name="aAlpha">/a-zA-Z/</param>
         /// <returns>aなら0、Dなら4などを返却</returns>
 
-        static public int Alpha2NodeIdx(char aAlpha)
+        static public int Alpha2ChildIdx(char aAlpha)
         {
             return (int)char.ToLower(aAlpha) - (int)'a';
         }

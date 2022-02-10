@@ -88,7 +88,6 @@ namespace tpInner
             if (aIsShift) {key += SHIFT_OFS; }
             if (aIsFn) { key += FN_OFS; }
 
-            //みつからない場合は、'\0'を返却
             if (!m_map.TryGetValue(key, out ret)){ret = '\0';}
 
             //CapsLock中なら、アルファベットの大文字小文字を反転
@@ -120,7 +119,7 @@ namespace tpInner
             const int CSV_SHIFT_FIELD = 2;
             const int CSV_FN_FIELD = 3;
 
-            csvReadHelper csv = new csvReadHelper(aCSV);
+            CsvReadHelper csv = new CsvReadHelper(aCSV);
             foreach (List<string> record in csv.Datas)
             {
                 int key = int.Parse(record[CSV_KEYCODE_FIELD]);

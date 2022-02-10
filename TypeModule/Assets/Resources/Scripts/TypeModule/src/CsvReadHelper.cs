@@ -22,7 +22,7 @@ namespace tpInner
     ///     ...
     ///     
     /// //csvデータ読み込み
-    /// csvReadHelper csv = new csvReadHelper(csvSrc);
+    /// CsvReadHelper csv = new CsvReadHelper(csvSrc);
     /// 
     /// //各データにアクセス (1)
     /// for(int i = 0;i &lt; csv.RecordNum;++i){
@@ -38,7 +38,7 @@ namespace tpInner
     ///     }
     /// }
     /// </code></example>
-    public class csvReadHelper
+    public class CsvReadHelper
     {
 #region 生成
         ///<summary>
@@ -48,7 +48,7 @@ namespace tpInner
         ///<para>CSV(.csv)形式のファイルを指定。文字コードは[UTF-8]としてください。</para>
         ///<para>フィールドにコンマ[,]を含む場合は、ダブルクォート["]で囲む必要があります。</para>
         ///</param>
-        public csvReadHelper(TextAsset aFile)
+        public CsvReadHelper(TextAsset aFile)
         {
             StringReader reader = new StringReader(aFile.text);
             while (reader.Peek() != -1)
