@@ -2,29 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace tpInner
-{
+namespace tpInner{
     ///<summary>
-    ///Unity‚ÌCapsLock‚ÍA‰Ÿ‚µ‚Ä‚ ‚éó‘Ô‚©”Û‚©‚Å•Ô‚·‚Ì‚Åg‚¦‚È‚¢
+    ///Unityã®CapsLockã¯ã€æŠ¼ã—ã¦ã‚ã‚‹çŠ¶æ…‹ã‹å¦ã‹ã§è¿”ã™ã®ã§ä½¿ãˆãªã„
     ///</summary>
-
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
     using System.Runtime.InteropServices;
-    public static class WindowsUtil
-    {
+    public static class WindowsUtil{
         [DllImport("user32.dll")]
         public static extern short GetKeyState(int keyCode);
 
         ///<summary
-        ///>CapsLock ‚Ìó‘Ô‚ğæ“¾
+        ///>CapsLock ã®çŠ¶æ…‹ã‚’å–å¾—
         ///</summary>
-        ///<returns>[true]:CapsLock‚ÍOn</returns>
+        ///<returns>[true]:CapsLockã¯On</returns>
         public static bool IsCapsLockOn
             => (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
     }
 #else
-    public static class WindowsUtil 
-    {
+    public static class WindowsUtil {
         public static bool IsCapsLockOn
             => return false;
     }
@@ -32,22 +28,22 @@ namespace tpInner
 
 
     ///<summary>
-    ///ƒL[‚Ì“ü—Í(KeyCode)‚©‚çA’P‘Ì•¶š‚Ö•ÏŠ·‚·‚éˆ×‚Ìƒe[ƒuƒ‹‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+    ///ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode)ã‹ã‚‰ã€å˜ä½“æ–‡å­—ã¸å¤‰æ›ã™ã‚‹ç‚ºã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
     /// </summary>
     /// <example><code>
     /// using tpInner;
     /// 
     ///     ...
     ///     
-    /// //‰Šú‰»ˆ—
+    /// //åˆæœŸåŒ–å‡¦ç†
     /// keyCode2CharTable table = new keyCode2CharTable(csvSrc);
     ///     
-    /// //CapsLock‚Ìó‘Ô‚ğ–³‹
+    /// //CapsLockã®çŠ¶æ…‹ã‚’ç„¡è¦–
     /// table.IsCheckCapsLock = false;
     ///     
     ///     ...
     ///     
-    /// //ƒL[ƒR[ƒh‚©‚ç•¶š‚É•ÏŠ·‚µAƒƒO‚Éo—Í
+    /// //ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã‹ã‚‰æ–‡å­—ã«å¤‰æ›ã—ã€ãƒ­ã‚°ã«å‡ºåŠ›
     /// private void OnGUI()
     /// {
     ///    if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None)
@@ -57,32 +53,29 @@ namespace tpInner
     /// }
     /// 
     /// </code></example>
-    public class keyCode2CharTable
-    {
-#region ¶¬
+    public class keyCode2CharTable{
+#region ç”Ÿæˆ
         ///<summary>
-        ///ƒL[‚Ì“ü—Í(KeyCode)‚©‚çA’P‘Ì•¶š‚Ö•ÏŠ·‚·‚éˆ×‚Ìƒe[ƒuƒ‹‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+        ///ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode)ã‹ã‚‰ã€å˜ä½“æ–‡å­—ã¸å¤‰æ›ã™ã‚‹ç‚ºã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
         ///</summary>
         ///<param name="aCSV">
-        ///<para>ƒL[‚Ì“ü—Í(KeyCode)‚©‚ç’P‘Ì•¶š‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğ’è‹`‚µ‚½ƒtƒ@ƒCƒ‹</para>
-        ///<para>mŒ`®n•ÏŠ·æ•¶š,yUnityEngine.KeyCodez, isShift, isFn</para>
-        ///<para>m—ánS,115,1,0</para>
+        ///<para>ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode)ã‹ã‚‰å˜ä½“æ–‡å­—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å®šç¾©ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«</para>
+        ///<para>ï¼»å½¢å¼ï¼½å¤‰æ›å…ˆæ–‡å­—,ã€UnityEngine.KeyCodeã€‘, isShift, isFn</para>
+        ///<para>ï¼»ä¾‹ï¼½S,115,1,0</para>
         ///</param>
-        public keyCode2CharTable(TextAsset aCSV)
-        {
+        public keyCode2CharTable(TextAsset aCSV){
             CreateTable(aCSV);
             IsCheckCapsLock = true;
         }
 #endregion
 
-#region ƒƒ\ƒbƒh
-        ///<summary>ƒL[‚Ì“ü—Í(KeyCode)‚©‚ç’P‘Ì•¶š‚Ö•ÏŠ·</summary>
-        ///<param name="aKeyCode">ƒL[‚Ì“ü—Í’l</param>
-        ///<param name="aIsShift">ShiftƒL[‚ª‰Ÿ‚³‚ê‚½ó‘Ô‚©</param>
-        ///<param name="aIsFn">FnƒL[‚©(2‰ÓŠ‚ ‚é\‚Ì”»•Ê“™‚Ég—p‚·‚éˆ×•K{)</param>
-        ///<returns>’P‘Ì•¶š</returns>
-        public char Convert(UnityEngine.KeyCode aKeyCode, bool aIsShift, bool aIsFn)
-        {
+#region ãƒ¡ã‚½ãƒƒãƒ‰
+        ///<summary>ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode)ã‹ã‚‰å˜ä½“æ–‡å­—ã¸å¤‰æ›</summary>
+        ///<param name="aKeyCode">ã‚­ãƒ¼ã®å…¥åŠ›å€¤</param>
+        ///<param name="aIsShift">Shiftã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸçŠ¶æ…‹ã‹</param>
+        ///<param name="aIsFn">Fnã‚­ãƒ¼ã‹(2ç®‡æ‰€ã‚ã‚‹\ã®åˆ¤åˆ¥ç­‰ã«ä½¿ç”¨ã™ã‚‹ç‚ºå¿…é ˆ)</param>
+        ///<returns>å˜ä½“æ–‡å­—</returns>
+        public char Convert(UnityEngine.KeyCode aKeyCode, bool aIsShift, bool aIsFn){
             char ret;
             int key = (int)aKeyCode;
             if (aIsShift) {key += SHIFT_OFS; }
@@ -90,45 +83,40 @@ namespace tpInner
 
             if (!m_map.TryGetValue(key, out ret)){ret = '\0';}
 
-            //CapsLock’†‚È‚çAƒAƒ‹ƒtƒ@ƒxƒbƒg‚Ì‘å•¶š¬•¶š‚ğ”½“]
-            if (IsCheckCapsLock && WindowsUtil.IsCapsLockOn)
-            {
+            //CapsLockä¸­ãªã‚‰ã€ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆã®å¤§æ–‡å­—å°æ–‡å­—ã‚’åè»¢
+            if (IsCheckCapsLock && WindowsUtil.IsCapsLockOn){
                 ret = char.IsLower(ret) ? char.ToUpper(ret) : char.IsUpper(ret) ? char.ToLower(ret) : ret;
             }
             return ret;
         }
 #endregion
 
-#region ƒvƒƒpƒeƒB
+#region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
         ///<summary>
-        ///<para>CapsLock‚Ìó‘Ô‚ğ”½‰f‚³‚¹‚é‚©‚Ç‚¤‚©B</para>
-        ///<para>[true]‚Ìê‡ACapsLock’†‚É‚ÍA‰pŒê‚Ì‘å¬•¶š‚ğ”½“]‚³‚¹‚Ü‚·B</para>
+        ///<para>CapsLockã®çŠ¶æ…‹ã‚’åæ˜ ã•ã›ã‚‹ã‹ã©ã†ã‹ã€‚</para>
+        ///<para>[true]ã®å ´åˆã€CapsLockä¸­ã«ã¯ã€è‹±èªã®å¤§å°æ–‡å­—ã‚’åè»¢ã•ã›ã¾ã™ã€‚</para>
         /// </summary>
         public bool IsCheckCapsLock { get; set; }
 #endregion
 
-#region “à•”ƒƒ\ƒbƒh
+#region å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰
         ///<summary>
-        ///ƒL[‚Ì“ü—Í(KeyCode)‚©‚ç’P‘Ì•¶š‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğì¬
+        ///ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode)ã‹ã‚‰å˜ä½“æ–‡å­—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
         ///</summary>
-        ///<param name="aCSV">•ÏŠ·ƒe[ƒuƒ‹‚ğ’è‹`‚µ‚½ƒtƒ@ƒCƒ‹</param>
-        private void CreateTable(TextAsset aCSV)
-        {
+        ///<param name="aCSV">å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å®šç¾©ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«</param>
+        private void CreateTable(TextAsset aCSV){
             const int CSV_CHAR_FIELD = 0;
             const int CSV_KEYCODE_FIELD = 1;
             const int CSV_SHIFT_FIELD = 2;
             const int CSV_FN_FIELD = 3;
 
             CsvReadHelper csv = new CsvReadHelper(aCSV);
-            foreach (List<string> record in csv.Datas)
-            {
+            foreach (List<string> record in csv.Datas){
                 int key = int.Parse(record[CSV_KEYCODE_FIELD]);
-                if (int.Parse(record[CSV_SHIFT_FIELD]) == 1)
-                {
+                if (int.Parse(record[CSV_SHIFT_FIELD]) == 1){
                     key += SHIFT_OFS;
                 }
-                if (int.Parse(record[CSV_FN_FIELD]) == 1)
-                {
+                if (int.Parse(record[CSV_FN_FIELD]) == 1){
                     key += FN_OFS;
                 }
                 m_map.Add(key, record[CSV_CHAR_FIELD][0]);
@@ -136,11 +124,11 @@ namespace tpInner
         }
 #endregion
 
-#region ƒƒ“ƒo
+#region ãƒ¡ãƒ³ãƒ
         private Dictionary<int, char> m_map       = new Dictionary<int, char>();
 #endregion
 
-#region “à•”’è”
+#region å†…éƒ¨å®šæ•°
         private const int SHIFT_OFS     = (1 << 9);
         private const int FN_OFS        = (1 << 10);
 #endregion 

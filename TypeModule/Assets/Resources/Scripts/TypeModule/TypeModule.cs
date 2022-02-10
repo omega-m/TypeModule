@@ -1,95 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using tpInner;
 
 ///<summary>
-///ƒL[ƒ{[ƒh‚Ì“ü—Í‚ğŒ³‚ÉA•¶š“ü—Í‚Ì”»’è‚ğ’S“–‚·‚éƒ‚ƒWƒ…[ƒ‹‚Å‚·B
-///CPUˆ—•‰‰×‚âAƒƒ‚ƒŠ—v—Ì“I‚È–â‘è‚ÅA“Á‚É——R‚ª‚È‚¢ê‡‚ÍAƒ}ƒlƒWƒƒ“ƒgƒNƒ‰ƒX‚ÅŠÇ—‚·‚é•û‚ª—Ç‚³‚»‚¤‚Å‚·B
+///ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å…¥åŠ›ã‚’å…ƒã«ã€æ–‡å­—å…¥åŠ›ã®åˆ¤å®šã‚’æ‹…å½“ã™ã‚‹ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã§ã™ã€‚
+///CPUå‡¦ç†è² è·ã‚„ã€ãƒ¡ãƒ¢ãƒªè¦é ˜çš„ãªå•é¡Œã§ã€ç‰¹ã«ç†ç”±ãŒãªã„å ´åˆã¯ã€ãƒãƒã‚¸ãƒ¡ãƒ³ãƒˆã‚¯ãƒ©ã‚¹ã§ç®¡ç†ã™ã‚‹æ–¹ãŒè‰¯ã•ãã†ã§ã™ã€‚
 /// </summary>
-public class TypeModule : MonoBehaviour
-{
-#region “ü—Í”»’èƒ‚[ƒh
-    ///<summary>•¶š“ü—Í”»’èƒ‚[ƒh‚Å‚·B</summary>
-    public enum MODE
-    {
+public class TypeModule : MonoBehaviour{
+#region å…¥åŠ›åˆ¤å®šãƒ¢ãƒ¼ãƒ‰
+    ///<summary>æ–‡å­—å…¥åŠ›åˆ¤å®šãƒ¢ãƒ¼ãƒ‰ã§ã™ã€‚</summary>
+    public enum MODE{
         ///<summary>
-        ///ƒL[ƒ{[ƒh‚Ì“ü—Í‚ğŒ³‚ÉA•¶š—ñ‚Ì¶¬‚ğƒGƒ~ƒ…ƒŒ[ƒg‚µ‚Ü‚·B
-        ///ƒL[ƒ{[ƒh“ü—Í‚©‚ç•¶š—ñ‚ğæ“¾‚µ‚½‚¢ê‡‚Ég—p‚µ‚Ä‚­‚¾‚³‚¢B
+        ///ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å…¥åŠ›ã‚’å…ƒã«ã€æ–‡å­—åˆ—ã®ç”Ÿæˆã‚’ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆã—ã¾ã™ã€‚
+        ///ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›ã‹ã‚‰æ–‡å­—åˆ—ã‚’å–å¾—ã—ãŸã„å ´åˆã«ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚
         ///</summary>
         MODE_INPUT,
         ///<summary>
-        ///ƒL[ƒ{[ƒh‚Ì“ü—Í‚ğŒ³‚ÉA•¶š—ñ‚Ì¶¬‚ğƒGƒ~ƒ…ƒŒ[ƒg‚µ‚½Œã
-        ///ym_targetTextz‚Åw’è‚³‚ê‚½•¶š—ñ‚Æ”äŠr‚µA‚»‚ÌŒ‹‰Ê‚ğŠi”[‚µ‚Ü‚·B
-        ///ƒ^ƒCƒsƒ“ƒOƒQ[ƒ€‚ÅA‚¨‘è‚Ì•¶š‚Æˆê’v‚·‚é‚©‚Ç‚¤‚©‚ğŠm”F‚µ‚½‚¢ê‡‚É—˜—p‚µ‚Ä‚­‚¾‚³‚¢B
+        ///ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å…¥åŠ›ã‚’å…ƒã«ã€æ–‡å­—åˆ—ã®ç”Ÿæˆã‚’ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆã—ãŸå¾Œ
+        ///ã€m_targetTextã€‘ã§æŒ‡å®šã•ã‚ŒãŸæ–‡å­—åˆ—ã¨æ¯”è¼ƒã—ã€ãã®çµæœã‚’æ ¼ç´ã—ã¾ã™ã€‚
+        ///ã‚¿ã‚¤ãƒ”ãƒ³ã‚°ã‚²ãƒ¼ãƒ ã§ã€ãŠé¡Œã®æ–‡å­—ã¨ä¸€è‡´ã™ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºèªã—ãŸã„å ´åˆã«åˆ©ç”¨ã—ã¦ãã ã•ã„ã€‚
         ///</summary>
         MODE_COMPARE,
     }
 #endregion
 
-#region Unity‹¤’Êˆ—
-    void Start()
-    {
-        if (KeyCode2CharCsv == null)
-        {
+#region Unityå…±é€šå‡¦ç†
+    void Start(){
+        if (KeyCode2CharCsv == null){
             TextAsset tmp = new TextAsset();
             tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
-            Debug.Assert(tmp != null, "TypeModule::ƒfƒtƒHƒ‹ƒgw’è‚ÌKeyCode2CharCsv‚Ì“Ç‚İ‚İ¸”sBTypeModule‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.Assert(tmp != null, "TypeModule::ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆæŒ‡å®šã®KeyCode2CharCsvã®èª­ã¿è¾¼ã¿å¤±æ•—ã€‚TypeModuleã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚");
             KeyCode2CharCsv = tmp;
         }
         LoadKeyCode2CharTable();
-        if (m_roma2KanaCsv == null)
-        {
+        if (m_roma2KanaCsv == null){
             TextAsset tmp = new TextAsset();
             tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
-            Debug.Assert(tmp != null, "TypeModule::ƒfƒtƒHƒ‹ƒgw’è‚ÌRoma2KanaCsv‚Ì“Ç‚İ‚İ¸”sBTypeModule‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.Assert(tmp != null, "TypeModule::ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆæŒ‡å®šã®Roma2KanaCsvã®èª­ã¿è¾¼ã¿å¤±æ•—ã€‚TypeModuleã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚");
             Roma2KanaCsv = tmp;
         }
         LoadRomaToKanaTable();
-        if (m_keyCode2KanaMidCsv == null)
-        {
+        if (m_keyCode2KanaMidCsv == null){
             TextAsset tmp = new TextAsset();
             tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
-            Debug.Assert(tmp != null, "TypeModule::ƒfƒtƒHƒ‹ƒgw’è‚ÌKeyCode2KanaMidCsv‚Ì“Ç‚İ‚İ¸”sBTypeModule‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.Assert(tmp != null, "TypeModule::ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆæŒ‡å®šã®KeyCode2KanaMidCsvã®èª­ã¿è¾¼ã¿å¤±æ•—ã€‚TypeModuleã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚");
             KeyCode2KanaMidCsv = tmp;
         }
         LoadKeyCodeToKanaMidTable();
     }
 
-    void Update()
-    {
+    void Update(){
     }
 
-    private void OnGUI()
-    {
-        if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None)
-        {
-            if (IsKana)
-            {
+    private void OnGUI(){
+        if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None){
+            if (IsKana){
                 Debug.Log(m_key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
             }
-            else
-            {
+            else{
                 Debug.Log(m_key2char.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
             }
         }
     }
 #endregion
 
-#region ƒƒ\ƒbƒh
+#region ãƒ¡ã‚½ãƒƒãƒ‰
     //public void Clear(){}
 #endregion
 
-#region ƒvƒƒpƒeƒB
+#region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 #region
     [Tooltip(
-        "•¶š“ü—Í”»’èƒ‚[ƒh‚Å‚·B\n" +
-        "yMODE_INPUTz   :ƒL[ƒ{[ƒh‚Ì“ü—Í‚ğŒ³‚ÉA•¶š—ñ‚Ì¶¬‚ğƒGƒ~ƒ…ƒŒ[ƒg‚µ‚Ü‚·B\n" +
-        "                   ƒL[ƒ{[ƒh“ü—Í‚©‚ç•¶š—ñ‚ğæ“¾‚µ‚½‚¢ê‡‚Ég—p‚µ‚Ä‚­‚¾‚³‚¢B\n" +
-        "yMODE_COMPAREz :ƒL[ƒ{[ƒh‚Ì“ü—Í‚ğŒ³‚ÉA•¶š—ñ‚Ì¶¬‚ğƒGƒ~ƒ…ƒŒ[ƒg‚µ‚½Œã\n" +
-        "                  ym_targetTextz‚Åw’è‚³‚ê‚½•¶š—ñ‚Æ”äŠr‚µA‚»‚ÌŒ‹‰Ê‚ğŠi”[‚µ‚Ü‚·B\n" +
-        "                  ƒ^ƒCƒsƒ“ƒOƒQ[ƒ€‚ÅA‚¨‘è‚Ì•¶š‚Æˆê’v‚·‚é‚©‚Ç‚¤‚©‚ğŠm”F‚µ‚½‚¢ê‡‚É—˜—p‚µ‚Ä‚­‚¾‚³‚¢B"
+        "æ–‡å­—å…¥åŠ›åˆ¤å®šãƒ¢ãƒ¼ãƒ‰ã§ã™ã€‚\n" +
+        "ã€MODE_INPUTã€‘   :ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å…¥åŠ›ã‚’å…ƒã«ã€æ–‡å­—åˆ—ã®ç”Ÿæˆã‚’ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆã—ã¾ã™ã€‚\n" +
+        "                   ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›ã‹ã‚‰æ–‡å­—åˆ—ã‚’å–å¾—ã—ãŸã„å ´åˆã«ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚\n" +
+        "ã€MODE_COMPAREã€‘ :ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å…¥åŠ›ã‚’å…ƒã«ã€æ–‡å­—åˆ—ã®ç”Ÿæˆã‚’ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆã—ãŸå¾Œ\n" +
+        "                  ã€m_targetTextã€‘ã§æŒ‡å®šã•ã‚ŒãŸæ–‡å­—åˆ—ã¨æ¯”è¼ƒã—ã€ãã®çµæœã‚’æ ¼ç´ã—ã¾ã™ã€‚\n" +
+        "                  ã‚¿ã‚¤ãƒ”ãƒ³ã‚°ã‚²ãƒ¼ãƒ ã§ã€ãŠé¡Œã®æ–‡å­—ã¨ä¸€è‡´ã™ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºèªã—ãŸã„å ´åˆã«åˆ©ç”¨ã—ã¦ãã ã•ã„ã€‚"
             )]
 #endregion
     [SerializeField] private MODE m_mode = MODE.MODE_INPUT;
@@ -100,27 +88,24 @@ public class TypeModule : MonoBehaviour
     }
 
 #region 
-    [Header("ˆÈ‰ºÚ×İ’è (w’è‚µ‚È‚­‚Ä‚à“®‚«‚Ü‚·)")]
+    [Header("ä»¥ä¸‹è©³ç´°è¨­å®š (æŒ‡å®šã—ãªãã¦ã‚‚å‹•ãã¾ã™)")]
     [Tooltip(
-        "ƒL[‚Ì“ü—Í(KeyCode)‚©‚ç’P‘Ì•¶š‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğ’è‹`‚µ‚½ƒtƒ@ƒCƒ‹\n" +
-        "–¾¦“I‚Éw’è‚µ‚È‚©‚Á‚½ê‡AˆÈ‰º‚Ìƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ‚Ü‚·B\n" +
-        "yAssets/Resources/Scripts/TypeModule/data/KeyCode2Char/qwerty.csvz\n" +
-        "“Æ©‚Åw’è‚·‚éê‡‚ÍAˆÈ‰º‚Ì‚æ‚¤‚ÈCSV(.csv)Œ`®ƒtƒ@ƒCƒ‹‚ğ—pˆÓ‚µ‚Ä‚­‚¾‚³‚¢B•¶šƒR[ƒh‚Í[UTF-8]‚Æ‚µ‚Ä‚­‚¾‚³‚¢B\n" +
-        "•ÏŠ·æ•¶š,yUnityEngine.KeyCodez, isShift, isFunction\n" +
-        "—á) \n" +
+        "ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode)ã‹ã‚‰å˜ä½“æ–‡å­—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å®šç¾©ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«\n" +
+        "æ˜ç¤ºçš„ã«æŒ‡å®šã—ãªã‹ã£ãŸå ´åˆã€ä»¥ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚\n" +
+        "ã€Assets/Resources/Scripts/TypeModule/data/KeyCode2Char/qwerty.csvã€‘\n" +
+        "ç‹¬è‡ªã§æŒ‡å®šã™ã‚‹å ´åˆã¯ã€ä»¥ä¸‹ã®ã‚ˆã†ãªCSV(.csv)å½¢å¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç”¨æ„ã—ã¦ãã ã•ã„ã€‚æ–‡å­—ã‚³ãƒ¼ãƒ‰ã¯[UTF-8]ã¨ã—ã¦ãã ã•ã„ã€‚\n" +
+        "å¤‰æ›å…ˆæ–‡å­—,ã€UnityEngine.KeyCodeã€‘, isShift, isFunction\n" +
+        "ä¾‹) \n" +
         "S,115,1,0\n" +
         "s,115,0,0\n"
 
        )]
 #endregion
     [SerializeField] private TextAsset m_keyCode2CharCsv;
-    public TextAsset KeyCode2CharCsv
-    {
+    public TextAsset KeyCode2CharCsv{
         get { return m_keyCode2CharCsv; }
-        set
-        {
-            if (m_keyCode2CharCsv != value)
-            {
+        set{
+            if (m_keyCode2CharCsv != value){
                 m_keyCode2CharCsv = value;
                 LoadKeyCode2CharTable();
             }
@@ -129,24 +114,21 @@ public class TypeModule : MonoBehaviour
 
 #region
     [Tooltip(
-        "ƒ[ƒ}š•¶š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğ’è‹`‚µ‚½ƒtƒ@ƒCƒ‹\n" +
-        "–¾¦“I‚Éw’è‚µ‚È‚©‚Á‚½ê‡AˆÈ‰º‚Ìƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ‚Ü‚·B\n" +
-        "yAssets/Resources/Scripts/TypeModule/data/Char2Kana/roma.csvz\n" +
-        "“Æ©‚Åw’è‚·‚éê‡‚ÍAˆÈ‰º‚Ì‚æ‚¤‚ÈCSV(.csv)Œ`®ƒtƒ@ƒCƒ‹‚ğ—pˆÓ‚µ‚Ä‚­‚¾‚³‚¢B•¶šƒR[ƒh‚Í[UTF-8]‚Æ‚µ‚Ä‚­‚¾‚³‚¢B\n" +
-        "ƒ[ƒ}š•¶š—ñ,‚Ğ‚ç‚ª‚È•¶š—ñ\n" +
-        "—á) \n" +
-        "a,‚ \n" +
-        "shi,‚µ\n"
+        "ãƒ­ãƒ¼ãƒå­—æ–‡å­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å®šç¾©ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«\n" +
+        "æ˜ç¤ºçš„ã«æŒ‡å®šã—ãªã‹ã£ãŸå ´åˆã€ä»¥ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚\n" +
+        "ã€Assets/Resources/Scripts/TypeModule/data/Char2Kana/roma.csvã€‘\n" +
+        "ç‹¬è‡ªã§æŒ‡å®šã™ã‚‹å ´åˆã¯ã€ä»¥ä¸‹ã®ã‚ˆã†ãªCSV(.csv)å½¢å¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç”¨æ„ã—ã¦ãã ã•ã„ã€‚æ–‡å­—ã‚³ãƒ¼ãƒ‰ã¯[UTF-8]ã¨ã—ã¦ãã ã•ã„ã€‚\n" +
+        "ãƒ­ãƒ¼ãƒå­—æ–‡å­—åˆ—,ã²ã‚‰ãŒãªæ–‡å­—åˆ—\n" +
+        "ä¾‹) \n" +
+        "a,ã‚\n" +
+        "shi,ã—\n"
    )]
 #endregion
     [SerializeField] private TextAsset m_roma2KanaCsv;
-    public TextAsset Roma2KanaCsv
-    {
+    public TextAsset Roma2KanaCsv{
         get { return m_roma2KanaCsv; }
-        set
-        {
-            if (m_roma2KanaCsv != value)
-            {
+        set{
+            if (m_roma2KanaCsv != value){
                 m_roma2KanaCsv = value;
                 LoadRomaToKanaTable();
             }
@@ -156,26 +138,23 @@ public class TypeModule : MonoBehaviour
 #region
     [Space(10)]
     [Tooltip(
-        "ƒL[‚Ì“ü—Í(KeyCode)‚©‚ç•¶š‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğ’è‹`‚µ‚½ƒtƒ@ƒCƒ‹\n" +
-        "JIS‚©‚È“ü—Í‚È‚ÇA“ú–{Œê‚ğ’¼Ú“ü—Í‚·‚é•û®‚ğg—p‚·‚éÛ‚ÉQÆ‚µ‚Ü‚·B\n" +
-        "–¾¦“I‚Éw’è‚µ‚È‚©‚Á‚½ê‡AˆÈ‰º‚Ìƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ‚Ü‚·B\n" +
-        "yAssets/Resources/Scripts/TypeModule/data/KeyCode2Char/JISkana.csvz\n" +
-        "“Æ©‚Åw’è‚·‚éê‡‚ÍAˆÈ‰º‚Ì‚æ‚¤‚ÈCSV(.csv)Œ`®ƒtƒ@ƒCƒ‹‚ğ—pˆÓ‚µ‚Ä‚­‚¾‚³‚¢B•¶šƒR[ƒh‚Í[UTF-8]‚Æ‚µ‚Ä‚­‚¾‚³‚¢B\n" +
-        "•ÏŠ·æ•¶š,yUnityEngine.KeyCodez, isShift, isFunction\n" +
-        "—á) \n" +
-        "‚Ê,49,0,0 \n" +
-        "‚Ê,49,1,0 \n" +
-        "‚Ó,50,0,0 \n"
+        "ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode)ã‹ã‚‰æ–‡å­—ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å®šç¾©ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«\n" +
+        "JISã‹ãªå…¥åŠ›ãªã©ã€æ—¥æœ¬èªã‚’ç›´æ¥å…¥åŠ›ã™ã‚‹æ–¹å¼ã‚’ä½¿ç”¨ã™ã‚‹éš›ã«å‚ç…§ã—ã¾ã™ã€‚\n" +
+        "æ˜ç¤ºçš„ã«æŒ‡å®šã—ãªã‹ã£ãŸå ´åˆã€ä»¥ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚\n" +
+        "ã€Assets/Resources/Scripts/TypeModule/data/KeyCode2Char/JISkana.csvã€‘\n" +
+        "ç‹¬è‡ªã§æŒ‡å®šã™ã‚‹å ´åˆã¯ã€ä»¥ä¸‹ã®ã‚ˆã†ãªCSV(.csv)å½¢å¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç”¨æ„ã—ã¦ãã ã•ã„ã€‚æ–‡å­—ã‚³ãƒ¼ãƒ‰ã¯[UTF-8]ã¨ã—ã¦ãã ã•ã„ã€‚\n" +
+        "å¤‰æ›å…ˆæ–‡å­—,ã€UnityEngine.KeyCodeã€‘, isShift, isFunction\n" +
+        "ä¾‹) \n" +
+        "ã¬,49,0,0 \n" +
+        "ã¬,49,1,0 \n" +
+        "ãµ,50,0,0 \n"
        )]
 #endregion
     [SerializeField] private TextAsset m_keyCode2KanaMidCsv;
-    public TextAsset KeyCode2KanaMidCsv
-    {
+    public TextAsset KeyCode2KanaMidCsv{
         get { return m_keyCode2KanaMidCsv; }
-        set
-        {
-            if (m_keyCode2KanaMidCsv != value)
-            {
+        set{
+            if (m_keyCode2KanaMidCsv != value){
                 m_keyCode2KanaMidCsv = value;
                 LoadKeyCodeToKanaMidTable();
             }
@@ -185,65 +164,59 @@ public class TypeModule : MonoBehaviour
 #region
     [Space(10)]
     [Tooltip(
-        "JIS‚©‚È“ü—Í‚È‚ÇA“ú–{Œê‚ğ’¼Ú“ü—Í‚·‚é•û®‚ğg—p‚µ‚ÄƒGƒ~ƒ…ƒŒ[ƒg‚·‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO‚Å‚·B\n" +
-        "[MODE_INPUT]true‚Ìê‡A[m_keyCodeToKanaCsv]‚©‚ç•¶š—ñ¶¬‚ğƒGƒ~ƒ…ƒŒ[ƒg‚µ‚Ü‚·B\n" +
-        "[MODE_COMPARE]true‚Ìê‡A“ú–{Œê‚Æ”äŠr‚·‚éê‡‚Í[m_keyCodeToKanaCsv]‚©‚çA‚»‚¤‚Å‚È‚¢ê‡‚Í[m_keyCode2CharCsv]‚©‚ç•¶š—ñ¶¬‚ğƒGƒ~ƒ…ƒŒ[ƒg‚µ‚Ü‚·B\n"
+        "JISã‹ãªå…¥åŠ›ãªã©ã€æ—¥æœ¬èªã‚’ç›´æ¥å…¥åŠ›ã™ã‚‹æ–¹å¼ã‚’ä½¿ç”¨ã—ã¦ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆã™ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã§ã™ã€‚\n" +
+        "[MODE_INPUT]trueã®å ´åˆã€[m_keyCodeToKanaCsv]ã‹ã‚‰æ–‡å­—åˆ—ç”Ÿæˆã‚’ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆã—ã¾ã™ã€‚\n" +
+        "[MODE_COMPARE]trueã®å ´åˆã€æ—¥æœ¬èªã¨æ¯”è¼ƒã™ã‚‹å ´åˆã¯[m_keyCodeToKanaCsv]ã‹ã‚‰ã€ãã†ã§ãªã„å ´åˆã¯[m_keyCode2CharCsv]ã‹ã‚‰æ–‡å­—åˆ—ç”Ÿæˆã‚’ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆã—ã¾ã™ã€‚\n"
         )]
 #endregion
     [SerializeField] private bool m_isKana = false;
-    public bool IsKana
-    {
+    public bool IsKana{
         get { return m_isKana; }
         set { m_isKana = value; }
     }
 
 #region
     [Tooltip(
-       "CapsLock‚Ìó‘Ô‚ğ”½‰f‚³‚¹‚é‚©‚Ç‚¤‚©B\n" +
-       "[true]‚Ìê‡ACapsLock’†‚ÍA‰pŒê‚Ì“ü—Í‚É‘Î‚µ‚Ä‘å¬•¶š‚ğ”½“]‚³‚¹‚Ü‚·B"
+       "CapsLockã®çŠ¶æ…‹ã‚’åæ˜ ã•ã›ã‚‹ã‹ã©ã†ã‹ã€‚\n" +
+       "[true]ã®å ´åˆã€CapsLockä¸­ã¯ã€è‹±èªã®å…¥åŠ›ã«å¯¾ã—ã¦å¤§å°æ–‡å­—ã‚’åè»¢ã•ã›ã¾ã™ã€‚"
        )]
 #endregion
     [SerializeField] private bool m_isCheckCapsLock = true;
-    public bool IsCheckCapsLock
-    {
+    public bool IsCheckCapsLock{
         get { return m_isCheckCapsLock; }
-        set
-        {
+        set{
             m_isCheckCapsLock = value;
             m_key2char.IsCheckCapsLock = value;
         }
     }
 #endregion
 
-#region “à•”ƒƒ\ƒbƒh
+#region å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰
     ///<summary>
-    ///ƒL[‚Ì“ü—Í(KeyCode) => ‰pŒê•¶š‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğì¬
+    ///ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode) => è‹±èªæ–‡å­—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
     ///</summary>
-    private void LoadKeyCode2CharTable()
-    {
+    private void LoadKeyCode2CharTable(){
         m_key2char = new keyCode2CharTable(KeyCode2CharCsv);
         m_key2char.IsCheckCapsLock = IsCheckCapsLock;
     }
 
     ///<summary>
-    ///ƒ[ƒ}š•¶š—ñ => ‚Ğ‚ç‚ª‚È•¶š—ñ‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğì¬
+    ///ãƒ­ãƒ¼ãƒå­—æ–‡å­—åˆ— => ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
     ///</summary>
-    private void LoadRomaToKanaTable()
-    {
+    private void LoadRomaToKanaTable(){
         m_roma2Kana = new Roma2KanaTable(Roma2KanaCsv);
     }
 
     ///<summary>
-    ///ƒL[‚Ì“ü—Í(KeyCode) => •¶š‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğì¬
+    ///ã‚­ãƒ¼ã®å…¥åŠ›(KeyCode) => æ–‡å­—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
     ///</summary>
-    private void LoadKeyCodeToKanaMidTable()
-    {
+    private void LoadKeyCodeToKanaMidTable(){
         m_key2kanaMid = new keyCode2CharTable(KeyCode2KanaMidCsv);
-        m_key2kanaMid.IsCheckCapsLock = false; //‚±‚¿‚ç‚ÍCapsLock‚Ì‰e‹¿‚ğó‚¯‚È‚¢
+        m_key2kanaMid.IsCheckCapsLock = false; //ã“ã¡ã‚‰ã¯CapsLockã®å½±éŸ¿ã‚’å—ã‘ãªã„
     }
 #endregion
 
-#region ƒƒ“ƒo
+#region ãƒ¡ãƒ³ãƒ
     keyCode2CharTable       m_key2char;
     keyCode2CharTable       m_key2kanaMid;
     Roma2KanaTable          m_roma2Kana;

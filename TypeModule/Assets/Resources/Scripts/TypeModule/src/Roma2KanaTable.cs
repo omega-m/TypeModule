@@ -4,52 +4,50 @@ using UnityEngine;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace tpInner
-{
+namespace tpInner{
 
-    #region ƒƒ‚
-    // –Ø\‘¢‚É‚·‚é‚Ì‚Å‚Í‚È‚­ASortedDictionary‚ğ—˜—p‚µ‚½•û‚ª‚¢‚¢H
+#region ãƒ¡ãƒ¢
+    // æœ¨æ§‹é€ ã«ã™ã‚‹ã®ã§ã¯ãªãã€SortedDictionaryã‚’åˆ©ç”¨ã—ãŸæ–¹ãŒã„ã„ï¼Ÿ
     //
-    // PossibilityKanas‚ÉŠÖ‚µ‚Ä‚ÍAŒ©‚Â‚©‚Á‚½’n“_‚©‚ç‰º•ûŒü‚ÉŒü‚¯‚ÄAˆê’v‚µ‚Ä‚¢‚é”‚ğ–‘O‚Éƒ`ƒFƒbƒN‚µA‚»‚Ì‚Ô‚ñ‚Ìƒf[ƒ^‚ğ•Ô‹p‚·‚é‚¾‚¯‚ÅI‚í‚è‚»‚¤
-    // ‚µ‚©‚µA–ˆ‰ñList<string>()‚Æ‚µ‚Äì¬‚µ•Ô‹p‚·‚é‚Æd‚¢‚µA‚©‚ÆŒ¾‚Á‚Ä–‘O‚É¶¬‚µ‚Ä‚¨‚­‚ÆŒ‹‹Çg—p‚·‚éƒƒ‚ƒŠ—Ê‚Í“¯‚¶ˆÊ => list.GetRange() ‚ğg‚¤‚ÆQÆƒRƒs[‚É‚È‚é‚İ‚½‚¢@‚æ‚Á‚Äƒƒ‚ƒŠ—Ê“I‚É‚Í SortedDictionary ‚Ì‚ª‚©‚È‚è‚¢‚¢
+    // PossibilityKanasã«é–¢ã—ã¦ã¯ã€è¦‹ã¤ã‹ã£ãŸåœ°ç‚¹ã‹ã‚‰ä¸‹æ–¹å‘ã«å‘ã‘ã¦ã€ä¸€è‡´ã—ã¦ã„ã‚‹æ•°ã‚’äº‹å‰ã«ãƒã‚§ãƒƒã‚¯ã—ã€ãã®ã¶ã‚“ã®ãƒ‡ãƒ¼ã‚¿ã‚’è¿”å´ã™ã‚‹ã ã‘ã§çµ‚ã‚ã‚Šãã†
+    // ã—ã‹ã—ã€æ¯å›List<string>()ã¨ã—ã¦ä½œæˆã—è¿”å´ã™ã‚‹ã¨é‡ã„ã—ã€ã‹ã¨è¨€ã£ã¦äº‹å‰ã«ç”Ÿæˆã—ã¦ãŠãã¨çµå±€ä½¿ç”¨ã™ã‚‹ãƒ¡ãƒ¢ãƒªé‡ã¯åŒã˜ä½ => list.GetRange() ã‚’ä½¿ã†ã¨å‚ç…§ã‚³ãƒ”ãƒ¼ã«ãªã‚‹ã¿ãŸã„ã€€ã‚ˆã£ã¦ãƒ¡ãƒ¢ãƒªé‡çš„ã«ã¯ SortedDictionary ã®ãŒã‹ãªã‚Šã„ã„
     //
-    // Convert()   ‚ÌƒAƒNƒZƒX‘¬“x‚ª n ‚©‚ç log2(n)
-    // •p“x‚ª‘½‚»‚¤‚ÈCanConvert()‚Í@‚Ç‚¿‚ç‚àlog2(n) ‚µ‚©‚µA–Ø\‘¢‚Ì‚ª‘ŠúƒŠƒ^[ƒ“‚ª‘½‚¢
+    // Convert()   ã®ã‚¢ã‚¯ã‚»ã‚¹é€Ÿåº¦ãŒ n ã‹ã‚‰ log2(n)
+    // é »åº¦ãŒå¤šãã†ãªCanConvert()ã¯ã€€ã©ã¡ã‚‰ã‚‚log2(n) ã—ã‹ã—ã€æœ¨æ§‹é€ ã®ãŒæ—©æœŸãƒªã‚¿ãƒ¼ãƒ³ãŒå¤šã„
     //
-    // ‚Æ‚è‚ ‚¦‚¸–Ø\‘¢‚ÅÀ‘•‚µ‚Ä‚¨‚¢‚ÄAƒƒ‚ƒŠ“I‚È•sˆÀ‚ª‘½‚»‚¤‚È‚ç‘‚«•Ï‚¦‚é‚±‚Æ‚É‚µ‚Ü‚·B
+    // ã¨ã‚Šã‚ãˆãšæœ¨æ§‹é€ ã§å®Ÿè£…ã—ã¦ãŠã„ã¦ã€ãƒ¡ãƒ¢ãƒªçš„ãªä¸å®‰ãŒå¤šãã†ãªã‚‰æ›¸ãå¤‰ãˆã‚‹ã“ã¨ã«ã—ã¾ã™ã€‚
     #endregion
 
-
     /// <summary>
-    /// ƒ[ƒ}š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚É•ÏŠ·‚·‚éˆ×‚Ìƒe[ƒuƒ‹‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+    /// ãƒ­ãƒ¼ãƒå­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ç‚ºã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
     /// </summary>
     /// <example><code>
     /// using tpInner;
     /// 
     ///     ...
     ///     
-    /// //‰Šú‰»ˆ—
+    /// //åˆæœŸåŒ–å‡¦ç†
     /// Roma2KanaTable table = new Roma2KanaTable(csvSrc);
     /// 
     /// 
-    /// //ƒ[ƒ}š•¶š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚Ö•ÏŠ·
+    /// //ãƒ­ãƒ¼ãƒå­—æ–‡å­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã¸å¤‰æ›
     /// string roma1 = "kya";
     /// string kana1 = table.Convert(roma1);
     /// if(kana1.Length &gt; 0){
-    ///     //‚Ğ‚ç‚ª‚È‚Ö•ÏŠ·‚Å‚«‚½
-    ///     Debug.Log(kana1);    // "‚«‚á"
+    ///     //ã²ã‚‰ãŒãªã¸å¤‰æ›ã§ããŸ
+    ///     Debug.Log(kana1);    // "ãã‚ƒ"
     /// }
     /// 
     /// 
-    /// //ƒ[ƒ}š•¶š—ñ‚©‚çw’è‚µ‚½‚Ğ‚ç‚ª‚È•¶š—ñ‚Ö•ÏŠ·‚Å‚«‚é‚©‚Ç‚¤‚©‚ğæ“¾
+    /// //ãƒ­ãƒ¼ãƒå­—æ–‡å­—åˆ—ã‹ã‚‰æŒ‡å®šã—ãŸã²ã‚‰ãŒãªæ–‡å­—åˆ—ã¸å¤‰æ›ã§ãã‚‹ã‹ã©ã†ã‹ã‚’å–å¾—
     /// string roma2 = "ty";
-    /// string kana2 = "‚¿‚ã";
+    /// string kana2 = "ã¡ã‚…";
     /// Debug.Log(table.CanConvert(roma2, kana2));           // "false"
-    /// //«—ˆ‘Å‚Ä‚é‰Â”\«‚ª‚ ‚é‚©‚àƒ`ƒFƒbƒN
+    /// //å°†æ¥æ‰“ã¦ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã‹ã‚‚ãƒã‚§ãƒƒã‚¯
     /// Debug.Log(table.CanConvert(roma2, kana2, true));     // "true"
     ///
     /// 
-    /// //«—ˆ‘Å‚Ä‚é‰Â”\«‚ª‚ ‚é‚Ğ‚ç‚ª‚È•¶š—ñˆê——‚ğæ“¾
+    /// //å°†æ¥æ‰“ã¦ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã²ã‚‰ãŒãªæ–‡å­—åˆ—ä¸€è¦§ã‚’å–å¾—
     /// List&lt;string&gt; kanaList1 = table.GetPossibilityKanas("tya");
     /// foreach(string k in kanaList1){
     ///     Debug.Log(k);                                   // none
@@ -57,11 +55,11 @@ namespace tpInner
     /// 
     /// List&lt;string&gt; kanaList2 = table.GetPossibilityKanas("ty");
     /// foreach(string k in kanaList2){
-    ///     Debug.Log(k);                                   // "‚¿‚á","‚¿‚ã","‚¿‚å" ... 
+    ///     Debug.Log(k);                                   // "ã¡ã‚ƒ","ã¡ã‚…","ã¡ã‚‡" ... 
     /// }
     /// 
     /// 
-    /// //[n]1‰ñ‚Å[‚ñ]‚É•ÏŠ·‚·‚é–‚ª‚Å‚«‚é‚©
+    /// //[n]1å›ã§[ã‚“]ã«å¤‰æ›ã™ã‚‹äº‹ãŒã§ãã‚‹ã‹
     /// Debug.Log(Roma2KanaTable.CanConverFirstN("n"));         //false
     /// Debug.Log(Roma2KanaTable.CanConverFirstN("na"));        //false
     /// Debug.Log(Roma2KanaTable.CanConverFirstN("nt"));        //true
@@ -69,88 +67,80 @@ namespace tpInner
     /// Debug.Log(Roma2KanaTable.CanConverFirstN("nn"));        //false
     /// 
     /// </code></example>
-    public class Roma2KanaTable
-    {
-# region ¶¬
+    public class Roma2KanaTable{
+# region ç”Ÿæˆ
         ///<summary>
-        /// ƒ[ƒ}š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚É•ÏŠ·‚·‚éˆ×‚Ìƒe[ƒuƒ‹‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+        /// ãƒ­ãƒ¼ãƒå­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ç‚ºã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
         /// </summary>
         ///<param name="aCSV">
-        ///<para>ƒ[ƒ}š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚Ö‚Ì•ÏŠ·ƒe[ƒuƒ‹‚ğ’è‹`‚µ‚½ƒtƒ@ƒCƒ‹</para>
-        ///<para>mŒ`®nƒ[ƒ}š—ñ,‚Ğ‚ç‚ª‚È•¶š—ñ,</para>
-        ///<para>m—ánkya,‚«‚á</para>
+        ///<para>ãƒ­ãƒ¼ãƒå­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã¸ã®å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å®šç¾©ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«</para>
+        ///<para>ï¼»å½¢å¼ï¼½ãƒ­ãƒ¼ãƒå­—åˆ—,ã²ã‚‰ãŒãªæ–‡å­—åˆ—,</para>
+        ///<para>ï¼»ä¾‹ï¼½kya,ãã‚ƒ</para>
         ///</param>m_possibilityKanas
-        public Roma2KanaTable(TextAsset aCSV)
-        {
+        public Roma2KanaTable(TextAsset aCSV){
             CreateTree(aCSV);
         }
 #endregion
 
-#region ƒƒ\ƒbƒh
+#region ãƒ¡ã‚½ãƒƒãƒ‰
         /// <summary>
-        /// ƒ[ƒ}š—ñ[aRoma]‚©‚ç•ÏŠ·‚Å‚«‚é‚Ğ‚ç‚ª‚È•¶š—ñ‚ğæ“¾B
+        /// ãƒ­ãƒ¼ãƒå­—åˆ—[aRoma]ã‹ã‚‰å¤‰æ›ã§ãã‚‹ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã‚’å–å¾—ã€‚
         /// </summary>
-        /// <param name="aRoma">ƒ[ƒ}š—ñ</param>
-        /// <returns>‚Ğ‚ç‚ª‚È•¶š—ñA•ÏŠ·‚Å‚«‚È‚¢ê‡‚Í‹ó•¶š—ñ</returns>
-        public string Convert(string aRoma)
-        {
+        /// <param name="aRoma">ãƒ­ãƒ¼ãƒå­—åˆ—</param>
+        /// <returns>ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã€å¤‰æ›ã§ããªã„å ´åˆã¯ç©ºæ–‡å­—åˆ—</returns>
+        public string Convert(string aRoma){
             Roma2KanaNode node = GetNode(aRoma);
             if (node == null) { return ""; }
             return node.Kana;
         }
 
         /// <summary>
-        /// ƒ[ƒ}š—ñ[aRoma]‚É‘Î‚µ‚ÄA‚Ğ‚ç‚ª‚È[aKana]‚ğ‘Å‚Â‚±‚Æ‚ª‚Å‚«‚é‚©
+        /// ãƒ­ãƒ¼ãƒå­—åˆ—[aRoma]ã«å¯¾ã—ã¦ã€ã²ã‚‰ãŒãª[aKana]ã‚’æ‰“ã¤ã“ã¨ãŒã§ãã‚‹ã‹
         /// </summary>
-        /// <param name="aRoma">ƒ[ƒ}š—ñ(—á:ky)</param>
-        /// <param name="aKana">‚Ğ‚ç‚ª‚È•¶š—ñ(—á:‚«‚á)</param>
-        /// <param name="aIsPossibility">true:ƒ[ƒ}š—ñ[aRoma]‚É’Ç‰Á‚Åƒ[ƒ}š‚ğ‘«‚·‚±‚Æ‚Å‘Å‚Â•û–@‚ª‚ ‚é‚©‚àƒ`ƒFƒbƒN</param>
-        /// <returns>true:‘Å‚Â•û–@‚ª‚ ‚é</returns>
-        public bool CanConvert(string aRoma, string aKana, bool aIsPossibility = false)
-        {
+        /// <param name="aRoma">ãƒ­ãƒ¼ãƒå­—åˆ—(ä¾‹:ky)</param>
+        /// <param name="aKana">ã²ã‚‰ãŒãªæ–‡å­—åˆ—(ä¾‹:ãã‚ƒ)</param>
+        /// <param name="aIsPossibility">true:ãƒ­ãƒ¼ãƒå­—åˆ—[aRoma]ã«è¿½åŠ ã§ãƒ­ãƒ¼ãƒå­—ã‚’è¶³ã™ã“ã¨ã§æ‰“ã¤æ–¹æ³•ãŒã‚ã‚‹ã‹ã‚‚ãƒã‚§ãƒƒã‚¯</param>
+        /// <returns>true:æ‰“ã¤æ–¹æ³•ãŒã‚ã‚‹</returns>
+        public bool CanConvert(string aRoma, string aKana, bool aIsPossibility = false){
             Roma2KanaNode node = GetNode(aRoma);
             if (node == null) { return false; }
             if (string.Compare(node.Kana, aKana) == 0) { return true; }
-            if (aIsPossibility)
-            {
+            if (aIsPossibility){
                 if (node.PossibilityKanas.BinarySearch(aKana) >= 0) { return true; }
             }
             return false;
         }
 
         /// <summary>
-        /// ƒ[ƒ}š—ñ[aRoma]‚É‘Î‚µ‚ÄAaRoma‚É’Ç‰Á‚Åƒ[ƒ}š‚ğ‘«‚·‚±‚Æ‚Å•ÏŠ·‚·‚é–‚ª‰Â”\‚È‚Ğ‚ç‚ª‚È•¶š—ñ‚Ìˆê——‚ğæ“¾‚µ‚Ü‚·B(ƒ\[ƒgÏ‚İ)
+        /// ãƒ­ãƒ¼ãƒå­—åˆ—[aRoma]ã«å¯¾ã—ã¦ã€aRomaã«è¿½åŠ ã§ãƒ­ãƒ¼ãƒå­—ã‚’è¶³ã™ã“ã¨ã§å¤‰æ›ã™ã‚‹äº‹ãŒå¯èƒ½ãªã²ã‚‰ãŒãªæ–‡å­—åˆ—ã®ä¸€è¦§ã‚’å–å¾—ã—ã¾ã™ã€‚(ã‚½ãƒ¼ãƒˆæ¸ˆã¿)
         /// </summary>
-        /// <param name="aRoma">ƒ[ƒ}š—ñ(—á:ky)</param>
-        /// <returns>true:’Ç‰Á‚Åƒ[ƒ}š‚ğ‘«‚·‚±‚Æ‚Å•ÏŠ·‚·‚é–‚ª‰Â”\‚È‚Ğ‚ç‚ª‚È•¶š—ñ‚Ìˆê——</returns>
-        public List<string> GetPossibilityKanas(string aRoma)
-        {
+        /// <param name="aRoma">ãƒ­ãƒ¼ãƒå­—åˆ—(ä¾‹:ky)</param>
+        /// <returns>true:è¿½åŠ ã§ãƒ­ãƒ¼ãƒå­—ã‚’è¶³ã™ã“ã¨ã§å¤‰æ›ã™ã‚‹äº‹ãŒå¯èƒ½ãªã²ã‚‰ãŒãªæ–‡å­—åˆ—ã®ä¸€è¦§</returns>
+        public List<string> GetPossibilityKanas(string aRoma){
             Roma2KanaNode node = GetNode(aRoma);
             if (node == null) { return new List<string>(); }
             return node.PossibilityKanas;
         }
 #endregion
 
-#region Ã“Iƒƒ\ƒbƒh
+#region é™çš„ãƒ¡ã‚½ãƒƒãƒ‰
         /// <summary>
-        /// ƒ[ƒ}š—ñ[aRoma]‚Ìæ“ª•¶š‚ª[n]‚ÅAæ“ª•¶š‚ğ[‚ñ]‚É•ÏŠ·‚Å‚«‚é‚©‚Ç‚¤‚©‚ğæ“¾‚µ‚Ü‚·
+        /// ãƒ­ãƒ¼ãƒå­—åˆ—[aRoma]ã®å…ˆé ­æ–‡å­—ãŒ[n]ã§ã€å…ˆé ­æ–‡å­—ã‚’[ã‚“]ã«å¤‰æ›ã§ãã‚‹ã‹ã©ã†ã‹ã‚’å–å¾—ã—ã¾ã™
         /// </summary>
-        /// <param name="aRoma">ƒ[ƒ}š—ñ</param>
-        /// <returns>true:æ“ª‚Ì[n]‚ğ[‚ñ]‚É•ÏŠ·‚Å‚«‚é</returns>
-        static bool CanConverFirstN(string aRoma)
-        {
+        /// <param name="aRoma">ãƒ­ãƒ¼ãƒå­—åˆ—</param>
+        /// <returns>true:å…ˆé ­ã®[n]ã‚’[ã‚“]ã«å¤‰æ›ã§ãã‚‹</returns>
+        static bool CanConverFirstN(string aRoma){
             if(aRoma.Length < 2) { return false; };
             return Regex.IsMatch(aRoma, "^n[^aiueony]");
         }
 #endregion
 
-#region “à•”ƒƒ\ƒbƒh
+#region å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰
         ///<summary>
-        ///ƒ[ƒ}š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚É•ÏŠ·‚·‚é‚½‚ß‚ÌƒcƒŠ[‚ğì¬
+        ///ãƒ­ãƒ¼ãƒå­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ãŸã‚ã®ãƒ„ãƒªãƒ¼ã‚’ä½œæˆ
         ///</summary>
-        ///<param name="aCSV">•ÏŠ·ƒe[ƒuƒ‹‚ğ’è‹`‚µ‚½ƒtƒ@ƒCƒ‹</param>
-        private void CreateTree(TextAsset aCSV)
-        {
+        ///<param name="aCSV">å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å®šç¾©ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«</param>
+        private void CreateTree(TextAsset aCSV){
             const int CSV_ROMA_FIELD = 0;
             const int CSV_KANA_FIELD = 1;
 
@@ -166,21 +156,18 @@ namespace tpInner
         }
 
         /// <summary>
-        /// ƒ[ƒ}š—ñ[aRoma]‚É‘Î‰‚µ‚½–Øƒm[ƒhƒIƒuƒWƒFƒNƒg‚ğæ“¾
+        /// ãƒ­ãƒ¼ãƒå­—åˆ—[aRoma]ã«å¯¾å¿œã—ãŸæœ¨ãƒãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
         /// </summary>
-        /// <param name="aRoma">ƒ[ƒ}š—ñ(—á:kya)</param>
-        /// <returns>–³‚¢ê‡:null</returns>
-        private Roma2KanaNode GetNode(string aRoma)
-        {
+        /// <param name="aRoma">ãƒ­ãƒ¼ãƒå­—åˆ—(ä¾‹:kya)</param>
+        /// <returns>ç„¡ã„å ´åˆ:null</returns>
+        private Roma2KanaNode GetNode(string aRoma){
 #if UNITY_EDITOR
-            for (int i = 0; i < aRoma.Length; ++i)
-            {
-                Debug.Assert(char.IsLower(char.ToLower(aRoma[i])),"Roma2KanaTable::GetNode() aRoma“à‚É‰pŒêˆÈŠO‚Ì•¶š‚ğŒŸ’m");
+            for (int i = 0; i < aRoma.Length; ++i){
+                Debug.Assert(char.IsLower(char.ToLower(aRoma[i])),"Roma2KanaTable::GetNode() aRomaå†…ã«è‹±èªä»¥å¤–ã®æ–‡å­—ã‚’æ¤œçŸ¥");
             }
 #endif
             Roma2KanaNode ret = m_treeRoot;
-            for(int i = 0;i < aRoma.Length; ++i)
-            {
+            for(int i = 0;i < aRoma.Length; ++i){
                 if (ret.HasKana) { return null; }
                 if (ret.Children == null) { return null; }
                 ret = ret.Children[Roma2KanaNode.Alpha2ChildIdx(char.ToLower(aRoma[i]))];
@@ -190,89 +177,79 @@ namespace tpInner
         }
  #endregion
 
-#region ƒƒ“ƒo
+#region ãƒ¡ãƒ³ãƒ
         private Roma2KanaNode m_treeRoot;
 #endregion
     }
 
 
     /// <summary>
-    /// ƒ[ƒ}š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚É•ÏŠ·‚·‚éˆ×‚ÌA–Øƒm[ƒhƒIƒuƒWƒFƒNƒg
+    /// ãƒ­ãƒ¼ãƒå­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ç‚ºã®ã€æœ¨ãƒãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     /// </summary>
     /// <example><code>
     /// using tpInner;
     /// 
     ///     ...
     ///     
-    /// //‰Šú‰»ˆ—
+    /// //åˆæœŸåŒ–å‡¦ç†
     /// Roma2KanaNode root = Roma2KanaNode.CreateRoot();
     ///
-    /// //–Øƒm[ƒh‚Ì’Ç‰Á
-    /// root.AddNodes("a", "‚ ");
-    /// root.AddNodes("si", "‚µ");
-    /// root.AddNodes("sa", "‚³");
-    /// root.AddNodes("shi", "‚µ");
-    /// root.AddNodes("gya", "‚¬‚á");
+    /// //æœ¨ãƒãƒ¼ãƒ‰ã®è¿½åŠ 
+    /// root.AddNodes("a", "ã‚");
+    /// root.AddNodes("si", "ã—");
+    /// root.AddNodes("sa", "ã•");
+    /// root.AddNodes("shi", "ã—");
+    /// root.AddNodes("gya", "ãã‚ƒ");
     /// 
-    /// –Øƒm[ƒh’Ç‰ÁI—¹ŒãAŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
+    /// æœ¨ãƒãƒ¼ãƒ‰è¿½åŠ çµ‚äº†å¾Œã€å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
     /// root.InitAfterAddNodes();
     /// 
     /// </code></example>
-    public class Roma2KanaNode
-    {
-#region ¶¬
+    public class Roma2KanaNode{
+#region ç”Ÿæˆ
         ///<summary>
-        /// <para>ƒ‹[ƒgƒm[ƒh¶¬ŠÖ”</para>
-        /// <para>ŠO‚©‚ç‚±‚ÌƒNƒ‰ƒX‚ğì¬‚·‚éê‡‚ÍA‚±‚ÌŠÖ”‚ğg—p‚µ‚Ä‚­‚¾‚³‚¢B</para>
+        /// <para>ãƒ«ãƒ¼ãƒˆãƒãƒ¼ãƒ‰ç”Ÿæˆé–¢æ•°</para>
+        /// <para>å¤–ã‹ã‚‰ã“ã®ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆã™ã‚‹å ´åˆã¯ã€ã“ã®é–¢æ•°ã‚’ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚</para>
         /// </summary>
-        static public Roma2KanaNode CreateRoot()
-        {
+        static public Roma2KanaNode CreateRoot(){
             return new Roma2KanaNode("", "");
         }
 #endregion
 
-#region ƒƒ\ƒbƒh
+#region ãƒ¡ã‚½ãƒƒãƒ‰
         /// <summary>
-        /// ƒ[ƒ}š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚É•ÏŠ·‚·‚éˆ×‚ÌAV‚½‚È–Øƒm[ƒh‚ğ’Ç‰Á(ê‡‚É‚æ‚Á‚Ä‚ÍA“à•”‚ÅÄ‹A“I‚ÉŒÄ‚Ño‚µ‚Ü‚·)
+        /// ãƒ­ãƒ¼ãƒå­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ç‚ºã®ã€æ–°ãŸãªæœ¨ãƒãƒ¼ãƒ‰ã‚’è¿½åŠ (å ´åˆã«ã‚ˆã£ã¦ã¯ã€å†…éƒ¨ã§å†å¸°çš„ã«å‘¼ã³å‡ºã—ã¾ã™)
         /// </summary>
-        /// <param name="aRoma">ƒ[ƒ}š—ñ</param>
-        /// <param name="aKana">•ÏŠ·æ‚Ì‚Ğ‚ç‚ª‚È</param>
-        public void AddNodes(string aRoma, string aKana)
-        {
+        /// <param name="aRoma">ãƒ­ãƒ¼ãƒå­—åˆ—</param>
+        /// <param name="aKana">å¤‰æ›å…ˆã®ã²ã‚‰ãŒãª</param>
+        public void AddNodes(string aRoma, string aKana){
 #if UNITY_EDITOR
-            Debug.Assert(aRoma.Length > Depth, "Roma2KanaTable::AddNodes() ƒpƒ‰ƒ[ƒ^‚Ì•s”õ");
-            Debug.Assert(aKana.Length > 0, "Roma2KanaTable::AddNodes() ƒpƒ‰ƒ[ƒ^‚Ì•s”õ");
-            if (Depth > 0)
-            {
-                Debug.Assert(string.Compare(aRoma, 0, Roma, 0, Depth - 1) == 0, "Roma2KanaTable::AddNodes() ƒpƒ‰ƒ[ƒ^‚Ì•s”õ");
+            Debug.Assert(aRoma.Length > Depth, "Roma2KanaTable::AddNodes() ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ä¸å‚™");
+            Debug.Assert(aKana.Length > 0, "Roma2KanaTable::AddNodes() ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ä¸å‚™");
+            if (Depth > 0){
+                Debug.Assert(string.Compare(aRoma, 0, Roma, 0, Depth - 1) == 0, "Roma2KanaTable::AddNodes() ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ä¸å‚™");
             }
 #endif
             char chAlpha = aRoma[Depth];
             int chIdx = Alpha2ChildIdx(chAlpha);
 
-            if(m_children == null)
-            {
+            if(m_children == null){
                 m_children = new List<Roma2KanaNode>();
                 int childNum = AlphaNum();
-                for (int i = 0; i < childNum; ++i)
-                {
+                for (int i = 0; i < childNum; ++i){
                     m_children.Add(null);
                 }
             }
 
-            if (aRoma.Length == Depth + 1)
-            { //‚Ğ‚ç‚ª‚È•ÏŠ·‰Â”\ƒm[ƒh
+            if (aRoma.Length == Depth + 1){ //ã²ã‚‰ãŒãªå¤‰æ›å¯èƒ½ãƒãƒ¼ãƒ‰
                 if (m_children[chIdx] == null) {
                     m_children[chIdx] = new Roma2KanaNode(aRoma.Substring(0, Depth + 1), aKana);
                 }
-                else
-                {
+                else{
                     m_children[chIdx]._SetKana(aKana);                    
                 }
 
-            }
-            else//“r’†‚Ìƒm[ƒh
-            {
+            }else{//é€”ä¸­ã®ãƒãƒ¼ãƒ‰
                 if (m_children[chIdx] == null)
                 {
                     m_children[chIdx] = new Roma2KanaNode(aRoma.Substring(0, Depth + 1), "");
@@ -284,20 +261,16 @@ namespace tpInner
         }
 
         /// <summary>
-        /// “à•”‚ÌÅ“K‰»ˆ—Bd•¡íœ‚âƒ\[ƒg‚Ìˆ—‚ğs‚¢‚Ü‚·B
-        /// ƒm[ƒh’Ç‰ÁI—¹ŒãA•K‚¸ŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
+        /// å†…éƒ¨ã®æœ€é©åŒ–å‡¦ç†ã€‚é‡è¤‡å‰Šé™¤ã‚„ã‚½ãƒ¼ãƒˆã®å‡¦ç†ã‚’è¡Œã„ã¾ã™ã€‚
+        /// ãƒãƒ¼ãƒ‰è¿½åŠ çµ‚äº†å¾Œã€å¿…ãšå‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
         /// </summary>
-        public void InitAfterAddNodes()
-        {
+        public void InitAfterAddNodes(){
             m_possibilityKanas = m_possibilityKanas.Distinct().ToList();
             m_possibilityKanas.Sort();
 
-            if(Children != null)
-            {
-                foreach(Roma2KanaNode child in Children)
-                {
-                    if (child != null)
-                    {
+            if(Children != null){
+                foreach(Roma2KanaNode child in Children){
+                    if (child != null){
                         child.InitAfterAddNodes();
                     }
                 }
@@ -305,18 +278,14 @@ namespace tpInner
         }
 
         /// <summary>
-        /// ‘Sƒm[ƒc“à‚ÅAƒ[ƒ}š•¶š—ñ‚ÌÅ’·‚Ì’·‚³‚ğæ“¾
+        /// å…¨ãƒãƒ¼ãƒ„å†…ã§ã€ãƒ­ãƒ¼ãƒå­—æ–‡å­—åˆ—ã®æœ€é•·ã®é•·ã•ã‚’å–å¾—
         /// </summary>
-        /// <returns>ƒ[ƒ}š—ñ‚ÌÅ’·‚Ì’·‚³</returns>
-        public int GetRomaMaxLength()
-        {
+        /// <returns>ãƒ­ãƒ¼ãƒå­—åˆ—ã®æœ€é•·ã®é•·ã•</returns>
+        public int GetRomaMaxLength(){
             int ret = Depth - 1;
-            if (Children != null)
-            {
-                foreach (Roma2KanaNode child in Children)
-                {
-                    if (child != null)
-                    {
+            if (Children != null){
+                foreach (Roma2KanaNode child in Children){
+                    if (child != null){
                         ret = Mathf.Max(ret ,child.GetRomaMaxLength());
                     }
                 }
@@ -325,113 +294,102 @@ namespace tpInner
         }
 #endregion
 
-#region ƒvƒƒpƒeƒB
+#region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
         /// <summary>
-        /// <para>‚±‚Ìƒm[ƒh‚Ì––”öƒAƒ‹ƒtƒ@ƒxƒbƒg</para>
-        /// <para>ƒ‹[ƒgƒm[ƒh‚Ìê‡‚Í[\0]‚ğ•Ô‹p</para>
+        /// <para>ã“ã®ãƒãƒ¼ãƒ‰ã®æœ«å°¾ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆ</para>
+        /// <para>ãƒ«ãƒ¼ãƒˆãƒãƒ¼ãƒ‰ã®å ´åˆã¯[\0]ã‚’è¿”å´</para>
         /// </summary>
-        public char Alpha
-        {
-            get
-            {
+        public char Alpha{
+            get{
                 if (Depth == 0) { return '\0'; }
                 return Roma[Roma.Length - 1];
             }
         }
 
         /// <summary>
-        /// ‚±‚Ìƒm[ƒh‚Ü‚Å‚Ìƒ[ƒ}š—ñ
+        /// ã“ã®ãƒãƒ¼ãƒ‰ã¾ã§ã®ãƒ­ãƒ¼ãƒå­—åˆ—
         /// </summary>
         public string Roma { get; private set; }
 
         /// <summary>
-        /// ‚±‚Ìƒm[ƒh‚ª‚Ğ‚ç‚ª‚È•¶š—ñ‚É•ÏŠ·‰Â”\‚©‚Ç‚¤‚©
+        /// ã“ã®ãƒãƒ¼ãƒ‰ãŒã²ã‚‰ãŒãªæ–‡å­—åˆ—ã«å¤‰æ›å¯èƒ½ã‹ã©ã†ã‹
         /// </summary>
         public bool HasKana { get; private set; }
 
         /// <summary>
-        /// <para>•ÏŠ·æ‚Ì‚Ğ‚ç‚ª‚È</para>
-        /// <para>‚È‚¢ê‡‚Í‹ó•¶š—ñ‚ª•Ô‹p‚³‚ê‚Ü‚·</para>
+        /// <para>å¤‰æ›å…ˆã®ã²ã‚‰ãŒãª</para>
+        /// <para>ãªã„å ´åˆã¯ç©ºæ–‡å­—åˆ—ãŒè¿”å´ã•ã‚Œã¾ã™</para>
         /// </summary>
         public string Kana { get; private set; }
 
         /// <summary>
-        /// ‚±‚Ìƒm[ƒh‚Ì[‚³
+        /// ã“ã®ãƒãƒ¼ãƒ‰ã®æ·±ã•
         /// </summary>
-        public int Depth
-        {
+        public int Depth{
             get { return Roma.Length; }
         }
 
         private List<Roma2KanaNode> m_children;
         /// <summary>
-        /// qƒm[ƒh
+        /// å­ãƒãƒ¼ãƒ‰
         /// </summary>
-        public List<Roma2KanaNode> Children
-        {
+        public List<Roma2KanaNode> Children{
             get { return m_children; }
         }
 
         private List<string> m_possibilityKanas = new List<string>();
         /// <summary>
-        /// <para>‚±‚Ìƒm[ƒh‚Ìƒ[ƒ}š—ñ[Roma]‚É‘Î‚µ‚ÄARoma‚É’Ç‰Á‚Åƒ[ƒ}š‚ğ‘«‚·‚±‚Æ‚Å•ÏŠ·‚·‚é–‚ª‰Â”\‚È‚Ğ‚ç‚ª‚È•¶š—ñ‚Ìˆê——(ƒ\[ƒgÏ‚İ)</para>
+        /// <para>ã“ã®ãƒãƒ¼ãƒ‰ã®ãƒ­ãƒ¼ãƒå­—åˆ—[Roma]ã«å¯¾ã—ã¦ã€Romaã«è¿½åŠ ã§ãƒ­ãƒ¼ãƒå­—ã‚’è¶³ã™ã“ã¨ã§å¤‰æ›ã™ã‚‹äº‹ãŒå¯èƒ½ãªã²ã‚‰ãŒãªæ–‡å­—åˆ—ã®ä¸€è¦§(ã‚½ãƒ¼ãƒˆæ¸ˆã¿)</para>
         /// </summary>
-        public List<string> PossibilityKanas
-        {
+        public List<string> PossibilityKanas{
             get { return m_possibilityKanas; }
         }
 #endregion
 
-#region Ã“Iƒƒ\ƒbƒh
+#region é™çš„ãƒ¡ã‚½ãƒƒãƒ‰
         /// <summary>
-        /// ƒAƒ‹ƒtƒ@ƒxƒbƒg‚©‚çAqƒm[ƒhƒAƒNƒZƒX—p‚Ì”z—ñidx‚ğæ“¾‚µ‚Ü‚·
+        /// ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆã‹ã‚‰ã€å­ãƒãƒ¼ãƒ‰ã‚¢ã‚¯ã‚»ã‚¹ç”¨ã®é…åˆ—idxã‚’å–å¾—ã—ã¾ã™
         /// </summary>
         /// <param name="aAlpha">/a-zA-Z/</param>
-        /// <returns>a‚È‚ç0AD‚È‚ç4‚È‚Ç‚ğ•Ô‹p</returns>
+        /// <returns>aãªã‚‰0ã€Dãªã‚‰4ãªã©ã‚’è¿”å´</returns>
 
-        static public int Alpha2ChildIdx(char aAlpha)
-        {
+        static public int Alpha2ChildIdx(char aAlpha){
             return (int)char.ToLower(aAlpha) - (int)'a';
         }
 
         /// <summary>
-        /// ƒAƒ‹ƒtƒ@ƒxƒbƒg‚Ì‘”‚ğæ“¾
+        /// ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆã®ç·æ•°ã‚’å–å¾—
         /// </summary>
-        /// <returns>a`z‚Ì”</returns>
-        static public int AlphaNum()
-        {
+        /// <returns>aï½zã®æ•°</returns>
+        static public int AlphaNum(){
             return (int)'z' - (int)'a' + 1;
         }
 #endregion
 
-#region “à•”ƒƒ\ƒbƒh
+#region å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰
         /// <summary>
-        /// <para>ƒNƒ‰ƒX“à•”‚©‚ç‚Ì¶¬—pB</para>
-        /// <para>ƒ[ƒ}š—ñ‚©‚ç‚Ğ‚ç‚ª‚È•¶š—ñ‚É•ÏŠ·‚·‚éˆ×‚ÌA–Øƒm[ƒhƒIƒuƒWƒFƒNƒg</para>
+        /// <para>ã‚¯ãƒ©ã‚¹å†…éƒ¨ã‹ã‚‰ã®ç”Ÿæˆç”¨ã€‚</para>
+        /// <para>ãƒ­ãƒ¼ãƒå­—åˆ—ã‹ã‚‰ã²ã‚‰ãŒãªæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ç‚ºã®ã€æœ¨ãƒãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</para>
         /// </summary>
-        /// <param name="aRoma">‚±‚Ìƒm[ƒh‚Ü‚Å‚Ìƒ[ƒ}š—ñB‘S‚Ä‰p¬•¶š‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B</param>
-        /// <param name="aKana">•ÏŠ·æ‚Ì‚Ğ‚ç‚ª‚ÈA‚È‚¢ê‡‚Í‹ó•¶š</param>
-        private Roma2KanaNode(string aRoma, string aKana = "")
-        {
+        /// <param name="aRoma">ã“ã®ãƒãƒ¼ãƒ‰ã¾ã§ã®ãƒ­ãƒ¼ãƒå­—åˆ—ã€‚å…¨ã¦è‹±å°æ–‡å­—ã§å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚</param>
+        /// <param name="aKana">å¤‰æ›å…ˆã®ã²ã‚‰ãŒãªã€ãªã„å ´åˆã¯ç©ºæ–‡å­—</param>
+        private Roma2KanaNode(string aRoma, string aKana = ""){
 #if UNITY_EDITOR
-            for (int i = 0; i < aRoma.Length; ++i)
-            {
-                Debug.Assert(char.IsLower(aRoma[i]), "Roma2KanaTable::Roma2KanaNode() aRoma“à‚É‰pŒêˆÈŠO‚Ì•¶š‚ğŒŸ’m");
+            for (int i = 0; i < aRoma.Length; ++i){
+                Debug.Assert(char.IsLower(aRoma[i]), "Roma2KanaTable::Roma2KanaNode() aRomaå†…ã«è‹±èªä»¥å¤–ã®æ–‡å­—ã‚’æ¤œçŸ¥");
             }
 #endif
-
             Roma = aRoma;
             HasKana = (aKana.Length != 0);
             Kana = aKana;
         }
 
         /// <summary>
-        /// <para>ŠO•”‚©‚ç‚Íg—p‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B</para>
-        /// <para>Œã‚©‚ç‚±‚Ìƒm[ƒh‚Ì•ÏŠ·æ‚Ğ‚ç‚ª‚È‚ğƒZƒbƒg</para>
+        /// <para>å¤–éƒ¨ã‹ã‚‰ã¯ä½¿ç”¨ã—ãªã„ã§ãã ã•ã„ã€‚</para>
+        /// <para>å¾Œã‹ã‚‰ã“ã®ãƒãƒ¼ãƒ‰ã®å¤‰æ›å…ˆã²ã‚‰ãŒãªã‚’ã‚»ãƒƒãƒˆ</para>
         /// </summary>
-        /// <param name="aKana">•ÏŠ·æ‚Ì‚Ğ‚ç‚ª‚È</param>
-        public void _SetKana(string aKana)
-        {
+        /// <param name="aKana">å¤‰æ›å…ˆã®ã²ã‚‰ãŒãª</param>
+        public void _SetKana(string aKana){
             HasKana = (aKana.Length != 0);
             Kana = aKana;
         }

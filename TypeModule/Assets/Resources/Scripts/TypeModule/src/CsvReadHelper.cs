@@ -6,11 +6,11 @@ using System;
 using System.Text;
 using NotVisualBasic.FileIO;
 
-namespace tpInner
-{
+namespace tpInner{
+
     ///<summary>
-    ///<para>CSV“Ç‚İ‚İ—p‚Ìƒwƒ‹ƒp[ƒNƒ‰ƒX‚Å‚·B</para>
-    ///<para>‚±‚Ìƒtƒ@ƒCƒ‹‚ğg—p‚·‚é‚É‚ÍANugetƒpƒbƒP[ƒWyCsvTextFieldParserz‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B</para>
+    ///<para>CSVèª­ã¿è¾¼ã¿ç”¨ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚¯ãƒ©ã‚¹ã§ã™ã€‚</para>
+    ///<para>ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½¿ç”¨ã™ã‚‹ã«ã¯ã€Nugetãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã€CsvTextFieldParserã€‘ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚</para>
     ///</summary>
     /// <example><code>
     /// using tpInner;
@@ -21,54 +21,48 @@ namespace tpInner
     ///
     ///     ...
     ///     
-    /// //csvƒf[ƒ^“Ç‚İ‚İ
+    /// //csvãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
     /// CsvReadHelper csv = new CsvReadHelper(csvSrc);
     /// 
-    /// //Šeƒf[ƒ^‚ÉƒAƒNƒZƒX (1)
+    /// //å„ãƒ‡ãƒ¼ã‚¿ã«ã‚¢ã‚¯ã‚»ã‚¹ (1)
     /// for(int i = 0;i &lt; csv.RecordNum;++i){
     ///     for(int j = 0;j &lt; csv.FieldMax;++i){
     ///         Debug.Log(csv.Datas[i][j]);
     ///     }
     /// }
     /// 
-    /// //Šeƒf[ƒ^‚ÉƒAƒNƒZƒX (2)
+    /// //å„ãƒ‡ãƒ¼ã‚¿ã«ã‚¢ã‚¯ã‚»ã‚¹ (2)
     /// foreach(List&lt;string&gt; record in csv.Datas){
     ///     foreach(string d in record){
     ///         Debug.Log(d);
     ///     }
     /// }
     /// </code></example>
-    public class CsvReadHelper
-    {
-#region ¶¬
+    public class CsvReadHelper{
+#region ç”Ÿæˆ
         ///<summary>
-        ///<para>CSV“Ç‚İ‚İ—p‚Ìƒwƒ‹ƒp[ƒNƒ‰ƒX‚Å‚·B</para>
+        ///<para>CSVèª­ã¿è¾¼ã¿ç”¨ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚¯ãƒ©ã‚¹ã§ã™ã€‚</para>
         ///</summary>
         ///<param name="aFile">
-        ///<para>CSV(.csv)Œ`®‚Ìƒtƒ@ƒCƒ‹‚ğw’èB•¶šƒR[ƒh‚Í[UTF-8]‚Æ‚µ‚Ä‚­‚¾‚³‚¢B</para>
-        ///<para>ƒtƒB[ƒ‹ƒh‚ÉƒRƒ“ƒ}[,]‚ğŠÜ‚Şê‡‚ÍAƒ_ƒuƒ‹ƒNƒH[ƒg["]‚ÅˆÍ‚Ş•K—v‚ª‚ ‚è‚Ü‚·B</para>
+        ///<para>CSV(.csv)å½¢å¼ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã€‚æ–‡å­—ã‚³ãƒ¼ãƒ‰ã¯[UTF-8]ã¨ã—ã¦ãã ã•ã„ã€‚</para>
+        ///<para>ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«ã‚³ãƒ³ãƒ[,]ã‚’å«ã‚€å ´åˆã¯ã€ãƒ€ãƒ–ãƒ«ã‚¯ã‚©ãƒ¼ãƒˆ["]ã§å›²ã‚€å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚</para>
         ///</param>
-        public CsvReadHelper(TextAsset aFile)
-        {
+        public CsvReadHelper(TextAsset aFile){
             StringReader reader = new StringReader(aFile.text);
-            while (reader.Peek() != -1)
-            {
+            while (reader.Peek() != -1){
                 string line = reader.ReadLine();
                 List<string> list = new List<string>();
-                using (Stream stream = new MemoryStream(Encoding.Default.GetBytes(line)))
-                {
+                using (Stream stream = new MemoryStream(Encoding.Default.GetBytes(line))){
                     CsvTextFieldParser parser = new CsvTextFieldParser(stream, Encoding.GetEncoding("UTF-8"));
                     parser.SetDelimiter(',');
                     parser.HasFieldsEnclosedInQuotes = true;
                     parser.TrimWhiteSpace = true;
 
-                    while (!parser.EndOfData)
-                    {
+                    while (!parser.EndOfData){
                         string[] row = parser.ReadFields();
-                        foreach (string field in row)
-                        {
+                        foreach (string field in row){
                             string tmp = String.Copy(field);
-                            tmp = tmp.Replace("\\\"", "\"");    // " ‚¾‚¯ƒGƒXƒP[ƒv‚³‚ê‚Ä‚¢‚é‚Ì‚ÅC³
+                            tmp = tmp.Replace("\\\"", "\"");    // " ã ã‘ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã•ã‚Œã¦ã„ã‚‹ã®ã§ä¿®æ­£
                             list.Add(String.Copy(tmp));
                         }
                     }
@@ -79,24 +73,23 @@ namespace tpInner
         }
 #endregion
 
-#region ƒvƒƒpƒeƒB
+#region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
         private List<List<string>> m_datas = new List<List<string>>();
         ///<summary>
-        ///“Ç‚İ‚ñ‚¾CSVƒf[ƒ^
+        ///èª­ã¿è¾¼ã‚“ã CSVãƒ‡ãƒ¼ã‚¿
         ///</summary>
-        public List<List<string>> Datas
-        {
+        public List<List<string>> Datas{
             get { return m_datas; }
             private set { m_datas = value; }
         }
 
         ///<summary>
-        ///ƒtƒB[ƒ‹ƒh”Å‘å’l
+        ///ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰æ•°æœ€å¤§å€¤
         ///</summary>
         public int FieldMax { get; private set; }
 
         ///<summary>
-        ///ƒŒƒR[ƒh”
+        ///ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°
         ///</summary>
         public int RecordNum { get { return Datas.Count; } }
 #endregion
