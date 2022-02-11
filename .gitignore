@@ -24,6 +24,7 @@ ExportedObj/
 *.pdb
 *.opendb
 *.VC.db
+*.log
  
 # Unity3D generated meta files
 *.pidb.meta
@@ -43,3 +44,4 @@ TypeModule/.vscode/extensions.json
 TypeModule/.vscode/launch.json
 TypeModule/.vscode/settings.json
 TypeModule/.vscode/tasks.json
+Logs
