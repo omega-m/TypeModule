@@ -2,15 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using tpInner;
+using Candlelight;
 
 ///<summary>
 ///キーボードの入力を元に、文字入力の判定を担当するモジュールです。
 ///CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。
 /// </summary>
-public class TypeModule : MonoBehaviour{
+/// <example><code>
+///     ...
+///     
+/// module = GetComponent<TypeModule>();
+///     
+/// //入力判定モードを文字列生成モードに切り替え
+/// Mode = TypeModule.MODE.MODE_INPUT;
+/// 
+/// 
+/// 
+/// //以下オプションです================================
+/// 
+/// //ローマ字入力から、JISかな入力に切り替え
+/// module.IsKana = true;
+/// 
+/// //CapsLockの状態を反映させないように切り替え
+/// module.IsCheckCapsLock = false;
+/// 
+/// //入力を受け付けないように切り替え
+/// module.isRun = false;
+/// 
+/// </code></example>
+public class TypeModule : MonoBehaviour {
     #region 入力判定モード
-    ///<summary>文字入力判定モードです。</summary>
-    public enum MODE{
+    ///<summary>
+    ///文字入力判定モードです。
+    ///</summary>
+    public enum MODE {
         ///<summary>
         ///キーボードの入力を元に、文字列の生成をエミュレートします。
         ///キーボード入力から文字列を取得したい場合に使用してください。
@@ -26,20 +51,21 @@ public class TypeModule : MonoBehaviour{
     #endregion
 
     #region Unity共通処理
-    void Start(){
+    void Start() {
         CreateConvertTables();
     }
 
-    void Update(){
+    void Update() {
     }
 
-    private void OnGUI(){
-        if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None){
-            if (IsKana){
-                Debug.Log(m_convertTables.Key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
-            }
-            else{
-                Debug.Log(m_convertTables.Key2Roma.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+    private void OnGUI() {
+        if (IsRun) {
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None) {
+                if (IsKana) {
+                    Debug.Log(m_convertTables.Key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+                } else {
+                    Debug.Log(m_convertTables.Key2Roma.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+                }
             }
         }
     }
@@ -60,15 +86,39 @@ public class TypeModule : MonoBehaviour{
         "                  タイピングゲームで、お題の文字と一致するかどうかを確認したい場合に利用してください。"
             )]
     #endregion
-    [SerializeField] private MODE m_mode = MODE.MODE_INPUT;
-    public MODE Mode
-    {
+    [SerializeField, PropertyBackingField("Mode")] private MODE m_mode = MODE.MODE_INPUT;
+    public MODE Mode {
         get { return m_mode; }
         set { m_mode = value; }
     }
 
-    #region 
+    #region
+    [Tooltip(
+       "現在入力を受け付けているか\n" +
+       "[false]にした場合、入力チェックを行わなくなります。ポーズ時やゲーム外の時に使用してください。"
+       )]
+    [SerializeField, PropertyBackingField("IsRun")] private bool m_isRun = true;
+    #endregion
+    public bool IsRun {
+        get { return m_isRun; }
+        set { m_isRun = value; } 
+    }
+
+    #region
+    [Tooltip(
+        "JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。\n" +
+        "[MODE_INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。\n" +
+        "[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2RomaCsv]から文字列生成をエミュレートします。\n"
+        )]
+    [SerializeField, PropertyBackingField("IsKana")] private bool m_isKana = false;
+    #endregion
+    public bool IsKana {
+        get { return m_isKana; }
+        set { m_isKana = value; }
+    }
+
     [Header("以下詳細設定 (指定しなくても動きます)")]
+    #region 
     [Tooltip(
         "キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
@@ -81,7 +131,7 @@ public class TypeModule : MonoBehaviour{
 
        )]
     #endregion
-    [SerializeField] private TextAsset m_keyCode2RomaCsv;
+    [SerializeField, PropertyBackingField("KeyCode2RomaCsv")] private TextAsset m_keyCode2RomaCsv;
     public TextAsset KeyCode2RomaCsv{
         get { return m_keyCode2RomaCsv; }
         set{
@@ -104,7 +154,7 @@ public class TypeModule : MonoBehaviour{
         "shi,し\n"
    )]
     #endregion
-    [SerializeField] private TextAsset m_roma2KanaCsv;
+    [SerializeField, PropertyBackingField("Roma2KanaCsv")] private TextAsset m_roma2KanaCsv;
     public TextAsset Roma2KanaCsv{
         get { return m_roma2KanaCsv; }
         set{
@@ -115,8 +165,8 @@ public class TypeModule : MonoBehaviour{
         }
     }
 
-    #region
     [Space(10)]
+    #region
     [Tooltip(
         "キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイル\n" +
         "JISかな入力など、日本語を直接入力する方式を使用する際に参照します。\n" +
@@ -130,7 +180,7 @@ public class TypeModule : MonoBehaviour{
         "ふ,50,0,0 \n"
        )]
     #endregion
-    [SerializeField] private TextAsset m_keyCode2KanaMidCsv;
+    [SerializeField, PropertyBackingField("KeyCode2KanaMidCsv")] private TextAsset m_keyCode2KanaMidCsv;
     public TextAsset KeyCode2KanaMidCsv{
         get { return m_keyCode2KanaMidCsv; }
         set{
@@ -153,7 +203,7 @@ public class TypeModule : MonoBehaviour{
         "き゛,ぎ\n"
    )]
     #endregion
-    [SerializeField] private TextAsset m_kanaMid2KanaCsv;
+    [SerializeField, PropertyBackingField("KanaMid2KanaCsv")] private TextAsset m_kanaMid2KanaCsv;
     public TextAsset KanaMid2KanaCsv {
         get { return m_kanaMid2KanaCsv; }
         set {
@@ -164,27 +214,14 @@ public class TypeModule : MonoBehaviour{
         }
     }
 
-    #region
     [Space(10)]
-    [Tooltip(
-        "JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。\n" +
-        "[MODE_INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。\n" +
-        "[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2RomaCsv]から文字列生成をエミュレートします。\n"
-        )]
-    #endregion
-    [SerializeField] private bool m_isKana = false;
-    public bool IsKana{
-        get { return m_isKana; }
-        set { m_isKana = value; }
-    }
-
     #region
     [Tooltip(
        "CapsLockの状態を反映させるかどうか。\n" +
        "[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。"
        )]
+    [SerializeField, PropertyBackingField("IsCheckCapsLock")] private bool m_isCheckCapsLock = true;
     #endregion
-    [SerializeField] private bool m_isCheckCapsLock = true;
     public bool IsCheckCapsLock{
         get { return m_isCheckCapsLock; }
         set{

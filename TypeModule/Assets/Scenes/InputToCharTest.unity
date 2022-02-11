@@ -153,10 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mode: 0
-  m_keyCode2CharCsv: {fileID: 4900000, guid: c872369936da72142b7bedd69191dfc3, type: 3}
+  m_isRun: 1
+  m_isKana: 0
+  m_keyCode2RomaCsv: {fileID: 0}
   m_roma2KanaCsv: {fileID: 0}
   m_keyCode2KanaMidCsv: {fileID: 0}
-  m_isKana: 0
+  m_kanaMid2KanaCsv: {fileID: 0}
   m_isCheckCapsLock: 1
 --- !u!4 &669584178
 Transform:
