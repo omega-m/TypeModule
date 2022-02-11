@@ -31,21 +31,21 @@ public class TypeModule : MonoBehaviour{
             TextAsset tmp = new TextAsset();
             tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
             Debug.Assert(tmp != null, "TypeModule::デフォルト指定のKeyCode2CharCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
-            KeyCode2CharCsv = tmp;
+            m_keyCode2CharCsv = tmp;
         }
         LoadKeyCode2CharTable();
         if (m_roma2KanaCsv == null){
             TextAsset tmp = new TextAsset();
             tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
             Debug.Assert(tmp != null, "TypeModule::デフォルト指定のRoma2KanaCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
-            Roma2KanaCsv = tmp;
+            m_roma2KanaCsv = tmp;
         }
         LoadRomaToKanaTable();
         if (m_keyCode2KanaMidCsv == null){
             TextAsset tmp = new TextAsset();
             tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
             Debug.Assert(tmp != null, "TypeModule::デフォルト指定のKeyCode2KanaMidCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
-            KeyCode2KanaMidCsv = tmp;
+            m_keyCode2KanaMidCsv = tmp;
         }
         LoadKeyCodeToKanaMidTable();
     }
@@ -205,6 +205,7 @@ public class TypeModule : MonoBehaviour{
     ///</summary>
     private void LoadRomaToKanaTable(){
         m_roma2Kana = new Roma2KanaTable(Roma2KanaCsv);
+        m_kana2Roma = new Kana2RomaTable(Roma2KanaCsv);
     }
 
     ///<summary>
@@ -220,5 +221,6 @@ public class TypeModule : MonoBehaviour{
     keyCode2CharTable       m_key2char;
     keyCode2CharTable       m_key2kanaMid;
     Roma2KanaTable          m_roma2Kana;
+    Kana2RomaTable          m_kana2Roma;
     #endregion 
 }
