@@ -23,7 +23,7 @@ namespace tpInner {
     /// //キーコードから文字に変換し、ログに出力
     /// private void OnGUI()
     /// {
-    ///     if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None){
+    ///     if (Event.current.type == EventType.KeyDown &amp;&amp; Event.current.keyCode != KeyCode.None){
     ///         Debug.Log(table.Key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
     ///         Debug.Log(table.Key2Roma.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
     ///     }
