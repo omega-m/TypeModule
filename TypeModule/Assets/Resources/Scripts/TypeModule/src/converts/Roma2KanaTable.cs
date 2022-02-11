@@ -39,7 +39,7 @@ namespace tpInner{
     /// }
     /// 
     /// 
-    /// //ローマ字文字列から指定したひらがな文字列へ変換できるかどうかを取得
+    /// //ローマ字文字列から、指定したひらがな文字列へ変換できるかどうかを取得
     /// string roma2 = "ty";
     /// string kana2 = "ちゅ";
     /// Debug.Log(table.CanConvert(roma2, kana2));           // "false"
@@ -95,11 +95,11 @@ namespace tpInner{
         }
 
         /// <summary>
-        /// ローマ字列[aRoma]に対して、 を打つことができるか
+        /// ローマ字列[aRoma]に対して、ひらがな文字列[aKana]を打つことができるか
         /// </summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
         /// <param name="aKana">ひらがな文字列(例:きゃ)</param>
-        /// <param name="aIsPossibility">true:[aRoma]に追加でローマ字を足すことで、打つ方法があるかもチェックする</param>
+        /// <param name="aIsPossibility">true:[aRoma]に、追加でローマ字を足すことで、打つ方法があるかもチェックする</param>
         /// <returns>true:打つ方法がある</returns>
         public bool CanConvert(string aRoma, string aKana, bool aIsPossibility = false){
             Roma2KanaNode node = GetNode(aRoma);

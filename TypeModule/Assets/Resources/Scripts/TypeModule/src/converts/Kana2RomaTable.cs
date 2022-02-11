@@ -64,7 +64,6 @@ namespace tpInner {
             }
             return "";
         }
-
         #endregion
 
         #region プロパティ
@@ -76,7 +75,7 @@ namespace tpInner {
 
         #region 内部メソッド
         ///<summary>
-        ///ローマ字列からひらがな文字列に変換するためのツリーを作成
+        ///ローマ字列からひらがな文字列に変換するためのテーブルを作成
         ///</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
         private void CreateTable(TextAsset aCSV) {
