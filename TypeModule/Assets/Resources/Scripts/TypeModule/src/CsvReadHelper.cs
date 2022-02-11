@@ -17,12 +17,13 @@ namespace tpInner{
     /// 
     ///     ...
     ///     
-    /// public TextAsset csvSrc;
+    /// public TextAsset csvAsset;
     ///
     ///     ...
     ///     
-    /// //csvデータ読み込み
-    /// CsvReadHelper csv = new CsvReadHelper(csvSrc);
+    /// //csvデータ読み込み(どちらでもOK)
+    /// CsvReadHelper csv = new CsvReadHelper(csvAsset);
+    /// //CsvReadHelper csv = new CsvReadHelper("filePath");
     /// 
     /// //各データにアクセス (1)
     /// for(int i = 0;i &lt; csv.RecordNum;++i){
@@ -40,14 +41,56 @@ namespace tpInner{
     /// </code></example>
     public class CsvReadHelper{
 #region 生成
+  ///<summary>
+        ///<para>CSV読み込み用のヘルパークラスです。</para>
+        ///</summary>
+        ///<param name="aFilePath">
+        ///<para>CSV(.csv)形式のファイル格納先を指定。Resourceフォルダ内がカレントディレクトリとなります。</para>
+        ///<para>文字コードは[UTF-8]としてください。</para>
+        ///<para>フィールドにコンマ[,]を含む場合は、ダブルクォート["]で囲む必要があります。</para>
+        ///</param>
+        public CsvReadHelper(string aFilePath){
+            Load(aFilePath);
+        }
+
         ///<summary>
         ///<para>CSV読み込み用のヘルパークラスです。</para>
         ///</summary>
         ///<param name="aFile">
-        ///<para>CSV(.csv)形式のファイルを指定。文字コードは[UTF-8]としてください。</para>
+        ///<para>CSV(.csv)形式のファイルアセットを指定。文字コードは[UTF-8]としてください。</para>
         ///<para>フィールドにコンマ[,]を含む場合は、ダブルクォート["]で囲む必要があります。</para>
         ///</param>
         public CsvReadHelper(TextAsset aFile){
+            Load(aFile);
+        }
+#endregion
+
+#region メソッド
+        ///<summary>
+        ///CSVファイルデータの読み込み
+        ///</summary>
+        ///<param name="aFilePath">
+        ///<para>CSV(.csv)形式のファイル格納先を指定。Resourceフォルダ内がカレントディレクトリとなります。</para>
+        ///<para>文字コードは[UTF-8]としてください。</para>
+        ///<para>フィールドにコンマ[,]を含む場合は、ダブルクォート["]で囲む必要があります。</para>
+        ///</param>
+        private void Load(string aFilePath){
+            TextAsset file = new TextAsset();
+            file = Resources.Load(aFilePath, typeof(TextAsset)) as TextAsset;
+            Load(file);
+        }
+
+        ///<summary>
+        ///CSVファイルデータの読み込み
+        ///</summary>
+        ///<param name="aFile">
+        ///<para>CSV(.csv)形式のファイルアセットを指定。文字コードは[UTF-8]としてください。</para>
+        ///<para>フィールドにコンマ[,]を含む場合は、ダブルクォート["]で囲む必要があります。</para>
+        ///</param>
+        private void Load(TextAsset aFile) {
+            m_datas.Clear();
+            FieldMax = -1;
+
             StringReader reader = new StringReader(aFile.text);
             while (reader.Peek() != -1){
                 string line = reader.ReadLine();
