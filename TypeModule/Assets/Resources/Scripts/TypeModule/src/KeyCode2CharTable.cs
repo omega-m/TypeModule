@@ -125,7 +125,7 @@ namespace tpInner{
         #endregion
 
         #region メンバ
-        private Dictionary<int, char> m_map       = new Dictionary<int, char>();
+        private SortedDictionary<int, char> m_map       = new SortedDictionary<int, char>();
         #endregion
 
         #region 内部定数
