@@ -27,35 +27,7 @@ public class TypeModule : MonoBehaviour{
 
     #region Unity共通処理
     void Start(){
-        if (KeyCode2RomaCsv == null){
-            TextAsset tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
-            Debug.Assert(tmp != null, "TypeModule::デフォルト指定のKeyCode2RomaCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
-            m_keyCode2RomaCsv = tmp;
-        }
-        LoadKeyCode2RomaTable();
-        if (m_roma2KanaCsv == null){
-            TextAsset tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
-            Debug.Assert(tmp != null, "TypeModule::デフォルト指定のRoma2KanaCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
-            m_roma2KanaCsv = tmp;
-        }
-        LoadRoma2KanaTable();
-
-        if (m_keyCode2KanaMidCsv == null){
-            TextAsset tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
-            Debug.Assert(tmp != null, "TypeModule::デフォルト指定のKeyCode2KanaMidCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
-            m_keyCode2KanaMidCsv = tmp;
-        }
-        LoadKeyCode2KanaMidTable();
-        if (m_kanaMid2KanaCsv == null) {
-            TextAsset tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/JISkana", typeof(TextAsset)) as TextAsset;
-            Debug.Assert(tmp != null, "TypeModule::デフォルト指定のKanaMid2KanaCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
-            m_kanaMid2KanaCsv = tmp;
-        }
-        LoadKanaMid2KanaTable();
+        CreateConvertTables();
     }
 
     void Update(){
@@ -64,10 +36,10 @@ public class TypeModule : MonoBehaviour{
     private void OnGUI(){
         if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None){
             if (IsKana){
-                Debug.Log(m_key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+                Debug.Log(m_convertTables.Key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
             }
             else{
-                Debug.Log(m_key2Roma.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+                Debug.Log(m_convertTables.Key2Roma.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
             }
         }
     }
@@ -115,7 +87,7 @@ public class TypeModule : MonoBehaviour{
         set{
             if (m_keyCode2RomaCsv != value){
                 m_keyCode2RomaCsv = value;
-                LoadKeyCode2RomaTable();
+                m_convertTables.SetKeyCode2RomaTable(m_keyCode2RomaCsv);
             }
         }
     }
@@ -138,7 +110,7 @@ public class TypeModule : MonoBehaviour{
         set{
             if (m_roma2KanaCsv != value){
                 m_roma2KanaCsv = value;
-                LoadRoma2KanaTable();
+                m_convertTables.SetRoma2KanaTable(m_roma2KanaCsv);
             }
         }
     }
@@ -164,7 +136,7 @@ public class TypeModule : MonoBehaviour{
         set{
             if (m_keyCode2KanaMidCsv != value){
                 m_keyCode2KanaMidCsv = value;
-                LoadKeyCode2KanaMidTable();
+                m_convertTables.SetKeyCode2KanaMidTable(m_keyCode2KanaMidCsv);
             }
         }
     }
@@ -187,11 +159,10 @@ public class TypeModule : MonoBehaviour{
         set {
             if (m_kanaMid2KanaCsv != value) {
                 m_kanaMid2KanaCsv = value;
-                LoadKanaMid2KanaTable();
+                m_convertTables.SetKanaMid2KanaTable(m_kanaMid2KanaCsv);
             }
         }
     }
-
 
     #region
     [Space(10)]
@@ -217,51 +188,38 @@ public class TypeModule : MonoBehaviour{
     public bool IsCheckCapsLock{
         get { return m_isCheckCapsLock; }
         set{
+            m_convertTables.IsCheckCapsLock = value;
             m_isCheckCapsLock = value;
-            m_key2Roma.IsCheckCapsLock = value;
         }
     }
     #endregion
 
     #region 内部メソッド
     ///<summary>
-    ///キーの入力(KeyCode) => ローマ字文字への変換テーブルを作成
+    /// 文字列生成時に使用する、変換テーブルを作成
     ///</summary>
-    private void LoadKeyCode2RomaTable(){
-        m_key2Roma = new keyCode2CharTable(KeyCode2RomaCsv);
-        m_key2Roma.IsCheckCapsLock = IsCheckCapsLock;
-    }
+    private void CreateConvertTables() {
+        m_convertTables = new ConvertTableMgr();
+        m_convertTables.IsCheckCapsLock = IsCheckCapsLock;
 
-    ///<summary>
-    ///ローマ字文字列 => ひらがな文字列への変換テーブルを作成
-    ///</summary>
-    private void LoadRoma2KanaTable(){
-        m_roma2Kana = new Roma2KanaTable(Roma2KanaCsv);
-        m_kana2Roma = new Kana2RomaTable(Roma2KanaCsv);
-    }
+        //インスペクターのファイルアセットで上書き
+        if (KeyCode2RomaCsv != null) {
+            m_convertTables.SetKeyCode2RomaTable(KeyCode2RomaCsv);
+        }
+        if (Roma2KanaCsv != null) {
+            m_convertTables.SetRoma2KanaTable(Roma2KanaCsv);
+        }
+        if (KeyCode2KanaMidCsv != null) {
+            m_convertTables.SetKeyCode2KanaMidTable(KeyCode2KanaMidCsv);
+        }
+        if (KanaMid2KanaCsv != null) {
+            m_convertTables.SetKanaMid2KanaTable(KanaMid2KanaCsv);
+        }
 
-    ///<summary>
-    ///キーの入力(KeyCode) => ひらがな中間文字への変換テーブルを作成
-    ///</summary>
-    private void LoadKeyCode2KanaMidTable(){
-        m_key2kanaMid = new keyCode2CharTable(KeyCode2KanaMidCsv);
-        m_key2kanaMid.IsCheckCapsLock = false; //こちらはCapsLockの影響を受けない
-    }
-
-    ///<summary>
-    ///ひらがな中間文字列　=> ひらがな文字列への変換テーブルを作成
-    ///</summary>
-    private void LoadKanaMid2KanaTable() {
-        m_kanaMid2Kana = new KanaMid2KanaTable(KanaMid2KanaCsv);
     }
     #endregion
 
     #region メンバ
-    keyCode2CharTable       m_key2Roma;
-    Roma2KanaTable          m_roma2Kana;
-    Kana2RomaTable          m_kana2Roma;
-
-    keyCode2CharTable       m_key2kanaMid;
-    KanaMid2KanaTable       m_kanaMid2Kana;
+    ConvertTableMgr m_convertTables;
     #endregion 
 }
