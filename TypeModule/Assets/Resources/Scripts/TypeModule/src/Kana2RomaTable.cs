@@ -6,6 +6,7 @@ namespace tpInner {
 
     /// <summary>
     /// ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。
+    /// お台文からガイド用のローマ字列を作成する時に使用
     /// </summary>
     /// <example><code>
     /// using tpInner;

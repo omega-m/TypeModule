@@ -76,7 +76,7 @@ namespace tpInner{
         ///<para>ローマ字列からひらがな文字列への変換テーブルを定義したファイル</para>
         ///<para>［形式］ローマ字列,ひらがな文字列,</para>
         ///<para>［例］kya,きゃ</para>
-        ///</param>m_possibilityKanas
+        ///</param>
         public Roma2KanaTable(TextAsset aCSV){
             CreateTree(aCSV);
         }
@@ -95,7 +95,7 @@ namespace tpInner{
         }
 
         /// <summary>
-        /// ローマ字列[aRoma]に対して、ひらがな[aKana]を打つことができるか
+        /// ローマ字列[aRoma]に対して、 を打つことができるか
         /// </summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
         /// <param name="aKana">ひらがな文字列(例:きゃ)</param>
