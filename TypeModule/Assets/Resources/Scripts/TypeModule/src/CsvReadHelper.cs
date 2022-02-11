@@ -99,7 +99,7 @@ namespace tpInner{
                     CsvTextFieldParser parser = new CsvTextFieldParser(stream, Encoding.GetEncoding("UTF-8"));
                     parser.SetDelimiter(',');
                     parser.HasFieldsEnclosedInQuotes = true;
-                    parser.TrimWhiteSpace = true;
+                    parser.TrimWhiteSpace = false;
 
                     while (!parser.EndOfData){
                         string[] row = parser.ReadFields();

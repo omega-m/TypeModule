@@ -15,6 +15,7 @@ namespace tpInner {
     /// //初期化処理
     /// KanaMid2KanaTable table = new KanaMid2KanaTable(csvSrc);
     /// 
+    /// 
     /// //ひらがなの中間文字列から、ひらがな文字列に変換
     /// Debug.Log(table.Convert("あ"));     //""
     /// Debug.Log(table.Convert("か゛"));   //"が"
@@ -22,6 +23,16 @@ namespace tpInner {
     /// Debug.Log(table.Convert("は"));     //""
     /// Debug.Log(table.Convert("は゛"));   //"ば"
     ///
+    /// 
+    /// //ひらがなの中間文字列から、変換できるひらがながあるかを取得
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("あ"));          // false
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か"));          // false
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か゛"));        // true
+    /// //将来変換できる可能性があるかもチェック
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か", true));    // true
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か゛", true));  // true
+    /// 
+    /// 
     /// //ひらがなの中間文字列から、指定したひらがな文字列へ変換できるかどうかを取得
     /// Debug.Log(table.CanConvert("は゛", "ば"));            //true
     /// Debug.Log(table.CanConvert("は゛", "は"));            //false
@@ -50,12 +61,34 @@ namespace tpInner {
         /// <summary>
         /// ひらがなの中間文字列[aKanaMid]から変換できるひらがな文字列を取得。
         /// </summary>
-        /// <param name="aKanaMid">ひらかな文字列</param>
+        /// <param name="aKanaMid">ひらかな中間文字列</param>
         /// <returns>ひらがな文字列、変換できない場合は空文字列</returns>
         public string Convert(string aKanaMid) {
             string ret;
             if (!m_mid2Kana.TryGetValue(aKanaMid, out ret)) { return ""; }
             return ret;
+        }
+
+        /// <summary>
+        /// ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがな文字列があるか
+        /// </summary>
+        /// <param name="aKanaMid">ひらかな中間文字列</param>
+        /// <param name="aIsPossibility">true:[aKanaMid]に、追加でひらがなの中間文字列を足すことで、打つ方法があるかもチェックする</param>
+        /// <returns>true:打つことができる文字列がある</returns>
+        public bool CanConvert(string aKanaMid, bool aIsPossibility = false) {
+            if (m_mid2Kana.ContainsKey(aKanaMid)) {
+                return true;
+            }
+            if (aIsPossibility) {
+                //「゛」と「゜」を後ろに付けることで、打てるひらがながあるかチェック
+                if (m_mid2Kana.ContainsKey(aKanaMid + "゛")) {
+                    return true;
+                }
+                if (m_mid2Kana.ContainsKey(aKanaMid + "゛")) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

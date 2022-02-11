@@ -4,9 +4,9 @@ using UnityEngine;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace tpInner{
+namespace tpInner {
 
-#region メモ
+    #region メモ
     // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
     //
     // PossibilityKanasに関しては、見つかった地点から下方向に向けて、一致している数を事前にチェックし、そのぶんのデータを返却するだけで終わりそう
@@ -34,9 +34,17 @@ namespace tpInner{
     /// string roma1 = "kya";
     /// string kana1 = table.Convert(roma1);
     /// if(kana1.Length &gt; 0){
-    ///     //ひらがなへ変換できた
     ///     Debug.Log(kana1);    // "きゃ"
     /// }
+    /// 
+    /// 
+    /// //ローマ字文字列から、変換できるひらがながあるかを取得
+    /// Debug.Log(table.CanConvert("a"));             // false
+    /// Debug.Log(table.CanConvert("sh"));            // false
+    /// Debug.Log(table.CanConvert("shi"));           // true
+    /// //将来変換できる可能性があるかもチェック
+    /// Debug.Log(table.CanConvert("sh", true));      // true
+    /// Debug.Log(table.CanConvert("shi", true));     // true
     /// 
     /// 
     /// //ローマ字文字列から、指定したひらがな文字列へ変換できるかどうかを取得
@@ -95,6 +103,20 @@ namespace tpInner{
         }
 
         /// <summary>
+        /// ローマ字列[aRoma]に対して、変換できるひらがな文字列があるか
+        /// </summary>
+        /// <param name="aRoma">ローマ字列</param>
+        /// <param name="aIsPossibility">true:[aKanaMid]に、追加でローマ字列を足すことで、打つ方法があるかもチェックする</param>
+        /// <returns>true:打つことができる文字列がある</returns>
+        public bool CanConvert(string aRoma, bool aIsPossibility = false) {
+            Roma2KanaNode node = GetNode(aRoma);
+            if (node == null) {return false;}
+            if (node.HasKana) { return true;}
+            if (aIsPossibility) {return true;}
+            return false;
+        }
+
+        /// <summary>
         /// ローマ字列[aRoma]に対して、ひらがな文字列[aKana]を打つことができるか
         /// </summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
@@ -130,9 +152,18 @@ namespace tpInner{
         /// </summary>
         /// <param name="aRoma">ローマ字列</param>
         /// <returns>true:先頭の[n]を[ん]に変換できる</returns>
-        static bool CanConverFirstN(string aRoma){
+        static public bool CanConverFirstN(string aRoma){
             if(aRoma.Length < 2) { return false; };
             return Regex.IsMatch(aRoma, "^n[^aiueony]");
+        }
+
+        /// <summary>
+        /// ローマ字列[aRoma]の先頭文字が[-]かどうかを取得します
+        /// </summary>
+        /// <param name="aRoma">ローマ字列</param>
+        /// <returns>true:先頭が[-]で[ー]に変換できる</returns>
+        static public bool CanConverFirstHyphen(string aRoma) {
+            return aRoma.Length > 0 && aRoma[0] == '-';
         }
         #endregion
 
@@ -172,15 +203,12 @@ namespace tpInner{
         /// <param name="aRoma">ローマ字列(例:kya)</param>
         /// <returns>無い場合:null</returns>
         private Roma2KanaNode GetNode(string aRoma){
-#if UNITY_EDITOR
-            for (int i = 0; i < aRoma.Length; ++i){
-                Debug.Assert(char.IsLower(char.ToLower(aRoma[i])),"Roma2KanaTable::GetNode() aRoma内に英語以外の文字を検知");
-            }
-#endif
             Roma2KanaNode ret = m_treeRoot;
             for(int i = 0;i < aRoma.Length; ++i){
                 if (ret.HasKana) { return null; }
                 if (ret.Children == null) { return null; }
+                char ch = char.ToLower(aRoma[i]);
+                if (!char.IsLower(ch)) { return null; }
                 ret = ret.Children[Roma2KanaNode.Alpha2ChildIdx(char.ToLower(aRoma[i]))];
                 if (ret == null) { return null; }
             }

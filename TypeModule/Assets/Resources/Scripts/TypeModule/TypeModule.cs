@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using tpInner;
 using Candlelight;
+using UnityEngine.UI;
 
 ///<summary>
 ///キーボードの入力を元に、文字入力の判定を担当するモジュールです。
@@ -13,15 +14,21 @@ using Candlelight;
 ///     
 /// module = GetComponent<TypeModule>();
 ///     
-/// //入力判定モードを文字列生成モードに切り替え
+/// 
+/// //文字列生成モードに切り替え
 /// Mode = TypeModule.MODE.MODE_INPUT;
 /// 
+/// //英語入力状態へ
+/// module.IsInputEng = true;
+/// 
+/// //かな入力入力状態へ
+/// module.IsKana = true;
+/// 
+/// //BSで文字を消せるかどうか
+/// module.IsBS     = true;
 /// 
 /// 
 /// //以下オプションです================================
-/// 
-/// //ローマ字入力から、JISかな入力に切り替え
-/// module.IsKana = true;
 /// 
 /// //CapsLockの状態を反映させないように切り替え
 /// module.IsCheckCapsLock = false;
@@ -31,6 +38,7 @@ using Candlelight;
 /// 
 /// </code></example>
 public class TypeModule : MonoBehaviour {
+
     #region 入力判定モード
     ///<summary>
     ///文字入力判定モードです。
@@ -51,20 +59,27 @@ public class TypeModule : MonoBehaviour {
     #endregion
 
     #region Unity共通処理
-    void Start() {
+    void Awake() {
         CreateConvertTables();
+        CreateInputEmulator();
     }
 
     void Update() {
+        //test============
+        testInput.text = m_inputEmulator.OutStr;
+        testInputRaw.text = m_inputEmulator.OutStrRaw;
+        //test============
     }
 
     private void OnGUI() {
         if (IsRun) {
-            if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None) {
-                if (IsKana) {
-                    Debug.Log(m_convertTables.Key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
-                } else {
-                    Debug.Log(m_convertTables.Key2Roma.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+            if (Event.current.type == EventType.KeyDown) {
+                switch (Mode) {
+                    case MODE.MODE_INPUT:
+                        m_inputEmulator.AddInput(Event.current);
+                        break;
+                    case MODE.MODE_COMPARE:
+                        break;
                 }
             }
         }
@@ -114,7 +129,46 @@ public class TypeModule : MonoBehaviour {
     #endregion
     public bool IsKana {
         get { return m_isKana; }
-        set { m_isKana = value; }
+        set {
+            m_isKana = value;
+            if (m_inputEmulator != null) {
+                m_inputEmulator.IsKana = IsKana;
+            }
+        }
+    }
+
+    [Header("Mode = MODE_INPUT の時の設定")]
+    #region 
+    [Tooltip(
+        "[true]英語入力モード\n" +
+        "[false]日本語入力モード"
+       )]
+    [SerializeField, PropertyBackingField("IsInputEng")] private bool m_isInputEng = false;
+    #endregion
+    public bool IsInputEng {
+        get { return m_isInputEng; }
+        set {
+            m_isInputEng = value;
+            if(m_inputEmulator != null) {
+                m_inputEmulator.IsInputEng = IsInputEng;
+            }
+        }
+    }
+
+    #region 
+    [Tooltip(
+        "BackSoaceで文字を消せるかどうか"
+       )]
+    [SerializeField, PropertyBackingField("IsBS")] private bool m_isBS = true;
+    #endregion
+    public bool IsBS {
+        get { return m_isBS; }
+        set {
+            m_isBS = value;
+            if (m_inputEmulator != null) {
+                m_inputEmulator.IsBS = IsBS;
+            }
+        }
     }
 
     [Header("以下詳細設定 (指定しなくても動きます)")]
@@ -130,14 +184,16 @@ public class TypeModule : MonoBehaviour {
         "s,115,0,0\n"
 
        )]
-    #endregion
     [SerializeField, PropertyBackingField("KeyCode2RomaCsv")] private TextAsset m_keyCode2RomaCsv;
+    #endregion
     public TextAsset KeyCode2RomaCsv{
         get { return m_keyCode2RomaCsv; }
         set{
             if (m_keyCode2RomaCsv != value){
                 m_keyCode2RomaCsv = value;
-                m_convertTables.SetKeyCode2RomaTable(m_keyCode2RomaCsv);
+                if (m_convertTableMgr != null) {
+                    m_convertTableMgr.SetKeyCode2RomaTable(m_keyCode2RomaCsv);
+                }
             }
         }
     }
@@ -153,14 +209,16 @@ public class TypeModule : MonoBehaviour {
         "a,あ\n" +
         "shi,し\n"
    )]
-    #endregion
     [SerializeField, PropertyBackingField("Roma2KanaCsv")] private TextAsset m_roma2KanaCsv;
+    #endregion
     public TextAsset Roma2KanaCsv{
         get { return m_roma2KanaCsv; }
         set{
             if (m_roma2KanaCsv != value){
                 m_roma2KanaCsv = value;
-                m_convertTables.SetRoma2KanaTable(m_roma2KanaCsv);
+                if (m_convertTableMgr != null) {
+                    m_convertTableMgr.SetRoma2KanaTable(m_roma2KanaCsv);
+                }
             }
         }
     }
@@ -179,14 +237,16 @@ public class TypeModule : MonoBehaviour {
         "ぬ,49,1,0 \n" +
         "ふ,50,0,0 \n"
        )]
-    #endregion
     [SerializeField, PropertyBackingField("KeyCode2KanaMidCsv")] private TextAsset m_keyCode2KanaMidCsv;
+    #endregion
     public TextAsset KeyCode2KanaMidCsv{
         get { return m_keyCode2KanaMidCsv; }
         set{
             if (m_keyCode2KanaMidCsv != value){
                 m_keyCode2KanaMidCsv = value;
-                m_convertTables.SetKeyCode2KanaMidTable(m_keyCode2KanaMidCsv);
+                if (m_convertTableMgr != null) {
+                    m_convertTableMgr.SetKeyCode2KanaMidTable(m_keyCode2KanaMidCsv);
+                }
             }
         }
     }
@@ -202,14 +262,16 @@ public class TypeModule : MonoBehaviour {
         "か゛,が\n" +
         "き゛,ぎ\n"
    )]
-    #endregion
     [SerializeField, PropertyBackingField("KanaMid2KanaCsv")] private TextAsset m_kanaMid2KanaCsv;
+    #endregion
     public TextAsset KanaMid2KanaCsv {
         get { return m_kanaMid2KanaCsv; }
         set {
             if (m_kanaMid2KanaCsv != value) {
                 m_kanaMid2KanaCsv = value;
-                m_convertTables.SetKanaMid2KanaTable(m_kanaMid2KanaCsv);
+                if (m_convertTableMgr != null) {
+                    m_convertTableMgr.SetKanaMid2KanaTable(m_kanaMid2KanaCsv);
+                }
             }
         }
     }
@@ -225,7 +287,9 @@ public class TypeModule : MonoBehaviour {
     public bool IsCheckCapsLock{
         get { return m_isCheckCapsLock; }
         set{
-            m_convertTables.IsCheckCapsLock = value;
+            if (m_convertTableMgr != null) {
+                m_convertTableMgr.IsCheckCapsLock = value;
+            }
             m_isCheckCapsLock = value;
         }
     }
@@ -236,27 +300,45 @@ public class TypeModule : MonoBehaviour {
     /// 文字列生成時に使用する、変換テーブルを作成
     ///</summary>
     private void CreateConvertTables() {
-        m_convertTables = new ConvertTableMgr();
-        m_convertTables.IsCheckCapsLock = IsCheckCapsLock;
+        m_convertTableMgr = new ConvertTableMgr();
+        m_convertTableMgr.IsCheckCapsLock = IsCheckCapsLock;
 
         //インスペクターのファイルアセットで上書き
         if (KeyCode2RomaCsv != null) {
-            m_convertTables.SetKeyCode2RomaTable(KeyCode2RomaCsv);
+            m_convertTableMgr.SetKeyCode2RomaTable(KeyCode2RomaCsv);
         }
         if (Roma2KanaCsv != null) {
-            m_convertTables.SetRoma2KanaTable(Roma2KanaCsv);
-        }
-        if (KeyCode2KanaMidCsv != null) {
-            m_convertTables.SetKeyCode2KanaMidTable(KeyCode2KanaMidCsv);
-        }
-        if (KanaMid2KanaCsv != null) {
-            m_convertTables.SetKanaMid2KanaTable(KanaMid2KanaCsv);
+            m_convertTableMgr.SetRoma2KanaTable(Roma2KanaCsv);
         }
 
+        if (KeyCode2KanaMidCsv != null) {
+            m_convertTableMgr.SetKeyCode2KanaMidTable(KeyCode2KanaMidCsv);
+        }
+        if (KanaMid2KanaCsv != null) {
+            m_convertTableMgr.SetKanaMid2KanaTable(KanaMid2KanaCsv);
+        }
+    }
+
+    ///<summary>
+    /// キーボードの入力から文字列生成をエミュレートする為のクラスの作成
+    ///</summary>
+    private void CreateInputEmulator() {
+        m_inputEmulator = new InputEmulator(m_convertTableMgr);
+        m_inputEmulator.IsInputEng = IsInputEng;
+        m_inputEmulator.IsKana = IsKana;
+        m_inputEmulator.IsBS = IsBS;
     }
     #endregion
 
     #region メンバ
-    ConvertTableMgr m_convertTables;
-    #endregion 
+    ConvertTableMgr m_convertTableMgr;
+    InputEmulator m_inputEmulator;
+    #endregion
+
+
+    [Space(10)]
+    [Header("テスト用")]
+    public Text testInput;
+    public Text testInputRaw;
+
 }
