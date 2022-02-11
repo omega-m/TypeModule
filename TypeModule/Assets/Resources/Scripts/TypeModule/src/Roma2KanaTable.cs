@@ -68,7 +68,7 @@ namespace tpInner{
     /// 
     /// </code></example>
     public class Roma2KanaTable{
-# region 生成
+        # region 生成
         ///<summary>
         /// ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。
         /// </summary>
@@ -80,9 +80,9 @@ namespace tpInner{
         public Roma2KanaTable(TextAsset aCSV){
             CreateTree(aCSV);
         }
-#endregion
+        #endregion
 
-#region メソッド
+        #region メソッド
         /// <summary>
         /// ローマ字列[aRoma]から変換できるひらがな文字列を取得。
         /// </summary>
@@ -116,14 +116,15 @@ namespace tpInner{
         /// </summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
         /// <returns>true:追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧</returns>
-        public List<string> GetPossibilityKanas(string aRoma){
+        public List<string> GetPossibilityKanas(string aRoma)
+        {
             Roma2KanaNode node = GetNode(aRoma);
             if (node == null) { return new List<string>(); }
             return node.PossibilityKanas;
         }
-#endregion
+        #endregion
 
-#region 静的メソッド
+        #region 静的メソッド
         /// <summary>
         /// ローマ字列[aRoma]の先頭文字が[n]で、先頭文字を[ん]に変換できるかどうかを取得します
         /// </summary>
@@ -133,9 +134,20 @@ namespace tpInner{
             if(aRoma.Length < 2) { return false; };
             return Regex.IsMatch(aRoma, "^n[^aiueony]");
         }
-#endregion
+        #endregion
 
-#region 内部メソッド
+        #region プロパティ
+
+        /// <summary>
+        /// ひらがな文字列に変換できるローマ字列の最大文字数
+        /// </summary>
+        public int RomaMaxLength
+        {
+            get { return m_treeRoot.GetRomaMaxLength(); }
+        }
+        #endregion
+
+        #region 内部メソッド
         ///<summary>
         ///ローマ字列からひらがな文字列に変換するためのツリーを作成
         ///</summary>
@@ -175,11 +187,11 @@ namespace tpInner{
             }
             return ret;
         }
- #endregion
+        #endregion
 
-#region メンバ
+        #region メンバ
         private Roma2KanaNode m_treeRoot;
-#endregion
+        #endregion
     }
 
 
@@ -206,7 +218,7 @@ namespace tpInner{
     /// 
     /// </code></example>
     public class Roma2KanaNode{
-#region 生成
+        #region 生成
         ///<summary>
         /// <para>ルートノード生成関数</para>
         /// <para>外からこのクラスを作成する場合は、この関数を使用してください。</para>
@@ -214,9 +226,9 @@ namespace tpInner{
         static public Roma2KanaNode CreateRoot(){
             return new Roma2KanaNode("", "");
         }
-#endregion
+        #endregion
 
-#region メソッド
+        #region メソッド
         /// <summary>
         /// ローマ字列からひらがな文字列に変換する為の、新たな木ノードを追加(場合によっては、内部で再帰的に呼び出します)
         /// </summary>
@@ -282,7 +294,7 @@ namespace tpInner{
         /// </summary>
         /// <returns>ローマ字列の最長の長さ</returns>
         public int GetRomaMaxLength(){
-            int ret = Depth - 1;
+            int ret = Depth;
             if (Children != null){
                 foreach (Roma2KanaNode child in Children){
                     if (child != null){
@@ -292,9 +304,9 @@ namespace tpInner{
             }
             return ret;
         }
-#endregion
+        #endregion
 
-#region プロパティ
+        #region プロパティ
         /// <summary>
         /// <para>このノードの末尾アルファベット</para>
         /// <para>ルートノードの場合は[\0]を返却</para>
@@ -344,9 +356,9 @@ namespace tpInner{
         public List<string> PossibilityKanas{
             get { return m_possibilityKanas; }
         }
-#endregion
+        #endregion
 
-#region 静的メソッド
+        #region 静的メソッド
         /// <summary>
         /// アルファベットから、子ノードアクセス用の配列idxを取得します
         /// </summary>
@@ -364,9 +376,9 @@ namespace tpInner{
         static public int AlphaNum(){
             return (int)'z' - (int)'a' + 1;
         }
-#endregion
+        #endregion
 
-#region 内部メソッド
+        #region 内部メソッド
         /// <summary>
         /// <para>クラス内部からの生成用。</para>
         /// <para>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</para>
@@ -393,6 +405,6 @@ namespace tpInner{
             HasKana = (aKana.Length != 0);
             Kana = aKana;
         }
-#endregion
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ using tpInner;
 ///CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。
 /// </summary>
 public class TypeModule : MonoBehaviour{
-#region 入力判定モード
+    #region 入力判定モード
     ///<summary>文字入力判定モードです。</summary>
     public enum MODE{
         ///<summary>
@@ -23,9 +23,9 @@ public class TypeModule : MonoBehaviour{
         ///</summary>
         MODE_COMPARE,
     }
-#endregion
+    #endregion
 
-#region Unity共通処理
+    #region Unity共通処理
     void Start(){
         if (KeyCode2CharCsv == null){
             TextAsset tmp = new TextAsset();
@@ -40,6 +40,7 @@ public class TypeModule : MonoBehaviour{
             Debug.Assert(tmp != null, "TypeModule::デフォルト指定のRoma2KanaCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
             Roma2KanaCsv = tmp;
         }
+        Debug.Log(m_roma2Kana.RomaMaxLength);
         LoadRomaToKanaTable();
         if (m_keyCode2KanaMidCsv == null){
             TextAsset tmp = new TextAsset();
@@ -63,14 +64,14 @@ public class TypeModule : MonoBehaviour{
             }
         }
     }
-#endregion
+    #endregion
 
-#region メソッド
+    #region メソッド
     //public void Clear(){}
-#endregion
+    #endregion
 
-#region プロパティ
-#region
+    #region プロパティ
+    #region
     [Tooltip(
         "文字入力判定モードです。\n" +
         "【MODE_INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。\n" +
@@ -79,7 +80,7 @@ public class TypeModule : MonoBehaviour{
         "                  【m_targetText】で指定された文字列と比較し、その結果を格納します。\n" +
         "                  タイピングゲームで、お題の文字と一致するかどうかを確認したい場合に利用してください。"
             )]
-#endregion
+    #endregion
     [SerializeField] private MODE m_mode = MODE.MODE_INPUT;
     public MODE Mode
     {
@@ -87,7 +88,7 @@ public class TypeModule : MonoBehaviour{
         set { m_mode = value; }
     }
 
-#region 
+    #region 
     [Header("以下詳細設定 (指定しなくても動きます)")]
     [Tooltip(
         "キーの入力(KeyCode)から単体文字への変換テーブルを定義したファイル\n" +
@@ -100,7 +101,7 @@ public class TypeModule : MonoBehaviour{
         "s,115,0,0\n"
 
        )]
-#endregion
+    #endregion
     [SerializeField] private TextAsset m_keyCode2CharCsv;
     public TextAsset KeyCode2CharCsv{
         get { return m_keyCode2CharCsv; }
@@ -112,7 +113,7 @@ public class TypeModule : MonoBehaviour{
         }
     }
 
-#region
+    #region
     [Tooltip(
         "ローマ字文字列からひらがな文字列への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
@@ -123,7 +124,7 @@ public class TypeModule : MonoBehaviour{
         "a,あ\n" +
         "shi,し\n"
    )]
-#endregion
+    #endregion
     [SerializeField] private TextAsset m_roma2KanaCsv;
     public TextAsset Roma2KanaCsv{
         get { return m_roma2KanaCsv; }
@@ -135,7 +136,7 @@ public class TypeModule : MonoBehaviour{
         }
     }
 
-#region
+    #region
     [Space(10)]
     [Tooltip(
         "キーの入力(KeyCode)から文字の変換テーブルを定義したファイル\n" +
@@ -149,7 +150,7 @@ public class TypeModule : MonoBehaviour{
         "ぬ,49,1,0 \n" +
         "ふ,50,0,0 \n"
        )]
-#endregion
+    #endregion
     [SerializeField] private TextAsset m_keyCode2KanaMidCsv;
     public TextAsset KeyCode2KanaMidCsv{
         get { return m_keyCode2KanaMidCsv; }
@@ -161,26 +162,26 @@ public class TypeModule : MonoBehaviour{
         }
     }
 
-#region
+    #region
     [Space(10)]
     [Tooltip(
         "JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。\n" +
         "[MODE_INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。\n" +
         "[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2CharCsv]から文字列生成をエミュレートします。\n"
         )]
-#endregion
+    #endregion
     [SerializeField] private bool m_isKana = false;
     public bool IsKana{
         get { return m_isKana; }
         set { m_isKana = value; }
     }
 
-#region
+    #region
     [Tooltip(
        "CapsLockの状態を反映させるかどうか。\n" +
        "[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。"
        )]
-#endregion
+    #endregion
     [SerializeField] private bool m_isCheckCapsLock = true;
     public bool IsCheckCapsLock{
         get { return m_isCheckCapsLock; }
@@ -189,9 +190,9 @@ public class TypeModule : MonoBehaviour{
             m_key2char.IsCheckCapsLock = value;
         }
     }
-#endregion
+    #endregion
 
-#region 内部メソッド
+    #region 内部メソッド
     ///<summary>
     ///キーの入力(KeyCode) => 英語文字への変換テーブルを作成
     ///</summary>
@@ -214,11 +215,11 @@ public class TypeModule : MonoBehaviour{
         m_key2kanaMid = new keyCode2CharTable(KeyCode2KanaMidCsv);
         m_key2kanaMid.IsCheckCapsLock = false; //こちらはCapsLockの影響を受けない
     }
-#endregion
+    #endregion
 
-#region メンバ
+    #region メンバ
     keyCode2CharTable       m_key2char;
     keyCode2CharTable       m_key2kanaMid;
     Roma2KanaTable          m_roma2Kana;
-#endregion 
+    #endregion 
 }

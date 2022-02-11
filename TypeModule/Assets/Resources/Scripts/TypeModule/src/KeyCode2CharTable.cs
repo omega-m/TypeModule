@@ -54,7 +54,7 @@ namespace tpInner{
     /// 
     /// </code></example>
     public class keyCode2CharTable{
-#region 生成
+        #region 生成
         ///<summary>
         ///キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。
         ///</summary>
@@ -67,9 +67,9 @@ namespace tpInner{
             CreateTable(aCSV);
             IsCheckCapsLock = true;
         }
-#endregion
+        #endregion
 
-#region メソッド
+        #region メソッド
         ///<summary>キーの入力(KeyCode)から単体文字へ変換</summary>
         ///<param name="aKeyCode">キーの入力値</param>
         ///<param name="aIsShift">Shiftキーが押された状態か</param>
@@ -89,17 +89,17 @@ namespace tpInner{
             }
             return ret;
         }
-#endregion
+        #endregion
 
-#region プロパティ
+        #region プロパティ
         ///<summary>
         ///<para>CapsLockの状態を反映させるかどうか。</para>
         ///<para>[true]の場合、CapsLock中には、英語の大小文字を反転させます。</para>
         /// </summary>
         public bool IsCheckCapsLock { get; set; }
-#endregion
+        #endregion
 
-#region 内部メソッド
+        #region 内部メソッド
         ///<summary>
         ///キーの入力(KeyCode)から単体文字への変換テーブルを作成
         ///</summary>
@@ -122,15 +122,15 @@ namespace tpInner{
                 m_map.Add(key, record[CSV_CHAR_FIELD][0]);
             }
         }
-#endregion
+        #endregion
 
-#region メンバ
+        #region メンバ
         private Dictionary<int, char> m_map       = new Dictionary<int, char>();
-#endregion
+        #endregion
 
-#region 内部定数
+        #region 内部定数
         private const int SHIFT_OFS     = (1 << 9);
         private const int FN_OFS        = (1 << 10);
-#endregion 
+        #endregion 
     }
 }

@@ -40,8 +40,8 @@ namespace tpInner{
     /// }
     /// </code></example>
     public class CsvReadHelper{
-#region 生成
-  ///<summary>
+        #region 生成
+        ///<summary>
         ///<para>CSV読み込み用のヘルパークラスです。</para>
         ///</summary>
         ///<param name="aFilePath">
@@ -114,9 +114,9 @@ namespace tpInner{
                 FieldMax = Math.Max(list.Count, FieldMax);
             }
         }
-#endregion
+        #endregion
 
-#region プロパティ
+        #region プロパティ
         private List<List<string>> m_datas = new List<List<string>>();
         ///<summary>
         ///読み込んだCSVデータ
@@ -135,7 +135,7 @@ namespace tpInner{
         ///レコード数
         ///</summary>
         public int RecordNum { get { return Datas.Count; } }
-#endregion
+        #endregion
     };
 }
 
