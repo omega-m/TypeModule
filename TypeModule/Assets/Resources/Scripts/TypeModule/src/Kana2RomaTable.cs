@@ -6,7 +6,7 @@ namespace tpInner {
 
     /// <summary>
     /// ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。
-    /// お台文からガイド用のローマ字列を作成する時に使用
+    /// お台文からガイド用のローマ字列を作成する時などに使用
     /// </summary>
     /// <example><code>
     /// using tpInner;
@@ -26,6 +26,7 @@ namespace tpInner {
     /// 
     /// </code></example>
     public class Kana2RomaTable {
+
         #region 生成
         ///<summary>
         /// ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。
@@ -65,6 +66,14 @@ namespace tpInner {
         }
 
         #endregion
+
+        #region プロパティ
+        /// <summary>
+        /// ローマ字列に変換できるひらがな文字列の最大文字数
+        /// </summary>
+        public int KanaMaxLength { get; private set; }
+        #endregion 
+
         #region 内部メソッド
         ///<summary>
         ///ローマ字列からひらがな文字列に変換するためのツリーを作成
@@ -75,19 +84,22 @@ namespace tpInner {
             const int CSV_KANA_FIELD = 1;
 
             m_table = new SortedDictionary<string, List<string>>();
+            KanaMaxLength = 0;
 
             CsvReadHelper csv = new CsvReadHelper(aCSV);
             foreach (List<string> record in csv.Datas) {
                 List<string> romaList;
                 if (!m_table.TryGetValue(record[CSV_KANA_FIELD], out romaList)) {
                     m_table.Add(record[CSV_KANA_FIELD], new List<string>());
+                    KanaMaxLength = Mathf.Max(KanaMaxLength, record[CSV_KANA_FIELD].Length);
+                    
                     romaList = m_table[record[CSV_KANA_FIELD]];
                 }
                 romaList.Add(record[CSV_ROMA_FIELD].ToLower());
             }
         }
         #endregion
-
+     
         #region メンバ
         private SortedDictionary<string, List<string>> m_table;
         #endregion
