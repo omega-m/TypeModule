@@ -99,7 +99,7 @@ namespace tpInner{
         /// </summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
         /// <param name="aKana">ひらがな文字列(例:きゃ)</param>
-        /// <param name="aIsPossibility">true:ローマ字列[aRoma]に追加でローマ字を足すことで打つ方法があるかもチェック</param>
+        /// <param name="aIsPossibility">true:[aRoma]に追加でローマ字を足すことで、打つ方法があるかもチェックする</param>
         /// <returns>true:打つ方法がある</returns>
         public bool CanConvert(string aRoma, string aKana, bool aIsPossibility = false){
             Roma2KanaNode node = GetNode(aRoma);
