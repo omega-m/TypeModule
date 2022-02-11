@@ -141,8 +141,7 @@ namespace tpInner{
         /// <summary>
         /// ひらがな文字列に変換できるローマ字列の最大文字数
         /// </summary>
-        public int RomaMaxLength
-        {
+        public int RomaMaxLength{
             get { return m_treeRoot.GetRomaMaxLength(); }
         }
         #endregion

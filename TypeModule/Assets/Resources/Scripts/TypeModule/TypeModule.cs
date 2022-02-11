@@ -40,7 +40,6 @@ public class TypeModule : MonoBehaviour{
             Debug.Assert(tmp != null, "TypeModule::デフォルト指定のRoma2KanaCsvの読み込み失敗。TypeModuleのファイルパスを確認してください。");
             Roma2KanaCsv = tmp;
         }
-        Debug.Log(m_roma2Kana.RomaMaxLength);
         LoadRomaToKanaTable();
         if (m_keyCode2KanaMidCsv == null){
             TextAsset tmp = new TextAsset();
