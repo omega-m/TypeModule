@@ -142,6 +142,7 @@ public class TypeModule : MonoBehaviour {
     [Header("Mode = MODE_INPUT の時の設定")]
     #region 
     [Tooltip(
+        "入力モード\n" +
         "[true]英語入力モード\n" +
         "[false]日本語入力モード"
        )]
@@ -159,7 +160,7 @@ public class TypeModule : MonoBehaviour {
 
     #region 
     [Tooltip(
-        "BackSoaceで文字を消せるかどうか"
+        "BackSoaceキーを押した時、文字を消すかどうか"
        )]
     [SerializeField, PropertyBackingField("IsBS")] private bool m_isBS = true;
     #endregion
@@ -169,6 +170,22 @@ public class TypeModule : MonoBehaviour {
             m_isBS = value;
             if (m_inputEmulator != null) {
                 m_inputEmulator.IsBS = IsBS;
+            }
+        }
+    }
+
+    #region 
+    [Tooltip(
+        "Enterキーを押した時、確定前の文字列を確定するかどうか"
+       )]
+    [SerializeField, PropertyBackingField("IsEnter")] private bool m_isEnter = true;
+    #endregion
+    public bool IsEnter {
+        get { return m_isEnter; }
+        set {
+            m_isEnter = value;
+            if (m_inputEmulator != null) {
+                m_inputEmulator.IsEnter = IsEnter;
             }
         }
     }
@@ -329,6 +346,7 @@ public class TypeModule : MonoBehaviour {
         m_inputEmulator.IsInputEng = IsInputEng;
         m_inputEmulator.IsKana = IsKana;
         m_inputEmulator.IsBS = IsBS;
+        m_inputEmulator.IsEnter = IsEnter;
     }
     #endregion
 

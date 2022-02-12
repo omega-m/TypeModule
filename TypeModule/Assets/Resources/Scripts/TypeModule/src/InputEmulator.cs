@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace tpInner { 
+namespace tpInner {
 
     /// <summary>
     /// キーボードの入力から文字列生成をエミュレートします
@@ -48,7 +48,16 @@ namespace tpInner {
     /// input.IsInputEng = false;
     /// 
     /// //バックスペースキーで文字を消せないようにする
-    /// input.isBS = false;
+    /// input.IsBS = false;
+    /// 
+    /// //一文字削除
+    /// input.BackSpace();
+    /// 
+    /// //確定
+    /// input.Enter();
+    /// 
+    /// //エンターキーで文字を確定しないようにする
+    /// input.IsEnter = false;
     /// 
     /// </code></example>
     public class InputEmulator{
@@ -66,21 +75,6 @@ namespace tpInner {
         #endregion
 
         #region メソッド
-        /// <summary>
-        /// <para>内部データをクリアします。</para>
-        /// <para>入力された文字列は全てクリアされます</para>
-        /// </summary>
-        public void Clear() {
-            m_strDone.Clear();
-            m_strDoneRaws.Clear();
-            m_strWorkInner.Clear();
-            m_strWorkInner.Add("");
-            m_prevCharInner.Clear();
-            m_prevCharInner.Add("");
-            if(m_results != null) {
-                m_results.Dirty = true;
-            }
-        }
 
         /// <summary>
         /// キーボードからの入力文字を追加
@@ -92,21 +86,14 @@ namespace tpInner {
                 //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
                 //m_prevChar = "";
             } else {
-                if (aEvent.keyCode == KeyCode.Backspace) {//bs
-                    if (IsBS) {
-                        if (m_strWork.Length > 0) {
-                            m_strWork = m_strWork.Substring(0, m_strWork.Length - 1);
-                        } else if (m_strDone.Count > 0) {
-                            int idx = m_strDone.Count - 1;
-                            m_strDone[idx] = m_strDone[idx].Substring(0, m_strDone[idx].Length - 1);
-                            if (m_strDone[idx].Length == 0) {
-                                m_strDone.RemoveAt(idx);
-                                m_strDoneRaws.RemoveAt(m_strDoneRaws.Count - 1);
-                            }
-                        }
+                if (aEvent.keyCode == KeyCode.Return) { //enter
+                    if (IsEnter) {
+                        Enter();
                     }
-
-                    m_prevChar = "";
+                } else if (aEvent.keyCode == KeyCode.Backspace) {//bs
+                    if (IsBS) {
+                        BackSpace();
+                    }
                 } else if (IsInputEng) {//英語入力
                     char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
                     if (nCh == '\0') { m_prevChar = ""; return; }
@@ -166,6 +153,55 @@ namespace tpInner {
                 m_results.Dirty = true;
             }
         }
+
+        /// <summary>
+        /// <para>内部データをクリアします。</para>
+        /// <para>入力された文字列は全てクリアされます</para>
+        /// </summary>
+        public void Clear() {
+            m_strDone.Clear();
+            m_strDoneRaws.Clear();
+            m_strWorkInner.Clear();
+            m_strWorkInner.Add("");
+            m_prevCharInner.Clear();
+            m_prevCharInner.Add("");
+            if(m_results != null) {
+                m_results.Dirty = true;
+            }
+        }
+
+        /// <summary>
+        /// 変換確定前の文字列を確定します。
+        /// </summary>
+        public void Enter() {
+            if (m_strWork.Length == 0) { return; }
+            //もし変換チェック中の文字列がある場合は、そのままの状態で確定
+            foreach (char ch in m_strWork) {
+                m_strDone.Add(ch + "");
+                m_strDoneRaws.Add(ch + "");
+            }
+            m_strWork = "";
+            m_prevChar = "";
+            m_results.Dirty = true;
+        }
+
+        /// <summary>
+        /// 末尾から1文字消します。
+        /// </summary>
+        public void BackSpace() {
+            if (m_strWork.Length > 0) {
+                m_strWork = m_strWork.Substring(0, m_strWork.Length - 1);
+            } else if (m_strDone.Count > 0) {
+                int idx = m_strDone.Count - 1;
+                m_strDone[idx] = m_strDone[idx].Substring(0, m_strDone[idx].Length - 1);
+                if (m_strDone[idx].Length == 0) {
+                    m_strDone.RemoveAt(idx);
+                    m_strDoneRaws.RemoveAt(m_strDoneRaws.Count - 1);
+                }
+            }
+            m_prevChar = "";
+            m_results.Dirty = true;
+        }
         #endregion
 
         #region フィールド
@@ -191,13 +227,13 @@ namespace tpInner {
         }
 
         /// <summary>
-        /// 前回入力時のイベント
+        /// 前回入力発生時のイベント
         /// </summary>
         public Event Event{
             get { return m_results.Event; }
         }
 
-        private bool m_isInputEng;
+        private bool m_isInputEng = false;
         /// <summary>
         /// <para>入力モード</para>
         /// <para>[true]英語入力モード</para>
@@ -208,18 +244,12 @@ namespace tpInner {
             set {
                 m_isInputEng = value;
                 if (m_isInputEng) {
-                    //もし変換チェック中の文字列がある場合は、そのままの状態で確定
-                    foreach (char ch in m_strWork) {
-                        m_strDone.Add(ch + "");
-                        m_strDoneRaws.Add(ch + "");
-                    }
-                    m_strWork = "";
-                    m_results.Dirty = true;
+                    Enter();
                 }
             }
         }
 
-        private bool m_isKana;
+        private bool m_isKana = false;
         /// <summary>
         /// JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうか
         /// </summary>
@@ -227,25 +257,24 @@ namespace tpInner {
             get {return m_isKana; }
             set {
                 m_isKana = value;
-                //もし変換チェック中の文字列がある場合は、そのままの状態で確定
-                foreach (char ch in m_strWork) {
-                    m_strDone.Add(ch + "");
-                    m_strDoneRaws.Add(ch + "");
-                }
-                m_strWork = "";
-                m_results.Dirty = true;
+                Enter();
             }
         }
 
         /// <summary>
-        /// <para>BackSoaceで文字を消せるかどうか</para>
+        /// <para>BackSoaceキーを押した時、文字を消すかどうか</para>
         /// </summary>
-        public bool IsBS { get; set; }
+        public bool IsBS { get; set; } = true;
+
+        /// <summary>
+        /// <para>Enterキーを押した時、確定前の文字列を確定するかどうか</para>
+        /// </summary>
+        public bool IsEnter { get; set; } = true;
         #endregion
 
         #region イベントハンドラ
-        
-        #endregion 
+
+        #endregion
 
         #region メンバ
         private ConvertTableMgr m_convertTableMgr;
@@ -274,7 +303,13 @@ namespace tpInner {
 }
 
 
-
+/// <summary>
+/// InputEmulatorによって処理されたデータへのアクセス用クラスです。
+/// </summary>
+/// <example><code>
+///     
+/// 
+/// </code></example>
 public class InputEmulatorResults {
 
     #region フィールド
@@ -306,7 +341,7 @@ public class InputEmulatorResults {
     }
 
     /// <summary>
-    /// 入力時のイベント
+    /// 入力発生時のイベント
     /// </summary>
     public Event Event {
         get { return m_event; }
@@ -316,7 +351,8 @@ public class InputEmulatorResults {
 
     #region 生成
     /// <summary>
-    /// </summary>
+    /// InputEmulatorより作成されます。外からは作成しないでください。
+    /// </summary>    
     public InputEmulatorResults(in List<string> aStrDone, in List<string> aStrDoneRaws, in List<string> aStrWork, in List<string> aPrevChar) {
         m_strDone = aStrDone;
         m_strDoneRaws = aStrDoneRaws;
@@ -363,6 +399,5 @@ public class InputEmulatorResults {
 
     private string m_strCache = "";
     private string m_strRawCache = "";
-
     #endregion
 }
