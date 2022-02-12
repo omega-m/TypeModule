@@ -154,14 +154,14 @@ public class InputEmulatorResults {
 
     #region 内部使用プロパティ
     /// <summary>
-    /// 汚しフラグです。trueになっている時にStrやStrRawにアクセスされた場合、返却文字列を再度作成します。
+    /// 汚しフラグです。trueになっている時に文字列にアクセスされた場合、データを再度作成します。
     /// </summary>
     public bool Dirty { get; set; } = true;
     #endregion
 
     #region 内部メソッド
     /// <summary>
-    /// StrとStrRawの返却パラメータを再度生成します。
+    /// 返却パラメータのキャッシュを生成します。
     /// </summary>
     private void CreateChche() {
         m_strCache = "";
@@ -183,8 +183,8 @@ public class InputEmulatorResults {
     #region メンバ
     private tpInner.InputEmulatorParams m_params;   //参照
 
-    private string m_strCache = "";
-    private string m_strRawCache = "";
+    private string m_strCache       = "";
+    private string m_strRawCache    = "";
     #endregion
 }
 
@@ -204,18 +204,18 @@ namespace tpInner {
         public void Clear() {
             m_strDone.Clear();
             m_strDoneRaws.Clear();
-            m_strWork = "";
-            m_prevChar = "";
+            m_strWork   = "";
+            m_prevChar  = "";
             m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_NONE;
-            m_event = new Event();
+            m_event     = new Event();
         }
         #endregion
 
         #region メンバ
-        public List<string> m_strDone = new List<string>();         //変換確定済みの文字列
-        public List<string> m_strDoneRaws = new List<string>();     //変換確定前文字列
-        public string m_strWork = "";                               //現在チェック中の文字
-        public string m_prevChar = "";
+        public List<string> m_strDone       = new List<string>();       //変換確定済みの文字列
+        public List<string> m_strDoneRaws   = new List<string>();       //変換確定前文字列
+        public string m_strWork         = "";                           //現在チェック中の文字
+        public string m_prevChar        = "";
         public InputEmulatorResults.INPUT_TYPE m_inputType;
         public Event m_event;
         #endregion
@@ -578,8 +578,8 @@ namespace tpInner {
         private InputEmulatorParams     m_params = new InputEmulatorParams();
         private InputEmulatorResults    m_results;
 
-        private UnityEvent<InputEmulatorResults> m_onInputCallbacks = new UnityEvent<InputEmulatorResults>();
-        private UnityEvent<InputEmulatorResults> m_onChangeCallbacks = new UnityEvent<InputEmulatorResults>();
+        private UnityEvent<InputEmulatorResults> m_onInputCallbacks     = new UnityEvent<InputEmulatorResults>();
+        private UnityEvent<InputEmulatorResults> m_onChangeCallbacks    = new UnityEvent<InputEmulatorResults>();
         #endregion
     }
 }
