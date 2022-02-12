@@ -25,12 +25,13 @@ namespace tpInner {
     ///
     /// 
     /// //ひらがなの中間文字列から、変換できるひらがながあるかを取得
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("あ"));          // false
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か"));          // false
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か゛"));        // true
+    /// string outCvt;
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("あ", out outCvt));          // false
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か", out outCvt));          // false
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か゛", out outCvt));        // true
     /// //将来変換できる可能性があるかもチェック
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か", true));    // true
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.CanConvert("か゛", true));  // true
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か", out outCvt, true));    // true
+    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か゛", out outCvt, true));  // true
     /// 
     /// 
     /// //ひらがなの中間文字列から、指定したひらがな文字列へ変換できるかどうかを取得
@@ -73,18 +74,19 @@ namespace tpInner {
         /// ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがな文字列があるか
         /// </summary>
         /// <param name="aKanaMid">ひらかな中間文字列</param>
+        /// <param name="aOutKana">(変換できる場合)変換先ひらがな文字列</param>
         /// <param name="aIsPossibility">true:[aKanaMid]に、追加でひらがなの中間文字列を足すことで、打つ方法があるかもチェックする</param>
         /// <returns>true:打つことができる文字列がある</returns>
-        public bool CanConvert(string aKanaMid, bool aIsPossibility = false) {
-            if (m_mid2Kana.ContainsKey(aKanaMid)) {
+        public bool TryConvert(string aKanaMid, out string aOutKana, bool aIsPossibility = false) {
+            if (m_mid2Kana.TryGetValue(aKanaMid, out aOutKana)) {
                 return true;
             }
             if (aIsPossibility) {
                 //「゛」と「゜」を後ろに付けることで、打てるひらがながあるかチェック
-                if (m_mid2Kana.ContainsKey(aKanaMid + "゛")) {
+                if (m_mid2Kana.TryGetValue(aKanaMid + "゛", out aOutKana)) {
                     return true;
                 }
-                if (m_mid2Kana.ContainsKey(aKanaMid + "゛")) {
+                if (m_mid2Kana.TryGetValue(aKanaMid + "゛", out aOutKana)) {
                     return true;
                 }
             }

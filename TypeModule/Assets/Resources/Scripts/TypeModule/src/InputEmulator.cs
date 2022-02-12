@@ -342,12 +342,13 @@ namespace tpInner {
                     m_params.m_prevChar = nCh + "";
 
                     while (m_params.m_strWork.Length > 0) {
-                        if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_params.m_strWork)) {
-                            m_params.m_strDone.Add(m_convertTableMgr.KanaMid2Kana.Convert(m_params.m_strWork));
+                        string strCvt = "";
+                        if (m_convertTableMgr.KanaMid2Kana.TryConvert(m_params.m_strWork, out strCvt)) {
+                            m_params.m_strDone.Add(strCvt);
                             m_params.m_strDoneRaws.Add(m_params.m_strWork);
                             m_params.m_strWork = "";
                             break;
-                        } else if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_params.m_strWork, true)) {
+                        } else if (m_convertTableMgr.KanaMid2Kana.TryConvert(m_params.m_strWork, out strCvt, true)) {
                             break;
                         }
 
