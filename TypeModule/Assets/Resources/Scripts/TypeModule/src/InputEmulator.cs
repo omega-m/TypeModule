@@ -195,12 +195,12 @@ namespace tpInner {
             m_prevCharInner.Clear();
             m_prevCharInner.Add("");
             m_InputTypeInner.Clear();
-            m_InputTypeInner.Add(InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_NONE);
-
+            m_InputTypeInner.Add(InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_CLEAR);
             if (m_results != null) {
                 m_results.Event = new Event();
-                m_results.Dirty = true;
+                m_results.Dirty = true;                
             }
+            m_onChangeCallbacks.Invoke(m_results);
         }
 
         /// <summary>
@@ -486,6 +486,10 @@ public class InputEmulatorResults {
         /// プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。
         /// <summary>
         INPUT_TYPE_ENTER_FORCE,
+        /// <summary>
+        /// システム側から入力値が全て初期化された
+        /// <summary>
+        INPUT_TYPE_CLEAR,
     }
     #endregion
 

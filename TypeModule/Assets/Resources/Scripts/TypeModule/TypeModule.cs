@@ -112,9 +112,6 @@ public class TypeModule : MonoBehaviour {
     void Awake() {
         CreateConvertTables();
         CreateInputEmulator();
-
-        m_inputEmulator.AddEventListenerOnChange(onChange);
-        m_inputEmulator.AddEventListenerOnInput(onInput);
     }
 
     void Update() {
@@ -142,10 +139,36 @@ public class TypeModule : MonoBehaviour {
     public void Clear() {
         m_inputEmulator.Clear();
     }
-
     #endregion
 
     #region MODE.MODE_INPUT用メソッド プロパティ
+    /// <summary>
+    /// 生成された文字列
+    /// </summary>
+    public string Str {
+        get { return m_inputEmulator.Str; }
+    }
+
+    /// <summary>
+    /// 生成された、変換される前の文字列
+    /// </summary>
+    public string StrRaw {
+        get { return m_inputEmulator.StrRaw; }
+    }
+
+    /// <summary>
+    /// 前回入力された文字
+    /// </summary>
+    public string PrevChar {
+        get { return m_inputEmulator.PrevChar; }
+    }
+
+    /// <summary>
+    /// 前回入力発生時のUnityイベント
+    /// </summary>
+    public Event Event {
+        get { return m_inputEmulator.Event; }
+    }
     /// <summary>
     /// プログラム側から、変換確定前の文字列を確定します。
     /// </summary>
@@ -202,10 +225,8 @@ public class TypeModule : MonoBehaviour {
     [Tooltip(
         "文字入力判定モードです。\n" +
         "【MODE_INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。\n" +
-        "                   キーボード入力から文字列を取得したい場合に使用してください。\n" +
         "【MODE_COMPARE】 :キーボードの入力を元に、文字列の生成をエミュレートした後\n" +
-        "                  【m_targetText】で指定された文字列と比較し、その結果を格納します。\n" +
-        "                  タイピングゲームで、お題の文字と一致するかどうかを確認したい場合に利用してください。"
+        "                  【m_targetText】で指定された文字列と比較します。\n"
             )]
     #endregion
     [SerializeField, PropertyBackingField("Mode")] private MODE m_mode = MODE.MODE_INPUT;
@@ -244,7 +265,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
-    [Header("Mode = MODE_INPUT の時の設定")]
+    [Header("Modeが【MODE_INPUT】の時の設定")]
     #region 
     [Tooltip(
         "入力モード\n" +
@@ -347,6 +368,31 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
+    [Tooltip(
+        "数字と記号の、全角半角の変換テーブルを定義したファイル\n" +
+        "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
+        "【Assets/Resources/Scripts/TypeModule/data/Char2Kana/nummark.csv】\n" +
+        "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
+        "［形式］半角文字,全角文字\n" +
+        "例) \n" +
+        ".,。\n" +
+        "?,？\n"
+   )]
+    [SerializeField, PropertyBackingField("NumMarkCsv")] private TextAsset m_numMarkCsv;
+    #endregion
+    public TextAsset NumMarkCsv {
+        get { return m_numMarkCsv; }
+        set {
+            if (m_numMarkCsv != value) {
+                m_numMarkCsv = value;
+                if (m_convertTableMgr != null) {
+                    m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);
+                }
+            }
+        }
+    }
+
     [Space(10)]
     #region
     [Tooltip(
@@ -395,31 +441,6 @@ public class TypeModule : MonoBehaviour {
                 m_kanaMid2KanaCsv = value;
                 if (m_convertTableMgr != null) {
                     m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);
-                }
-            }
-        }
-    }
-
-    #region
-    [Tooltip(
-        "数字と記号の、全角半角の変換テーブルを定義したファイル\n" +
-        "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
-        "【Assets/Resources/Scripts/TypeModule/data/Char2Kana/nummark.csv】\n" +
-        "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
-        "［形式］半角文字,全角文字\n" +
-        "例) \n" +
-        ".,。\n" +
-        "?,？\n"
-   )]
-    [SerializeField, PropertyBackingField("NumMarkCsv")] private TextAsset m_numMarkCsv;
-    #endregion
-    public TextAsset NumMarkCsv {
-        get { return m_numMarkCsv; }
-        set {
-            if (m_numMarkCsv != value) {
-                m_numMarkCsv = value;
-                if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);
                 }
             }
         }
@@ -486,18 +507,4 @@ public class TypeModule : MonoBehaviour {
     ConvertTableMgr m_convertTableMgr;
     InputEmulator m_inputEmulator;
     #endregion
-
-
-    [Space(10)]
-    [Header("テスト用")]
-    public Text testInput;
-    public Text testInputRaw;
-
-    private void onInput(InputEmulatorResults res) {
-        Debug.Log("onInput");
-    }
-    private void onChange(InputEmulatorResults res) {
-        Debug.Log("onChange");
-
-    }
 }
