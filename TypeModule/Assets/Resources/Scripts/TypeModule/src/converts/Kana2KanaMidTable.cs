@@ -61,6 +61,11 @@ namespace tpInner {
         /// ひらがな文字列に変換できるひらがな中間文字列の最大文字数
         /// </summary>
         public int KanaMidMaxLength { get; private set; }
+
+        /// <summary>
+        /// ひらがな中間文字列に変換できるひらがな文字列の最大文字数
+        /// </summary>
+        public int KanaMaxLength { get; private set; }
         #endregion 
 
         #region 内部メソッド
@@ -74,10 +79,12 @@ namespace tpInner {
 
             m_table = new Dictionary<string, string>();
             KanaMidMaxLength = 0;
+            KanaMaxLength = 0;
 
             CsvReadHelper csv = new CsvReadHelper(in aCSV);
             foreach (List<string> record in csv.Datas) {
                 KanaMidMaxLength = Mathf.Max(KanaMidMaxLength, record[CSV_KANA_MID_FIELD].Length);
+                KanaMaxLength = Mathf.Max(KanaMaxLength, record[CSV_KANA_FIELD].Length);
 
                 if (!m_table.ContainsKey(record[CSV_KANA_FIELD])) {
                     m_table.Add(record[CSV_KANA_FIELD], record[CSV_KANA_MID_FIELD]);

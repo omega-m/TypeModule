@@ -112,6 +112,7 @@ public class TypeModule : MonoBehaviour {
         CreateConvertTables();
         CreateInputEmulator();
         CreateCopyInputChecker();
+        TargetStr = "ろまんすのふしょうじにがさないけしてあげるasdf!@#";
     }
 
     void Update() {
@@ -130,6 +131,15 @@ public class TypeModule : MonoBehaviour {
                 }
             }
         }
+
+        //test
+        done.text = StrDone;
+        current.text = StrCurrent;
+        yet.text = StrYet;
+        doneRaw.text = StrDoneRaw;
+        currentRaw.text = StrCurrentRaw;
+        yetRaw.text = StrYetRaw;
+
     }
     #endregion
 
@@ -690,4 +700,14 @@ public class TypeModule : MonoBehaviour {
     InputEmulator m_inputEmulator;
     CopyInputChecker m_copyInputChecker;
     #endregion
+
+    [Space(10)]
+    [Header("test")]
+    public Text done;
+    public Text current;
+    public Text yet;
+    public Text doneRaw;
+    public Text currentRaw;
+    public Text yetRaw;
+
 }

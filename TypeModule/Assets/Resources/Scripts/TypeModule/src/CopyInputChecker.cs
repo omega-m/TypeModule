@@ -177,7 +177,7 @@ public class CopyInputCheckerResults {
             m_strDoneRawCache += r;
         }
 
-        m_strYetRawCache = "";
+        m_strYetRawCache = m_params.m_strCurrentRawWork;
         foreach (string r in m_params.m_strYetRaws) {
             m_strYetRawCache += r;
         }
@@ -220,25 +220,27 @@ namespace tpInner {
             m_correctNum = 0;
             m_correctCharNum = 0;
             m_missNum = 0;
-            m_event = new Event();
+            m_strCurrentRawWork = "";
+        m_event = new Event();
         }
         #endregion
 
         #region メンバ
         public string       m_targetStr;                        //比較対象の文字列(タイピングのお台文)
         public List<string> m_strDone = new List<string>();     //既に打ち終わった文字列
-        public string       m_strCurrent;                       //現在打っている文字
-        public List<string> m_strYet = new List<string>();      //まだ打っていない文字列
         public List<string> m_strDoneRaws = new List<string>(); //既に打ち終わった文字列(変換前)
+        public string       m_strCurrent;                       //現在打っている文字
         public string       m_strCurrentRaw;                    //現在打っている文字(変換前)
+        public List<string> m_strYet = new List<string>();      //まだ打っていない文字列
         public List<string> m_strYetRaws = new List<string>();  //まだ打っていない文字列(変換前)
         public string       m_prevCorrectChar;                  //前回正しく入力された文字(ミスした時は空文字列)
         public string       m_prevMissChar;                     //前回ミスしたされた文字(正しく入力された時は空文字列)
         public int          m_correctNum;                       //正しくタイプした数
         public int          m_correctCharNum;                   //正しく打てた文字数
         public int          m_missNum;                          //ミスタイプした数
-        public bool         m_isKana;       
+        public bool         m_isKana;
         public Event        m_event = new Event();
+        public string       m_strCurrentRawWork;
         #endregion
     }
 
@@ -257,7 +259,6 @@ namespace tpInner {
         ///<param name="aConvertTableMgr">文字列生成時に使用する、変換テーブルを管理するクラス</param>
         public CopyInputChecker(in ConvertTableMgr aConvertTableMgr) {
             m_convertTableMgr = aConvertTableMgr;
-            Clear();
             m_results = new CopyInputCheckerResults(in m_params);
         }
         #endregion
@@ -281,7 +282,10 @@ namespace tpInner {
         public void Clear() {
             m_params.Clear();
             m_params.m_isKana = m_isKana;
-            
+
+            InitStrYet();
+            UpdateStrCurrent();
+
         }
         #endregion
 
@@ -461,6 +465,75 @@ namespace tpInner {
         /// <param name="aEvent">イベントリスナ</param>
         public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
             m_onCompleteCallbacks.RemoveListener(aEvent);
+        }
+        #endregion
+
+        #region 内部メソッド
+        /// <summary>
+        /// 指定された文字列を打つ為に必要な中間文字をセット
+        /// </summary>
+        private void InitStrYet() {
+            int idx = 0;
+            string target = m_params.m_targetStr;
+
+            while (idx < target.Length) {
+                int len = 1;
+                string str = "";
+                string strRaw = "";
+                if (IsKana) {
+                    for (; len <= m_convertTableMgr.Kana2KanaMid.KanaMaxLength; ++len) {
+                        if (idx + len > target.Length) { break; }
+                        string strTmp = target.Substring(idx, len);
+                        string strRawTmp = "";
+                        if (!m_convertTableMgr.Kana2KanaMid.TryConvert(strTmp, out strRawTmp)) {
+                            break;
+                        }
+                        str = strTmp;
+                        strRaw = strRawTmp;
+                    }
+                } else {
+                    for (; len <= m_convertTableMgr.Kana2Roma.KanaMaxLength; ++len) {
+                        if (idx + len > target.Length) { break; }
+                        string strTmp = target.Substring(idx, len);
+                        string strRawTmp = "";
+                        if (!m_convertTableMgr.Kana2Roma.TryConvert(strTmp, out strRawTmp)) {
+                            break;
+                        }
+                        str = strTmp;
+                        strRaw = strRawTmp;
+                    }
+                }
+                if (str.Length == 0) {
+                    m_params.m_strYet.Add(target[idx] + "");
+                    m_params.m_strYetRaws.Add(target[idx] + "");
+                    idx++;
+                } else {
+                    m_params.m_strYet.Add(str);
+                    m_params.m_strYetRaws.Add(strRaw);
+                    idx += (len - 1);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 現在打っている文字を更新
+        /// </summary>
+        private void UpdateStrCurrent() {
+
+            
+            if (m_params.m_strYet.Count == 0) { return; }
+            if (m_params.m_strCurrentRawWork.Length == 0) {
+                m_params.m_strDone.Add("");
+                m_params.m_strDoneRaws.Add("");
+                m_params.m_strCurrent = m_params.m_strYet[0];
+                m_params.m_strCurrentRawWork = m_params.m_strYetRaws[0];
+                m_params.m_strYet.RemoveAt(0);
+                m_params.m_strYetRaws.RemoveAt(0);
+
+            }
+            m_params.m_strCurrentRaw = m_params.m_strCurrentRawWork[0] + "";
+            m_params.m_strCurrentRawWork = m_params.m_strCurrentRawWork.Substring(1);
+            
         }
         #endregion
 
