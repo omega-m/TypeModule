@@ -115,9 +115,15 @@ namespace tpInner {
                         } else if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork, true)) {
                             break;
                         }
-                        m_strDone.Add(m_strWork[0] + "");
-                        m_strDoneRaws.Add(m_strWork[0] + "");
+
+                        string addStrTmp = m_strWork[0] + "";
+                        string addStr;
                         m_strWork = m_strWork.Substring(1);
+                        if (!m_convertTableMgr.NumMarkTable.TryHanToZen(addStrTmp, out addStr)) {
+                            addStr = addStrTmp;
+                        }
+                        m_strDone.Add(addStr);
+                        m_strDoneRaws.Add(addStrTmp);
                     }
                 } else {//ローマ字入力
                     char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
@@ -130,11 +136,6 @@ namespace tpInner {
                         m_strDoneRaws.Add("n");
                         m_strWork = m_strWork.Substring(1);
                     }
-                    if (Roma2KanaTable.CanConverFirstHyphen(m_strWork)) {
-                        m_strDone.Add("ー");
-                        m_strDoneRaws.Add("-");
-                        m_strWork = m_strWork.Substring(1);
-                    }
 
                     while (m_strWork.Length > 0) {
                         if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork)) {
@@ -145,9 +146,15 @@ namespace tpInner {
                         } else if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork, true)) {
                             break;
                         }
-                        m_strDone.Add(m_strWork[0] + "");
-                        m_strDoneRaws.Add(m_strWork[0] + "");
+
+                        string addStrTmp = m_strWork[0] + "";
+                        string addStr;
                         m_strWork = m_strWork.Substring(1);
+                        if (!m_convertTableMgr.NumMarkTable.TryHanToZen(addStrTmp, out addStr)) {
+                            addStr = addStrTmp;
+                        }
+                        m_strDone.Add(addStr);
+                        m_strDoneRaws.Add(addStrTmp);
                     }
                 }
                 m_results.Dirty = true;

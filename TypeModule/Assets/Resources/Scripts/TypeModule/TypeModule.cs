@@ -197,7 +197,7 @@ public class TypeModule : MonoBehaviour {
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
         "【Assets/Resources/Scripts/TypeModule/data/KeyCode2Char/qwerty.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
-        "変換先文字,【UnityEngine.KeyCode】, isShift, isFunction\n" +
+        "［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction\n" +
         "例) \n" +
         "S,115,1,0\n" +
         "s,115,0,0\n"
@@ -250,7 +250,7 @@ public class TypeModule : MonoBehaviour {
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
         "【Assets/Resources/Scripts/TypeModule/data/KeyCode2Char/JISkana.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
-        "変換先文字,【UnityEngine.KeyCode】, isShift, isFunction\n" +
+        "［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction\n" +
         "例) \n" +
         "ぬ,49,0,0 \n" +
         "ぬ,49,1,0 \n" +
@@ -276,7 +276,7 @@ public class TypeModule : MonoBehaviour {
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
         "【Assets/Resources/Scripts/TypeModule/data/Char2Kana/JISkana.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
-        "ひらがな中間文字列,ひらがな文字列\n" +
+        "［形式］ひらがな中間文字列,ひらがな文字列\n" +
         "例) \n" +
         "か゛,が\n" +
         "き゛,ぎ\n"
@@ -290,6 +290,31 @@ public class TypeModule : MonoBehaviour {
                 m_kanaMid2KanaCsv = value;
                 if (m_convertTableMgr != null) {
                     m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);
+                }
+            }
+        }
+    }
+
+    #region
+    [Tooltip(
+        "数字と記号の、全角半角の変換テーブルを定義したファイル\n" +
+        "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
+        "【Assets/Resources/Scripts/TypeModule/data/Char2Kana/nummark.csv】\n" +
+        "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
+        "［形式］半角文字,全角文字\n" +
+        "例) \n" +
+        ".,。\n" +
+        "?,？\n"
+   )]
+    [SerializeField, PropertyBackingField("NumMarkCsv")] private TextAsset m_numMarkCsv;
+    #endregion
+    public TextAsset NumMarkCsv {
+        get { return m_numMarkCsv; }
+        set {
+            if (m_numMarkCsv != value) {
+                m_numMarkCsv = value;
+                if (m_convertTableMgr != null) {
+                    m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);
                 }
             }
         }
@@ -329,12 +354,14 @@ public class TypeModule : MonoBehaviour {
         if (Roma2KanaCsv != null) {
             m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);
         }
-
         if (KeyCode2KanaMidCsv != null) {
             m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);
         }
         if (KanaMid2KanaCsv != null) {
             m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);
+        }
+        if (NumMarkCsv != null) {
+            m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);
         }
     }
 

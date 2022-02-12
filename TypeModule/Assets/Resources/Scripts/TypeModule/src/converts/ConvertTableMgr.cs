@@ -101,10 +101,25 @@ namespace tpInner {
         /// <para>ひらがな中間文字列,ひらがな文字列</para>
         /// <para>例)</para>
         /// <para>か゛,が</para>
-        /// <para></para>き゛,ぎ</para>
+        /// <para>き゛,ぎ</para>
         /// </param>
         public void SetKanaMid2KanaTable(in TextAsset asset) {
             KanaMid2Kana = new KanaMid2KanaTable(asset);
+        }
+
+        /// <summary>
+        /// 数字と記号の、全角と半角の相互変換用テーブルを指定
+        /// </summary>
+        /// <param name="asset">
+        /// <para>ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイルアセット</para>
+        /// <para>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
+        /// <para>半角文字,全角文字</para>
+        /// <para>例)</para>
+        /// <para>.,。</para>
+        /// <para>?,？</para>
+        /// </param>
+        public void SetNumMarkTable(in TextAsset asset) {
+            NumMarkTable = new NumMarkTable(asset);
         }
         #endregion
 
@@ -134,6 +149,12 @@ namespace tpInner {
         ///ひらがな中間文字列　=> ひらがな文字列への変換テーブル
         ///</summary>
         public KanaMid2KanaTable KanaMid2Kana { get; private set; }
+
+        ///<summary>
+        ///数字と記号の、全角半角の相互変換テーブル
+        ///</summary>
+        public NumMarkTable NumMarkTable { get; private set; }
+
 
         private bool m_isCheckCapsLock = true;
 
@@ -181,6 +202,13 @@ namespace tpInner {
                 tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/JISkana", typeof(TextAsset)) as TextAsset;
                 if(tmp != null) {
                     SetKanaMid2KanaTable(in tmp);
+                }
+            }
+            {
+                TextAsset tmp = new TextAsset();
+                tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/nummark", typeof(TextAsset)) as TextAsset;
+                if (tmp != null) {
+                    SetNumMarkTable(in tmp);
                 }
             }
         }

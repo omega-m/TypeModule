@@ -54,12 +54,13 @@ namespace tpInner{
     /// 
     /// </code></example>
     public class keyCode2CharTable{
+
         #region 生成
         ///<summary>
         ///キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。
         ///</summary>
         ///<param name="aCSV">
-        ///<para>キーの入力(KeyCode)から単体文字への変換テーブルを定義したファイル</para>
+        ///<para>キーの入力(KeyCode)から単体文字への変換テーブルを定義したファイルアセット</para>
         ///<para>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFn</para>
         ///<para>［例］S,115,1,0</para>
         ///</param>

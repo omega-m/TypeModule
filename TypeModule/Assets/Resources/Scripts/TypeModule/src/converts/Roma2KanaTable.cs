@@ -81,7 +81,7 @@ namespace tpInner {
         /// ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。
         /// </summary>
         ///<param name="aCSV">
-        ///<para>ローマ字列からひらがな文字列への変換テーブルを定義したファイル</para>
+        ///<para>ローマ字列からひらがな文字列への変換テーブルを定義したファイルアセット</para>
         ///<para>［形式］ローマ字列,ひらがな文字列,</para>
         ///<para>［例］kya,きゃ</para>
         ///</param>
@@ -155,15 +155,6 @@ namespace tpInner {
         static public bool CanConverFirstN(string aRoma){
             if(aRoma.Length < 2) { return false; };
             return Regex.IsMatch(aRoma, "^n[^aiueony]");
-        }
-
-        /// <summary>
-        /// ローマ字列[aRoma]の先頭文字が[-]かどうかを取得します
-        /// </summary>
-        /// <param name="aRoma">ローマ字列</param>
-        /// <returns>true:先頭が[-]で[ー]に変換できる</returns>
-        static public bool CanConverFirstHyphen(string aRoma) {
-            return aRoma.Length > 0 && aRoma[0] == '-';
         }
         #endregion
 
