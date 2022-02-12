@@ -276,17 +276,19 @@ namespace tpInner {
         /// <para>内部データをクリアします。</para>
         /// <para>入力された文字列は全てクリアされます</para>
         /// <para>比較対象文字[TargetStr]のみクリアされません。</para>
+        /// <para>クリアされた後、セットアップされます。</para>
         /// </summary>
         public void Clear() {
             m_params.Clear();
             m_params.m_isKana = m_isKana;
+            
         }
         #endregion
 
         #region フィールド
         /// <summary>
-        /// 比較対象の文字列(タイピングのお台文)
-        /// 値を変更した時点で、Clear()が自動で呼び出されます。
+        /// <para>比較対象の文字列(タイピングのお台文)</para>
+        /// <para>値を変更した時点で、内部でClear()を自動で呼び出します。</para>
         /// </summary>
         public string TargetStr {
             get {return m_results.TargetStr;}
