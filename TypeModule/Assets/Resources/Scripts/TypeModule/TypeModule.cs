@@ -111,6 +111,7 @@ public class TypeModule : MonoBehaviour {
     void Awake() {
         CreateConvertTables();
         CreateInputEmulator();
+        CreateCopyInputChecker();
     }
 
     void Update() {
@@ -124,6 +125,7 @@ public class TypeModule : MonoBehaviour {
                         m_inputEmulator.AddInput(Event.current);
                         break;
                     case MODE.MODE_COPY:
+                        m_copyInputChecker.AddInput(Event.current);
                         break;
                 }
             }
@@ -137,6 +139,7 @@ public class TypeModule : MonoBehaviour {
     /// </summary>
     public void Clear() {
         m_inputEmulator.Clear();
+        m_copyInputChecker.Clear();
     }
     #endregion
 
@@ -259,6 +262,9 @@ public class TypeModule : MonoBehaviour {
             m_isKana = value;
             if (m_inputEmulator != null) {
                 m_inputEmulator.IsKana = IsKana;
+            }
+            if(m_copyInputChecker != null) {
+                m_copyInputChecker.IsKana = IsKana;
             }
         }
     }
@@ -493,16 +499,25 @@ public class TypeModule : MonoBehaviour {
     /// キーボードの入力から文字列生成をエミュレートする為のクラスの作成
     ///</summary>
     private void CreateInputEmulator() {
-        m_inputEmulator = new InputEmulator(m_convertTableMgr);
-        m_inputEmulator.IsInputEng = IsInputEng;
-        m_inputEmulator.IsKana = IsKana;
-        m_inputEmulator.IsBS = IsBS;
-        m_inputEmulator.IsEnter = IsEnter;
+        m_inputEmulator             = new InputEmulator(m_convertTableMgr);
+        m_inputEmulator.IsInputEng  = IsInputEng;
+        m_inputEmulator.IsKana      = IsKana;
+        m_inputEmulator.IsBS        = IsBS;
+        m_inputEmulator.IsEnter     = IsEnter;
+    }
+
+    ///<summary>
+    /// 指定された文字列が正しく打ててるかを確認する為のクラスの作成
+    ///</summary>
+    private void CreateCopyInputChecker() {
+        m_copyInputChecker = new CopyInputChecker(m_convertTableMgr);
+        m_copyInputChecker.IsKana = IsKana;
     }
     #endregion
 
     #region メンバ
     ConvertTableMgr m_convertTableMgr;
     InputEmulator m_inputEmulator;
+    CopyInputChecker m_copyInputChecker;
     #endregion
 }

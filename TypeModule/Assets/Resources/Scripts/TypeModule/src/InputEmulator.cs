@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 /// <summary>
 /// InputEmulatorによって処理されたデータへのアクセス用クラスです。
+/// TypeModuleでModeをMODE_INPUTにした時、入力発生時のイベントリスナで返却されます。
 /// </summary>
 /// /// <example><code>
 ///     
