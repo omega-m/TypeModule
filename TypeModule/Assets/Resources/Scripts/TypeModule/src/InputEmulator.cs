@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace tpInner {
+namespace tpInner { 
 
     /// <summary>
     /// キーボードの入力から文字列生成をエミュレートします
@@ -28,8 +29,11 @@ namespace tpInner {
     ///     ...
     ///     
     /// //生成された文字列を取得
-    /// Debug.Log(input.OutStr);        //生成された文字列
-    /// Debug.Log(input.OutStrRaw);     //生成された、変換される前の文字列
+    /// Debug.Log(input.Str);        //生成された文字列
+    /// Debug.Log(input.StrRaw);     //生成された、変換される前の文字列
+    /// 
+    /// //直前に入力された文字を取得
+    /// Debug.Log(input.PrevChar);
     /// 
     /// //入力された文字列を全てクリア
     /// input.Clear();
@@ -57,6 +61,7 @@ namespace tpInner {
         public InputEmulator(ConvertTableMgr aConvertTableMgr) {
             m_convertTableMgr = aConvertTableMgr;
             Clear();
+            m_results = new InputEmulatorResults(ref m_strDone, ref m_strDoneRaws, ref m_strWorkInner, ref m_prevCharInner);
         }
         #endregion
 
@@ -68,7 +73,10 @@ namespace tpInner {
         public void Clear() {
             m_strDone.Clear();
             m_strDoneRaws.Clear();
-            m_strWork = "";
+            m_strWorkInner.Clear();
+            m_strWorkInner.Add("");
+            m_prevCharInner.Clear();
+            m_prevCharInner.Add("");
         }
 
         /// <summary>
@@ -76,8 +84,11 @@ namespace tpInner {
         /// </summary>
         /// <param name="aEvent">入力イベント</param>
         public void AddInput(Event aEvent) {
-            if(aEvent.keyCode == KeyCode.None) { return; }
-            if(aEvent.keyCode == KeyCode.Backspace) {//bs
+            m_results.Event = new Event(aEvent);
+            if (aEvent.keyCode == KeyCode.None) {
+                //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
+                //m_prevChar = "";
+            }else if(aEvent.keyCode == KeyCode.Backspace) {//bs
                 if (IsBS) {
                     if(m_strWork.Length > 0) {
                         m_strWork = m_strWork.Substring(0, m_strWork.Length - 1);
@@ -90,60 +101,62 @@ namespace tpInner {
                         }
                     }
                 }
-            }
-            else if (IsInputEng) {//英語入力
+
+                m_prevChar = "";
+            }else if (IsInputEng) {//英語入力
                 char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                if (nCh == '\0') { return; }
+                if (nCh == '\0') { m_prevChar = ""; return; }
                 m_strDone.Add(nCh + "");
                 m_strDoneRaws.Add(nCh + "");
-            } else {
-                if (IsKana) {//かな入力
-                    char nCh = m_convertTableMgr.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                    if (nCh == '\0') { return; }
-                    m_strWork += nCh;
-                    
-                    while(m_strWork.Length > 0) {
-                        if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork)) {
-                            m_strDone.Add(m_convertTableMgr.KanaMid2Kana.Convert(m_strWork));
-                            m_strDoneRaws.Add(m_strWork);
-                            m_strWork = "";
-                            break;
-                        } else if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork, true)) {
-                            break;
-                        }
-                        m_strDone.Add(m_strWork[0] + "");
-                        m_strDoneRaws.Add(m_strWork[0] + "");
-                        m_strWork = m_strWork.Substring(1);
+                m_prevChar = nCh + "";
+            } else if (IsKana) {//かな入力
+                char nCh = m_convertTableMgr.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                if (nCh == '\0') { m_prevChar = ""; return; }
+                m_strWork += nCh;
+                m_prevChar = nCh + "";
+                
+                while(m_strWork.Length > 0) {
+                    if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork)) {
+                        m_strDone.Add(m_convertTableMgr.KanaMid2Kana.Convert(m_strWork));
+                        m_strDoneRaws.Add(m_strWork);
+                        m_strWork = "";
+                        break;
+                    } else if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork, true)) {
+                        break;
                     }
-                } else {//ローマ字入力
-                    char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                    if (nCh == '\0') { return; }
-                    m_strWork += nCh;
+                    m_strDone.Add(m_strWork[0] + "");
+                    m_strDoneRaws.Add(m_strWork[0] + "");
+                    m_strWork = m_strWork.Substring(1);
+                }
+            } else {//ローマ字入力
+                char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                if (nCh == '\0') { m_prevChar = ""; return; }
+                m_strWork += nCh;
+                m_prevChar = nCh + "";
 
-                    if (Roma2KanaTable.CanConverFirstN(m_strWork)){
-                        m_strDone.Add("ん");
-                        m_strDoneRaws.Add("n");
-                        m_strWork = m_strWork.Substring(1);
-                    }
-                    if (Roma2KanaTable.CanConverFirstHyphen(m_strWork)) {
-                        m_strDone.Add("ー");
-                        m_strDoneRaws.Add("-");
-                        m_strWork = m_strWork.Substring(1);
-                    }
+                if (Roma2KanaTable.CanConverFirstN(m_strWork)){
+                    m_strDone.Add("ん");
+                    m_strDoneRaws.Add("n");
+                    m_strWork = m_strWork.Substring(1);
+                }
+                if (Roma2KanaTable.CanConverFirstHyphen(m_strWork)) {
+                    m_strDone.Add("ー");
+                    m_strDoneRaws.Add("-");
+                    m_strWork = m_strWork.Substring(1);
+                }
 
-                    while (m_strWork.Length > 0) {
-                        if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork)) {
-                            m_strDone.Add(m_convertTableMgr.Roma2Kana.Convert(m_strWork));
-                            m_strDoneRaws.Add(m_strWork);
-                            m_strWork = "";
-                            break;
-                        } else if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork, true)) {
-                            break;
-                        }
-                        m_strDone.Add(m_strWork[0] + "");
-                        m_strDoneRaws.Add(m_strWork[0] + "");
-                        m_strWork = m_strWork.Substring(1);
+                while (m_strWork.Length > 0) {
+                    if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork)) {
+                        m_strDone.Add(m_convertTableMgr.Roma2Kana.Convert(m_strWork));
+                        m_strDoneRaws.Add(m_strWork);
+                        m_strWork = "";
+                        break;
+                    } else if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork, true)) {
+                        break;
                     }
+                    m_strDone.Add(m_strWork[0] + "");
+                    m_strDoneRaws.Add(m_strWork[0] + "");
+                    m_strWork = m_strWork.Substring(1);
                 }
             }
         }
@@ -153,29 +166,29 @@ namespace tpInner {
         /// <summary>
         /// 生成された文字列
         /// </summary>
-        public string OutStr { 
-            get{
-                string ret = "";
-                foreach (string r in m_strDone) {
-                    ret += r;
-                }
-                ret += m_strWork;
-                return ret;
-            } 
+        public string Str { 
+            get{return m_results.Str;} 
         }
 
         /// <summary>
         /// 生成された、変換される前の文字列
         /// </summary>
-        public string OutStrRaw {
-            get {
-                string ret = "";
-                foreach(string r in m_strDoneRaws) {
-                    ret += r;
-                }
-                ret += m_strWork;
-                return ret;
-            }
+        public string StrRaw {
+            get { return m_results.StrRaw; }
+        }
+
+        /// <summary>
+        /// 前回入力された文字
+        /// </summary>
+        public string PrevChar {
+            get { return m_results.PrevChar; }
+        }
+
+        /// <summary>
+        /// 前回入力時のイベント
+        /// </summary>
+        public Event Event{
+            get { return m_results.Event; }
         }
 
         private bool m_isInputEng;
@@ -222,11 +235,101 @@ namespace tpInner {
         public bool IsBS { get; set; }
         #endregion
 
+        #region イベントハンドラ
+        
+        #endregion 
+
         #region メンバ
         private ConvertTableMgr m_convertTableMgr;
+
+        //参照渡しができるよう、全てコレクションとして作成
         private List<string>    m_strDone = new List<string>();         //変換確定済みの文字列
         private List<string>    m_strDoneRaws = new List<string>();     //変換確定前文字列
-        private string          m_strWork;                              //現在チェック中の文字
+        private List<string>    m_strWorkInner = new List<string>();    //現在チェック中の文字
+        private List<string>    m_prevCharInner = new List<string>();
+
+        private InputEmulatorResults    m_results;
+        //private UnityEvent<InputEmulatorResults> m_onInputCallbacks;
+        #endregion
+
+        #region 内部メンバアクセス用プロパティ
+        private string m_strWork {
+            get { return m_strWorkInner[0]; }
+            set { m_strWorkInner[0] = value; }
+        }
+        private string m_prevChar {
+            get { return m_prevCharInner[0]; }
+            set { m_prevCharInner[0] = value; }
+        }
         #endregion
     }
+}
+
+
+
+public class InputEmulatorResults {
+
+    #region フィールド
+    /// <summary>
+    /// 生成された文字列
+    /// </summary>
+    public string Str {
+        get {
+            string ret = "";
+            foreach (string r in m_strDone) {
+                ret += r;
+            }
+            ret += m_strWork[0];
+            return ret;
+        }
+    }
+
+    /// <summary>
+    /// 生成された、変換される前の文字列
+    /// </summary>
+    public string StrRaw {
+        get {
+            string ret = "";
+            foreach (string r in m_strDoneRaws) {
+                ret += r;
+            }
+            ret += m_strWork[0];
+            return ret;
+        }
+    }
+
+    /// <summary>
+    /// 前回入力された文字
+    /// </summary>
+    public string PrevChar {
+        get { return m_prevChar[0]; }
+    }
+
+    /// <summary>
+    /// 入力時のイベント
+    /// </summary>
+    public ref Event Event {
+        get { return ref m_event; }
+    }
+    #endregion
+
+    #region 生成
+    /// <summary>
+    /// </summary>
+    public InputEmulatorResults(ref List<string> aStrDone, ref List<string> aStrDoneRaws, ref List<string> aStrWork, ref List<string> aPrevChar) {
+        m_strDone = aStrDone;
+        m_strDoneRaws = aStrDoneRaws;
+        m_strWork = aStrWork;
+        m_prevChar = aPrevChar;
+    }
+    #endregion
+
+    #region メンバ
+    //全て参照
+    private List<string> m_strDone;         //変換確定済みの文字列
+    private List<string> m_strDoneRaws;     //変換確定前文字列
+    private List<string> m_strWork;         //現在チェック中の文字
+    private List<string> m_prevChar;
+    private Event m_event = new Event();
+    #endregion
 }

@@ -65,10 +65,6 @@ public class TypeModule : MonoBehaviour {
     }
 
     void Update() {
-        //test============
-        testInput.text = m_inputEmulator.OutStr;
-        testInputRaw.text = m_inputEmulator.OutStrRaw;
-        //test============
     }
 
     private void OnGUI() {
@@ -77,6 +73,12 @@ public class TypeModule : MonoBehaviour {
                 switch (Mode) {
                     case MODE.MODE_INPUT:
                         m_inputEmulator.AddInput(Event.current);
+                        //test============
+                        testInput.text = m_inputEmulator.Str;
+                        testInputRaw.text = m_inputEmulator.StrRaw;
+                        Debug.Log(m_inputEmulator.PrevChar);
+                        Debug.Log(m_inputEmulator.Event);
+                        //test============
                         break;
                     case MODE.MODE_COMPARE:
                         break;

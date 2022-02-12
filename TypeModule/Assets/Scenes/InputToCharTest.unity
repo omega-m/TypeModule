@@ -233,18 +233,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426f8008dfb75bc45977e12549812c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testInput: {fileID: 1607827777}
-  testInputRaw: {fileID: 360259053}
   m_mode: 0
   m_isRun: 1
   m_isKana: 0
-  m_isInputEng: 1
+  m_isInputEng: 0
   m_isBS: 1
   m_keyCode2RomaCsv: {fileID: 0}
   m_roma2KanaCsv: {fileID: 0}
   m_keyCode2KanaMidCsv: {fileID: 0}
   m_kanaMid2KanaCsv: {fileID: 0}
   m_isCheckCapsLock: 1
+  testInput: {fileID: 1607827777}
+  testInputRaw: {fileID: 360259053}
 --- !u!4 &669584178
 Transform:
   m_ObjectHideFlags: 0
