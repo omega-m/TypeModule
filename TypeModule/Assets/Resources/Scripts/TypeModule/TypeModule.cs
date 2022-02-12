@@ -100,11 +100,10 @@ public class TypeModule : MonoBehaviour {
         ///</summary>
         MODE_INPUT,
         ///<summary>
-        ///キーボードの入力を元に、文字列の生成をエミュレートした後
-        ///【m_targetText】で指定された文字列と比較し、その結果を格納します。
-        ///タイピングゲームで、お題の文字と一致するかどうかを確認したい場合に利用してください。
+        ///【m_targetText】で指定された文字列が正しく打ててるかを確認します。
+        ///タイピングゲームで、お題の文字を真似して打たせる時に使用してください。
         ///</summary>
-        MODE_COMPARE,
+        MODE_COPY,
     }
     #endregion
 
@@ -124,7 +123,7 @@ public class TypeModule : MonoBehaviour {
                     case MODE.MODE_INPUT:
                         m_inputEmulator.AddInput(Event.current);
                         break;
-                    case MODE.MODE_COMPARE:
+                    case MODE.MODE_COPY:
                         break;
                 }
             }
@@ -157,7 +156,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 前回入力された文字
+    /// 前回入力された文字(変換前)
     /// </summary>
     public string PrevChar {
         get { return m_inputEmulator.PrevChar; }
@@ -225,8 +224,7 @@ public class TypeModule : MonoBehaviour {
     [Tooltip(
         "文字入力判定モードです。\n" +
         "【MODE_INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。\n" +
-        "【MODE_COMPARE】 :キーボードの入力を元に、文字列の生成をエミュレートした後\n" +
-        "                  【m_targetText】で指定された文字列と比較します。\n"
+        "【MODE_COMPARE】 :指定された文字列が正しく打ててるかを確認します。タイピングゲームで、お題の文字を真似して打たせる時に使用してください。\n"
             )]
     #endregion
     [SerializeField, PropertyBackingField("Mode")] private MODE m_mode = MODE.MODE_INPUT;
