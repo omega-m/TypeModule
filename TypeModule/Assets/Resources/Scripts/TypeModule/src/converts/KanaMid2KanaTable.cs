@@ -13,7 +13,7 @@ namespace tpInner {
     ///     ...
     ///     
     /// //初期化処理
-    /// KanaMid2KanaTable table = new KanaMid2KanaTable(csvSrc);
+    /// KanaMid2KanaTable table = new KanaMid2KanaTable(in csvSrc);
     /// 
     /// 
     /// //ひらがなの中間文字列から、ひらがな文字列に変換
@@ -52,8 +52,8 @@ namespace tpInner {
         ///<para>［形式］ひらがな中間文字列, ひらがな文字列,</para>
         ///<para>［例］か゛,が</para>
         ///</param>
-        public KanaMid2KanaTable(TextAsset aCSV) {
-            CreateTable(aCSV);
+        public KanaMid2KanaTable(in TextAsset aCSV) {
+            CreateTable(in aCSV);
         }
         #endregion
 
@@ -127,7 +127,7 @@ namespace tpInner {
         ///ローマ字列からひらがな文字列に変換するためのテーブルを作成
         ///</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
-        private void CreateTable(TextAsset aCSV) {
+        private void CreateTable(in TextAsset aCSV) {
             const int CSV_KANA_MID_FIELD = 0;
             const int CSV_KANA_FIELD = 1;
 
@@ -135,7 +135,7 @@ namespace tpInner {
             m_Kana2Mid = new Dictionary<string, string>();
             KanaMidMaxLength = 0;
 
-            CsvReadHelper csv = new CsvReadHelper(aCSV);
+            CsvReadHelper csv = new CsvReadHelper(in aCSV);
             foreach (List<string> record in csv.Datas) {
                 m_mid2Kana.Add(record[CSV_KANA_MID_FIELD], record[CSV_KANA_FIELD]);
                 KanaMidMaxLength = Mathf.Max(KanaMidMaxLength, record[CSV_KANA_MID_FIELD].Length);

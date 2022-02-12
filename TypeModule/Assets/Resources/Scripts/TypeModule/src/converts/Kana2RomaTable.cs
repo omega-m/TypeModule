@@ -14,7 +14,7 @@ namespace tpInner {
     ///     ...
     ///     
     /// //初期化処理
-    /// Kana2RomaTable table = new Kana2RomaTable(csvSrc);
+    /// Kana2RomaTable table = new Kana2RomaTable(in csvSrc);
     /// 
     /// 
     /// //ひらがな文字列からローマ字文字列へ変換
@@ -36,8 +36,8 @@ namespace tpInner {
         ///<para>［形式］ローマ字列,ひらがな文字列,</para>
         ///<para>［例］kya,きゃ</para>
         ///</param>
-        public Kana2RomaTable(TextAsset aCSV) {
-            CreateTable(aCSV);
+        public Kana2RomaTable(in TextAsset aCSV) {
+            CreateTable(in aCSV);
         }
         #endregion
 
@@ -78,14 +78,14 @@ namespace tpInner {
         ///ローマ字列からひらがな文字列に変換するためのテーブルを作成
         ///</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
-        private void CreateTable(TextAsset aCSV) {
+        private void CreateTable(in TextAsset aCSV) {
             const int CSV_ROMA_FIELD = 0;
             const int CSV_KANA_FIELD = 1;
 
             m_table = new SortedDictionary<string, List<string>>();
             KanaMaxLength = 0;
 
-            CsvReadHelper csv = new CsvReadHelper(aCSV);
+            CsvReadHelper csv = new CsvReadHelper(in aCSV);
             foreach (List<string> record in csv.Datas) {
                 List<string> romaList;
                 if (!m_table.TryGetValue(record[CSV_KANA_FIELD], out romaList)) {

@@ -194,7 +194,7 @@ public class TypeModule : MonoBehaviour {
             if (m_keyCode2RomaCsv != value){
                 m_keyCode2RomaCsv = value;
                 if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetKeyCode2RomaTable(m_keyCode2RomaCsv);
+                    m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);
                 }
             }
         }
@@ -219,7 +219,7 @@ public class TypeModule : MonoBehaviour {
             if (m_roma2KanaCsv != value){
                 m_roma2KanaCsv = value;
                 if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetRoma2KanaTable(m_roma2KanaCsv);
+                    m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);
                 }
             }
         }
@@ -247,7 +247,7 @@ public class TypeModule : MonoBehaviour {
             if (m_keyCode2KanaMidCsv != value){
                 m_keyCode2KanaMidCsv = value;
                 if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetKeyCode2KanaMidTable(m_keyCode2KanaMidCsv);
+                    m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);
                 }
             }
         }
@@ -272,7 +272,7 @@ public class TypeModule : MonoBehaviour {
             if (m_kanaMid2KanaCsv != value) {
                 m_kanaMid2KanaCsv = value;
                 if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetKanaMid2KanaTable(m_kanaMid2KanaCsv);
+                    m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);
                 }
             }
         }
@@ -307,17 +307,17 @@ public class TypeModule : MonoBehaviour {
 
         //インスペクターのファイルアセットで上書き
         if (KeyCode2RomaCsv != null) {
-            m_convertTableMgr.SetKeyCode2RomaTable(KeyCode2RomaCsv);
+            m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);
         }
         if (Roma2KanaCsv != null) {
-            m_convertTableMgr.SetRoma2KanaTable(Roma2KanaCsv);
+            m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);
         }
 
         if (KeyCode2KanaMidCsv != null) {
-            m_convertTableMgr.SetKeyCode2KanaMidTable(KeyCode2KanaMidCsv);
+            m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);
         }
         if (KanaMid2KanaCsv != null) {
-            m_convertTableMgr.SetKanaMid2KanaTable(KanaMid2KanaCsv);
+            m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);
         }
     }
 

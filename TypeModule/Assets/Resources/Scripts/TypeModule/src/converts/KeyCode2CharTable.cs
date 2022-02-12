@@ -36,7 +36,7 @@ namespace tpInner{
     ///     ...
     ///     
     /// //初期化処理
-    /// keyCode2CharTable table = new keyCode2CharTable(csvSrc);
+    /// keyCode2CharTable table = new keyCode2CharTable(in csvSrc);
     ///     
     /// //CapsLockの状態を無視
     /// table.IsCheckCapsLock = false;
@@ -63,7 +63,7 @@ namespace tpInner{
         ///<para>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFn</para>
         ///<para>［例］S,115,1,0</para>
         ///</param>
-        public keyCode2CharTable(TextAsset aCSV){
+        public keyCode2CharTable(in TextAsset aCSV){
             CreateTable(aCSV);
             IsCheckCapsLock = true;
         }
@@ -104,13 +104,13 @@ namespace tpInner{
         ///キーの入力(KeyCode)から単体文字への変換テーブルを作成
         ///</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
-        private void CreateTable(TextAsset aCSV){
+        private void CreateTable(in TextAsset aCSV){
             const int CSV_CHAR_FIELD = 0;
             const int CSV_KEYCODE_FIELD = 1;
             const int CSV_SHIFT_FIELD = 2;
             const int CSV_FN_FIELD = 3;
 
-            CsvReadHelper csv = new CsvReadHelper(aCSV);
+            CsvReadHelper csv = new CsvReadHelper(in aCSV);
             foreach (List<string> record in csv.Datas){
                 int key = int.Parse(record[CSV_KEYCODE_FIELD]);
                 if (int.Parse(record[CSV_SHIFT_FIELD]) == 1){

@@ -18,7 +18,7 @@ namespace tpInner {
     /// ConvertTableMgr table = new ConvertTableMgr();
     /// 
     /// //独自に変換テーブルを指定(一例)
-    /// table.SetKeyCode2RomaTable(csvSrc);
+    /// table.SetKeyCode2RomaTable(in csvSrc);
     /// 
     /// //キーコードから文字に変換し、ログに出力
     /// private void OnGUI()
@@ -53,7 +53,7 @@ namespace tpInner {
         /// <para>S,115,1,0</para>
         /// <para>s,115,0,0</para>
         /// </param>
-        public void SetKeyCode2RomaTable(TextAsset asset) {
+        public void SetKeyCode2RomaTable(in TextAsset asset) {
             Key2Roma = new keyCode2CharTable(asset);
             Key2Roma.IsCheckCapsLock = IsCheckCapsLock;
         }
@@ -69,7 +69,7 @@ namespace tpInner {
         /// <para>a,あ</para>
         /// <para>shi,し</para>
         /// </param>
-        public void SetRoma2KanaTable(TextAsset asset) {
+        public void SetRoma2KanaTable(in TextAsset asset) {
             Roma2Kana = new Roma2KanaTable(asset);
             Kana2Roma = new Kana2RomaTable(asset);
         }
@@ -87,7 +87,7 @@ namespace tpInner {
         /// <para>ぬ,49,1,0</para>
         /// <para>ふ,50,0,0</para>
         /// </param>
-        public void SetKeyCode2KanaMidTable(TextAsset asset) {
+        public void SetKeyCode2KanaMidTable(in TextAsset asset) {
             Key2kanaMid = new keyCode2CharTable(asset);
             Key2kanaMid.IsCheckCapsLock = false; //こちらはCapsLockの影響を受けない
         }
@@ -103,7 +103,7 @@ namespace tpInner {
         /// <para>か゛,が</para>
         /// <para></para>き゛,ぎ</para>
         /// </param>
-        public void SetKanaMid2KanaTable(TextAsset asset) {
+        public void SetKanaMid2KanaTable(in TextAsset asset) {
             KanaMid2Kana = new KanaMid2KanaTable(asset);
         }
         #endregion
@@ -159,28 +159,28 @@ namespace tpInner {
                 TextAsset tmp = new TextAsset();
                 tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
                 if (tmp != null) {
-                    SetKeyCode2RomaTable(tmp);
+                    SetKeyCode2RomaTable(in tmp);
                 }
             }
             {
                 TextAsset tmp = new TextAsset();
                 tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
                 if (tmp != null) {
-                    SetRoma2KanaTable(tmp);
+                    SetRoma2KanaTable(in tmp);
                 }
             }
             {
                 TextAsset tmp = new TextAsset();
                 tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
                 if (tmp != null) {
-                    SetKeyCode2KanaMidTable(tmp);
+                    SetKeyCode2KanaMidTable(in tmp);
                 }
             }
             {
                 TextAsset tmp = new TextAsset();
                 tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/JISkana", typeof(TextAsset)) as TextAsset;
                 if(tmp != null) {
-                    SetKanaMid2KanaTable(tmp);
+                    SetKanaMid2KanaTable(in tmp);
                 }
             }
         }

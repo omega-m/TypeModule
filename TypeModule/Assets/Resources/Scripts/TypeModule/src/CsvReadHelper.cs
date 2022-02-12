@@ -22,7 +22,7 @@ namespace tpInner{
     ///     ...
     ///     
     /// //csvデータ読み込み(どちらでもOK)
-    /// CsvReadHelper csv = new CsvReadHelper(csvAsset);
+    /// CsvReadHelper csv = new CsvReadHelper(in csvAsset);
     /// //CsvReadHelper csv = new CsvReadHelper("filePath");
     /// 
     /// //各データにアクセス (1)
@@ -60,8 +60,8 @@ namespace tpInner{
         ///<para>CSV(.csv)形式のファイルアセットを指定。文字コードは[UTF-8]としてください。</para>
         ///<para>フィールドにコンマ[,]を含む場合は、ダブルクォート["]で囲む必要があります。</para>
         ///</param>
-        public CsvReadHelper(TextAsset aFile){
-            Load(aFile);
+        public CsvReadHelper(in TextAsset aFile){
+            Load(in aFile);
         }
         #endregion
 
@@ -77,7 +77,7 @@ namespace tpInner{
         public void Load(string aFilePath){
             TextAsset file = new TextAsset();
             file = Resources.Load(aFilePath, typeof(TextAsset)) as TextAsset;
-            Load(file);
+            Load(in file);
         }
 
         ///<summary>
@@ -87,7 +87,7 @@ namespace tpInner{
         ///<para>CSV(.csv)形式のファイルアセットを指定。文字コードは[UTF-8]としてください。</para>
         ///<para>フィールドにコンマ[,]を含む場合は、ダブルクォート["]で囲む必要があります。</para>
         ///</param>
-        public void Load(TextAsset aFile) {
+        public void Load(in TextAsset aFile) {
             m_datas.Clear();
             FieldMax = -1;
 

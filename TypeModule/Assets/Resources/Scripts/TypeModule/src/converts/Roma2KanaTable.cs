@@ -27,7 +27,7 @@ namespace tpInner {
     ///     ...
     ///     
     /// //初期化処理
-    /// Roma2KanaTable table = new Roma2KanaTable(csvSrc);
+    /// Roma2KanaTable table = new Roma2KanaTable(in csvSrc);
     /// 
     /// 
     /// //ローマ字文字列からひらがな文字列へ変換
@@ -85,7 +85,7 @@ namespace tpInner {
         ///<para>［形式］ローマ字列,ひらがな文字列,</para>
         ///<para>［例］kya,きゃ</para>
         ///</param>
-        public Roma2KanaTable(TextAsset aCSV){
+        public Roma2KanaTable(in TextAsset aCSV){
             CreateTree(aCSV);
         }
         #endregion
@@ -182,13 +182,13 @@ namespace tpInner {
         ///ローマ字列からひらがな文字列に変換するためのツリーを作成
         ///</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
-        private void CreateTree(TextAsset aCSV){
+        private void CreateTree(in TextAsset aCSV){
             const int CSV_ROMA_FIELD = 0;
             const int CSV_KANA_FIELD = 1;
 
             m_treeRoot = Roma2KanaNode.CreateRoot();
 
-            CsvReadHelper csv = new CsvReadHelper(aCSV);
+            CsvReadHelper csv = new CsvReadHelper(in aCSV);
             foreach (List<string> record in csv.Datas)
             {
                 m_treeRoot.AddNodes(record[CSV_ROMA_FIELD], record[CSV_KANA_FIELD]);

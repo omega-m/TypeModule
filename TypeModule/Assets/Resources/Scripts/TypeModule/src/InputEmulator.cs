@@ -58,10 +58,10 @@ namespace tpInner {
         /// キーボードの入力から文字列生成をエミュレートします
         /// </summary>
         ///<param name="aConvertTableMgr">文字列生成時に使用する、変換テーブルを管理するクラス</param>
-        public InputEmulator(ConvertTableMgr aConvertTableMgr) {
+        public InputEmulator(in ConvertTableMgr aConvertTableMgr) {
             m_convertTableMgr = aConvertTableMgr;
             Clear();
-            m_results = new InputEmulatorResults(ref m_strDone, ref m_strDoneRaws, ref m_strWorkInner, ref m_prevCharInner);
+            m_results = new InputEmulatorResults(in m_strDone, in m_strDoneRaws, in m_strWorkInner, in m_prevCharInner);
         }
         #endregion
 
@@ -83,7 +83,7 @@ namespace tpInner {
         /// キーボードからの入力文字を追加
         /// </summary>
         /// <param name="aEvent">入力イベント</param>
-        public void AddInput(Event aEvent) {
+        public void AddInput(in Event aEvent) {
             m_results.Event = new Event(aEvent);
             if (aEvent.keyCode == KeyCode.None) {
                 //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
@@ -308,15 +308,16 @@ public class InputEmulatorResults {
     /// <summary>
     /// 入力時のイベント
     /// </summary>
-    public ref Event Event {
-        get { return ref m_event; }
+    public Event Event {
+        get { return m_event; }
+        set { m_event = value; }
     }
     #endregion
 
     #region 生成
     /// <summary>
     /// </summary>
-    public InputEmulatorResults(ref List<string> aStrDone, ref List<string> aStrDoneRaws, ref List<string> aStrWork, ref List<string> aPrevChar) {
+    public InputEmulatorResults(in List<string> aStrDone, in List<string> aStrDoneRaws, in List<string> aStrWork, in List<string> aPrevChar) {
         m_strDone = aStrDone;
         m_strDoneRaws = aStrDoneRaws;
         m_strWork = aStrWork;
