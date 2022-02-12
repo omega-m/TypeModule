@@ -13,9 +13,8 @@ namespace tpInner {
     ///     ...
     ///     
     /// //初期化処理
-    /// 
     /// ConvertTableMgr table = new ConvertTableMgr();
-    /// InputEmulator input = new InputEmulator(table);
+    /// InputEmulator input = new InputEmulator(in table);
     /// 
     ///     ...
     ///     
@@ -38,6 +37,21 @@ namespace tpInner {
     /// //入力された文字列を全てクリア
     /// input.Clear();
     /// 
+    ///     ...
+    ///
+    /// //入力が発生した時のイベントリスナを追加
+    /// private void onInput(InputEmulatorResults res) {
+    ///     Debug.Log("onInput");
+    ///     Debug.Log(res.Str);
+    /// }
+    /// //入力値が変更された時のイベントリスナを追加
+    /// private void onChange(InputEmulatorResults res) {
+    ///     Debug.Log("onChange");
+    /// }
+    /// 
+    /// input.AddEventListenerOnInput(onInput);
+    /// input.AddEventListenerOnChange(onChange);
+    /// 
     /// 
     /// //以下オプションです================================
     /// 
@@ -50,17 +64,17 @@ namespace tpInner {
     /// //バックスペースキーで文字を消せないようにする
     /// input.IsBS = false;
     /// 
-    /// //一文字削除
+    /// //プログラム側から一文字削除
     /// input.BackSpace();
     /// 
-    /// //確定
+    /// //プログラム側から確定
     /// input.Enter();
     /// 
-    /// //エンターキーで文字を確定しないようにする
+    /// //エンターキーの入力から文字を確定しないようにする
     /// input.IsEnter = false;
     /// 
     /// </code></example>
-    public class InputEmulator{
+    public class InputEmulator {
 
         #region 生成
         /// <summary>
@@ -70,31 +84,35 @@ namespace tpInner {
         public InputEmulator(in ConvertTableMgr aConvertTableMgr) {
             m_convertTableMgr = aConvertTableMgr;
             Clear();
-            m_results = new InputEmulatorResults(in m_strDone, in m_strDoneRaws, in m_strWorkInner, in m_prevCharInner);
+            m_results = new InputEmulatorResults(in m_strDone, in m_strDoneRaws, in m_strWorkInner, in m_prevCharInner, in m_InputTypeInner);
         }
         #endregion
 
         #region メソッド
-
         /// <summary>
         /// キーボードからの入力文字を追加
         /// </summary>
         /// <param name="aEvent">入力イベント</param>
         public void AddInput(in Event aEvent) {
-            m_results.Event = new Event(aEvent);
-            if (aEvent.keyCode == KeyCode.None) {
-                //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
-                //m_prevChar = "";
+            m_results.Event = new Event();
+            if (aEvent.keyCode == KeyCode.None) {//IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
+            }
+            else if (aEvent.keyCode == KeyCode.Return) { //enter
+                if (IsEnter) {
+                    m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER;
+                    m_results.Event = new Event(aEvent);
+                    EnterInner();
+                    m_onInputCallbacks.Invoke(m_results);
+                }
+            } else if (aEvent.keyCode == KeyCode.Backspace) {//bs
+                if (IsBS) {
+                    m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS;
+                    m_results.Event = new Event(aEvent);
+                    BackSpaceInner();
+                    m_onInputCallbacks.Invoke(m_results);
+                }
             } else {
-                if (aEvent.keyCode == KeyCode.Return) { //enter
-                    if (IsEnter) {
-                        Enter();
-                    }
-                } else if (aEvent.keyCode == KeyCode.Backspace) {//bs
-                    if (IsBS) {
-                        BackSpace();
-                    }
-                } else if (IsInputEng) {//英語入力
+                if (IsInputEng) {//英語入力
                     char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
                     if (nCh == '\0') { m_prevChar = ""; return; }
                     m_strDone.Add(nCh + "");
@@ -157,7 +175,11 @@ namespace tpInner {
                         m_strDoneRaws.Add(addStrTmp);
                     }
                 }
+                m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_INPUT;
+                m_results.Event = new Event(aEvent);
                 m_results.Dirty = true;
+                m_onChangeCallbacks.Invoke(m_results);
+                m_onInputCallbacks.Invoke(m_results);
             }
         }
 
@@ -172,51 +194,40 @@ namespace tpInner {
             m_strWorkInner.Add("");
             m_prevCharInner.Clear();
             m_prevCharInner.Add("");
-            if(m_results != null) {
+            m_InputTypeInner.Clear();
+            m_InputTypeInner.Add(InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_NONE);
+
+            if (m_results != null) {
+                m_results.Event = new Event();
                 m_results.Dirty = true;
             }
         }
 
         /// <summary>
-        /// 変換確定前の文字列を確定します。
+        /// プログラム側から変換確定前の文字列を確定します。
         /// </summary>
         public void Enter() {
-            if (m_strWork.Length == 0) { return; }
-            //もし変換チェック中の文字列がある場合は、そのままの状態で確定
-            foreach (char ch in m_strWork) {
-                m_strDone.Add(ch + "");
-                m_strDoneRaws.Add(ch + "");
-            }
-            m_strWork = "";
-            m_prevChar = "";
-            m_results.Dirty = true;
+            m_results.Event = new Event();
+            m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER_FORCE;
+            EnterInner();
         }
 
         /// <summary>
-        /// 末尾から1文字消します。
+        /// プログラム側から、末尾の1文字消します。
         /// </summary>
         public void BackSpace() {
-            if (m_strWork.Length > 0) {
-                m_strWork = m_strWork.Substring(0, m_strWork.Length - 1);
-            } else if (m_strDone.Count > 0) {
-                int idx = m_strDone.Count - 1;
-                m_strDone[idx] = m_strDone[idx].Substring(0, m_strDone[idx].Length - 1);
-                if (m_strDone[idx].Length == 0) {
-                    m_strDone.RemoveAt(idx);
-                    m_strDoneRaws.RemoveAt(m_strDoneRaws.Count - 1);
-                }
-            }
-            m_prevChar = "";
-            m_results.Dirty = true;
+            m_results.Event = new Event();
+            m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS_FORCE;
+            BackSpaceInner();
         }
         #endregion
-
+        
         #region フィールド
         /// <summary>
         /// 生成された文字列
         /// </summary>
-        public string Str { 
-            get{return m_results.Str;} 
+        public string Str {
+            get { return m_results.Str; }
         }
 
         /// <summary>
@@ -234,9 +245,9 @@ namespace tpInner {
         }
 
         /// <summary>
-        /// 前回入力発生時のイベント
+        /// 前回入力発生時のUnityイベント
         /// </summary>
-        public Event Event{
+        public Event Event {
             get { return m_results.Event; }
         }
 
@@ -247,7 +258,7 @@ namespace tpInner {
         /// <para>[false]日本語入力モード</para>
         /// </summary>
         public bool IsInputEng {
-            get { return m_isInputEng; } 
+            get { return m_isInputEng; }
             set {
                 m_isInputEng = value;
                 if (m_isInputEng) {
@@ -261,7 +272,7 @@ namespace tpInner {
         /// JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうか
         /// </summary>
         public bool IsKana {
-            get {return m_isKana; }
+            get { return m_isKana; }
             set {
                 m_isKana = value;
                 Enter();
@@ -280,7 +291,76 @@ namespace tpInner {
         #endregion
 
         #region イベントハンドラ
+        /// <summary>
+        /// キーボードから文字が入力された時のイベントリスナを追加します
+        /// </summary>
+        /// <param name="aEvent">イベントリスナ</param>
+        public void AddEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
+            m_onInputCallbacks.AddListener(aEvent);
+        }
 
+        /// <summary>
+        /// キーボードから文字が入力された時のイベントリスナを削除します
+        /// </summary>
+        /// <param name="aEvent">イベントリスナ</param>
+        public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
+            m_onInputCallbacks.RemoveListener(aEvent);
+        }
+
+        /// <summary>
+        /// 文字列が変更された時のイベントリスナを追加します
+        /// </summary>
+        /// <param name="aEvent">イベントリスナ</param>
+        public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
+            m_onChangeCallbacks.AddListener(aEvent);
+        }
+
+        /// <summary>
+        /// 文字列が変更された時のイベントリスナを削除します
+        /// </summary>
+        /// <param name="aEvent">イベントリスナ</param>
+
+        public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
+            m_onChangeCallbacks.RemoveListener(aEvent);
+        }
+        #endregion
+
+        #region 内部メソッド
+
+        /// <summary>
+        /// 変換確定前の文字列を確定します。
+        /// </summary>
+        private void EnterInner() {
+            if (m_strWork.Length == 0) { return; }
+            //もし変換チェック中の文字列がある場合は、そのままの状態で確定
+            foreach (char ch in m_strWork) {
+                m_strDone.Add(ch + "");
+                m_strDoneRaws.Add(ch + "");
+            }
+            m_strWork = "";
+            m_prevChar = "";
+            m_results.Dirty = true;
+            m_onChangeCallbacks.Invoke(m_results);
+        }
+
+        /// <summary>
+        /// 末尾から1文字消します。
+        /// </summary>
+        private void BackSpaceInner() {
+            if (m_strWork.Length > 0) {
+                m_strWork = m_strWork.Substring(0, m_strWork.Length - 1);
+            } else if (m_strDone.Count > 0) {
+                int idx = m_strDone.Count - 1;
+                m_strDone[idx] = m_strDone[idx].Substring(0, m_strDone[idx].Length - 1);
+                if (m_strDone[idx].Length == 0) {
+                    m_strDone.RemoveAt(idx);
+                    m_strDoneRaws.RemoveAt(m_strDoneRaws.Count - 1);
+                }
+            }
+            m_prevChar = "";
+            m_results.Dirty = true;
+            m_onChangeCallbacks.Invoke(m_results);
+        }
         #endregion
 
         #region メンバ
@@ -291,9 +371,12 @@ namespace tpInner {
         private List<string>    m_strDoneRaws = new List<string>();     //変換確定前文字列
         private List<string>    m_strWorkInner = new List<string>();    //現在チェック中の文字
         private List<string>    m_prevCharInner = new List<string>();
+        List<InputEmulatorResults.INPUT_TYPE> m_InputTypeInner = new List<InputEmulatorResults.INPUT_TYPE>();
 
         private InputEmulatorResults    m_results;
-        //private UnityEvent<InputEmulatorResults> m_onInputCallbacks;
+
+        private UnityEvent<InputEmulatorResults> m_onInputCallbacks = new UnityEvent<InputEmulatorResults>();
+        private UnityEvent<InputEmulatorResults> m_onChangeCallbacks = new UnityEvent<InputEmulatorResults>();
         #endregion
 
         #region 内部プロパティ
@@ -305,6 +388,10 @@ namespace tpInner {
             get { return m_prevCharInner[0]; }
             set { m_prevCharInner[0] = value; }
         }
+        private InputEmulatorResults.INPUT_TYPE m_inputType{
+            get { return m_InputTypeInner[0]; }
+            set { m_InputTypeInner[0] = value; }
+        }
         #endregion
     }
 }
@@ -313,11 +400,94 @@ namespace tpInner {
 /// <summary>
 /// InputEmulatorによって処理されたデータへのアクセス用クラスです。
 /// </summary>
-/// <example><code>
+/// /// <example><code>
 ///     
+/// //イベントリスナを追加し、文字列に変更があった時にテキストを修正
+/// module = GetComponent<TypeModule>();
+/// module.AddEventListenerOnChange(onChange);
+///         
+///     ...
+///     
+/// public Text testInput;
+/// public Text testInputRaw;
+/// 
+/// private void onChange(InputEmulatorResults res) {
+///     Debug.Log("onChange");
+///     
+///     testInput.text = res.Str;
+///     testInputRaw.text = res.StrRaw;
+/// }
+/// 
+/// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+/// public AudioSource audioSource;
+/// public AudioClip typeSound;
+/// public AudioClip bsSound;
+/// public AudioClip enterSound;
+/// 
+///         ...
+/// 
+/// module.AddEventListenerOnInput(onInput);
+/// audioSource = GetComponent<AudioSource>();
+/// 
+///         ...
+/// 
+/// private void onInput(InputEmulatorResults res){
+///     Debug.Log("onInput");
+///     switch(res.InputType){
+///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_INPUT:
+///             audioSource.PlayOneShot(typeSound);
+///             break;
+///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS:
+///             audioSource.PlayOneShot(bsSound);
+///             break;
+///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER:
+///             audioSource.PlayOneShot(enterSound);
+///             break;
+///     }
+/// }
+/// 
+/// //以下オプションです================================
+/// 
+/// //CapsLockの状態を反映させないように切り替え
+/// module.IsCheckCapsLock = false;
+/// 
+/// //入力を受け付けないように切り替え
+/// module.isRun = false;
 /// 
 /// </code></example>
 public class InputEmulatorResults {
+
+    #region 入力タイプ
+    /// <summary>
+    /// イベント発生時の入力タイプです
+    /// </summary>
+    public enum INPUT_TYPE {
+        /// <summary>
+        /// どの入力タイプにも属さない
+        /// <summary>
+        INPUT_TYPE_NONE,
+        /// <summary>
+        /// 通常の入力タイプ。キーボードから文字が打たれ、末尾に文字が追加された場合このタイプになります。
+        /// <summary>
+        INPUT_TYPE_INPUT,
+        /// <summary>
+        /// キーボードからBSキーが打たれ、1文字削除された時にこのタイプになります。
+        /// <summary>
+        INPUT_TYPE_BS,
+        /// <summary>
+        /// キーボードからEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。
+        /// <summary>
+        INPUT_TYPE_ENTER,
+        /// <summary>
+        /// プログラム側か、システム側からBSキーが打たれ、1文字削除された時にこのタイプになります。
+        /// <summary>
+        INPUT_TYPE_BS_FORCE,
+        /// <summary>
+        /// プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。
+        /// <summary>
+        INPUT_TYPE_ENTER_FORCE,
+    }
+    #endregion
 
     #region フィールド
     /// <summary>
@@ -354,17 +524,25 @@ public class InputEmulatorResults {
         get { return m_event; }
         set { m_event = value; }
     }
+
+    /// <summary>
+    /// 前回の入力タイプ
+    /// </summary>
+    public INPUT_TYPE InputType {
+        get { return m_inputType[0]; }
+    }
     #endregion
 
     #region 生成
     /// <summary>
     /// InputEmulatorより作成されます。外からは作成しないでください。
     /// </summary>    
-    public InputEmulatorResults(in List<string> aStrDone, in List<string> aStrDoneRaws, in List<string> aStrWork, in List<string> aPrevChar) {
+    public InputEmulatorResults(in List<string> aStrDone, in List<string> aStrDoneRaws, in List<string> aStrWork, in List<string> aPrevChar, in List<INPUT_TYPE> aInputType) {
         m_strDone = aStrDone;
         m_strDoneRaws = aStrDoneRaws;
         m_strWork = aStrWork;
         m_prevChar = aPrevChar;
+        m_inputType = aInputType;
     }
     #endregion
 
@@ -402,6 +580,7 @@ public class InputEmulatorResults {
     private List<string> m_strDoneRaws;     //変換確定前文字列
     private List<string> m_strWork;         //現在チェック中の文字
     private List<string> m_prevChar;
+    private List<INPUT_TYPE> m_inputType;
     private Event m_event = new Event();
 
     private string m_strCache = "";

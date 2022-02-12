@@ -4,6 +4,7 @@ using UnityEngine;
 using tpInner;
 using Candlelight;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 ///<summary>
 ///キーボードの入力を元に、文字入力の判定を担当するモジュールです。
@@ -15,18 +16,67 @@ using UnityEngine.UI;
 /// module = GetComponent<TypeModule>();
 ///     
 /// 
-/// //文字列生成モードに切り替え
-/// Mode = TypeModule.MODE.MODE_INPUT;
+/// //文字列生成シミュレーションモード=======================================
+/// module.Mode = TypeModule.MODE.MODE_INPUT;
 /// 
-/// //英語入力状態へ
-/// module.IsInputEng = true;
+/// //モジュールから状態を取得
+/// Debug.Log(module.Str);
+/// Debug.Log(module.prevChar);
+/// Debug.Log(module.StrRaw);
 /// 
-/// //かな入力入力状態へ
-/// module.IsKana = true;
+/// //生成モードを変更
+/// module.IsInputEng = true    //英語入力状態へ
+/// module.IsKana = true;       //かな入力入力状態へ
+/// module.IsBS     = true;     //BSで文字を消せるかどうか
 /// 
-/// //BSで文字を消せるかどうか
-/// module.IsBS     = true;
+/// //プログラムから文字列を操作
+/// module.Enter();
+/// module.BackSpace();
 /// 
+/// 
+/// //イベントリスナを追加し、文字列に変更があった時にテキストを修正
+/// module.AddEventListenerOnChange(onChange);
+/// 
+///         ...
+/// 
+/// public Text testInput;
+/// public Text testInputRaw;
+/// 
+/// private void onChange(InputEmulatorResults res) {
+///     Debug.Log("onChange");
+///     
+///     testInput.text = res.Str;
+///     testInputRaw.text = res.StrRaw;
+/// }
+/// 
+/// 
+/// /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+/// public AudioSource audioSource;
+/// public AudioClip typeSound;
+/// public AudioClip bsSound;
+/// public AudioClip enterSound;
+/// 
+///         ...
+/// 
+/// module.AddEventListenerOnInput(onInput);
+/// audioSource = GetComponent<AudioSource>();
+/// 
+///         ...
+/// 
+/// private void onInput(InputEmulatorResults res){
+///     Debug.Log("onInput");
+///     switch(res.InputType){
+///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_INPUT:
+///             audioSource.PlayOneShot(typeSound);
+///             break;
+///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS:
+///             audioSource.PlayOneShot(bsSound);
+///             break;
+///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER:
+///             audioSource.PlayOneShot(enterSound);
+///             break;
+///     }
+/// }
 /// 
 /// //以下オプションです================================
 /// 
@@ -62,6 +112,9 @@ public class TypeModule : MonoBehaviour {
     void Awake() {
         CreateConvertTables();
         CreateInputEmulator();
+
+        m_inputEmulator.AddEventListenerOnChange(onChange);
+        m_inputEmulator.AddEventListenerOnInput(onInput);
     }
 
     void Update() {
@@ -73,12 +126,6 @@ public class TypeModule : MonoBehaviour {
                 switch (Mode) {
                     case MODE.MODE_INPUT:
                         m_inputEmulator.AddInput(Event.current);
-                        //test============
-                        testInput.text = m_inputEmulator.Str;
-                        testInputRaw.text = m_inputEmulator.StrRaw;
-                        Debug.Log(m_inputEmulator.PrevChar);
-                        Debug.Log(m_inputEmulator.Event);
-                        //test============
                         break;
                     case MODE.MODE_COMPARE:
                         break;
@@ -88,11 +135,69 @@ public class TypeModule : MonoBehaviour {
     }
     #endregion
 
-    #region メソッド
-    //public void Clear(){}
+    #region 共通メソッド
+    /// <summary>
+    /// 内部の入力データをを全て削除します
+    /// </summary>
+    public void Clear() {
+        m_inputEmulator.Clear();
+    }
+
     #endregion
 
-    #region プロパティ
+    #region MODE.MODE_INPUT用メソッド プロパティ
+    /// <summary>
+    /// プログラム側から、変換確定前の文字列を確定します。
+    /// </summary>
+    public void Enter() {
+        if (Mode == MODE.MODE_INPUT) {
+            m_inputEmulator.Enter();
+        }
+    }
+
+    /// <summary>
+    /// プログラム側から、末尾の1文字消します。
+    /// </summary>
+    public void BackSpace() {
+        if (Mode == MODE.MODE_INPUT) {
+            m_inputEmulator.BackSpace();
+        }
+    }
+
+    /// <summary>
+    /// キーボードから文字が入力された時のイベントリスナを追加します
+    /// </summary>
+    /// <param name="aEvent">イベントリスナ</param>
+    public void AddEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
+        m_inputEmulator.AddEventListenerOnInput(aEvent);
+    }
+
+    /// <summary>
+    /// キーボードから文字が入力された時のイベントリスナを削除します
+    /// </summary>
+    /// <param name="aEvent">イベントリスナ</param>
+    public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
+        m_inputEmulator.RemoveEventListenerOnInput(aEvent);
+    }
+
+    /// <summary>
+    /// 文字列が変更された時のイベントリスナを追加します
+    /// </summary>
+    /// <param name="aEvent">イベントリスナ</param>
+    public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
+        m_inputEmulator.AddEventListenerOnChange(aEvent);
+    }
+
+    /// <summary>
+    /// 文字列が変更された時のイベントリスナを削除します
+    /// </summary>
+    /// <param name="aEvent">イベントリスナ</param>
+    public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
+        m_inputEmulator.RemoveEventListenerOnChange(aEvent);
+    }
+    #endregion
+
+    #region インスペクタープロパティ
     #region
     [Tooltip(
         "文字入力判定モードです。\n" +
@@ -118,7 +223,7 @@ public class TypeModule : MonoBehaviour {
     #endregion
     public bool IsRun {
         get { return m_isRun; }
-        set { m_isRun = value; } 
+        set { m_isRun = value; }
     }
 
     #region
@@ -152,7 +257,7 @@ public class TypeModule : MonoBehaviour {
         get { return m_isInputEng; }
         set {
             m_isInputEng = value;
-            if(m_inputEmulator != null) {
+            if (m_inputEmulator != null) {
                 m_inputEmulator.IsInputEng = IsInputEng;
             }
         }
@@ -205,10 +310,10 @@ public class TypeModule : MonoBehaviour {
        )]
     [SerializeField, PropertyBackingField("KeyCode2RomaCsv")] private TextAsset m_keyCode2RomaCsv;
     #endregion
-    public TextAsset KeyCode2RomaCsv{
+    public TextAsset KeyCode2RomaCsv {
         get { return m_keyCode2RomaCsv; }
-        set{
-            if (m_keyCode2RomaCsv != value){
+        set {
+            if (m_keyCode2RomaCsv != value) {
                 m_keyCode2RomaCsv = value;
                 if (m_convertTableMgr != null) {
                     m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);
@@ -230,10 +335,10 @@ public class TypeModule : MonoBehaviour {
    )]
     [SerializeField, PropertyBackingField("Roma2KanaCsv")] private TextAsset m_roma2KanaCsv;
     #endregion
-    public TextAsset Roma2KanaCsv{
+    public TextAsset Roma2KanaCsv {
         get { return m_roma2KanaCsv; }
-        set{
-            if (m_roma2KanaCsv != value){
+        set {
+            if (m_roma2KanaCsv != value) {
                 m_roma2KanaCsv = value;
                 if (m_convertTableMgr != null) {
                     m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);
@@ -258,10 +363,10 @@ public class TypeModule : MonoBehaviour {
        )]
     [SerializeField, PropertyBackingField("KeyCode2KanaMidCsv")] private TextAsset m_keyCode2KanaMidCsv;
     #endregion
-    public TextAsset KeyCode2KanaMidCsv{
+    public TextAsset KeyCode2KanaMidCsv {
         get { return m_keyCode2KanaMidCsv; }
-        set{
-            if (m_keyCode2KanaMidCsv != value){
+        set {
+            if (m_keyCode2KanaMidCsv != value) {
                 m_keyCode2KanaMidCsv = value;
                 if (m_convertTableMgr != null) {
                     m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);
@@ -328,9 +433,9 @@ public class TypeModule : MonoBehaviour {
        )]
     [SerializeField, PropertyBackingField("IsCheckCapsLock")] private bool m_isCheckCapsLock = true;
     #endregion
-    public bool IsCheckCapsLock{
+    public bool IsCheckCapsLock {
         get { return m_isCheckCapsLock; }
-        set{
+        set {
             if (m_convertTableMgr != null) {
                 m_convertTableMgr.IsCheckCapsLock = value;
             }
@@ -388,4 +493,11 @@ public class TypeModule : MonoBehaviour {
     public Text testInput;
     public Text testInputRaw;
 
+    private void onInput(InputEmulatorResults res) {
+        Debug.Log("onInput");
+    }
+    private void onChange(InputEmulatorResults res) {
+        Debug.Log("onChange");
+
+    }
 }
