@@ -26,12 +26,12 @@ namespace tpInner {
     /// 
     /// //ひらがなの中間文字列から、変換できるひらがながあるかを取得
     /// string outCvt;
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("あ", out outCvt));          // false
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か", out outCvt));          // false
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か゛", out outCvt));        // true
+    /// Debug.Log(table.TryConvert("あ", out outCvt));          // false
+    /// Debug.Log(table.TryConvert("か", out outCvt));          // false
+    /// Debug.Log(table.TryConvert("か゛", out outCvt));        // true
     /// //将来変換できる可能性があるかもチェック
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か", out outCvt, true));    // true
-    /// Debug.Log(m_convertTableMgr.KanaMid2Kana.TryConvert("か゛", out outCvt, true));  // true
+    /// Debug.Log(table.TryConvert("か", out outCvt, true));    // true
+    /// Debug.Log(table.TryConvert("か゛", out outCvt, true));  // true
     /// 
     /// 
     /// //ひらがなの中間文字列から、指定したひらがな文字列へ変換できるかどうかを取得
