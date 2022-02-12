@@ -105,6 +105,8 @@ namespace tpInner {
         /// </param>
         public void SetKanaMid2KanaTable(in TextAsset asset) {
             KanaMid2Kana = new KanaMid2KanaTable(asset);
+            Kana2KanaMid = new Kana2KanaMidTable(asset);
+
         }
 
         /// <summary>
@@ -149,6 +151,11 @@ namespace tpInner {
         ///ひらがな中間文字列　=> ひらがな文字列への変換テーブル
         ///</summary>
         public KanaMid2KanaTable KanaMid2Kana { get; private set; }
+
+        ///<summary>
+        ///ひらがな文字列 => ひらがな中間文字列　への変換テーブル
+        ///</summary>
+        public Kana2KanaMidTable Kana2KanaMid { get; private set; }
 
         ///<summary>
         ///数字と記号の、全角半角の相互変換テーブル
