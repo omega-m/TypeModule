@@ -77,6 +77,9 @@ namespace tpInner {
             m_strWorkInner.Add("");
             m_prevCharInner.Clear();
             m_prevCharInner.Add("");
+            if(m_results != null) {
+                m_results.Dirty = true;
+            }
         }
 
         /// <summary>
@@ -88,76 +91,79 @@ namespace tpInner {
             if (aEvent.keyCode == KeyCode.None) {
                 //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
                 //m_prevChar = "";
-            }else if(aEvent.keyCode == KeyCode.Backspace) {//bs
-                if (IsBS) {
-                    if(m_strWork.Length > 0) {
-                        m_strWork = m_strWork.Substring(0, m_strWork.Length - 1);
-                    } else if(m_strDone.Count > 0) {
-                        int idx = m_strDone.Count - 1;
-                        m_strDone[idx] = m_strDone[idx].Substring(0, m_strDone[idx].Length - 1);
-                        if (m_strDone[idx].Length == 0) {
-                            m_strDone.RemoveAt(idx);
-                            m_strDoneRaws.RemoveAt(m_strDoneRaws.Count - 1);
+            } else {
+                if (aEvent.keyCode == KeyCode.Backspace) {//bs
+                    if (IsBS) {
+                        if (m_strWork.Length > 0) {
+                            m_strWork = m_strWork.Substring(0, m_strWork.Length - 1);
+                        } else if (m_strDone.Count > 0) {
+                            int idx = m_strDone.Count - 1;
+                            m_strDone[idx] = m_strDone[idx].Substring(0, m_strDone[idx].Length - 1);
+                            if (m_strDone[idx].Length == 0) {
+                                m_strDone.RemoveAt(idx);
+                                m_strDoneRaws.RemoveAt(m_strDoneRaws.Count - 1);
+                            }
                         }
                     }
-                }
 
-                m_prevChar = "";
-            }else if (IsInputEng) {//英語入力
-                char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                if (nCh == '\0') { m_prevChar = ""; return; }
-                m_strDone.Add(nCh + "");
-                m_strDoneRaws.Add(nCh + "");
-                m_prevChar = nCh + "";
-            } else if (IsKana) {//かな入力
-                char nCh = m_convertTableMgr.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                if (nCh == '\0') { m_prevChar = ""; return; }
-                m_strWork += nCh;
-                m_prevChar = nCh + "";
-                
-                while(m_strWork.Length > 0) {
-                    if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork)) {
-                        m_strDone.Add(m_convertTableMgr.KanaMid2Kana.Convert(m_strWork));
-                        m_strDoneRaws.Add(m_strWork);
-                        m_strWork = "";
-                        break;
-                    } else if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork, true)) {
-                        break;
+                    m_prevChar = "";
+                } else if (IsInputEng) {//英語入力
+                    char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    if (nCh == '\0') { m_prevChar = ""; return; }
+                    m_strDone.Add(nCh + "");
+                    m_strDoneRaws.Add(nCh + "");
+                    m_prevChar = nCh + "";
+                } else if (IsKana) {//かな入力
+                    char nCh = m_convertTableMgr.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    if (nCh == '\0') { m_prevChar = ""; return; }
+                    m_strWork += nCh;
+                    m_prevChar = nCh + "";
+
+                    while (m_strWork.Length > 0) {
+                        if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork)) {
+                            m_strDone.Add(m_convertTableMgr.KanaMid2Kana.Convert(m_strWork));
+                            m_strDoneRaws.Add(m_strWork);
+                            m_strWork = "";
+                            break;
+                        } else if (m_convertTableMgr.KanaMid2Kana.CanConvert(m_strWork, true)) {
+                            break;
+                        }
+                        m_strDone.Add(m_strWork[0] + "");
+                        m_strDoneRaws.Add(m_strWork[0] + "");
+                        m_strWork = m_strWork.Substring(1);
                     }
-                    m_strDone.Add(m_strWork[0] + "");
-                    m_strDoneRaws.Add(m_strWork[0] + "");
-                    m_strWork = m_strWork.Substring(1);
-                }
-            } else {//ローマ字入力
-                char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                if (nCh == '\0') { m_prevChar = ""; return; }
-                m_strWork += nCh;
-                m_prevChar = nCh + "";
+                } else {//ローマ字入力
+                    char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    if (nCh == '\0') { m_prevChar = ""; return; }
+                    m_strWork += nCh;
+                    m_prevChar = nCh + "";
 
-                if (Roma2KanaTable.CanConverFirstN(m_strWork)){
-                    m_strDone.Add("ん");
-                    m_strDoneRaws.Add("n");
-                    m_strWork = m_strWork.Substring(1);
-                }
-                if (Roma2KanaTable.CanConverFirstHyphen(m_strWork)) {
-                    m_strDone.Add("ー");
-                    m_strDoneRaws.Add("-");
-                    m_strWork = m_strWork.Substring(1);
-                }
-
-                while (m_strWork.Length > 0) {
-                    if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork)) {
-                        m_strDone.Add(m_convertTableMgr.Roma2Kana.Convert(m_strWork));
-                        m_strDoneRaws.Add(m_strWork);
-                        m_strWork = "";
-                        break;
-                    } else if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork, true)) {
-                        break;
+                    if (Roma2KanaTable.CanConverFirstN(m_strWork)) {
+                        m_strDone.Add("ん");
+                        m_strDoneRaws.Add("n");
+                        m_strWork = m_strWork.Substring(1);
                     }
-                    m_strDone.Add(m_strWork[0] + "");
-                    m_strDoneRaws.Add(m_strWork[0] + "");
-                    m_strWork = m_strWork.Substring(1);
+                    if (Roma2KanaTable.CanConverFirstHyphen(m_strWork)) {
+                        m_strDone.Add("ー");
+                        m_strDoneRaws.Add("-");
+                        m_strWork = m_strWork.Substring(1);
+                    }
+
+                    while (m_strWork.Length > 0) {
+                        if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork)) {
+                            m_strDone.Add(m_convertTableMgr.Roma2Kana.Convert(m_strWork));
+                            m_strDoneRaws.Add(m_strWork);
+                            m_strWork = "";
+                            break;
+                        } else if (m_convertTableMgr.Roma2Kana.CanConvert(m_strWork, true)) {
+                            break;
+                        }
+                        m_strDone.Add(m_strWork[0] + "");
+                        m_strDoneRaws.Add(m_strWork[0] + "");
+                        m_strWork = m_strWork.Substring(1);
+                    }
                 }
+                m_results.Dirty = true;
             }
         }
         #endregion
@@ -208,6 +214,7 @@ namespace tpInner {
                         m_strDoneRaws.Add(ch + "");
                     }
                     m_strWork = "";
+                    m_results.Dirty = true;
                 }
             }
         }
@@ -226,6 +233,7 @@ namespace tpInner {
                     m_strDoneRaws.Add(ch + "");
                 }
                 m_strWork = "";
+                m_results.Dirty = true;
             }
         }
 
@@ -252,7 +260,7 @@ namespace tpInner {
         //private UnityEvent<InputEmulatorResults> m_onInputCallbacks;
         #endregion
 
-        #region 内部メンバアクセス用プロパティ
+        #region 内部プロパティ
         private string m_strWork {
             get { return m_strWorkInner[0]; }
             set { m_strWorkInner[0] = value; }
@@ -275,12 +283,8 @@ public class InputEmulatorResults {
     /// </summary>
     public string Str {
         get {
-            string ret = "";
-            foreach (string r in m_strDone) {
-                ret += r;
-            }
-            ret += m_strWork[0];
-            return ret;
+            if (Dirty) { CreateChche(); }
+            return m_strCache;
         }
     }
 
@@ -289,12 +293,8 @@ public class InputEmulatorResults {
     /// </summary>
     public string StrRaw {
         get {
-            string ret = "";
-            foreach (string r in m_strDoneRaws) {
-                ret += r;
-            }
-            ret += m_strWork[0];
-            return ret;
+            if (Dirty) { CreateChche(); }
+            return m_strRawCache;
         }
     }
 
@@ -325,6 +325,34 @@ public class InputEmulatorResults {
     }
     #endregion
 
+    #region 内部使用プロパティ
+    /// <summary>
+    /// 汚しフラグです。trueになっている時にStrやStrRawにアクセスされた場合、返却文字列を再度作成します。
+    /// </summary>
+    public bool Dirty { get; set; } = true;
+    #endregion
+
+    #region 内部メソッド
+    /// <summary>
+    /// StrとStrRawの返却パラメータを再度生成します。
+    /// </summary>
+    private void CreateChche() {
+        m_strCache = "";
+        foreach (string r in m_strDone) {
+            m_strCache += r;
+        }
+        m_strCache += m_strWork[0];
+
+        m_strRawCache = "";
+        foreach (string r in m_strDoneRaws) {
+            m_strRawCache += r;
+        }
+        m_strRawCache += m_strWork[0];
+
+        Dirty = false;
+    }
+    #endregion
+
     #region メンバ
     //全て参照
     private List<string> m_strDone;         //変換確定済みの文字列
@@ -332,5 +360,9 @@ public class InputEmulatorResults {
     private List<string> m_strWork;         //現在チェック中の文字
     private List<string> m_prevChar;
     private Event m_event = new Event();
+
+    private string m_strCache = "";
+    private string m_strRawCache = "";
+
     #endregion
 }
