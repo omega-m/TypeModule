@@ -130,18 +130,6 @@ public class TypeModule : MonoBehaviour {
                 }
             }
         }
-
-        //test
-        done.text = StrDone;
-        current.text = StrCurrent;
-        yet.text = StrYet;
-        doneRaw.text = StrDoneRaw;
-        currentRaw.text = StrCurrentRaw;
-        yetRaw.text = StrYetRaw;
-
-        correct.text = "Correct:" + CorrectNum;
-        correctCh.text = "Correct(Ch):" + CorrectCharNum;
-        miss.text = "Miss:" + MissNum;
     }
     #endregion
 
@@ -414,6 +402,22 @@ public class TypeModule : MonoBehaviour {
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.RemoveEventListenerOnComplete(aEvent);
+    }
+
+    /// <summary>
+    /// 【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。
+    /// </summary>
+    /// <param name="aEvent">イベントリスナ</param>
+    public void AddEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
+        m_copyInputChecker.AddEventListenerOnSetup(aEvent);
+    }
+
+    /// <summary>
+    /// 【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。
+    /// </summary>
+    /// <param name="aEvent">イベントリスナ</param>
+    public void RemoveEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
+        m_copyInputChecker.AddEventListenerOnSetup(aEvent);
     }
     #endregion
 
@@ -752,17 +756,4 @@ public class TypeModule : MonoBehaviour {
     InputEmulator m_inputEmulator;
     CopyInputChecker m_copyInputChecker;
     #endregion
-
-    [Space(10)]
-    [Header("test")]
-    public Text done;
-    public Text current;
-    public Text yet;
-    public Text doneRaw;
-    public Text currentRaw;
-    public Text yetRaw;
-
-    public Text correct;
-    public Text correctCh;
-    public Text miss;
 }

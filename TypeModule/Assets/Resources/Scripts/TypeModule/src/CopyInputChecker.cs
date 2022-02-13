@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+using System.Text.RegularExpressions;
 /// <summary>
 /// CopyInputCheckerによって処理されたデータへのアクセス用クラスです。
 /// TypeModuleでModeをMODE_COPYにした時、入力発生時のイベントリスナで返却されます。
@@ -33,7 +34,7 @@ public class CopyInputCheckerResults {
         /// <summary>
         /// 内部データクリア・セットアップされた時
         /// <summary>
-        CLEAR,
+        SETUP,
     }
     #endregion
 
@@ -228,7 +229,7 @@ public class CopyInputCheckerResults {
             m_strDoneRawCache += r;
         }
 
-        m_strYetRawCache = m_params.m_strCurrentRawWork;
+        m_strYetRawCache = m_params.m_strRomaWorkYet;
         foreach (string r in m_params.m_strYetRaws) {
             m_strYetRawCache += r;
         }
@@ -271,8 +272,8 @@ namespace tpInner {
             m_correctNum = 0;
             m_correctCharNum = 0;
             m_missNum = 0;
-            m_strCurrentRawWork = "";
-            m_strCurrentRawDone = "";
+            m_strRomaWorkDone = "";
+            m_strRomaWorkYet = "";
             m_isComplete = false;
             m_event = new Event();
             m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.NONE;
@@ -297,8 +298,8 @@ namespace tpInner {
         public bool         m_isComplete;
         public Event        m_event = new Event();
         public CopyInputCheckerResults.INNER_EVENT_TYPE m_innerEvent;
-        public string       m_strCurrentRawWork;        
-        public string       m_strCurrentRawDone;
+        public string       m_strRomaWorkDone;
+        public string       m_strRomaWorkYet;        
         #endregion
     }
 
@@ -318,7 +319,6 @@ namespace tpInner {
         public CopyInputChecker(in ConvertTableMgr aConvertTableMgr) {
             m_convertTableMgr = aConvertTableMgr;
             m_results = new CopyInputCheckerResults(in m_params);
-            Clear();
         }
         #endregion
 
@@ -333,6 +333,7 @@ namespace tpInner {
             if(IsComplete) { return; }
             var p = m_params;
             var cvt = m_convertTableMgr;
+
             //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
             if (aEvent.keyCode == KeyCode.None) {return;}
 
@@ -341,30 +342,36 @@ namespace tpInner {
             if (p.m_strCurrent.Length == 1) {
                 nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
                 if (nCh == '\0') { return; }
-                if (IsCaseSensitive) {
-                    if (p.m_strCurrent[0] == nCh) {
-                        p.m_event = aEvent;
-                        CorrectType();
-                        return;
-                    } else if(char.IsLower(char.ToLower(p.m_strCurrent[0]))) {//英語入力中ならミス判定
-                        p.m_event = aEvent;
-                        MissType();
-                        return;
-                    }
+                ////かな且つ、以下の文字ならここで判定しない
+                if (IsKana && Regex.IsMatch(p.m_strCurrent[0] + "", "[、。ー・「」]")) {
                 } else {
-                    if (char.ToLower(p.m_strCurrent[0]) == char.ToLower(nCh)) {
-                        p.m_event = aEvent;
-                        CorrectType();
-                        return;
+                    if (IsCaseSensitive) {
+                        if (p.m_strCurrent[0] == nCh) {
+                            p.m_event = aEvent;
+                            CorrectType(nCh + "");
+                            return;
+                        } else if(char.IsLower(char.ToLower(p.m_strCurrent[0]))) {
+                            //英語入力中で文字が違うならミス判定
+                            p.m_event = aEvent;
+                            p.m_prevMissChar = nCh + "";
+                            MissType(nCh + "");
+                            return;
+                        }
+                    } else {
+                        if (char.ToLower(p.m_strCurrent[0]) == char.ToLower(nCh)) {
+                            p.m_event = aEvent;
+                            CorrectType(nCh + "");
+                            return;
+                        }
                     }
-                }
-                //全角チェック
-                string nChZen;
-                if (cvt.NumMarkTable.TryHanToZen(nCh + "", out nChZen)) {
-                    if (string.Compare(p.m_strCurrent, nChZen) == 0) {
-                        p.m_event = aEvent;
-                        CorrectType();
-                        return;
+                    //全角チェック
+                    string nChZen;
+                    if (cvt.NumMarkTable.TryHanToZen(nCh + "", out nChZen)) {
+                        if (string.Compare(p.m_strCurrent, nChZen) == 0) {
+                            p.m_event = aEvent;
+                            CorrectType(nCh + "");
+                            return;
+                        }
                     }
                 }
             }
@@ -372,10 +379,17 @@ namespace tpInner {
             if (IsKana) {
                 nCh = cvt.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
                 if (nCh == '\0') { return; }
+                string nChHan;
                 if (p.m_strCurrentRaw[0] == nCh) {
                     p.m_event = aEvent;
-                    CorrectType();
+                    CorrectType(nCh + "");
                     return;
+                }else if (cvt.NumMarkTable.TryZenToHan(nCh + "", out nChHan)) {
+                    if (p.m_strCurrentRaw[0] == nChHan[0]) {
+                        p.m_event = aEvent;
+                        CorrectType(nCh + "");
+                        return;
+                    }
                 }
             } else {//ローマ字入力
                 nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
@@ -385,7 +399,7 @@ namespace tpInner {
                 if (string.Compare(p.m_strCurrent, "ん") == 0) {
                     string tmpRoma = p.m_strDoneRaws[p.m_strDoneRaws.Count - 1] + nCh;
                     if (Roma2KanaTable.CanConverFirstN(tmpRoma) && p.m_strYet.Count > 0) {
-                        CorrectType(false);
+                        CorrectType(nCh + "", false);
                         string prevStr = p.m_strDoneRaws[p.m_strDoneRaws.Count - 2];
                         p.m_strDoneRaws[p.m_strDoneRaws.Count - 2] = prevStr.Substring(0, prevStr.Length - 1);
                         p.m_correctNum--;
@@ -394,31 +408,39 @@ namespace tpInner {
 
                 if (char.ToLower(p.m_strCurrentRaw[0]) == char.ToLower(nCh)) {
                     p.m_event = aEvent;
-                    CorrectType();
+                    CorrectType(nCh + "");
                     return;
                 }
-        
+
                 //ローマ字入力の場合、途中でローマ字パターンが変わる事がある。
                 //例)「にゃ」が[nya]から[ni][xya]に変わる事がある
-                //string tmpRomaStart = p.m_strCurrentRawDone + nCh;
-                //for (int chLen = p.m_strCurrent.Length; chLen > 0; --chLen) {
-                //    string tmpKana = p.m_strCurrent.Substring(0, chLen);
-                //    string outRoma;
-                //    if (cvt.Kana2Roma.TryConvert(tmpKana, out outRoma, tmpRomaStart)) {
-                //        outRoma = outRoma.Substring(tmpKana.Length);
-                //        p.m_strCurrentRaw = outRoma[0] + "";
-                //        p.m_strCurrentRawWork = outRoma;
-                //        p.m_event = aEvent;
-                //        CorrectType();
-                //        return;
-                //    }
-                //}
+                string tmpRomaStart = p.m_strRomaWorkDone + nCh;
+                for (int chLen = p.m_strCurrent.Length; chLen > 0; --chLen) {
+                    string tmpKana = p.m_strCurrent.Substring(0, chLen);
+                    string outRoma;
+                    if (cvt.Kana2Roma.TryConvert(tmpKana, out outRoma, tmpRomaStart)) {
+                        if (chLen != p.m_strCurrent.Length) {
+                            p.m_strYet.Insert(0, p.m_strCurrent.Substring(chLen));
+                            p.m_strCurrent = tmpKana;
+                            string strNextRoma = "";
+                            cvt.Kana2Roma.TryConvert(p.m_strYet[0], out strNextRoma);
+                            p.m_strYetRaws.Insert(0, strNextRoma);
+                        }
+                        p.m_strCurrentRaw = outRoma[p.m_strRomaWorkDone.Length] + "";
+                        p.m_strRomaWorkYet = outRoma.Substring(p.m_strRomaWorkDone.Length + 1);
+                        outRoma = outRoma.Substring(tmpKana.Length);
+                        p.m_event = aEvent;
+                        CorrectType(nCh + "");
+                        return;
+                    }
+                }
 
             }
 
             //ミス
+            p.m_prevMissChar = nCh + "";
             p.m_event = aEvent;
-            MissType();
+            MissType(nCh + "");
         }
 
         /// <summary>
@@ -433,8 +455,9 @@ namespace tpInner {
             m_params.m_isKana = m_isKana;
             m_params.m_isCaseSensitive = m_isCaseSensitive;
             InitStrYet();
-            CorrectType(false);
-            m_params.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.CLEAR; 
+            CorrectType("", false);
+            m_params.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.SETUP;
+            m_onSetupCallbacks.Invoke(m_results);
         }
         #endregion
 
@@ -642,6 +665,22 @@ namespace tpInner {
         public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
             m_onCompleteCallbacks.RemoveListener(aEvent);
         }
+
+        /// <summary>
+        /// 比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。
+        /// </summary>
+        /// <param name="aEvent">イベントリスナ</param>
+        public void AddEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
+            m_onSetupCallbacks.AddListener(aEvent);
+        }
+
+        /// <summary>
+        /// 比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。
+        /// </summary>
+        /// <param name="aEvent">イベントリスナ</param>
+        public void RemoveEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
+            m_onSetupCallbacks.RemoveListener(aEvent);
+        }
         #endregion
 
         #region 内部メソッド
@@ -672,6 +711,7 @@ namespace tpInner {
                         if (!cvt.Kana2KanaMid.TryConvert(strTmp, out strRawTmp)) {
                             break;
                         }
+
                         str = strTmp;
                         strRaw = strRawTmp;
                     }
@@ -689,7 +729,23 @@ namespace tpInner {
                 }
                 if (str.Length == 0) {
                     p.m_strYet.Add(target[idx] + "");
-                    p.m_strYetRaws.Add(target[idx] + "");
+
+                    //ガイド文字の記号数字は半角へ
+                    string raw = target[idx] + "";
+                    string rawTmp;
+                    if (cvt.NumMarkTable.TryZenToHan(target[idx] + "", out rawTmp)) {
+                        ////かなの場合、以下の文字は半角に変換しない
+                        if (IsKana && Regex.IsMatch(target[idx] + "", "[、。ー・「」]")) {
+                        } else {
+                            raw = rawTmp;
+                        }
+                    }
+                    //大文字小文字を区別しないなら、アルファベットは小文字
+                    if (!IsCaseSensitive) {
+                        raw = char.ToLower(raw[0]) + "";
+                    }
+                    p.m_strYetRaws.Add(raw);
+
                     idx++;
                 } else {
                     p.m_strYet.Add(str);
@@ -702,29 +758,33 @@ namespace tpInner {
         /// <summary>
         /// 正しく打てた時の処理　現在打っている文字を更新
         /// </summary>
+        /// <param name="aPrevChar">今回打った文字</param>
         /// <param name="isThrowEvent">true:内部でイベントを投げます</param>
-        private void CorrectType(bool isThrowEvent = true) {
+        private void CorrectType(string aPrevChar, bool isThrowEvent = true) {
             if (IsComplete) { return; }
+            m_params.m_prevCorrectChar = aPrevChar;
+            m_params.m_prevMissChar = "";
+
             m_results.Dirty = true;
             var p = m_params;
             if (p.m_strCurrentRaw.Length > 0) {
                 p.m_strDoneRaws[p.m_strDoneRaws.Count - 1] += p.m_strCurrentRaw[0];
+                p.m_strRomaWorkDone = p.m_strCurrentRaw[0] + "";
                 p.m_strCurrentRaw = p.m_strCurrentRaw.Substring(1);
-                p.m_strCurrentRawDone = "";
-                if (p.m_strCurrentRawWork.Length == 0) {
+                if (p.m_strRomaWorkYet.Length == 0) {
                     p.m_strDone[p.m_strDone.Count - 1] += p.m_strCurrent;
 
                     p.m_correctCharNum += p.m_strCurrent.Length;
                 }
                 p.m_correctNum++;
             }
-            if (p.m_strCurrentRawWork.Length == 0) {
+            if (p.m_strRomaWorkYet.Length == 0) {
                 if (p.m_strYet.Count != 0) {
                     p.m_strDone.Add("");
                     p.m_strDoneRaws.Add("");
                     p.m_strCurrent = p.m_strYet[0];
-                    p.m_strCurrentRawWork = p.m_strYetRaws[0];
-                    p.m_strCurrentRawDone = "";
+                    p.m_strRomaWorkYet = p.m_strYetRaws[0];
+                    p.m_strRomaWorkDone = "";
                     p.m_strYet.RemoveAt(0);
                     p.m_strYetRaws.RemoveAt(0);
                 } else {//打ち切った
@@ -732,16 +792,18 @@ namespace tpInner {
                     p.m_isComplete =true;
                     if (isThrowEvent) {
                         p.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.COMPLETE;
+                        m_onInputCallbacks.Invoke(m_results);
                         m_onCompleteCallbacks.Invoke(m_results);
                     }
                     return;
                 }
             }
-            p.m_strCurrentRaw = p.m_strCurrentRawWork[0] + "";
-            p.m_strCurrentRawWork = p.m_strCurrentRawWork.Substring(1);
+            p.m_strCurrentRaw = p.m_strRomaWorkYet[0] + "";
+            p.m_strRomaWorkYet = p.m_strRomaWorkYet.Substring(1);
 
             if (isThrowEvent) {
                 p.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.CORRECT;
+                m_onInputCallbacks.Invoke(m_results);
                 m_onCorrectCallbacks.Invoke(m_results);
             }
         }
@@ -749,12 +811,20 @@ namespace tpInner {
         /// <summary>
         /// ミスした時の処理
         /// </summary>
+        /// <param name="aPrevChar">今回打った文字</param>
         /// <param name="isThrowEvent">true:内部でイベントを投げます</param>
-        private void MissType(bool isThrowEvent = true) {
+        private void MissType(string aPrevChar, bool isThrowEvent = true) {
             if (IsComplete) { return; }
+
+            m_params.m_prevMissChar = aPrevChar;
+            m_params.m_prevCorrectChar = "";
+
             m_params.m_missNum++;
             m_params.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.MISS;
-            m_onMissCallbacks.Invoke(m_results);
+            if (isThrowEvent) {
+                m_onInputCallbacks.Invoke(m_results);
+                m_onMissCallbacks.Invoke(m_results);
+            }
         }
         #endregion
 
@@ -768,6 +838,7 @@ namespace tpInner {
         private UnityEvent<CopyInputCheckerResults> m_onCorrectCallbacks    = new UnityEvent<CopyInputCheckerResults>();
         private UnityEvent<CopyInputCheckerResults> m_onMissCallbacks       = new UnityEvent<CopyInputCheckerResults>();
         private UnityEvent<CopyInputCheckerResults> m_onCompleteCallbacks   = new UnityEvent<CopyInputCheckerResults>();
+        private UnityEvent<CopyInputCheckerResults> m_onSetupCallbacks      = new UnityEvent<CopyInputCheckerResults>();
         #endregion
     }
 }
