@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 /// <summary>
 /// InputEmulatorによって処理されたデータへのアクセス用クラスです。
-/// TypeModuleでModeをMODE_INPUTにした時、入力発生時のイベントリスナで返却されます。
+/// TypeModuleでModeをINPUTにした時、入力発生時のイベントリスナで返却されます。
 /// </summary>
 /// /// <example><code>
 ///     
@@ -42,13 +42,13 @@ using UnityEngine.Events;
 /// private void onInput(InputEmulatorResults res){
 ///     Debug.Log("onInput");
 ///     switch(res.InputType){
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_INPUT:
+///         case InputEmulatorResults.INPUT_TYPE.INPUT:
 ///             audioSource.PlayOneShot(typeSound);
 ///             break;
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS:
+///         case InputEmulatorResults.INPUT_TYPE.BS:
 ///             audioSource.PlayOneShot(bsSound);
 ///             break;
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER:
+///         case InputEmulatorResults.INPUT_TYPE.ENTER:
 ///             audioSource.PlayOneShot(enterSound);
 ///             break;
 ///     }
@@ -73,31 +73,31 @@ public class InputEmulatorResults {
         /// <summary>
         /// どの入力タイプにも属さない
         /// <summary>
-        INPUT_TYPE_NONE,
+        NONE,
         /// <summary>
         /// 通常の入力タイプ。キーボードから文字が打たれ、末尾に文字が追加された場合このタイプになります。
         /// <summary>
-        INPUT_TYPE_INPUT,
+        INPUT,
         /// <summary>
         /// キーボードからBSキーが打たれ、1文字削除された時にこのタイプになります。
         /// <summary>
-        INPUT_TYPE_BS,
+        BS,
         /// <summary>
         /// キーボードからEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。
         /// <summary>
-        INPUT_TYPE_ENTER,
+        ENTER,
         /// <summary>
         /// プログラム側か、システム側からBSキーが打たれ、1文字削除された時にこのタイプになります。
         /// <summary>
-        INPUT_TYPE_BS_FORCE,
+        BS_FORCE,
         /// <summary>
         /// プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。
         /// <summary>
-        INPUT_TYPE_ENTER_FORCE,
+        ENTER_FORCE,
         /// <summary>
         /// システム側から入力値が全て初期化された
         /// <summary>
-        INPUT_TYPE_CLEAR,
+        CLEAR,
     }
     #endregion
 
@@ -207,7 +207,7 @@ namespace tpInner {
             m_strDoneRaws.Clear();
             m_strWork   = "";
             m_prevChar  = "";
-            m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_NONE;
+            m_inputType = InputEmulatorResults.INPUT_TYPE.NONE;
             m_event     = new Event();
         }
         #endregion
@@ -311,90 +311,91 @@ namespace tpInner {
         /// </summary>
         /// <param name="aEvent">入力イベント</param>
         public void AddInput(in Event aEvent) {
-            m_params.m_event = new Event();
+            var p = m_params;
+            var cvt = m_convertTableMgr;
             if (aEvent.keyCode == KeyCode.None) {//IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
             }
             else if (aEvent.keyCode == KeyCode.Return) { //enter
                 if (IsEnter) {
-                    m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER;
-                    m_params.m_event = new Event(aEvent);
+                    p.m_inputType = InputEmulatorResults.INPUT_TYPE.ENTER;
+                    p.m_event = new Event(aEvent);
                     EnterInner();
                     m_onInputCallbacks.Invoke(m_results);
                 }
             } else if (aEvent.keyCode == KeyCode.Backspace) {//bs
                 if (IsBS) {
-                    m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS;
-                    m_params.m_event = new Event(aEvent);
+                    p.m_inputType = InputEmulatorResults.INPUT_TYPE.BS;
+                    p.m_event = new Event(aEvent);
                     BackSpaceInner();
                     m_onInputCallbacks.Invoke(m_results);
                 }
             } else {
                 if (IsInputEng) {//英語入力
-                    char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                    if (nCh == '\0') { m_params.m_prevChar = ""; return; }
-                    m_params.m_strDone.Add(nCh + "");
-                    m_params.m_strDoneRaws.Add(nCh + "");
-                    m_params.m_prevChar = nCh + "";
+                    char nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    if (nCh == '\0') {return; }
+                    p.m_strDone.Add(nCh + "");
+                    p.m_strDoneRaws.Add(nCh + "");
+                    p.m_prevChar = nCh + "";
                 } else if (IsKana) {//かな入力
-                    char nCh = m_convertTableMgr.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                    if (nCh == '\0') { m_params.m_prevChar = ""; return; }
-                    m_params.m_strWork += nCh;
-                    m_params.m_prevChar = nCh + "";
+                    char nCh = cvt.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    if (nCh == '\0') {return; }
+                    p.m_strWork += nCh;
+                    p.m_prevChar = nCh + "";
 
-                    while (m_params.m_strWork.Length > 0) {
+                    while (p.m_strWork.Length > 0) {
                         string strCvt = "";
-                        if (m_convertTableMgr.KanaMid2Kana.TryConvert(m_params.m_strWork, out strCvt)) {
-                            m_params.m_strDone.Add(strCvt);
-                            m_params.m_strDoneRaws.Add(m_params.m_strWork);
-                            m_params.m_strWork = "";
+                        if (cvt.KanaMid2Kana.TryConvert(p.m_strWork, out strCvt)) {
+                            p.m_strDone.Add(strCvt);
+                            p.m_strDoneRaws.Add(p.m_strWork);
+                            p.m_strWork = "";
                             break;
-                        } else if (m_convertTableMgr.KanaMid2Kana.TryConvert(m_params.m_strWork, out strCvt, true)) {
+                        } else if (cvt.KanaMid2Kana.TryConvert(p.m_strWork, out strCvt, true)) {
                             break;
                         }
 
-                        string addStrTmp = m_params.m_strWork[0] + "";
+                        string addStrTmp = p.m_strWork[0] + "";
                         string addStr;
-                        m_params.m_strWork = m_params.m_strWork.Substring(1);
-                        if (!m_convertTableMgr.NumMarkTable.TryHanToZen(addStrTmp, out addStr)) {
+                        p.m_strWork = p.m_strWork.Substring(1);
+                        if (!cvt.NumMarkTable.TryHanToZen(addStrTmp, out addStr)) {
                             addStr = addStrTmp;
                         }
-                        m_params.m_strDone.Add(addStr);
-                        m_params.m_strDoneRaws.Add(addStrTmp);
+                        p.m_strDone.Add(addStr);
+                        p.m_strDoneRaws.Add(addStrTmp);
                     }
                 } else {//ローマ字入力
-                    char nCh = m_convertTableMgr.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                    if (nCh == '\0') { m_params.m_prevChar = ""; return; }
-                    m_params.m_strWork += nCh;
-                    m_params.m_prevChar = nCh + "";
+                    char nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    if (nCh == '\0') {return; }
+                    p.m_strWork += nCh;
+                    p.m_prevChar = nCh + "";
 
-                    if (Roma2KanaTable.CanConverFirstN(m_params.m_strWork)) {
-                        m_params.m_strDone.Add("ん");
-                        m_params.m_strDoneRaws.Add("n");
-                        m_params.m_strWork = m_params.m_strWork.Substring(1);
+                    if (Roma2KanaTable.CanConverFirstN(p.m_strWork)) {
+                        p.m_strDone.Add("ん");
+                        p.m_strDoneRaws.Add("n");
+                        p.m_strWork = p.m_strWork.Substring(1);
                     }
 
-                    while (m_params.m_strWork.Length > 0) {
-                        if (m_convertTableMgr.Roma2Kana.CanConvert(m_params.m_strWork)) {
-                            m_params.m_strDone.Add(m_convertTableMgr.Roma2Kana.Convert(m_params.m_strWork));
-                            m_params.m_strDoneRaws.Add(m_params.m_strWork);
-                            m_params.m_strWork = "";
+                    while (p.m_strWork.Length > 0) {
+                        if (cvt.Roma2Kana.CanConvert(p.m_strWork)) {
+                            p.m_strDone.Add(cvt.Roma2Kana.Convert(p.m_strWork));
+                            p.m_strDoneRaws.Add(p.m_strWork);
+                            p.m_strWork = "";
                             break;
-                        } else if (m_convertTableMgr.Roma2Kana.CanConvert(m_params.m_strWork, true)) {
+                        } else if (cvt.Roma2Kana.CanConvert(p.m_strWork, true)) {
                             break;
                         }
 
-                        string addStrTmp = m_params.m_strWork[0] + "";
+                        string addStrTmp = p.m_strWork[0] + "";
                         string addStr;
-                        m_params.m_strWork = m_params.m_strWork.Substring(1);
-                        if (!m_convertTableMgr.NumMarkTable.TryHanToZen(addStrTmp, out addStr)) {
+                        p.m_strWork = p.m_strWork.Substring(1);
+                        if (!cvt.NumMarkTable.TryHanToZen(addStrTmp, out addStr)) {
                             addStr = addStrTmp;
                         }
-                        m_params.m_strDone.Add(addStr);
-                        m_params.m_strDoneRaws.Add(addStrTmp);
+                        p.m_strDone.Add(addStr);
+                        p.m_strDoneRaws.Add(addStrTmp);
                     }
                 }
-                m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_INPUT;
-                m_params.m_event = new Event(aEvent);
+                p.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT;
+                p.m_event = new Event(aEvent);
                 m_results.Dirty = true;
                 m_onChangeCallbacks.Invoke(m_results);
                 m_onInputCallbacks.Invoke(m_results);
@@ -407,7 +408,7 @@ namespace tpInner {
         /// </summary>
         public void Clear() {
             m_params.Clear();
-            m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_CLEAR;
+            m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.CLEAR;
             if (m_results != null) {
                 m_results.Dirty = true;                
             }
@@ -419,7 +420,7 @@ namespace tpInner {
         /// </summary>
         public void Enter() {
             m_params.m_event = new Event();
-            m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER_FORCE;
+            m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.ENTER_FORCE;
             EnterInner();
         }
 
@@ -428,7 +429,7 @@ namespace tpInner {
         /// </summary>
         public void BackSpace() {
             m_params.m_event  = new Event();
-            m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS_FORCE;
+            m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.BS_FORCE;
             BackSpaceInner();
         }
         #endregion
@@ -460,6 +461,13 @@ namespace tpInner {
         /// </summary>
         public Event Event {
             get { return m_results.Event; }
+        }
+
+        /// <summary>
+        /// 前回の入力タイプ
+        /// </summary>
+        public InputEmulatorResults.INPUT_TYPE InputType {
+            get { return m_params.m_inputType; }
         }
 
         private bool m_isInputEng = false;
@@ -542,14 +550,15 @@ namespace tpInner {
         /// 変換確定前の文字列を確定します。
         /// </summary>
         private void EnterInner() {
-            if (m_params.m_strWork.Length == 0) { return; }
+            var p = m_params;
+            if (p.m_strWork.Length == 0) { return; }
             //もし変換チェック中の文字列がある場合は、そのままの状態で確定
-            foreach (char ch in m_params.m_strWork) {
-                m_params.m_strDone.Add(ch + "");
-                m_params.m_strDoneRaws.Add(ch + "");
+            foreach (char ch in p.m_strWork) {
+                p.m_strDone.Add(ch + "");
+                p.m_strDoneRaws.Add(ch + "");
             }
-            m_params.m_strWork = "";
-            m_params.m_prevChar = "";
+            p.m_strWork = "";
+            p.m_prevChar = "";
             m_results.Dirty = true;
             m_onChangeCallbacks.Invoke(m_results);
         }
@@ -558,17 +567,18 @@ namespace tpInner {
         /// 末尾から1文字消します。
         /// </summary>
         private void BackSpaceInner() {
-            if (m_params.m_strWork.Length > 0) {
-                m_params.m_strWork = m_params.m_strWork.Substring(0, m_params.m_strWork.Length - 1);
-            } else if (m_params.m_strDone.Count > 0) {
-                int idx = m_params.m_strDone.Count - 1;
-                m_params.m_strDone[idx] = m_params.m_strDone[idx].Substring(0, m_params.m_strDone[idx].Length - 1);
-                if (m_params.m_strDone[idx].Length == 0) {
-                    m_params.m_strDone.RemoveAt(idx);
-                    m_params.m_strDoneRaws.RemoveAt(m_params.m_strDoneRaws.Count - 1);
+            var p = m_params;
+            if (p.m_strWork.Length > 0) {
+                p.m_strWork = p.m_strWork.Substring(0, p.m_strWork.Length - 1);
+            } else if (p.m_strDone.Count > 0) {
+                int idx = p.m_strDone.Count - 1;
+                p.m_strDone[idx] = p.m_strDone[idx].Substring(0, p.m_strDone[idx].Length - 1);
+                if (p.m_strDone[idx].Length == 0) {
+                    p.m_strDone.RemoveAt(idx);
+                    p.m_strDoneRaws.RemoveAt(p.m_strDoneRaws.Count - 1);
                 }
             }
-            m_params.m_prevChar = "";
+            p.m_prevChar = "";
             m_results.Dirty = true;
             m_onChangeCallbacks.Invoke(m_results);
         }

@@ -153,7 +153,7 @@ namespace tpInner {
         /// <param name="aRoma">ローマ字列</param>
         /// <returns>true:先頭の[n]を[ん]に変換できる</returns>
         static public bool CanConverFirstN(string aRoma){
-            if(aRoma.Length < 2) { return false; };
+            if(aRoma.Length < 2 || aRoma[0] != 'n') { return false; };
             return Regex.IsMatch(aRoma, "^n[^aiueony]");
         }
         #endregion

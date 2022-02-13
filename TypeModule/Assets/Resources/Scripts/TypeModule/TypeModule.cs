@@ -17,7 +17,7 @@ using UnityEngine.Events;
 ///     
 /// 
 /// //文字列生成シミュレーションモード=======================================
-/// module.Mode = TypeModule.MODE.MODE_INPUT;
+/// module.Mode = TypeModule.MODE.INPUT;
 /// 
 /// //モジュールから状態を取得
 /// Debug.Log(module.Str);
@@ -98,12 +98,12 @@ public class TypeModule : MonoBehaviour {
         ///キーボードの入力を元に、文字列の生成をエミュレートします。
         ///キーボード入力から文字列を取得したい場合に使用してください。
         ///</summary>
-        MODE_INPUT,
+        INPUT,
         ///<summary>
         ///【m_targetText】で指定された文字列が正しく打ててるかを確認します。
         ///タイピングゲームで、お題の文字を真似して打たせる時に使用してください。
         ///</summary>
-        MODE_COPY,
+        COPY,
     }
     #endregion
 
@@ -112,7 +112,6 @@ public class TypeModule : MonoBehaviour {
         CreateConvertTables();
         CreateInputEmulator();
         CreateCopyInputChecker();
-        TargetStr = "ろまんすのふしょうじにがさないけしてあげるasdf!@#";
     }
 
     void Update() {
@@ -122,10 +121,10 @@ public class TypeModule : MonoBehaviour {
         if (IsRun) {
             if (Event.current.type == EventType.KeyDown) {
                 switch (Mode) {
-                    case MODE.MODE_INPUT:
+                    case MODE.INPUT:
                         m_inputEmulator.AddInput(Event.current);
                         break;
-                    case MODE.MODE_COPY:
+                    case MODE.COPY:
                         m_copyInputChecker.AddInput(Event.current);
                         break;
                 }
@@ -140,6 +139,9 @@ public class TypeModule : MonoBehaviour {
         currentRaw.text = StrCurrentRaw;
         yetRaw.text = StrYetRaw;
 
+        correct.text = "Correct:" + CorrectNum;
+        correctCh.text = "Correct(Ch):" + CorrectCharNum;
+        miss.text = "Miss:" + MissNum;
     }
     #endregion
 
@@ -159,10 +161,10 @@ public class TypeModule : MonoBehaviour {
         get {
             Event ret = new Event();
             switch (Mode) {
-                case MODE.MODE_INPUT:
+                case MODE.INPUT:
                     ret = m_inputEmulator.Event;
                     break;
-                case MODE.MODE_COPY:
+                case MODE.COPY:
                     ret = m_copyInputChecker.Event;
                     break;
             }
@@ -171,50 +173,57 @@ public class TypeModule : MonoBehaviour {
     }
     #endregion
 
-    #region 【MODE.MODE_INPUT】プロパティ
+    #region 【MODE.INPUT】プロパティ
     /// <summary>
-    /// 【MODE.MODE_INPUT】生成された文字列
+    /// 【MODE.INPUT】生成された文字列
     /// </summary>
     public string StrInput {
         get { return m_inputEmulator.Str; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】生成された、変換される前の文字列
+    /// 【MODE.INPUT】生成された、変換される前の文字列
     /// </summary>
     public string StrRawInput {
         get { return m_inputEmulator.StrRaw; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】前回入力された文字(変換前)
+    /// 【MODE.INPUT】前回入力された文字(変換前)
     /// </summary>
     public string PrevChar {
         get { return m_inputEmulator.PrevChar; }
     }
+
+    /// <summary>
+    /// 【MODE.INPUT】前回の入力タイプ
+    /// </summary>
+    public InputEmulatorResults.INPUT_TYPE InputType {
+        get { return m_inputEmulator.InputType; }
+    }
     #endregion
 
-    #region 【MODE.MODE_INPUT】メソッド
+    #region 【MODE.INPUT】メソッド
     /// <summary>
-    /// 【MODE.MODE_INPUT】プログラム側から、変換確定前の文字列を確定します。
+    /// 【MODE.INPUT】プログラム側から、変換確定前の文字列を確定します。
     /// </summary>
     public void Enter() {
-        if (Mode == MODE.MODE_INPUT) {
+        if (Mode == MODE.INPUT) {
             m_inputEmulator.Enter();
         }
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】プログラム側から、末尾の1文字消します。
+    /// 【MODE.INPUT】プログラム側から、末尾の1文字消します。
     /// </summary>
     public void BackSpace() {
-        if (Mode == MODE.MODE_INPUT) {
+        if (Mode == MODE.INPUT) {
             m_inputEmulator.BackSpace();
         }
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】キーボードから文字が入力された時のイベントリスナを追加します
+    /// 【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを追加します
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
@@ -222,7 +231,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】キーボードから文字が入力された時のイベントリスナを削除します
+    /// 【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを削除します
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
@@ -230,7 +239,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】文字列が変更された時のイベントリスナを追加します
+    /// 【MODE.INPUT】文字列が変更された時のイベントリスナを追加します
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
@@ -238,7 +247,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】文字列が変更された時のイベントリスナを削除します
+    /// 【MODE.INPUT】文字列が変更された時のイベントリスナを削除します
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
@@ -246,99 +255,105 @@ public class TypeModule : MonoBehaviour {
     }
     #endregion
 
-    #region 【MODE.MODE_COPY】プロパティ
+    #region 【MODE.COPY】プロパティ
+ 
     /// <summary>
-    /// <para>【MODE.MODE_COPY】比較対象の文字列(タイピングのお台文)</para>
-    /// <para>値を変更した時点で、内部でClear()を自動で呼び出します。</para>
-    /// </summary>
-    public string TargetStr {
-        get { return m_copyInputChecker.TargetStr; }
-        set {m_copyInputChecker.TargetStr = value;}
-    }
-
-    /// <summary>
-    /// 【MODE.MODE_COPY】既に打ち終わった文字列
+    /// 【MODE.COPY】既に打ち終わった文字列
     /// </summary>
     public string StrDone {
         get { return m_copyInputChecker.StrDone; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】現在打っている文字
+    /// 【MODE.COPY】現在打っている文字
     /// </summary>
     public string StrCurrent {
         get { return m_copyInputChecker.StrCurrent; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】まだ打っていない文字列
+    /// 【MODE.COPY】まだ打っていない文字列
     /// </summary>
     public string StrYet {
         get { return m_copyInputChecker.StrYet; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】既に打ち終わった文字列(変換前)
+    /// 【MODE.COPY】既に打ち終わった文字列(変換前)
     /// </summary>
     public string StrDoneRaw {
         get { return m_copyInputChecker.StrDoneRaw; }
     }
 
     /// <summary>
-    ///【MODE.MODE_COPY】 現在打っている文字(変換前)
+    ///【MODE.COPY】 現在打っている文字(変換前)
     /// </summary>
     public string StrCurrentRaw {
         get { return m_copyInputChecker.StrCurrentRaw; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】既に打ち終わった文字列(変換前)
+    /// 【MODE.COPY】既に打ち終わった文字列(変換前)
     /// </summary>
     public string StrYetRaw {
         get { return m_copyInputChecker.StrYetRaw; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】前回正しく入力された文字(ミスした時は空文字列)
+    /// 【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)
     /// </summary>
     public string PrevCorrectChar {
         get { return m_copyInputChecker.PrevCorrectChar; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】前回ミスしたされた文字(正しく入力された時は空文字列)
+    /// 【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)
     /// </summary>
     public string PrevMissChar {
         get { return m_copyInputChecker.PrevMissChar; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】正しくタイプした数
+    /// 【MODE.COPY】正しくタイプした数
     /// </summary>
     public int CorrectNum {
         get { return m_copyInputChecker.CorrectNum; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】正しく打てた文字数
+    /// 【MODE.COPY】正しく打てた文字数
     /// </summary>
     public int CorrectCharNum {
         get { return m_copyInputChecker.CorrectCharNum; }
     }
 
     /// <summary>
-    /// 【MODE.MODE_COPY】ミスタイプした数
+    /// 【MODE.COPY】ミスタイプした数
     /// </summary>
     public int MissNum {
         get {
             return m_copyInputChecker.MissNum;
         }
     }
+
+    /// <summary>
+    /// 打ち終わったか
+    /// </summary>
+    public bool IsComplete {
+        get { return m_copyInputChecker.IsComplete; }
+    }
+
+    /// <summary>
+    /// 【MODE.COPY】前回の入力タイプ
+    /// </summary>
+    public CopyInputCheckerResults.INNER_EVENT_TYPE InnerEvent {
+        get { return m_copyInputChecker.InnerEvent; }
+    }
     #endregion
 
-    #region 【MODE.MODE_INPUT】メソッド
+    #region 【MODE.COPY】メソッド
     /// <summary>
-    /// 【MODE.MODE_INPUT】キーボードから入力処理を行った時のイベントリスナを追加します。
+    /// 【MODE.COPY】キーボードから入力処理を行った時のイベントリスナを追加します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -346,7 +361,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    ///【MODE.MODE_INPUT】キーボードから入力処理を行った時のイベントリスナを削除します。
+    ///【MODE.COPY】キーボードから入力処理を行った時のイベントリスナを削除します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -354,7 +369,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】比較対象の文字に対して、正しく入力された時のイベントリスナを追加します。
+    /// 【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを追加します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -362,7 +377,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】比較対象の文字に対して、正しく入力された時のイベントリスナを削除します。
+    /// 【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを削除します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -370,7 +385,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】比較対象の文字に対して、ミスタッチした時のイベントリスナを追加します。
+    /// 【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを追加します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -378,7 +393,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】比較対象の文字に対して、ミスタッチした時のイベントリスナを削除します。
+    /// 【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを削除します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -386,7 +401,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    ///【MODE.MODE_INPUT】 比較対象の文字が全て打てた時のイベントリスナを追加します。
+    ///【MODE.COPY】比較対象の文字が全て打てた時のイベントリスナを追加します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -394,7 +409,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.MODE_INPUT】比較対象の文字が全て打てた時のイベントリスナを追加します。
+    /// 【MODE.COPY】比較対象の文字が全て打てた時のイベントリスナを追加します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -406,11 +421,11 @@ public class TypeModule : MonoBehaviour {
     #region
     [Tooltip(
         "文字入力判定モードです。\n" +
-        "【MODE_INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。\n" +
+        "【INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。\n" +
         "【MODE_COMPARE】 :指定された文字列が正しく打ててるかを確認します。タイピングゲームで、お題の文字を真似して打たせる時に使用してください。\n"
             )]
     #endregion
-    [SerializeField, PropertyBackingField("Mode")] private MODE m_mode = MODE.MODE_INPUT;
+    [SerializeField, PropertyBackingField("Mode")] private MODE m_mode = MODE.INPUT;
     public MODE Mode {
         get { return m_mode; }
         set { m_mode = value; }
@@ -431,7 +446,7 @@ public class TypeModule : MonoBehaviour {
     #region
     [Tooltip(
         "JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。\n" +
-        "[MODE_INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。\n" +
+        "[INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。\n" +
         "[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2RomaCsv]から文字列生成をエミュレートします。\n"
         )]
     [SerializeField, PropertyBackingField("IsKana")] private bool m_isKana = false;
@@ -449,7 +464,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
-    [Header("Modeが【MODE_INPUT】の時の設定")]
+    [Header("Modeが【INPUT】の時の設定")]
     #region 
     [Tooltip(
         "入力モード\n" +
@@ -496,6 +511,41 @@ public class TypeModule : MonoBehaviour {
             m_isEnter = value;
             if (m_inputEmulator != null) {
                 m_inputEmulator.IsEnter = IsEnter;
+            }
+        }
+    }
+
+    [Header("Modeが【COPY】の時の設定")]
+    #region
+    [Tooltip(
+        "比較対象の文字列(タイピングのお台文)\n" +
+        "値を変更した時点で、初期化処理を自動で呼び出します。"
+       )]
+    [SerializeField, PropertyBackingField("TargetStr")] private string m_targetStr = "";
+    #endregion
+    public string TargetStr {
+        get { return m_targetStr; }
+        set {
+            m_targetStr = value;
+            if (m_copyInputChecker != null) {
+                m_copyInputChecker.TargetStr = value;
+            }
+        }
+    }
+
+    #region
+    [Tooltip(
+        "英語の大文字と小文字入力を区別して判定するか\n" +
+        "初期化処理が発生した時点で反映されます。"
+       )]
+    [SerializeField, PropertyBackingField("IsCaseSensitive")] private bool m_isCaseSensitive = false;
+    #endregion
+    public bool IsCaseSensitive {
+        get { return m_isCaseSensitive; }
+        set {
+            m_isCaseSensitive = value;
+            if (m_copyInputChecker != null) {
+                m_copyInputChecker.IsCaseSensitive = value;
             }
         }
     }
@@ -692,6 +742,8 @@ public class TypeModule : MonoBehaviour {
     private void CreateCopyInputChecker() {
         m_copyInputChecker = new CopyInputChecker(m_convertTableMgr);
         m_copyInputChecker.IsKana = IsKana;
+        m_copyInputChecker.IsCaseSensitive = IsCaseSensitive;
+        m_copyInputChecker.TargetStr = TargetStr;
     }
     #endregion
 
@@ -710,4 +762,7 @@ public class TypeModule : MonoBehaviour {
     public Text currentRaw;
     public Text yetRaw;
 
+    public Text correct;
+    public Text correctCh;
+    public Text miss;
 }
