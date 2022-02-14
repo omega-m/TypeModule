@@ -184,8 +184,7 @@ namespace tpInner {
             for(int i = 0;i < aRoma.Length; ++i){
                 if (ret.HasKana) { return null; }
                 if (ret.Children == null) { return null; }
-                char ch = char.ToLower(aRoma[i]);
-                if (!char.IsLower(ch)) { return null; }
+                if (!Util.IsAlpha(aRoma[i])) { return null; }
                 ret = ret.Children[Roma2KanaNode.Alpha2ChildIdx(char.ToLower(aRoma[i]))];
                 if (ret == null) { return null; }
             }

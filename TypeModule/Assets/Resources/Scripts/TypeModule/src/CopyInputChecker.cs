@@ -362,7 +362,7 @@ namespace tpInner {
                             p.m_event = aEvent;
                             CorrectType(nCh + "");
                             return;
-                        } else if(char.IsLower(char.ToLower(p.m_strCurrent[0]))) {
+                        } else if(Util.IsAlpha(p.m_strCurrent[0])) {
                             //英語入力中で文字が違うならミス判定
                             p.m_event = aEvent;
                             p.m_prevMissChar = nCh + "";
