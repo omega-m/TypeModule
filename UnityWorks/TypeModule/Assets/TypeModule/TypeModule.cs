@@ -407,7 +407,7 @@ public class TypeModule : MonoBehaviour {
     [Header("以下詳細設定 (指定しなくても動きます)")]
     [Tooltip("キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
-        "【Assets/Resources/Scripts/TypeModule/data/KeyCode2Char/qwerty.csv】\n" +
+        "【Assets/Resources/TypeModule/data/KeyCode2Char/qwerty.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
         "［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction\n" +
         "例) \n" +
@@ -428,7 +428,7 @@ public class TypeModule : MonoBehaviour {
 
     [Tooltip("ローマ字文字列からひらがな文字列への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
-        "【Assets/Resources/Scripts/TypeModule/data/Char2Kana/roma.csv】\n" +
+        "【Assets/Resources/TypeModule/data/Char2Kana/roma.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
         "ローマ字文字列,ひらがな文字列\n" +
         "例) \n" +
@@ -447,7 +447,7 @@ public class TypeModule : MonoBehaviour {
 
     [Tooltip("数字と記号の、全角半角の変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
-        "【Assets/Resources/Scripts/TypeModule/data/Char2Kana/nummark.csv】\n" +
+        "【Assets/Resources/TypeModule/data/Char2Kana/nummark.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
         "［形式］半角文字,全角文字\n" +
         "例) \n" +
@@ -468,7 +468,7 @@ public class TypeModule : MonoBehaviour {
     [Tooltip("キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイル\n" +
         "JISかな入力など、日本語を直接入力する方式を使用する際に参照します。\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
-        "【Assets/Resources/Scripts/TypeModule/data/KeyCode2Char/JISkana.csv】\n" +
+        "【Assets/Resources/TypeModule/data/KeyCode2Char/JISkana.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
         "［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction\n" +
         "例) \n" +
@@ -488,7 +488,7 @@ public class TypeModule : MonoBehaviour {
 
     [Tooltip("ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
-        "【Assets/Resources/Scripts/TypeModule/data/Char2Kana/JISkana.csv】\n" +
+        "【Assets/Resources/TypeModule/data/Char2Kana/JISkana.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
         "［形式］ひらがな中間文字列,ひらがな文字列\n" +
         "例) \n" +

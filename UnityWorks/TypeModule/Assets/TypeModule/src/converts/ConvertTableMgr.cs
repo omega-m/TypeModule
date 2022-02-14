@@ -158,23 +158,23 @@ namespace tpInner {
         private void CreateDefaultTable() {
             
             TextAsset tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
+            tmp = Resources.Load("TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
             if (tmp != null) {SetKeyCode2RomaTable(in tmp);}
             
             tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
+            tmp = Resources.Load("TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
             if (tmp != null) {SetRoma2KanaTable(in tmp);}
             
             tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
+            tmp = Resources.Load("TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
             if (tmp != null) {SetKeyCode2KanaMidTable(in tmp);}
           
             tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/JISkana", typeof(TextAsset)) as TextAsset;
+            tmp = Resources.Load("TypeModule/data/Char2Kana/JISkana", typeof(TextAsset)) as TextAsset;
             if(tmp != null) {SetKanaMid2KanaTable(in tmp);}
           
             tmp = new TextAsset();
-            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/nummark", typeof(TextAsset)) as TextAsset;
+            tmp = Resources.Load("TypeModule/data/Char2Kana/nummark", typeof(TextAsset)) as TextAsset;
             if (tmp != null) {SetNumMarkTable(in tmp);}
         }
         #endregion
