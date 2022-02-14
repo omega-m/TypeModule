@@ -98,7 +98,7 @@ using UnityEngine.Events;
 /// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
 ///      
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module.AddEventListeneronInput(onInput);
+/// module.AddEventListenerOnInput(onInput);
 ///         
 ///     ...
 ///     
