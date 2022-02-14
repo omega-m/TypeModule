@@ -7,8 +7,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 ///<summary>
-///キーボードの入力を元に、文字入力の判定を担当するモジュールです。
-///CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。
+///<para>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</para>
+///<para>CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。</para>
 /// </summary>
 /// <example><code>
 ///     ...
@@ -151,21 +151,23 @@ using UnityEngine.Events;
 /// </code></example>
 public class TypeModule : MonoBehaviour {
 
+
     #region 入力判定モード
     ///<summary>文字入力判定モードです。</summary>
     public enum MODE {
         ///<summary>
-        ///キーボードの入力を元に、文字列の生成をエミュレートします。
-        ///キーボード入力から文字列を取得したい場合に使用してください。
+        ///<para>キーボードの入力を元に、文字列の生成をエミュレートします。</para>
+        ///<para>キーボード入力から文字列を取得したい場合に使用してください。</para>
         ///</summary>
         INPUT,
         ///<summary>
-        ///【m_targetText】で指定された文字列が正しく打ててるかを確認します。
-        ///タイピングゲームで、お題の文字を真似して打たせる時に使用してください。
+        ///<para>【TargetStr】で指定された文字列が正しく打ててるかを確認します。</para>
+        ///<para>タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</para>
         ///</summary>
         COPY,
     }
     #endregion
+
 
     #region 共通メソッド
     /// <summary>内部の入力データをを全て削除します</summary>
@@ -177,19 +179,15 @@ public class TypeModule : MonoBehaviour {
     /// <summary>前回入力発生時のUnityイベント</summary>
     public Event Event {
         get {
-            Event ret = new Event();
             switch (Mode) {
-                case MODE.INPUT:
-                    ret = m_inputEmulator.Event;
-                    break;
-                case MODE.COPY:
-                    ret = m_copyInputChecker.Event;
-                    break;
+                case MODE.INPUT:    return m_inputEmulator.Event;
+                case MODE.COPY:     return m_copyInputChecker.Event;
             }
-            return ret;
+            return new Event();
         }
     }
     #endregion
+
 
     #region 【MODE.INPUT】プロパティ
     /// <summary>【MODE.INPUT】生成された文字列</summary>
@@ -216,16 +214,12 @@ public class TypeModule : MonoBehaviour {
     #region 【MODE.INPUT】メソッド
     /// <summary>【MODE.INPUT】プログラム側から、変換確定前の文字列を確定します。</summary>
     public void Enter() {
-        if (Mode == MODE.INPUT) {
-            m_inputEmulator.Enter();
-        }
+        if (Mode == MODE.INPUT) {m_inputEmulator.Enter();}
     }
 
     /// <summary>【MODE.INPUT】プログラム側から、末尾の1文字消します。</summary>
     public void BackSpace() {
-        if (Mode == MODE.INPUT) {
-            m_inputEmulator.BackSpace();
-        }
+        if (Mode == MODE.INPUT) {m_inputEmulator.BackSpace();}
     }
 
     /// <summary>【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを追加します</summary>
@@ -253,8 +247,8 @@ public class TypeModule : MonoBehaviour {
     }
     #endregion
 
+
     #region 【MODE.COPY】プロパティ
- 
     /// <summary>【MODE.COPY】既に打ち終わった文字列</summary>
     public string StrDone {
         get { return m_copyInputChecker.StrDone; }
@@ -307,9 +301,7 @@ public class TypeModule : MonoBehaviour {
 
     /// <summary>【MODE.COPY】ミスタイプした数</summary>
     public int MissNum {
-        get {
-            return m_copyInputChecker.MissNum;
-        }
+        get {return m_copyInputChecker.MissNum;}
     }
 
     /// <summary>打ち終わったか</summary>
@@ -322,6 +314,7 @@ public class TypeModule : MonoBehaviour {
         get { return m_copyInputChecker.InnerEvent; }
     }
     #endregion
+
 
     #region 【MODE.COPY】メソッド
     /// <summary>【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを追加します。</summary>
@@ -385,6 +378,7 @@ public class TypeModule : MonoBehaviour {
     }
     #endregion
 
+
     #region インスペクタープロパティ
     #region
     [Tooltip(
@@ -423,12 +417,8 @@ public class TypeModule : MonoBehaviour {
         get { return m_isKana; }
         set {
             m_isKana = value;
-            if (m_inputEmulator != null) {
-                m_inputEmulator.IsKana = IsKana;
-            }
-            if(m_copyInputChecker != null) {
-                m_copyInputChecker.IsKana = IsKana;
-            }
+            if (m_inputEmulator != null) {m_inputEmulator.IsKana = IsKana;}
+            if(m_copyInputChecker != null) {m_copyInputChecker.IsKana = IsKana;}
         }
     }
 
@@ -445,9 +435,7 @@ public class TypeModule : MonoBehaviour {
         get { return m_isInputEng; }
         set {
             m_isInputEng = value;
-            if (m_inputEmulator != null) {
-                m_inputEmulator.IsInputEng = IsInputEng;
-            }
+            if (m_inputEmulator != null) {m_inputEmulator.IsInputEng = IsInputEng;}
         }
     }
 
@@ -461,9 +449,7 @@ public class TypeModule : MonoBehaviour {
         get { return m_isBS; }
         set {
             m_isBS = value;
-            if (m_inputEmulator != null) {
-                m_inputEmulator.IsBS = IsBS;
-            }
+            if (m_inputEmulator != null) {m_inputEmulator.IsBS = IsBS;}
         }
     }
 
@@ -477,9 +463,7 @@ public class TypeModule : MonoBehaviour {
         get { return m_isEnter; }
         set {
             m_isEnter = value;
-            if (m_inputEmulator != null) {
-                m_inputEmulator.IsEnter = IsEnter;
-            }
+            if (m_inputEmulator != null) {m_inputEmulator.IsEnter = IsEnter;}
         }
     }
 
@@ -512,9 +496,7 @@ public class TypeModule : MonoBehaviour {
         get { return m_isCaseSensitive; }
         set {
             m_isCaseSensitive = value;
-            if (m_copyInputChecker != null) {
-                m_copyInputChecker.IsCaseSensitive = value;
-            }
+            if (m_copyInputChecker != null) {m_copyInputChecker.IsCaseSensitive = value;}
         }
     }
 
@@ -563,9 +545,7 @@ public class TypeModule : MonoBehaviour {
         set {
             if (m_roma2KanaCsv != value) {
                 m_roma2KanaCsv = value;
-                if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);
-                }
+                if (m_convertTableMgr != null) {m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);}
             }
         }
     }
@@ -588,9 +568,7 @@ public class TypeModule : MonoBehaviour {
         set {
             if (m_numMarkCsv != value) {
                 m_numMarkCsv = value;
-                if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);
-                }
+                if (m_convertTableMgr != null) {m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);}
             }
         }
     }
@@ -616,9 +594,7 @@ public class TypeModule : MonoBehaviour {
         set {
             if (m_keyCode2KanaMidCsv != value) {
                 m_keyCode2KanaMidCsv = value;
-                if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);
-                }
+                if (m_convertTableMgr != null) {m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);}
             }
         }
     }
@@ -641,9 +617,7 @@ public class TypeModule : MonoBehaviour {
         set {
             if (m_kanaMid2KanaCsv != value) {
                 m_kanaMid2KanaCsv = value;
-                if (m_convertTableMgr != null) {
-                    m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);
-                }
+                if (m_convertTableMgr != null) {m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);}
             }
         }
     }
@@ -659,9 +633,7 @@ public class TypeModule : MonoBehaviour {
     public bool IsCheckCapsLock {
         get { return m_isCheckCapsLock; }
         set {
-            if (m_convertTableMgr != null) {
-                m_convertTableMgr.IsCheckCapsLock = value;
-            }
+            if (m_convertTableMgr != null) {m_convertTableMgr.IsCheckCapsLock = value;}
             m_isCheckCapsLock = value;
         }
     }
@@ -674,21 +646,11 @@ public class TypeModule : MonoBehaviour {
         m_convertTableMgr.IsCheckCapsLock = IsCheckCapsLock;
 
         //インスペクターのファイルアセットで上書き
-        if (KeyCode2RomaCsv != null) {
-            m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);
-        }
-        if (Roma2KanaCsv != null) {
-            m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);
-        }
-        if (KeyCode2KanaMidCsv != null) {
-            m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);
-        }
-        if (KanaMid2KanaCsv != null) {
-            m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);
-        }
-        if (NumMarkCsv != null) {
-            m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);
-        }
+        if (KeyCode2RomaCsv != null) {m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);}
+        if (Roma2KanaCsv != null) {m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);}
+        if (KeyCode2KanaMidCsv != null) {m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);}
+        if (KanaMid2KanaCsv != null) {m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);}
+        if (NumMarkCsv != null) {m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);}
     }
 
     ///<summary>キーボードの入力から文字列生成をエミュレートする為のクラスの作成</summary>
@@ -720,16 +682,10 @@ public class TypeModule : MonoBehaviour {
     }
 
     private void OnGUI() {
-        if (IsRun) {
-            if (Event.current.type == EventType.KeyDown) {
-                switch (Mode) {
-                    case MODE.INPUT:
-                        m_inputEmulator.AddInput(Event.current);
-                        break;
-                    case MODE.COPY:
-                        m_copyInputChecker.AddInput(Event.current);
-                        break;
-                }
+        if (IsRun && Event.current.type == EventType.KeyDown) {
+            switch (Mode) {
+                case MODE.INPUT:    m_inputEmulator.AddInput(Event.current);    break;
+                case MODE.COPY:     m_copyInputChecker.AddInput(Event.current); break;
             }
         }
     }

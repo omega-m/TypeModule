@@ -581,9 +581,7 @@ namespace tpInner {
         /// </summary>
         public bool IsKana {
             get { return m_results.IsKana; }
-            set {
-                m_isKana = value;
-            }
+            set {m_isKana = value;}
         }
 
         private bool m_isCaseSensitive = false;
@@ -594,9 +592,7 @@ namespace tpInner {
         /// </summary>
         public bool IsCaseSensitive{
             get { return m_results.IsCaseSensitive; }
-            set {
-                m_isCaseSensitive = value;
-            }
+            set {m_isCaseSensitive = value;}
         }
         #endregion
 
