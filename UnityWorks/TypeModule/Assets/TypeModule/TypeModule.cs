@@ -12,7 +12,10 @@ using UnityEngine.Events;
 ///     
 /// module = GetComponent<TypeModule>();
 ///     
-/// //文字列生成シミュレーションモード=======================================
+/// 
+/// 
+/// //=======================================================================
+/// //文字列生成シミュレーションモードに変更
 /// module.Mode = TypeModule.MODE.INPUT;
 /// 
 /// //モジュールから状態を取得
@@ -30,6 +33,8 @@ using UnityEngine.Events;
 /// module.BackSpace();         //末尾から1文字削除
 /// module.Clear();             //全ての文字を削除
 /// 
+/// 
+/// 
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
 /// module.AddEventListenerOnChange(onChange);
 /// 
@@ -44,6 +49,7 @@ using UnityEngine.Events;
 ///     testInput.text = res.StrInput;
 ///     testInputRaw.text = res.StrRawInput;
 /// }
+/// 
 /// 
 /// 
 /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
@@ -76,7 +82,9 @@ using UnityEngine.Events;
 /// }
 /// 
 /// 
-/// //指定された文字列が正しく打ててるか、比較するモード=======================================
+/// 
+/// //=======================================================================
+/// //指定された文字列が正しく打ててるか、比較するモードに変更
 /// module.Mode = TypeModule.MODE.COPY;
 /// 
 /// //モードの変更
@@ -97,8 +105,10 @@ using UnityEngine.Events;
 /// Debug.Log(module.MissNum);                 //ミスタイプした数
 /// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
 ///      
+/// 
+/// 
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module.AddEventListeneronInput(onInput);
+/// module.AddEventListenerOnInput(onInput);
 ///         
 ///     ...
 ///     
@@ -110,6 +120,7 @@ using UnityEngine.Events;
 ///     testInput.text = res.StrDone + " " + res.StrCurrent + " " + res.StrYet;
 ///     testInputRaw.text = res.StrDoneRaw + " " + res.StrCurrentRaw + " " + res.StrYetRaw;
 /// }
+/// 
 /// 
 /// 
 /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
@@ -136,7 +147,9 @@ using UnityEngine.Events;
 /// }
 /// 
 /// 
-/// //以下オプションです================================
+/// 
+/// //=======================================================================
+/// //以下オプション
 /// 
 /// //CapsLockの状態を反映させないように切り替え
 /// module.EnabledCapsLock = false;

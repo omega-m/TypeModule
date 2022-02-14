@@ -12,7 +12,7 @@ using System;
 ///     
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
 /// module = GetComponent<TypeModule>();
-/// module.AddEventListenerOnInput(onInput);
+/// module.AddEventListeneronInput(onInput);
 ///         
 ///     ...
 ///     
@@ -138,7 +138,7 @@ public class CopyInputCheckerResults {
     /// <summary>JISかな入力など、日本語を直接入力する方式を使用しているか</summary>
     public bool IsKana{get {return m_params.m_isKana;}}
 
-    /// <summary>英語の大文字と小文字の入力を区別して判定するか</summary>
+    /// <summary>英語の大文字と小文字入力を区別して判定するか</summary>
     public bool IsCaseSensitive {get { return m_params.m_isCaseSensitive; }}
     #endregion
 
@@ -259,7 +259,7 @@ namespace tpInner {
     /// ConvertTableMgr table = new ConvertTableMgr();
     /// CopyInputChecker checker = new CopyInputChecker(in table);
     /// 
-    /// //比較対象の文字列をセット(内部の初期化も同時に行われます)
+    /// //比較対象の文字列をセット(内部初期化もされます)
     /// checker.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
     /// 
     ///     ...
@@ -313,7 +313,7 @@ namespace tpInner {
     /// //ローマ字入力方式から、かな入力方式に切り替え
     /// checker.IsKana = true;
     /// 
-    /// //英語の大文字と小文字の入力を区別して判定する
+    /// //英語の大文字と小文字入力を区別して判定する
     /// checker.IsCaseSensitive = true;
     /// 
     /// </code></example>
@@ -544,7 +544,7 @@ namespace tpInner {
 
         private bool m_isCaseSensitive = false;
         /// <summary>
-        /// <para>英語の大文字と小文字の入力を区別して判定するか</para>
+        /// <para>英語の大文字と小文字入力を区別して判定するか</para>
         /// <para>処理中にセットされた場合は、即座に反映されません。</para>
         /// <para>Clear()が呼び出された時か、TargetStrに値がセットされた時に更新されます。</para>
         /// </summary>

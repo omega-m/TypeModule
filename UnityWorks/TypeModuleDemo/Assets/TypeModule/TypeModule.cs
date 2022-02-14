@@ -22,7 +22,7 @@ using UnityEngine.Events;
 /// 
 /// //モードを変更
 /// module.IsInputEng = true    //英語入力状態へ
-/// module.IsKana     = true;     //かな入力状態へ
+/// module.IsKana     = true;     //かな入力入力状態へ
 /// module.EnabledBS  = true;     //BSで文字を消せるかどうか
 /// 
 /// //プログラムから文字列を操作
@@ -63,13 +63,13 @@ using UnityEngine.Events;
 /// private void onInput(InputEmulatorResults res){
 ///     Debug.Log("onInput");
 ///     switch(res.InputType){
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_INPUT:
+///         case InputEmulatorResults.INPUT_TYPE.INPUT:
 ///             audioSource.PlayOneShot(typeSound);
 ///             break;
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS:
+///         case InputEmulatorResults.INPUT_TYPE.BS:
 ///             audioSource.PlayOneShot(bsSound);
 ///             break;
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER:
+///         case InputEmulatorResults.INPUT_TYPE.ENTER:
 ///             audioSource.PlayOneShot(enterSound);
 ///             break;
 ///     }
@@ -81,15 +81,15 @@ using UnityEngine.Events;
 /// 
 /// //モードの変更
 /// module.IsKana = true;                  /かな入力入力状態へ
-/// module.IsCaseSensitive = true;         //英語の大文字と小文字の入力を区別
+/// module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
 /// 
-/// //比較対象の文字列をセット(内部の初期化も同時に行われます)
+/// //比較対象の文字列をセット(内部初期化もされます)
 /// module.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
 /// 
 /// 
 /// //直前に入力された文字を取得
-/// Debug.Log(module.PrevCorrectChar);         //正しく入力された場合格納されます
-/// Debug.Log(module.PrevMissChar);            //ミス入力の場合格納されます
+/// Debug.Log(module.PrevCorrectChar);         //正しく入力された場合
+/// Debug.Log(module.PrevMissChar);            //ミス入力の場合
 /// 
 /// //パラメータにアクセス
 /// Debug.Log(module.CorrectNum);              //正しくタイプした数
@@ -98,7 +98,7 @@ using UnityEngine.Events;
 /// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
 ///      
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module.AddEventListenerOnInput(onInput);
+/// module.AddEventListeneronInput(onInput);
 ///         
 ///     ...
 ///     
@@ -392,7 +392,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
-    [Tooltip("英語の大文字と小文字の入力を区別して判定するか\n" +
+    [Tooltip("英語の大文字と小文字入力を区別して判定するか\n" +
         "初期化処理が発生した時点で反映されます。")]
     [SerializeField, PropertyBackingField("IsCaseSensitive")] private bool m_isCaseSensitive = false;
     public bool IsCaseSensitive {
@@ -580,5 +580,3 @@ public class TypeModule : MonoBehaviour {
     CopyInputChecker m_copyInputChecker;
     #endregion
 }
-
-
