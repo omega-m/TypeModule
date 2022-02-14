@@ -107,7 +107,7 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
          
     //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-    module.AddEventListeneronInput(onInput);
+    module.AddEventListenerOnInput(onInput);
             
         ...
         
