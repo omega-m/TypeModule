@@ -402,6 +402,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region 詳細設定
     [Header("以下詳細設定 (指定しなくても動きます)")]
     [Tooltip("キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
@@ -514,6 +515,7 @@ public class TypeModule : MonoBehaviour {
             m_isCheckCapsLock = value;
         }
     }
+    #endregion
     #endregion
 
 
