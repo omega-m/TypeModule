@@ -63,13 +63,13 @@ using UnityEngine.Events;
 /// private void onInput(InputEmulatorResults res){
 ///     Debug.Log("onInput");
 ///     switch(res.InputType){
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_INPUT:
+///         case InputEmulatorResults.INPUT_TYPE.INPUT:
 ///             audioSource.PlayOneShot(typeSound);
 ///             break;
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_BS:
+///         case InputEmulatorResults.INPUT_TYPE.BS:
 ///             audioSource.PlayOneShot(bsSound);
 ///             break;
-///         case InputEmulatorResults.INPUT_TYPE.INPUT_TYPE_ENTER:
+///         case InputEmulatorResults.INPUT_TYPE.ENTER:
 ///             audioSource.PlayOneShot(enterSound);
 ///             break;
 ///     }
