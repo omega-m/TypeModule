@@ -86,7 +86,6 @@ public class TextCmpUpdator : MonoBehaviour {
     }
     public void OnComplete(CopyInputCheckerResults aResult) {
         Debug.Log("onComplete");
-        Debug.Log("onMiss");
         m_targetText.text =
            m_doneColor + aResult.StrDone + m_colorEnd +
            m_missColor + aResult.StrCurrent + m_colorEnd +

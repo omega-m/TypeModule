@@ -2,12 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
 using System.Text.RegularExpressions;
+
+
 /// <summary>
 /// CopyInputCheckerによって処理されたデータへのアクセス用クラスです。
 /// TypeModuleでModeをMODE_COPYにした時、入力発生時のイベントリスナで返却されます。
 /// </summary>
+/// <example><code>
+///     
+/// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
+/// module = GetComponent<TypeModule>();
+/// module.AddEventListeneronInput(onInput);
+///         
+///     ...
+///     
+/// public Text testInput;
+/// public Text testInputRaw;
+/// 
+/// private void onInput(CopyInputCheckerResults res) {
+///     Debug.Log("onInput");
+///     testInput.text = res.StrDone + " " + res.StrCurrent + " " + res.StrYet;
+///     testInputRaw.text = res.StrDoneRaw + " " + res.StrCurrentRaw + " " + res.StrYetRaw;
+/// }
+/// 
+/// 
+/// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+/// public AudioSource audioSource;
+/// public AudioClip correctSound;
+/// public AudioClip missSound;
+/// 
+///     ...
+/// 
+/// module.AddEventListenerOnCorrect(onCorrect);
+/// module.AddEventListenerOnMiss(onMiss);
+/// audioSource = GetComponent<AudioSource>();
+/// 
+///     ...
+/// 
+/// private void onCorrect(CopyInputCheckerResults res){
+///     Debug.Log("onCorrect");
+///     audioSource.PlayOneShot(correctSound);
+/// }
+/// 
+/// private void onMiss(CopyInputCheckerResults res){
+///     Debug.Log("onMiss");
+///     audioSource.PlayOneShot(missSound);
+/// }
+/// </code></example>
 public class CopyInputCheckerResults {
 
     #region 内部イベントタイプ
@@ -59,7 +101,7 @@ public class CopyInputCheckerResults {
     }
 
     /// <summary>
-    /// 現在打っている文字
+    /// 現在打とうとしている文字
     /// </summary>
     public string StrCurrent {
         get {
@@ -308,6 +350,72 @@ namespace tpInner {
     /// <para>指定された文字列が正しく打ててるかを確認します。</para>
     /// <para>タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</para>
     /// </summary>
+    /// /// <example><code>
+    ///     
+    ///     ...
+    ///     
+    /// //初期化処理
+    /// ConvertTableMgr table = new ConvertTableMgr();
+    /// CopyInputChecker checker = new CopyInputChecker(in table);
+    /// 
+    /// //比較対象の文字列をセット(内部初期化もされます)
+    /// checker.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
+    /// 
+    ///     ...
+    ///     
+    /// //KeyCodeからお台文と比較
+    /// private void OnGUI(){
+    ///     if (Event.current.type == EventType.KeyDown) {
+    ///         checker.AddInput(Event.current);
+    ///     }
+    /// }
+    /// 
+    ///     ...
+    ///     
+    /// //直前に入力された文字を取得
+    /// Debug.Log(checker.PrevCorrectChar);         //正しく入力された場合
+    /// Debug.Log(checker.PrevMissChar);            //ミス入力の場合
+    /// 
+    /// //その他パラメータにアクセス
+    /// Debug.Log(checker.CorrectNum);              //正しくタイプした数
+    /// Debug.Log(checker.CorrectCharNum);          //正しく打てた文字数
+    /// Debug.Log(checker.MissNum);                 //ミスタイプした数
+    /// Debug.Log(checker.IsComplete);              //指定文字列を打ち切ったか
+    /// 
+    /// //入力が発生した時のイベントリスナを追加
+    /// private void onInput(InputEmulatorResults res) {
+    ///     Debug.Log("onInput");
+    ///     Debug.Log("str:" + res.StrDone + " " + res.StrCurrent + " " + res.StrYet);
+    ///     Debug.Log("str(ローマ時):" + res.StrDoneRaw + " " + res.StrCurrentRaw + " " + res.StrYetRaw);
+    /// }
+    /// //正しく入力された時のイベントリスナを追加
+    /// private void onCorrect(InputEmulatorResults res) {
+    ///     Debug.Log("onCorrect");
+    /// }
+    /// //ミス入力された時のイベントリスナを追加
+    /// private void onMiss(InputEmulatorResults res) {
+    ///     Debug.Log("onMiss");
+    /// }
+    /// //指定された文字列を全て打ちきった時のイベントリスナを追加
+    /// private void onComplete(InputEmulatorResults res) {
+    ///     Debug.Log("onComplete");
+    /// }
+    /// 
+    /// checker.AddEventListenerOnInput(onInput);
+    /// checker.AddEventListenerOnCorrect(onCorrect);
+    /// checker.AddEventListenerOnMiss(onMiss);
+    /// checker.AddEventListenerOnComplete(onComplete);
+    /// 
+    /// 
+    /// //以下オプションです================================
+    /// 
+    /// //ローマ字入力方式から、かな入力方式に切り替え
+    /// checker.IsKana = true;
+    /// 
+    /// //英語の大文字と小文字入力を区別して判定する
+    /// checker.IsCaseSensitive = true;
+    /// 
+    /// </code></example>
     public class CopyInputChecker {
 
         #region 生成
@@ -603,7 +711,7 @@ namespace tpInner {
 
         #region イベントハンドラ
         /// <summary>
-        /// キーボードから入力処理を行った時のイベントリスナを追加します。
+        /// キーボードからの入力処理を行った時のイベントリスナを追加します。
         /// </summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void AddEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -611,7 +719,7 @@ namespace tpInner {
         }
 
         /// <summary>
-        /// キーボードから入力処理を行った時のイベントリスナを削除します。
+        /// キーボードからの入力処理を行った時のイベントリスナを削除します。
         /// </summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void RemoveEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -651,7 +759,7 @@ namespace tpInner {
         }
 
         /// <summary>
-        /// 比較対象の文字が全て打てた時のイベントリスナを追加します。
+        /// 比較対象の文字を全て打ちきった時のイベントリスナを追加します。
         /// </summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void AddEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -659,7 +767,7 @@ namespace tpInner {
         }
 
         /// <summary>
-        /// 比較対象の文字が全て打てた時のイベントリスナを追加します。
+        /// 比較対象の文字を全て打ちきった時のイベントリスナを追加します。
         /// </summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {

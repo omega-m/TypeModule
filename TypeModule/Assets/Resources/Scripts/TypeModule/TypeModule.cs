@@ -21,20 +21,20 @@ using UnityEngine.Events;
 /// 
 /// //モジュールから状態を取得
 /// Debug.Log(module.Str);
-/// Debug.Log(module.prevChar);
+/// Debug.Log(module.PrevChar);
 /// Debug.Log(module.StrRaw);
 /// 
-/// //生成モードを変更
+/// //モードを変更
 /// module.IsInputEng = true    //英語入力状態へ
-/// module.IsKana = true;       //かな入力入力状態へ
+/// module.IsKana   = true;     //かな入力入力状態へ
 /// module.IsBS     = true;     //BSで文字を消せるかどうか
 /// 
 /// //プログラムから文字列を操作
-/// module.Enter();
-/// module.BackSpace();
+/// module.Enter();             //変換確定前の文字列を確定
+/// module.BackSpace();         //末尾から1文字削除
+/// module.Clear();             //全ての文字を削除
 /// 
-/// 
-/// //イベントリスナを追加し、文字列に変更があった時にテキストを修正
+/// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
 /// module.AddEventListenerOnChange(onChange);
 /// 
 ///         ...
@@ -50,13 +50,14 @@ using UnityEngine.Events;
 /// }
 /// 
 /// 
-/// /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+/// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
 /// public AudioSource audioSource;
 /// public AudioClip typeSound;
 /// public AudioClip bsSound;
 /// public AudioClip enterSound;
 /// 
 ///         ...
+///
 /// 
 /// module.AddEventListenerOnInput(onInput);
 /// audioSource = GetComponent<AudioSource>();
@@ -77,6 +78,67 @@ using UnityEngine.Events;
 ///             break;
 ///     }
 /// }
+/// 
+/// 
+/// //指定された文字列が正しく打ててるか、比較するモード=======================================
+/// module.Mode = TypeModule.MODE.COPY;
+/// 
+/// //モードの変更
+/// module.IsKana = true;                  /かな入力入力状態へ
+/// module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
+/// 
+/// //比較対象の文字列をセット(内部初期化もされます)
+/// module.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
+/// 
+/// 
+/// //直前に入力された文字を取得
+/// Debug.Log(module.PrevCorrectChar);         //正しく入力された場合
+/// Debug.Log(module.PrevMissChar);            //ミス入力の場合
+/// 
+/// //パラメータにアクセス
+/// Debug.Log(module.CorrectNum);              //正しくタイプした数
+/// Debug.Log(module.CorrectCharNum);          //正しく打てた文字数
+/// Debug.Log(module.MissNum);                 //ミスタイプした数
+/// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
+///      
+/// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
+/// module.AddEventListeneronInput(onInput);
+///         
+///     ...
+///     
+/// public Text testInput;
+/// public Text testInputRaw;
+/// 
+/// private void onInput(CopyInputCheckerResults res) {
+///     Debug.Log("onInput");
+///     testInput.text = res.StrDone + " " + res.StrCurrent + " " + res.StrYet;
+///     testInputRaw.text = res.StrDoneRaw + " " + res.StrCurrentRaw + " " + res.StrYetRaw;
+/// }
+/// 
+/// 
+/// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+/// public AudioSource audioSource;
+/// public AudioClip correctSound;
+/// public AudioClip missSound;
+/// 
+///     ...
+/// 
+/// module.AddEventListenerOnCorrect(onCorrect);
+/// module.AddEventListenerOnMiss(onMiss);
+/// audioSource = GetComponent<AudioSource>();
+/// 
+///     ...
+/// 
+/// private void onCorrect(CopyInputCheckerResults res){
+///     Debug.Log("onCorrect");
+///     audioSource.PlayOneShot(correctSound);
+/// }
+/// 
+/// private void onMiss(CopyInputCheckerResults res){
+///     Debug.Log("onMiss");
+///     audioSource.PlayOneShot(missSound);
+/// }
+/// 
 /// 
 /// //以下オプションです================================
 /// 
@@ -341,7 +403,7 @@ public class TypeModule : MonoBehaviour {
 
     #region 【MODE.COPY】メソッド
     /// <summary>
-    /// 【MODE.COPY】キーボードから入力処理を行った時のイベントリスナを追加します。
+    /// 【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを追加します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -349,7 +411,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    ///【MODE.COPY】キーボードから入力処理を行った時のイベントリスナを削除します。
+    ///【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを削除します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -389,7 +451,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    ///【MODE.COPY】比較対象の文字が全て打てた時のイベントリスナを追加します。
+    ///【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを追加します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
@@ -397,7 +459,7 @@ public class TypeModule : MonoBehaviour {
     }
 
     /// <summary>
-    /// 【MODE.COPY】比較対象の文字が全て打てた時のイベントリスナを追加します。
+    /// 【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを削除します。
     /// </summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {

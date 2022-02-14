@@ -8,9 +8,9 @@ using UnityEngine.Events;
 /// InputEmulatorによって処理されたデータへのアクセス用クラスです。
 /// TypeModuleでModeをINPUTにした時、入力発生時のイベントリスナで返却されます。
 /// </summary>
-/// /// <example><code>
+/// <example><code>
 ///     
-/// //イベントリスナを追加し、文字列に変更があった時にテキストを修正
+/// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
 /// module = GetComponent<TypeModule>();
 /// module.AddEventListenerOnChange(onChange);
 ///         
@@ -53,15 +53,6 @@ using UnityEngine.Events;
 ///             break;
 ///     }
 /// }
-/// 
-/// //以下オプションです================================
-/// 
-/// //CapsLockの状態を反映させないように切り替え
-/// module.IsCheckCapsLock = false;
-/// 
-/// //入力を受け付けないように切り替え
-/// module.isRun = false;
-/// 
 /// </code></example>
 public class InputEmulatorResults {
 
@@ -235,7 +226,7 @@ namespace tpInner {
     /// 
     ///     ...
     ///     
-    /// //キーコードから文字を生成
+    /// //KeyCodeから文字を生成
     /// private void OnGUI(){
     ///     if (Event.current.type == EventType.KeyDown) {
     ///         input.AddInput(Event.current);
