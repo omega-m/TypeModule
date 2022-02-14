@@ -30,7 +30,7 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     
     //モードを変更
     module.IsInputEng = true      //英語入力状態へ
-    module.IsKana     = true;     //かな入力入力状態へ
+    module.IsKana     = true;     //かな入力状態へ
     module.EnabledBS  = true;     //BSで文字を消せるかどうか
     
     //プログラムから文字列を操作
