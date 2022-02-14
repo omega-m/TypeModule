@@ -22,7 +22,7 @@ using UnityEngine.Events;
 /// 
 /// //モードを変更
 /// module.IsInputEng = true    //英語入力状態へ
-/// module.IsKana     = true;     //かな入力入力状態へ
+/// module.IsKana     = true;     //かな入力状態へ
 /// module.EnabledBS  = true;     //BSで文字を消せるかどうか
 /// 
 /// //プログラムから文字列を操作
@@ -81,15 +81,15 @@ using UnityEngine.Events;
 /// 
 /// //モードの変更
 /// module.IsKana = true;                  /かな入力入力状態へ
-/// module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
+/// module.IsCaseSensitive = true;         //英語の大文字と小文字の入力を区別
 /// 
-/// //比較対象の文字列をセット(内部初期化もされます)
+/// //比較対象の文字列をセット(内部の初期化も同時に行われます)
 /// module.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
 /// 
 /// 
 /// //直前に入力された文字を取得
-/// Debug.Log(module.PrevCorrectChar);         //正しく入力された場合
-/// Debug.Log(module.PrevMissChar);            //ミス入力の場合
+/// Debug.Log(module.PrevCorrectChar);         //正しく入力された場合格納されます
+/// Debug.Log(module.PrevMissChar);            //ミス入力の場合格納されます
 /// 
 /// //パラメータにアクセス
 /// Debug.Log(module.CorrectNum);              //正しくタイプした数
@@ -392,7 +392,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
-    [Tooltip("英語の大文字と小文字入力を区別して判定するか\n" +
+    [Tooltip("英語の大文字と小文字の入力を区別して判定するか\n" +
         "初期化処理が発生した時点で反映されます。")]
     [SerializeField, PropertyBackingField("IsCaseSensitive")] private bool m_isCaseSensitive = false;
     public bool IsCaseSensitive {
@@ -580,3 +580,5 @@ public class TypeModule : MonoBehaviour {
     CopyInputChecker m_copyInputChecker;
     #endregion
 }
+
+
