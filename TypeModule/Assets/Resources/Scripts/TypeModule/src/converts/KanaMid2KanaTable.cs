@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace tpInner {
 
-    /// <summary>
-    /// ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。
-    /// </summary>
+    /// <summary>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
     /// <example><code>
     /// using tpInner;
     /// 
@@ -45,9 +44,7 @@ namespace tpInner {
     public class KanaMid2KanaTable{
 
         #region 生成
-        ///<summary>
-        /// ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。
-        /// </summary>
+        ///<summary>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
         ///<para> ひらがなの中間文字列から、ひらがな文字列への変換テーブルを定義したファイルアセット</para>
         ///<para>［形式］ひらがな中間文字列, ひらがな文字列,</para>
@@ -59,9 +56,7 @@ namespace tpInner {
         #endregion
 
         #region メソッド
-        /// <summary>
-        /// ひらがなの中間文字列[aKanaMid]から変換できるひらがな文字列を取得。
-        /// </summary>
+        /// <summary>ひらがなの中間文字列[aKanaMid]から変換できるひらがな文字列を取得。</summary>
         /// <param name="aKanaMid">ひらかな中間文字列</param>
         /// <returns>ひらがな文字列、変換できない場合は空文字列</returns>
         public string Convert(string aKanaMid) {
@@ -70,9 +65,7 @@ namespace tpInner {
             return ret;
         }
 
-        /// <summary>
-        /// ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがな文字列があるか
-        /// </summary>
+        /// <summary>ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがな文字列があるか</summary>
         /// <param name="aKanaMid">ひらかな中間文字列</param>
         /// <param name="aOutKana">(変換できる場合)変換先ひらがな文字列</param>
         /// <param name="aIsPossibility">true:[aKanaMid]に、追加でひらがなの中間文字列を足すことで、打つ方法があるかもチェックする</param>
@@ -93,9 +86,7 @@ namespace tpInner {
             return false;
         }
 
-        /// <summary>
-        /// ひらがなの中間文字列[aKanaMid]に対して、ひらがな文字列[aKana]を打つことができるか
-        /// </summary>
+        /// <summary>ひらがなの中間文字列[aKanaMid]に対して、ひらがな文字列[aKana]を打つことができるか</summary>
         /// <param name="aKanaMid">ひらがなの中間文字列(例:さ゛)</param>
         /// <param name="aKana">ひらがな文字列(例:ざ)</param>
         /// <param name="aIsPossibility">true:[aKanaMid]に、追加でひらがなの中間文字列を足すことで、打つ方法があるかもチェックする</param>
@@ -118,16 +109,12 @@ namespace tpInner {
         #endregion
 
         #region プロパティ
-        /// <summary>
-        /// ひらがな文字列に変換できるひらがな中間文字列の最大文字数
-        /// </summary>
+        /// <summary>ひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
         public int KanaMidMaxLength { get; private set; }
         #endregion 
 
         #region 内部メソッド
-        ///<summary>
-        ///ローマ字列からひらがな文字列に変換するためのテーブルを作成
-        ///</summary>
+        ///<summary>ローマ字列からひらがな文字列に変換するためのテーブルを作成</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
         private void CreateTable(in TextAsset aCSV) {
             const int CSV_KANA_MID_FIELD = 0;

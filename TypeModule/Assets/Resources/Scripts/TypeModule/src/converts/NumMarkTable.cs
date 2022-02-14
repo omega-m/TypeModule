@@ -5,9 +5,7 @@ using UnityEngine;
 namespace tpInner {
 
 
-    /// <summary>
-    /// 数字と記号の、全角と半角を変換する為のテーブルを管理するクラスです。
-    /// </summary>
+    /// <summary>数字と記号の、全角と半角を変換する為のテーブルを管理するクラスです。</summary>
     /// /// <example><code>
     /// using tpInner;
     /// 
@@ -37,9 +35,7 @@ namespace tpInner {
     /// </code></example>
     public class NumMarkTable{
         #region 生成
-        /// <summary>
-        /// 数字と記号の、全角と半角を変換する為のテーブルを管理するクラスです。
-        /// </summary>
+        /// <summary>数字と記号の、全角と半角を変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
         ///<para>数字と記号の、全角半角の変換テーブルを定義したファイルアセット</para>
         ///<para>［形式］半角文字,全角文字</para>
@@ -53,9 +49,7 @@ namespace tpInner {
         #endregion
 
         #region メソッド
-        /// <summary>
-        /// 数字と記号を半角から全角に変換できるかをチェックし、変換できる場合はaOutZenkakuに格納
-        /// </summary>
+        /// <summary>数字と記号を半角から全角に変換できるかをチェックし、変換できる場合はaOutZenkakuに格納</summary>
         /// <param name="aHankaku">半角文字</param>
         /// <param name="aOutZenkaku">(変換可能な場合)半角を全角に変換した文字を格納</param>
         /// <returns>true:変換できた</returns>
@@ -69,9 +63,7 @@ namespace tpInner {
             return ret;
         }
 
-        ///<summary>
-        ///数字と記号を半角から全角に変換します。
-        ///</summary>
+        ///<summary>数字と記号を半角から全角に変換します。</summary>
         ///<param name="aHankaku">半角文字</param>
         ///<returns>半角を全角に変換した文字</returns>
         public string HanToZen(string aHankaku) {
@@ -82,9 +74,7 @@ namespace tpInner {
             return "";
         }
 
-        /// <summary>
-        /// 数字と記号を全角から半角に変換できるかをチェックし、変換できる場合はaOutHankakuに格納
-        /// </summary>
+        /// <summary>数字と記号を全角から半角に変換できるかをチェックし、変換できる場合はaOutHankakuに格納</summary>
         /// <param name="aZenkaku">全角文字</param>
         /// <param name="aOutHankaku">(変換可能な場合)全角を半角に変換した文字を格納</param>
         /// <returns>true:変換できた</returns>
@@ -98,9 +88,7 @@ namespace tpInner {
             return ret;
         }
 
-        ///<summary>
-        ///数字と記号を全角から半角に変換します。
-        ///</summary>
+        ///<summary>数字と記号を全角から半角に変換します。</summary>
         ///<param name="aZenkaku">全角文字</param>
         ///<returns>全角を半角に変換した文字</returns>
         public string ZenToHan(string aZenkaku) {
@@ -113,9 +101,7 @@ namespace tpInner {
         #endregion
 
         #region 内部メソッド
-        /// <summary>
-        /// 数字と記号の、全角と半角を変換する為のテーブルを作成
-        /// </summary>
+        /// <summary>数字と記号の、全角と半角を変換する為のテーブルを作成</summary>
         /// <param name="aCSV">変換テーブルを定義したファイル</param>
         private void CreateTable(in TextAsset aCSV) {
             const int CSV_HAN_FIELD = 0;

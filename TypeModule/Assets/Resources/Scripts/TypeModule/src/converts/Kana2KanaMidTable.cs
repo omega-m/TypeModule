@@ -5,8 +5,8 @@ using UnityEngine;
 namespace tpInner {
 
     /// <summary>
-    /// ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。
-    /// お台文からガイド用のローマ字列を作成する時などに使用
+    /// <para>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</para>
+    /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
     /// </summary>
     /// <example><code>
     /// using tpInner;
@@ -27,9 +27,7 @@ namespace tpInner {
     public class Kana2KanaMidTable{
 
         #region 生成
-        ///<summary>
-        /// ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。
-        /// </summary>
+        ///<summary>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
         ///<para> ひらがなの中間文字列から、ひらがな文字列への変換テーブルを定義したファイルアセット</para>
         ///<para>［形式］ひらがな中間文字列, ひらがな文字列,</para>
@@ -41,9 +39,7 @@ namespace tpInner {
         #endregion
 
         #region メソッド
-        /// <summary>
-        /// ひらがな文字列から変換できる、ひらがな中間文字列があるか。
-        /// </summary>
+        /// <summary>ひらがな文字列から変換できる、ひらがな中間文字列があるか。</summary>
         /// <param name="aKana">ひらかな文字列</param>
         /// <param name="aOutKanaMid">(変換できる場合)変換先ひらがな中間文字列</param>
         /// </param>
@@ -57,9 +53,7 @@ namespace tpInner {
         #endregion
 
         #region プロパティ
-        /// <summary>
-        /// ひらがな文字列に変換できるひらがな中間文字列の最大文字数
-        /// </summary>
+        /// <summaryひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
         public int KanaMidMaxLength { get; private set; }
 
         /// <summary>
@@ -69,9 +63,7 @@ namespace tpInner {
         #endregion 
 
         #region 内部メソッド
-        ///<summary>
-        ///ひらがな文字列からひらがな中間文字列に変換するためのテーブルを作成
-        ///</summary>
+        ///<summary>ひらがな文字列からひらがな中間文字列に変換するためのテーブルを作成</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
         private void CreateTable(in TextAsset aCSV) {
             const int CSV_KANA_MID_FIELD = 0;

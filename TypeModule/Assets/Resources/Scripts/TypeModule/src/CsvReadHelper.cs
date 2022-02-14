@@ -118,22 +118,16 @@ namespace tpInner{
 
         #region プロパティ
         private List<List<string>> m_datas = new List<List<string>>();
-        ///<summary>
-        ///読み込んだCSVデータ
-        ///</summary>
+        ///<summary>読み込んだCSVデータ</summary>
         public List<List<string>> Datas{
             get { return m_datas; }
             private set { m_datas = value; }
         }
 
-        ///<summary>
-        ///フィールド数最大値
-        ///</summary>
+        ///<summary>フィールド数最大値</summary>
         public int FieldMax { get; private set; }
 
-        ///<summary>
-        ///レコード数
-        ///</summary>
+        ///<summary>レコード数</summary>
         public int RecordNum { get { return Datas.Count; } }
         #endregion
     };

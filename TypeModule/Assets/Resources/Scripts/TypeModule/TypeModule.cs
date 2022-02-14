@@ -152,9 +152,7 @@ using UnityEngine.Events;
 public class TypeModule : MonoBehaviour {
 
     #region 入力判定モード
-    ///<summary>
-    ///文字入力判定モードです。
-    ///</summary>
+    ///<summary>文字入力判定モードです。</summary>
     public enum MODE {
         ///<summary>
         ///キーボードの入力を元に、文字列の生成をエミュレートします。
@@ -169,44 +167,14 @@ public class TypeModule : MonoBehaviour {
     }
     #endregion
 
-    #region Unity共通処理
-    void Awake() {
-        CreateConvertTables();
-        CreateInputEmulator();
-        CreateCopyInputChecker();
-    }
-
-    void Update() {
-    }
-
-    private void OnGUI() {
-        if (IsRun) {
-            if (Event.current.type == EventType.KeyDown) {
-                switch (Mode) {
-                    case MODE.INPUT:
-                        m_inputEmulator.AddInput(Event.current);
-                        break;
-                    case MODE.COPY:
-                        m_copyInputChecker.AddInput(Event.current);
-                        break;
-                }
-            }
-        }
-    }
-    #endregion
-
     #region 共通メソッド
-    /// <summary>
-    /// 内部の入力データをを全て削除します
-    /// </summary>
+    /// <summary>内部の入力データをを全て削除します</summary>
     public void Clear() {
         m_inputEmulator.Clear();
         m_copyInputChecker.Clear();
     }
 
-    /// <summary>
-    /// 前回入力発生時のUnityイベント
-    /// </summary>
+    /// <summary>前回入力発生時のUnityイベント</summary>
     public Event Event {
         get {
             Event ret = new Event();
@@ -224,81 +192,61 @@ public class TypeModule : MonoBehaviour {
     #endregion
 
     #region 【MODE.INPUT】プロパティ
-    /// <summary>
-    /// 【MODE.INPUT】生成された文字列
-    /// </summary>
+    /// <summary>【MODE.INPUT】生成された文字列</summary>
     public string StrInput {
         get { return m_inputEmulator.Str; }
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】生成された、変換される前の文字列
-    /// </summary>
+    /// <summary>【MODE.INPUT】生成された、変換される前の文字列</summary>
     public string StrRawInput {
         get { return m_inputEmulator.StrRaw; }
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】前回入力された文字(変換前)
-    /// </summary>
+    /// <summary>【MODE.INPUT】前回入力された文字(変換前)</summary>
     public string PrevChar {
         get { return m_inputEmulator.PrevChar; }
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】前回の入力タイプ
-    /// </summary>
+    /// <summary>【MODE.INPUT】前回の入力タイプ</summary>
     public InputEmulatorResults.INPUT_TYPE InputType {
         get { return m_inputEmulator.InputType; }
     }
     #endregion
 
     #region 【MODE.INPUT】メソッド
-    /// <summary>
-    /// 【MODE.INPUT】プログラム側から、変換確定前の文字列を確定します。
-    /// </summary>
+    /// <summary>【MODE.INPUT】プログラム側から、変換確定前の文字列を確定します。</summary>
     public void Enter() {
         if (Mode == MODE.INPUT) {
             m_inputEmulator.Enter();
         }
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】プログラム側から、末尾の1文字消します。
-    /// </summary>
+    /// <summary>【MODE.INPUT】プログラム側から、末尾の1文字消します。</summary>
     public void BackSpace() {
         if (Mode == MODE.INPUT) {
             m_inputEmulator.BackSpace();
         }
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを追加します
-    /// </summary>
+    /// <summary>【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを追加します</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
         m_inputEmulator.AddEventListenerOnInput(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを削除します
-    /// </summary>
+    /// <summary>【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを削除します</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
         m_inputEmulator.RemoveEventListenerOnInput(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】文字列が変更された時のイベントリスナを追加します
-    /// </summary>
+    /// <summary>【MODE.INPUT】文字列が変更された時のイベントリスナを追加します</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
         m_inputEmulator.AddEventListenerOnChange(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.INPUT】文字列が変更された時のイベントリスナを削除します
-    /// </summary>
+    /// <summary>【MODE.INPUT】文字列が変更された時のイベントリスナを削除します</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
         m_inputEmulator.RemoveEventListenerOnChange(aEvent);
@@ -307,176 +255,130 @@ public class TypeModule : MonoBehaviour {
 
     #region 【MODE.COPY】プロパティ
  
-    /// <summary>
-    /// 【MODE.COPY】既に打ち終わった文字列
-    /// </summary>
+    /// <summary>【MODE.COPY】既に打ち終わった文字列</summary>
     public string StrDone {
         get { return m_copyInputChecker.StrDone; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】現在打っている文字
-    /// </summary>
+    /// <summary>【MODE.COPY】現在打っている文字</summary>
     public string StrCurrent {
         get { return m_copyInputChecker.StrCurrent; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】まだ打っていない文字列
-    /// </summary>
+    /// <summary>【MODE.COPY】まだ打っていない文字列</summary>
     public string StrYet {
         get { return m_copyInputChecker.StrYet; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】既に打ち終わった文字列(変換前)
-    /// </summary>
+    /// <summary>【MODE.COPY】既に打ち終わった文字列(変換前)</summary>
     public string StrDoneRaw {
         get { return m_copyInputChecker.StrDoneRaw; }
     }
 
-    /// <summary>
-    ///【MODE.COPY】 現在打っている文字(変換前)
-    /// </summary>
+    /// <summary>【MODE.COPY】 現在打っている文字(変換前)</summary>
     public string StrCurrentRaw {
         get { return m_copyInputChecker.StrCurrentRaw; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】既に打ち終わった文字列(変換前)
-    /// </summary>
+    /// <summary>【MODE.COPY】既に打ち終わった文字列(変換前)</summary>
     public string StrYetRaw {
         get { return m_copyInputChecker.StrYetRaw; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)
-    /// </summary>
+    /// <summary>【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)</summary>
     public string PrevCorrectChar {
         get { return m_copyInputChecker.PrevCorrectChar; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)
-    /// </summary>
+    /// <summary>【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)</summary>
     public string PrevMissChar {
         get { return m_copyInputChecker.PrevMissChar; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】正しくタイプした数
-    /// </summary>
+    /// <summary>【MODE.COPY】正しくタイプした数</summary>
     public int CorrectNum {
         get { return m_copyInputChecker.CorrectNum; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】正しく打てた文字数
-    /// </summary>
+    /// <summary>【MODE.COPY】正しく打てた文字数</summary>
     public int CorrectCharNum {
         get { return m_copyInputChecker.CorrectCharNum; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】ミスタイプした数
-    /// </summary>
+    /// <summary>【MODE.COPY】ミスタイプした数</summary>
     public int MissNum {
         get {
             return m_copyInputChecker.MissNum;
         }
     }
 
-    /// <summary>
-    /// 打ち終わったか
-    /// </summary>
+    /// <summary>打ち終わったか</summary>
     public bool IsComplete {
         get { return m_copyInputChecker.IsComplete; }
     }
 
-    /// <summary>
-    /// 【MODE.COPY】前回の入力タイプ
-    /// </summary>
+    /// <summary>【MODE.COPY】前回の入力タイプ</summary>
     public CopyInputCheckerResults.INNER_EVENT_TYPE InnerEvent {
         get { return m_copyInputChecker.InnerEvent; }
     }
     #endregion
 
     #region 【MODE.COPY】メソッド
-    /// <summary>
-    /// 【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを追加します。
-    /// </summary>
+    /// <summary>【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを追加します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.AddEventListenerOnInput(aEvent);
     }
 
-    /// <summary>
-    ///【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを削除します。
-    /// </summary>
+    /// <summary>【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを削除します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.RemoveEventListenerOnInput(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを追加します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを追加します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.AddEventListenerOnCorrect(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを削除します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを削除します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.RemoveEventListenerOnCorrect(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを追加します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを追加します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.AddEventListenerOnMiss(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを削除します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを削除します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.RemoveEventListenerOnMiss(aEvent);
     }
 
-    /// <summary>
-    ///【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを追加します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを追加します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.AddEventListenerOnComplete(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを削除します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを削除します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.RemoveEventListenerOnComplete(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void AddEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.AddEventListenerOnSetup(aEvent);
     }
 
-    /// <summary>
-    /// 【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。
-    /// </summary>
+    /// <summary>【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを削除します。</summary>
     /// <param name="aEvent">イベントリスナ</param>
     public void RemoveEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
         m_copyInputChecker.AddEventListenerOnSetup(aEvent);
@@ -766,9 +668,7 @@ public class TypeModule : MonoBehaviour {
     #endregion
 
     #region 内部メソッド
-    ///<summary>
-    /// 文字列生成時に使用する、変換テーブルを作成
-    ///</summary>
+    ///<summary>文字列生成時に使用する、変換テーブルを作成</summary>
     private void CreateConvertTables() {
         m_convertTableMgr = new ConvertTableMgr();
         m_convertTableMgr.IsCheckCapsLock = IsCheckCapsLock;
@@ -791,9 +691,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
-    ///<summary>
-    /// キーボードの入力から文字列生成をエミュレートする為のクラスの作成
-    ///</summary>
+    ///<summary>キーボードの入力から文字列生成をエミュレートする為のクラスの作成</summary>
     private void CreateInputEmulator() {
         m_inputEmulator             = new InputEmulator(m_convertTableMgr);
         m_inputEmulator.IsInputEng  = IsInputEng;
@@ -802,14 +700,38 @@ public class TypeModule : MonoBehaviour {
         m_inputEmulator.IsEnter     = IsEnter;
     }
 
-    ///<summary>
-    /// 指定された文字列が正しく打ててるかを確認する為のクラスの作成
-    ///</summary>
+    ///<summary>指定された文字列が正しく打ててるかを確認する為のクラスの作成</summary>
     private void CreateCopyInputChecker() {
         m_copyInputChecker = new CopyInputChecker(m_convertTableMgr);
         m_copyInputChecker.IsKana = IsKana;
         m_copyInputChecker.IsCaseSensitive = IsCaseSensitive;
         m_copyInputChecker.TargetStr = TargetStr;
+    }
+    #endregion
+
+    #region Unity共通処理
+    void Awake() {
+        CreateConvertTables();
+        CreateInputEmulator();
+        CreateCopyInputChecker();
+    }
+
+    void Update() {
+    }
+
+    private void OnGUI() {
+        if (IsRun) {
+            if (Event.current.type == EventType.KeyDown) {
+                switch (Mode) {
+                    case MODE.INPUT:
+                        m_inputEmulator.AddInput(Event.current);
+                        break;
+                    case MODE.COPY:
+                        m_copyInputChecker.AddInput(Event.current);
+                        break;
+                }
+            }
+        }
     }
     #endregion
 

@@ -2,19 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace tpInner{
-    ///<summary>
-    ///UnityのCapsLockは、押してある状態か否かで返すので使えない
-    ///</summary>
+    ///<summary>UnityのCapsLockは、押してある状態か否かで返すので使えない</summary>
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
     using System.Runtime.InteropServices;
     public static class WindowsUtil{
         [DllImport("user32.dll")]
         public static extern short GetKeyState(int keyCode);
 
-        ///<summary
-        ///>CapsLock の状態を取得
-        ///</summary>
+        ///<summary>CapsLock の状態を取得</summary>
         ///<returns>[true]:CapsLockはOn</returns>
         public static bool IsCapsLockOn
             => (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
@@ -27,9 +24,7 @@ namespace tpInner{
 #endif
 
 
-    ///<summary>
-    ///キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。
-    /// </summary>
+    ///<summary>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</summary>
     /// <example><code>
     /// using tpInner;
     /// 
@@ -56,9 +51,7 @@ namespace tpInner{
     public class keyCode2CharTable{
 
         #region 生成
-        ///<summary>
-        ///キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。
-        ///</summary>
+        ///<summary>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
         ///<para>キーの入力(KeyCode)から単体文字への変換テーブルを定義したファイルアセット</para>
         ///<para>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFn</para>
@@ -101,9 +94,7 @@ namespace tpInner{
         #endregion
 
         #region 内部メソッド
-        ///<summary>
-        ///キーの入力(KeyCode)から単体文字への変換テーブルを作成
-        ///</summary>
+        ///<summary>キーの入力(KeyCode)から単体文字への変換テーブルを作成</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
         private void CreateTable(in TextAsset aCSV){
             const int CSV_CHAR_FIELD = 0;

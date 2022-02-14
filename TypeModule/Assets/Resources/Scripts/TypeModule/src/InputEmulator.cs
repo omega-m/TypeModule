@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 
 /// <summary>
-/// InputEmulatorによって処理されたデータへのアクセス用クラスです。
-/// TypeModuleでModeをINPUTにした時、入力発生時のイベントリスナで返却されます。
+/// <para>InputEmulatorによって処理されたデータへのアクセス用クラスです。</para>
+/// <para>TypeModuleでModeをINPUTにした時、入力発生時のイベントリスナで返却されます。</para>
 /// </summary>
 /// <example><code>
 ///     
@@ -57,45 +57,27 @@ using UnityEngine.Events;
 public class InputEmulatorResults {
 
     #region 入力タイプ
-    /// <summary>
-    /// イベント発生時の入力タイプです
-    /// </summary>
+    /// <summary>イベント発生時の入力タイプです</summary>
     public enum INPUT_TYPE {
-        /// <summary>
-        /// どの入力タイプにも属さない
-        /// <summary>
+        /// <summary>どの入力タイプにも属さない<summary>
         NONE,
-        /// <summary>
-        /// 通常の入力タイプ。キーボードから文字が打たれ、末尾に文字が追加された場合このタイプになります。
-        /// <summary>
+        /// <summary>通常の入力タイプ。キーボードから文字が打たれ、末尾に文字が追加された場合このタイプになります。<summary>
         INPUT,
-        /// <summary>
-        /// キーボードからBSキーが打たれ、1文字削除された時にこのタイプになります。
-        /// <summary>
+        /// <summary>キーボードからBSキーが打たれ、1文字削除された時にこのタイプになります。<summary>
         BS,
-        /// <summary>
-        /// キーボードからEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。
-        /// <summary>
+        /// <summary>キーボードからEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。<summary>
         ENTER,
-        /// <summary>
-        /// プログラム側か、システム側からBSキーが打たれ、1文字削除された時にこのタイプになります。
-        /// <summary>
+        /// <summary>プログラム側か、システム側からBSキーが打たれ、1文字削除された時にこのタイプになります。<summary>
         BS_FORCE,
-        /// <summary>
-        /// プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。
-        /// <summary>
+        /// <summary>プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。<summary>
         ENTER_FORCE,
-        /// <summary>
-        /// システム側から入力値が全て初期化された
-        /// <summary>
+        /// <summary>システム側から入力値が全て初期化された<summary>
         CLEAR,
     }
     #endregion
 
     #region フィールド
-    /// <summary>
-    /// 生成された文字列
-    /// </summary>
+    /// <summary>生成された文字列</summary>
     public string Str {
         get {
             if (Dirty) { CreateChche(); }
@@ -103,9 +85,7 @@ public class InputEmulatorResults {
         }
     }
 
-    /// <summary>
-    /// 生成された、変換される前の文字列
-    /// </summary>
+    /// <summary>生成された、変換される前の文字列</summary>
     public string StrRaw {
         get {
             if (Dirty) { CreateChche(); }
@@ -113,48 +93,36 @@ public class InputEmulatorResults {
         }
     }
 
-    /// <summary>
-    /// 前回入力された文字(変換前)
-    /// </summary>
+    /// <summary>前回入力された文字(変換前)</summary>
     public string PrevChar {
         get { return m_params.m_prevChar; }
     }
 
-    /// <summary>
-    /// 入力発生時のイベント
-    /// </summary>
+    /// <summary>入力発生時のイベント</summary>
     public Event Event {
         get { return m_params.m_event; }
     }
 
-    /// <summary>
-    /// 前回の入力タイプ
-    /// </summary>
+    /// <summary>前回の入力タイプ</summary>
     public INPUT_TYPE InputType {
         get { return m_params.m_inputType; }
     }
     #endregion
 
     #region 生成
-    /// <summary>
-    /// InputEmulatorより作成されます。外からは作成しないでください。
-    /// </summary>    
+    /// <summary>InputEmulatorより作成されます。外からは作成しないでください。</summary>    
     public InputEmulatorResults(in tpInner.InputEmulatorParams aParams) {
         m_params = aParams;
     }
     #endregion
 
     #region 内部使用プロパティ
-    /// <summary>
-    /// 汚しフラグです。trueになっている時に文字列にアクセスされた場合、データを再度作成します。
-    /// </summary>
+    /// <summary>汚しフラグです。trueになっている時に文字列にアクセスされた場合、データを再度作成します。</summary>
     public bool Dirty { get; set; } = true;
     #endregion
 
     #region 内部メソッド
-    /// <summary>
-    /// 返却パラメータのキャッシュを生成します。
-    /// </summary>
+    /// <summary>返却パラメータのキャッシュを生成します。</summary>
     private void CreateChche() {
         m_strCache = "";
         foreach (string r in m_params.m_strDone) {
@@ -183,16 +151,11 @@ public class InputEmulatorResults {
 
 namespace tpInner {
 
-    /// <summary>
-    /// InputEmulatorの内部パラメータクラス
-    /// InputEmulatorResultsの参照渡しに使用。
-    /// </summary>
+    /// <summary>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</summary>
     public class InputEmulatorParams {
 
         #region メソッド
-        /// <summary>
-        /// <para>内部データをクリアします。</para>
-        /// </summary>
+        /// <summary内部データをクリアします。</summary>
         public void Clear() {
             m_strDone.Clear();
             m_strDoneRaws.Clear();
@@ -213,9 +176,7 @@ namespace tpInner {
         #endregion
     }
 
-    /// <summary>
-    /// キーボードの入力から文字列生成をエミュレートします
-    /// </summary>
+    /// <summaryキーボードの入力から文字列生成をエミュレートします</summary>
     /// <example><code>
     ///     
     ///     ...
@@ -285,9 +246,7 @@ namespace tpInner {
     public class InputEmulator {
 
         #region 生成
-        /// <summary>
-        /// キーボードの入力から文字列生成をエミュレートします
-        /// </summary>
+        /// <summaryキーボードの入力から文字列生成をエミュレートします</summary>
         ///<param name="aConvertTableMgr">文字列生成時に使用する、変換テーブルを管理するクラス</param>
         public InputEmulator(in ConvertTableMgr aConvertTableMgr) {
             m_convertTableMgr = aConvertTableMgr;
@@ -297,9 +256,7 @@ namespace tpInner {
         #endregion
 
         #region メソッド
-        /// <summary>
-        /// キーボードからの入力文字を追加
-        /// </summary>
+        /// <summaryキーボードからの入力文字を追加</summary>
         /// <param name="aEvent">入力イベント</param>
         public void AddInput(in Event aEvent) {
             var p = m_params;
@@ -393,10 +350,7 @@ namespace tpInner {
             }
         }
 
-        /// <summary>
-        /// <para>内部データをクリアします。</para>
-        /// <para>入力された文字列は全てクリアされます</para>
-        /// </summary>
+        /// <summary>内部データをクリアします。入力された文字列は全てクリアされます</summary>
         public void Clear() {
             m_params.Clear();
             m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.CLEAR;
@@ -406,18 +360,14 @@ namespace tpInner {
             m_onChangeCallbacks.Invoke(m_results);
         }
 
-        /// <summary>
-        /// プログラム側から変換確定前の文字列を確定します。
-        /// </summary>
+        /// <summary>プログラム側から変換確定前の文字列を確定します。</summary>
         public void Enter() {
             m_params.m_event = new Event();
             m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.ENTER_FORCE;
             EnterInner();
         }
 
-        /// <summary>
-        /// プログラム側から、末尾の1文字消します。
-        /// </summary>
+        /// <summary>プログラム側から、末尾の1文字消します。</summary>
         public void BackSpace() {
             m_params.m_event  = new Event();
             m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.BS_FORCE;
@@ -426,37 +376,27 @@ namespace tpInner {
         #endregion
         
         #region フィールド
-        /// <summary>
-        /// 生成された文字列
-        /// </summary>
+        /// <summary>生成された文字列</summary>
         public string Str {
             get { return m_results.Str; }
         }
 
-        /// <summary>
-        /// 生成された、変換される前の文字列
-        /// </summary>
+        /// <summary生成された、変換される前の文字列</summary>
         public string StrRaw {
             get { return m_results.StrRaw; }
         }
 
-        /// <summary>
-        /// 前回入力された文字
-        /// </summary>
+        /// <summary>前回入力された文字</summary>
         public string PrevChar {
             get { return m_results.PrevChar; }
         }
 
-        /// <summary>
-        /// 前回入力発生時のUnityイベント
-        /// </summary>
+        /// <summary>前回入力発生時のUnityイベント</summary>
         public Event Event {
             get { return m_results.Event; }
         }
 
-        /// <summary>
-        /// 前回の入力タイプ
-        /// </summary>
+        /// <summary>前回の入力タイプ</summary>
         public InputEmulatorResults.INPUT_TYPE InputType {
             get { return m_params.m_inputType; }
         }
@@ -478,9 +418,7 @@ namespace tpInner {
         }
 
         private bool m_isKana = false;
-        /// <summary>
-        /// JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうか
-        /// </summary>
+        /// <summary>JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうか</summary>
         public bool IsKana {
             get { return m_isKana; }
             set {
@@ -489,45 +427,33 @@ namespace tpInner {
             }
         }
 
-        /// <summary>
-        /// <para>BackSoaceキーを押した時、文字を消すかどうか</para>
-        /// </summary>
+        /// <summary>BackSoaceキーを押した時、文字を消すかどうか</summary>
         public bool IsBS { get; set; } = true;
 
-        /// <summary>
-        /// <para>Enterキーを押した時、確定前の文字列を確定するかどうか</para>
-        /// </summary>
+        /// <summary>Enterキーを押した時、確定前の文字列を確定するかどうか</summary>
         public bool IsEnter { get; set; } = true;
         #endregion
 
         #region イベントハンドラ
-        /// <summary>
-        /// キーボードから文字が入力された時のイベントリスナを追加します
-        /// </summary>
+        /// <summary>キーボードから文字が入力された時のイベントリスナを追加します</summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void AddEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
             m_onInputCallbacks.AddListener(aEvent);
         }
 
-        /// <summary>
-        /// キーボードから文字が入力された時のイベントリスナを削除します
-        /// </summary>
+        /// <summary>キーボードから文字が入力された時のイベントリスナを削除します</summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
             m_onInputCallbacks.RemoveListener(aEvent);
         }
 
-        /// <summary>
-        /// 文字列が変更された時のイベントリスナを追加します
-        /// </summary>
+        /// <summary文字列が変更された時のイベントリスナを追加します</summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
             m_onChangeCallbacks.AddListener(aEvent);
         }
 
-        /// <summary>
-        /// 文字列が変更された時のイベントリスナを削除します
-        /// </summary>
+        /// <summary>文字列が変更された時のイベントリスナを削除します</summary>
         /// <param name="aEvent">イベントリスナ</param>
 
         public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
@@ -537,9 +463,7 @@ namespace tpInner {
 
         #region 内部メソッド
 
-        /// <summary>
-        /// 変換確定前の文字列を確定します。
-        /// </summary>
+        /// <summary>変換確定前の文字列を確定します。</summary>
         private void EnterInner() {
             var p = m_params;
             if (p.m_strWork.Length == 0) { return; }
@@ -554,9 +478,7 @@ namespace tpInner {
             m_onChangeCallbacks.Invoke(m_results);
         }
 
-        /// <summary>
-        /// 末尾から1文字消します。
-        /// </summary>
+        /// <summary>末尾から1文字消します。</summary>
         private void BackSpaceInner() {
             var p = m_params;
             if (p.m_strWork.Length > 0) {

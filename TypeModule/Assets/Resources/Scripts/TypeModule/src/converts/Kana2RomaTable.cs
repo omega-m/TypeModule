@@ -5,8 +5,8 @@ using UnityEngine;
 namespace tpInner {
 
     /// <summary>
-    /// ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。
-    /// お台文からガイド用のローマ字列を作成する時などに使用
+    /// <para>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</para>
+    /// <para></para>お台文からガイド用のローマ字列を作成する時などに使用</para>
     /// </summary>
     /// <example><code>
     /// using tpInner;
@@ -28,9 +28,7 @@ namespace tpInner {
     public class Kana2RomaTable {
 
         #region 生成
-        ///<summary>
-        /// ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。
-        /// </summary>
+        ///<summary>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
         ///<para>ローマ字列からひらがな文字列への変換テーブルを定義したファイルアセット</para>
         ///<para>［形式］ローマ字列,ひらがな文字列,</para>
@@ -42,9 +40,7 @@ namespace tpInner {
         #endregion
 
         #region メソッド
-        /// <summary>
-        /// ひらがな文字列[aKana]から変換できるローマ字文字列を取得。
-        /// </summary>
+        /// <summary>ひらがな文字列[aKana]から変換できるローマ字文字列を取得。</summary>
         /// <param name="aKana">ひらかな文字列</param>
         /// <param name="aRomaStart">変換先ローマ字文字列の先頭部分を指定
         /// <para>(ひらがなに対応するローマ字文字列は数種類ある為、先頭部分を指定して絞り込みたい時に使用)</para>
@@ -65,9 +61,7 @@ namespace tpInner {
             return "";
         }
 
-        /// <summary>
-        /// ひらがな文字列[aKana]から変換できるローマ字文字列があるか
-        /// </summary>
+        /// <summary>ひらがな文字列[aKana]から変換できるローマ字文字列があるか</summary>
         /// <param name="aKana">ひらかな文字列</param>
         /// <param name="aOutRoma">(変換できる場合)変換先ローマ字文字列</param>
         /// <param name="aRomaStart">変換先ローマ字文字列の先頭部分を指定
@@ -96,16 +90,12 @@ namespace tpInner {
         #endregion
 
         #region プロパティ
-        /// <summary>
-        /// ローマ字列に変換できるひらがな文字列の最大文字数
-        /// </summary>
+        /// <summary>ローマ字列に変換できるひらがな文字列の最大文字数</summary>
         public int KanaMaxLength { get; private set; }
         #endregion 
 
         #region 内部メソッド
-        ///<summary>
-        ///ひらがな文字列からローマ字列に変換するためのテーブルを作成
-        ///</summary>
+        ///<summary>ひらがな文字列からローマ字列に変換するためのテーブルを作成</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
         private void CreateTable(in TextAsset aCSV) {
             const int CSV_ROMA_FIELD = 0;
