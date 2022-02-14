@@ -49,7 +49,7 @@ namespace tpInner {
         /// </param>
         public void SetKeyCode2RomaTable(in TextAsset asset) {
             Key2Roma = new keyCode2CharTable(asset);
-            Key2Roma.IsCheckCapsLock = IsCheckCapsLock;
+            Key2Roma.EnabledCapsLock = EnabledCapsLock;
         }
 
         /// <summary>ローマ字文字列 => ひらがな文字列への変換テーブルを指定</summary>
@@ -81,7 +81,7 @@ namespace tpInner {
         /// </param>
         public void SetKeyCode2KanaMidTable(in TextAsset asset) {
             Key2kanaMid = new keyCode2CharTable(asset);
-            Key2kanaMid.IsCheckCapsLock = false; //こちらはCapsLockの影響を受けない
+            Key2kanaMid.EnabledCapsLock = false; //こちらはCapsLockの影響を受けない
         }
 
         /// <summary>ひらがな中間文字列　=> ひらがな文字列への変換テーブルを指定</summary>
@@ -137,17 +137,17 @@ namespace tpInner {
         public NumMarkTable NumMarkTable { get; private set; }
 
 
-        private bool m_isCheckCapsLock = true;
+        private bool m_enabledCapsLock = true;
 
         ///<summary>
         ///<para>CapsLockの状態を反映させるかどうか。</para>
         ///<para>[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。</para>
         ///</summary>
-        public bool IsCheckCapsLock {
-            get { return m_isCheckCapsLock; }
+        public bool EnabledCapsLock {
+            get { return m_enabledCapsLock; }
             set {
-                m_isCheckCapsLock = value;
-                Key2Roma.IsCheckCapsLock = value;
+                m_enabledCapsLock = value;
+                Key2Roma.EnabledCapsLock = value;
             }
         }
         #endregion

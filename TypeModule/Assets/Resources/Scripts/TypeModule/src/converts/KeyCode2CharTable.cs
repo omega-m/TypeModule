@@ -33,7 +33,7 @@ namespace tpInner{
     /// keyCode2CharTable table = new keyCode2CharTable(in csvSrc);
     ///     
     /// //CapsLockの状態を無視
-    /// table.IsCheckCapsLock = false;
+    /// table.EnabledCapsLock = false;
     ///     
     ///     ...
     ///     
@@ -59,7 +59,7 @@ namespace tpInner{
         ///</param>
         public keyCode2CharTable(in TextAsset aCSV){
             CreateTable(aCSV);
-            IsCheckCapsLock = true;
+            EnabledCapsLock = true;
         }
         #endregion
 
@@ -79,7 +79,7 @@ namespace tpInner{
             if (!m_map.TryGetValue(key, out ret)){ret = '\0';}
 
             //CapsLock中なら、アルファベットの大文字小文字を反転
-            if (IsCheckCapsLock && WindowsUtil.IsCapsLockOn){
+            if (EnabledCapsLock && WindowsUtil.IsCapsLockOn){
                 ret = char.IsLower(ret) ? char.ToUpper(ret) : char.IsUpper(ret) ? char.ToLower(ret) : ret;
             }
             return ret;
@@ -92,7 +92,7 @@ namespace tpInner{
         ///<para>CapsLockの状態を反映させるかどうか。</para>
         ///<para>[true]の場合、CapsLock中には、英語の大小文字を反転させます。</para>
         /// </summary>
-        public bool IsCheckCapsLock { get; set; }
+        public bool EnabledCapsLock { get; set; }
         #endregion
 
 

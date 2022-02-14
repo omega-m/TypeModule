@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Text.RegularExpressions;
-
+using System;
 
 /// <summary>
 /// <para>CopyInputCheckerによって処理されたデータへのアクセス用クラスです。</para>
@@ -476,12 +476,15 @@ namespace tpInner {
         #region フィールド
         /// <summary>
         /// <para>比較対象の文字列(タイピングのお台文)</para>
-        /// <para>値を変更した時点で、内部でClear()を自動で呼び出します。</para>
+        /// <para>値を変更した時点で、初期化処理を自動で呼び出します。</para>
+        /// <para>また、全角半角カタカナはひらがなに、全角英語は半角英語に変換されます。</para>
+        /// <para>[含む事が出来る文字]: -_| -_に対応する大文字|ァ-ヴ|ぁ-ゔ</para>
+        /// <para>含めない文字があった場合、エディタ上での実行なら例外を投げて止まります。ビルド版だとその文字が削除されます。</para>
         /// </summary>
         public string TargetStr {
             get {return m_results.TargetStr;}
             set {
-                m_params.m_targetStr = value;
+                SetTargetStr(value);
                 Clear();
             }
         }
@@ -596,6 +599,32 @@ namespace tpInner {
 
 
         #region 内部メソッド
+        /// <summary>比較対象の文字列をチェックしセット</summary>
+        /// <param name="aStr">プロパティとしてセットされた文字列</param>
+        private void SetTargetStr(string aStr) {
+            aStr = Util.HanToZen(aStr,Util.ConvertTypes.Katakana);
+            aStr = Util.ZenToHan(aStr, Util.ConvertTypes.Alphabet | Util.ConvertTypes.Number);
+            aStr = Util.KatakanaToHiragana(aStr);
+
+            string tmp = "";
+            for (int i = 0; i < aStr.Length; ++i) {
+                if (Util.IsHiragana(aStr[i]) ||
+                    Util.IsJPSymbol(aStr[i]) ||
+                    Util.IsSpace(aStr[i]) ||
+                    char.IsDigit(aStr[i]) ||
+                    Util.IsAlpha(aStr[i]) || 
+                    Util.IsSymbol(aStr[i], true)) {
+                    tmp += aStr[i];
+                } else {
+#if UNITY_EDITOR
+                    Debug.Assert(false, "TypeModule:TargetStrに不正な文字列が挿入されました。該当文字:[" + aStr[i] + "] 文字列:[" + aStr + "]");
+                    throw new Exception("TypeModule:TargetStrに不正な文字列が挿入されました。該当文字:[" + aStr[i] + "] 文字列:[" + aStr + "]");
+#endif
+                }
+            }
+            m_params.m_targetStr = tmp;
+        }
+
         /// <summary>指定された文字列を打つ為に必要な中間文字をセット</summary>
         private void InitStrYet() {
             int idx = 0;

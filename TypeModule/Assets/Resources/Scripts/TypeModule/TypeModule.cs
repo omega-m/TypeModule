@@ -22,8 +22,8 @@ using UnityEngine.Events;
 /// 
 /// //モードを変更
 /// module.IsInputEng = true    //英語入力状態へ
-/// module.IsKana   = true;     //かな入力入力状態へ
-/// module.IsBS     = true;     //BSで文字を消せるかどうか
+/// module.IsKana     = true;     //かな入力入力状態へ
+/// module.EnabledBS  = true;     //BSで文字を消せるかどうか
 /// 
 /// //プログラムから文字列を操作
 /// module.Enter();             //変換確定前の文字列を確定
@@ -139,7 +139,7 @@ using UnityEngine.Events;
 /// //以下オプションです================================
 /// 
 /// //CapsLockの状態を反映させないように切り替え
-/// module.IsCheckCapsLock = false;
+/// module.EnabledCapsLock = false;
 /// 
 /// //入力を受け付けないように切り替え
 /// module.isRun = false;
@@ -355,28 +355,32 @@ public class TypeModule : MonoBehaviour {
     }
 
     [Tooltip("BackSoaceキーを押した時、文字を消すかどうか")]
-    [SerializeField, PropertyBackingField("IsBS")] private bool m_isBS = true;
-    public bool IsBS {
-        get { return m_isBS; }
+    [SerializeField, PropertyBackingField("EnabledBS")] private bool m_enabledBS = true;
+    public bool EnabledBS {
+        get { return m_enabledBS; }
         set {
-            m_isBS = value;
-            if (m_inputEmulator != null) {m_inputEmulator.IsBS = IsBS;}
+            m_enabledBS = value;
+            if (m_inputEmulator != null) {m_inputEmulator.EnabledBS = EnabledBS; }
         }
     }
 
     [Tooltip("Enterキーを押した時、確定前の文字列を確定するかどうか")]
-    [SerializeField, PropertyBackingField("IsEnter")] private bool m_isEnter = true;
-    public bool IsEnter {
-        get { return m_isEnter; }
+    [SerializeField, PropertyBackingField("EnabledEnter")] private bool m_enabledEnter = true;
+    public bool EnabledEnter {
+        get { return m_enabledEnter; }
         set {
-            m_isEnter = value;
-            if (m_inputEmulator != null) {m_inputEmulator.IsEnter = IsEnter;}
+            m_enabledEnter = value;
+            if (m_inputEmulator != null) {m_inputEmulator.EnabledEnter = EnabledEnter; }
         }
     }
 
     [Header("Modeが【COPY】の時の設定")]
     [Tooltip("比較対象の文字列(タイピングのお台文)\n" +
-        "値を変更した時点で、初期化処理を自動で呼び出します。")]
+        "値を変更した時点で、初期化処理を自動で呼び出します。\n" +
+        "また、全角半角カタカナはひらがなに、全角アルファベットは半角アルファベットに変換されます。\n" +
+        "[含む事が出来る文字]: -_| -_に対応する大文字|ァ-ヴ|ぁ-ゔ\n" +
+        "含めない文字があった場合、エディタ上での実行なら例外を投げて止まります。ビルド版だとその文字が削除され、動き続けます。\n")]
+
     [SerializeField, PropertyBackingField("TargetStr")] private string m_targetStr = "";
     public string TargetStr {
         get { return m_targetStr; }
@@ -504,12 +508,12 @@ public class TypeModule : MonoBehaviour {
     [Space(10)]
     [Tooltip("CapsLockの状態を反映させるかどうか。\n" +
        "[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。")]
-    [SerializeField, PropertyBackingField("IsCheckCapsLock")] private bool m_isCheckCapsLock = true;
-    public bool IsCheckCapsLock {
-        get { return m_isCheckCapsLock; }
+    [SerializeField, PropertyBackingField("EnabledCapsLock")] private bool m_enabledCapsLock = true;
+    public bool EnabledCapsLock {
+        get { return m_enabledCapsLock; }
         set {
-            if (m_convertTableMgr != null) {m_convertTableMgr.IsCheckCapsLock = value;}
-            m_isCheckCapsLock = value;
+            if (m_convertTableMgr != null) {m_convertTableMgr.EnabledCapsLock = value;}
+            m_enabledCapsLock = value;
         }
     }
     #endregion
@@ -520,7 +524,7 @@ public class TypeModule : MonoBehaviour {
     ///<summary>文字列生成時に使用する、変換テーブルを作成</summary>
     private void CreateConvertTables() {
         m_convertTableMgr = new ConvertTableMgr();
-        m_convertTableMgr.IsCheckCapsLock = IsCheckCapsLock;
+        m_convertTableMgr.EnabledCapsLock = EnabledCapsLock;
 
         //インスペクターのファイルアセットで上書き
         if (KeyCode2RomaCsv != null) {      m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);}
@@ -535,8 +539,8 @@ public class TypeModule : MonoBehaviour {
         m_inputEmulator             = new InputEmulator(m_convertTableMgr);
         m_inputEmulator.IsInputEng  = IsInputEng;
         m_inputEmulator.IsKana      = IsKana;
-        m_inputEmulator.IsBS        = IsBS;
-        m_inputEmulator.IsEnter     = IsEnter;
+        m_inputEmulator.EnabledBS   = EnabledBS;
+        m_inputEmulator.EnabledEnter= EnabledEnter;
     }
 
     ///<summary>指定された文字列が正しく打ててるかを確認する為のクラスの作成</summary>

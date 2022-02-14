@@ -14,14 +14,13 @@ public class TextCmpUpdator : MonoBehaviour {
         m_typeModule.AddEventListenerOnSetup(OnSetup);
 
         m_audioSounce = GetComponent<AudioSource>();
-
+        
         m_texts.Add("、。・いくよー！");
         m_texts.Add("まみむめもやもやなきみも");
         m_texts.Add("Are you Ready? じゅんびはいい？");
         m_texts.Add("すきっぷ&くらっぷでいちにーさんはい！");
         m_texts.Add("ぽじてぃぶだんすたいむ");
 
-        
         SetNextTargetStr();
     }
 

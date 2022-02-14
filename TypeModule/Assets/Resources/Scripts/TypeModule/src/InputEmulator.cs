@@ -230,7 +230,7 @@ namespace tpInner {
     /// input.IsInputEng = false;
     /// 
     /// //バックスペースキーで文字を消せないようにする
-    /// input.IsBS = false;
+    /// input.EnabledBS = false;
     /// 
     /// //プログラム側から一文字削除
     /// input.BackSpace();
@@ -239,7 +239,7 @@ namespace tpInner {
     /// input.Enter();
     /// 
     /// //エンターキーの入力から文字を確定しないようにする
-    /// input.IsEnter = false;
+    /// input.EnabledEnter = false;
     /// 
     /// </code></example>
     public class InputEmulator {
@@ -265,14 +265,14 @@ namespace tpInner {
             if (aEvent.keyCode == KeyCode.None) {//IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
             }
             else if (aEvent.keyCode == KeyCode.Return) { //enter
-                if (IsEnter) {
+                if (EnabledEnter) {
                     p.m_inputType = InputEmulatorResults.INPUT_TYPE.ENTER;
                     p.m_event = new Event(aEvent);
                     EnterInner();
                     m_onInputCallbacks.Invoke(m_results);
                 }
             } else if (aEvent.keyCode == KeyCode.Backspace) {//bs
-                if (IsBS) {
+                if (EnabledBS) {
                     p.m_inputType = InputEmulatorResults.INPUT_TYPE.BS;
                     p.m_event = new Event(aEvent);
                     BackSpaceInner();
@@ -420,10 +420,10 @@ namespace tpInner {
         }
 
         /// <summary>BackSoaceキーを押した時、文字を消すかどうか</summary>
-        public bool IsBS { get; set; } = true;
+        public bool EnabledBS { get; set; } = true;
 
         /// <summary>Enterキーを押した時、確定前の文字列を確定するかどうか</summary>
-        public bool IsEnter { get; set; } = true;
+        public bool EnabledEnter { get; set; } = true;
         #endregion
 
 
