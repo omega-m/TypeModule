@@ -10,7 +10,7 @@ using UnityEngine.Events;
 /// <example><code>
 ///     ...
 ///     
-/// module = GetComponent<TypeModule>();
+/// TypeModule module = GetComponent<TypeModule>();
 ///     
 /// 
 /// 

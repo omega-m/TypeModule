@@ -11,7 +11,7 @@ using System;
 /// <example><code>
 ///     
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module = GetComponent<TypeModule>();
+/// TypeModule module = GetComponent<TypeModule>();
 /// module.AddEventListeneronInput(onInput);
 ///         
 ///     ...

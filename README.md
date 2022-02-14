@@ -18,7 +18,7 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     
     
     //管理クラスに割り当てたスクリプトコンポーネントを取得
-    module = GetComponent<TypeModule>(); 
+    TypeModule module = GetComponent<TypeModule>(); 
         
 
 
