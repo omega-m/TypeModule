@@ -40,6 +40,8 @@ namespace tpInner{
     /// }
     /// </code></example>
     public class CsvReadHelper{
+
+
         #region 生成
         ///<summary>
         ///<para>CSV読み込み用のヘルパークラスです。</para>
@@ -64,6 +66,7 @@ namespace tpInner{
             Load(in aFile);
         }
         #endregion
+
 
         #region メソッド
         ///<summary>
@@ -115,6 +118,7 @@ namespace tpInner{
             }
         }
         #endregion
+
 
         #region プロパティ
         private List<List<string>> m_datas = new List<List<string>>();

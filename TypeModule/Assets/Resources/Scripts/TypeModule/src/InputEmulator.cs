@@ -56,6 +56,7 @@ using UnityEngine.Events;
 /// </code></example>
 public class InputEmulatorResults {
 
+
     #region 入力タイプ
     /// <summary>イベント発生時の入力タイプです</summary>
     public enum INPUT_TYPE {
@@ -76,6 +77,7 @@ public class InputEmulatorResults {
     }
     #endregion
 
+
     #region フィールド
     /// <summary>生成された文字列</summary>
     public string Str {
@@ -94,32 +96,27 @@ public class InputEmulatorResults {
     }
 
     /// <summary>前回入力された文字(変換前)</summary>
-    public string PrevChar {
-        get { return m_params.m_prevChar; }
-    }
+    public string PrevChar {get { return m_params.m_prevChar; }}
 
     /// <summary>入力発生時のイベント</summary>
-    public Event Event {
-        get { return m_params.m_event; }
-    }
+    public Event Event {get { return m_params.m_event; }}
 
     /// <summary>前回の入力タイプ</summary>
-    public INPUT_TYPE InputType {
-        get { return m_params.m_inputType; }
-    }
+    public INPUT_TYPE InputType {get { return m_params.m_inputType; }}
     #endregion
+
 
     #region 生成
     /// <summary>InputEmulatorより作成されます。外からは作成しないでください。</summary>    
-    public InputEmulatorResults(in tpInner.InputEmulatorParams aParams) {
-        m_params = aParams;
-    }
+    public InputEmulatorResults(in tpInner.InputEmulatorParams aParams) {m_params = aParams;}
     #endregion
+
 
     #region 内部使用プロパティ
     /// <summary>汚しフラグです。trueになっている時に文字列にアクセスされた場合、データを再度作成します。</summary>
     public bool Dirty { get; set; } = true;
     #endregion
+
 
     #region 内部メソッド
     /// <summary>返却パラメータのキャッシュを生成します。</summary>
@@ -140,6 +137,7 @@ public class InputEmulatorResults {
     }
     #endregion
 
+
     #region メンバ
     private tpInner.InputEmulatorParams m_params;   //参照
 
@@ -154,6 +152,7 @@ namespace tpInner {
     /// <summary>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</summary>
     public class InputEmulatorParams {
 
+
         #region メソッド
         /// <summary内部データをクリアします。</summary>
         public void Clear() {
@@ -165,6 +164,7 @@ namespace tpInner {
             m_event     = new Event();
         }
         #endregion
+
 
         #region メンバ
         public List<string> m_strDone       = new List<string>();       //変換確定済みの文字列
@@ -245,6 +245,7 @@ namespace tpInner {
     /// </code></example>
     public class InputEmulator {
 
+
         #region 生成
         /// <summaryキーボードの入力から文字列生成をエミュレートします</summary>
         ///<param name="aConvertTableMgr">文字列生成時に使用する、変換テーブルを管理するクラス</param>
@@ -254,6 +255,7 @@ namespace tpInner {
             m_results = new InputEmulatorResults(in m_params);
         }
         #endregion
+
 
         #region メソッド
         /// <summaryキーボードからの入力文字を追加</summary>
@@ -375,31 +377,22 @@ namespace tpInner {
         }
         #endregion
         
+
         #region フィールド
         /// <summary>生成された文字列</summary>
-        public string Str {
-            get { return m_results.Str; }
-        }
+        public string Str {get { return m_results.Str; }}
 
         /// <summary生成された、変換される前の文字列</summary>
-        public string StrRaw {
-            get { return m_results.StrRaw; }
-        }
+        public string StrRaw {get { return m_results.StrRaw; }}
 
         /// <summary>前回入力された文字</summary>
-        public string PrevChar {
-            get { return m_results.PrevChar; }
-        }
+        public string PrevChar {get { return m_results.PrevChar; }}
 
         /// <summary>前回入力発生時のUnityイベント</summary>
-        public Event Event {
-            get { return m_results.Event; }
-        }
+        public Event Event {get { return m_results.Event; }}
 
         /// <summary>前回の入力タイプ</summary>
-        public InputEmulatorResults.INPUT_TYPE InputType {
-            get { return m_params.m_inputType; }
-        }
+        public InputEmulatorResults.INPUT_TYPE InputType {get { return m_params.m_inputType; }}
 
         private bool m_isInputEng = false;
         /// <summary>
@@ -434,32 +427,26 @@ namespace tpInner {
         public bool IsEnter { get; set; } = true;
         #endregion
 
+
         #region イベントハンドラ
         /// <summary>キーボードから文字が入力された時のイベントリスナを追加します</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void AddEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
-            m_onInputCallbacks.AddListener(aEvent);
-        }
+        public void AddEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {m_onInputCallbacks.AddListener(aEvent);}
 
         /// <summary>キーボードから文字が入力された時のイベントリスナを削除します</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {
-            m_onInputCallbacks.RemoveListener(aEvent);
-        }
+        public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {m_onInputCallbacks.RemoveListener(aEvent);}
 
         /// <summary文字列が変更された時のイベントリスナを追加します</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
-            m_onChangeCallbacks.AddListener(aEvent);
-        }
+        public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {m_onChangeCallbacks.AddListener(aEvent);}
 
         /// <summary>文字列が変更された時のイベントリスナを削除します</summary>
         /// <param name="aEvent">イベントリスナ</param>
 
-        public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {
-            m_onChangeCallbacks.RemoveListener(aEvent);
-        }
+        public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {m_onChangeCallbacks.RemoveListener(aEvent);}
         #endregion
+
 
         #region 内部メソッド
 
@@ -496,6 +483,7 @@ namespace tpInner {
             m_onChangeCallbacks.Invoke(m_results);
         }
         #endregion
+
 
         #region メンバ
         private ConvertTableMgr m_convertTableMgr;

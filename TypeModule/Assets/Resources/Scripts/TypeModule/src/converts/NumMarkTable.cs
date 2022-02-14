@@ -34,6 +34,8 @@ namespace tpInner {
     /// 
     /// </code></example>
     public class NumMarkTable{
+
+
         #region 生成
         /// <summary>数字と記号の、全角と半角を変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
@@ -47,6 +49,7 @@ namespace tpInner {
             CreateTable(aCSV);
         }
         #endregion
+
 
         #region メソッド
         /// <summary>数字と記号を半角から全角に変換できるかをチェックし、変換できる場合はaOutZenkakuに格納</summary>
@@ -100,6 +103,7 @@ namespace tpInner {
         }
         #endregion
 
+
         #region 内部メソッド
         /// <summary>数字と記号の、全角と半角を変換する為のテーブルを作成</summary>
         /// <param name="aCSV">変換テーブルを定義したファイル</param>
@@ -115,10 +119,10 @@ namespace tpInner {
         }
         #endregion
 
+
         #region メンバ
         private SortedDictionary<string, string> m_han2Zen = new SortedDictionary<string, string>();
         private SortedDictionary<string, string> m_zen2Han = new SortedDictionary<string, string>();
         #endregion
-
     }
 }

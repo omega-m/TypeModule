@@ -52,6 +52,7 @@ using System.Text.RegularExpressions;
 /// </code></example>
 public class CopyInputCheckerResults {
 
+
     #region 内部イベントタイプ
     /// <summary>イベント発生時の内部タイプです</summary>
     public enum INNER_EVENT_TYPE{
@@ -68,11 +69,10 @@ public class CopyInputCheckerResults {
     }
     #endregion
 
+
     #region フィールド
     /// <summary>比較対象の文字列(タイピングのお台文)</summary>
-    public string TargetStr {
-        get {return m_params.m_targetStr;}
-    }
+    public string TargetStr {get {return m_params.m_targetStr;}}
 
     /// <summary>既に打ち終わった文字列</summary>
     public string StrDone {
@@ -83,9 +83,7 @@ public class CopyInputCheckerResults {
     }
 
     /// <summary>現在打とうとしている文字</summary>
-    public string StrCurrent {
-        get {return m_params.m_strCurrent;}
-    }
+    public string StrCurrent {get {return m_params.m_strCurrent;}}
 
     /// <summary>まだ打っていない文字列</summary>
     public string StrYet {
@@ -104,9 +102,7 @@ public class CopyInputCheckerResults {
     }
 
     /// <summary>現在打っている文字(変換前)</summary>
-    public string StrCurrentRaw {
-        get {return m_params.m_strCurrentRaw;}
-    }
+    public string StrCurrentRaw {get {return m_params.m_strCurrentRaw;}}
 
     /// <summary>既に打ち終わった文字列(変換前)</summary>
     public string StrYetRaw {
@@ -117,67 +113,48 @@ public class CopyInputCheckerResults {
     }
 
     /// <summary>前回正しく入力された文字(ミスした時は空文字列)</summary>
-    public string PrevCorrectChar {
-        get {return m_params.m_prevCorrectChar;}
-    }
+    public string PrevCorrectChar {get {return m_params.m_prevCorrectChar;}}
 
     /// <summary>前回ミスしたされた文字(正しく入力された時は空文字列)</summary>
-    public string PrevMissChar {
-        get {return m_params.m_prevMissChar;}
-    }
+    public string PrevMissChar {get {return m_params.m_prevMissChar;}}
 
     /// <summary>正しくタイプした数</summary>
-    public int CorrectNum {
-        get {return m_params.m_correctNum;  }
-    }
+    public int CorrectNum {get {return m_params.m_correctNum;  }}
 
     /// <summary>正しく打てた文字数</summary>
-    public int CorrectCharNum {
-        get {return m_params.m_correctCharNum;}
-    }
+    public int CorrectCharNum {get {return m_params.m_correctCharNum;}}
 
     /// <summary>ミスタイプした数</summary>
-    public int MissNum {
-        get {return m_params.m_missNum;}
-    }
+    public int MissNum {get {return m_params.m_missNum;}}
 
     /// <summary>打ち終わったか</summary>
-    public bool IsComplete {
-        get {return m_params.m_isComplete;}
-    }
+    public bool IsComplete {get {return m_params.m_isComplete;}}
 
     /// <summary>前回入力発生時のUnityイベント</summary>
-    public Event Event {
-        get {return m_params.m_event;}
-    }
+    public Event Event {get {return m_params.m_event;}}
 
     /// <summary>前回イベント発生時の内部タイプ</summary>
-    public INNER_EVENT_TYPE InnerEvent {
-        get { return m_params.m_innerEvent; }
-    }
+    public INNER_EVENT_TYPE InnerEvent {get { return m_params.m_innerEvent; }}
 
     /// <summary>JISかな入力など、日本語を直接入力する方式を使用しているか</summary>
-    public bool IsKana{
-        get {return m_params.m_isKana;}
-    }
+    public bool IsKana{get {return m_params.m_isKana;}}
 
     /// <summary>英語の大文字と小文字入力を区別して判定するか</summary>
-    public bool IsCaseSensitive {
-        get { return m_params.m_isCaseSensitive; }
-    }
+    public bool IsCaseSensitive {get { return m_params.m_isCaseSensitive; }}
     #endregion
+
 
     #region 生成
     /// <summary>CopyInputCheckerより作成されます。外からは作成しないでください。</summary>    
-    public CopyInputCheckerResults(in tpInner.CopyInputCheckerParams aParams) {
-        m_params = aParams;
-    }
+    public CopyInputCheckerResults(in tpInner.CopyInputCheckerParams aParams) {m_params = aParams;}
     #endregion
+
 
     #region 内部使用プロパティ
     /// <summary>汚しフラグです。trueになっている時に文字列にアクセスされた場合、データを再度作成します。</summary>
     public bool Dirty { get; set; } = true;
     #endregion
+
 
     #region 内部メソッド
     /// <summary>返却パラメータのキャッシュを生成します。</summary>
@@ -206,6 +183,7 @@ public class CopyInputCheckerResults {
     }
     #endregion
 
+
     #region メンバ
     private tpInner.CopyInputCheckerParams m_params;   //参照
 
@@ -216,10 +194,12 @@ public class CopyInputCheckerResults {
     #endregion
 }
 
+
 namespace tpInner {
 
     /// <summary>CopyInputCheckerの内部パラメータクラス。CopyInputCheckerResultsの参照渡しに使用。</summary>
     public class CopyInputCheckerParams {
+
 
         #region メソッド
         /// <summary>内部データをクリアします。</summary>
@@ -242,6 +222,7 @@ namespace tpInner {
             m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.NONE;
         }
         #endregion
+
 
         #region メンバ
         public string       m_targetStr = "";                   //比較対象の文字列(タイピングのお台文)
@@ -339,6 +320,7 @@ namespace tpInner {
     /// </code></example>
     public class CopyInputChecker {
 
+
         #region 生成
         /// <summary>
         /// <para>指定された文字列が正しく打ててるかを確認します。</para>
@@ -350,6 +332,7 @@ namespace tpInner {
             m_results = new CopyInputCheckerResults(in m_params);
         }
         #endregion
+
 
         #region メソッド
         /// <summary>
@@ -490,6 +473,7 @@ namespace tpInner {
         }
         #endregion
 
+
         #region フィールド
         /// <summary>
         /// <para>比較対象の文字列(タイピングのお台文)</para>
@@ -504,74 +488,46 @@ namespace tpInner {
         }
 
         /// <summary>既に打ち終わった文字列</summary>
-        public string StrDone {
-            get {return m_results.StrDone;}
-        }
+        public string StrDone {get {return m_results.StrDone;}}
 
         /// <summary>現在打っている文字</summary>
-        public string StrCurrent {
-            get { return m_results.StrCurrent; }
-        }
+        public string StrCurrent {get { return m_results.StrCurrent; }}
 
         /// <summary>まだ打っていない文字列</summary>
-        public string StrYet {
-            get { return m_results.StrYet; }
-        }
+        public string StrYet {get { return m_results.StrYet; }}
 
         /// <summary>既に打ち終わった文字列(変換前)</summary>
-        public string StrDoneRaw {
-            get { return m_results.StrDoneRaw; }
-        }
+        public string StrDoneRaw {get { return m_results.StrDoneRaw; }}
 
         /// <summary>現在打っている文字(変換前)</summary>
-        public string StrCurrentRaw {
-            get { return m_results.StrCurrentRaw; }
-        }
+        public string StrCurrentRaw {get { return m_results.StrCurrentRaw; }}
 
         /// <summary>既に打ち終わった文字列(変換前)</summary>
-        public string StrYetRaw {
-            get { return m_results.StrYetRaw; }
-        }
+        public string StrYetRaw {get { return m_results.StrYetRaw; }}
 
         /// <summary>前回正しく入力された文字(ミスした時は空文字列)</summary>
-        public string PrevCorrectChar {
-            get { return m_results.PrevCorrectChar; }
-        }
+        public string PrevCorrectChar {get { return m_results.PrevCorrectChar; }}
 
         /// <summary>前回ミスしたされた文字(正しく入力された時は空文字列)</summary>
-        public string PrevMissChar {
-            get {return m_results.PrevMissChar;}
-        }
+        public string PrevMissChar {get {return m_results.PrevMissChar;}}
 
         /// <summary>正しくタイプした数</summary>
-        public int CorrectNum {
-            get {return m_results.CorrectNum;}
-        }
+        public int CorrectNum {get {return m_results.CorrectNum;}}
 
         /// <summary>正しく打てた文字数</summary>
-        public int CorrectCharNum {
-            get { return m_results.CorrectCharNum; }
-        }
+        public int CorrectCharNum {get { return m_results.CorrectCharNum; }}
 
         /// <summary>ミスタイプした数</summary>
-        public int MissNum {
-            get {return m_results.MissNum;}
-        }
+        public int MissNum {get {return m_results.MissNum;}}
 
         /// <summary>打ち終わったか</summary>
-        public bool IsComplete {
-            get {return m_results.IsComplete;}
-        }
+        public bool IsComplete {get {return m_results.IsComplete;}}
 
         /// <summary>前回入力発生時のUnityイベント</summary>
-        public Event Event {
-            get {return m_results.Event;}
-        }
+        public Event Event {get {return m_results.Event;}}
 
         /// <summary>前回イベント発生時の内部タイプ</summary>
-        public CopyInputCheckerResults.INNER_EVENT_TYPE InnerEvent {
-            get { return m_params.m_innerEvent; }
-        }
+        public CopyInputCheckerResults.INNER_EVENT_TYPE InnerEvent {get { return m_params.m_innerEvent; }}
 
         private bool m_isKana = false;
         /// <summary>
@@ -596,67 +552,49 @@ namespace tpInner {
         }
         #endregion
 
+
         #region イベントハンドラ
         /// <summary>キーボードからの入力処理を行った時のイベントリスナを追加します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void AddEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onInputCallbacks.AddListener(aEvent);
-        }
+        public void AddEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {m_onInputCallbacks.AddListener(aEvent);}
 
         /// <summary>キーボードからの入力処理を行った時のイベントリスナを削除します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void RemoveEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onInputCallbacks.RemoveListener(aEvent);
-        }
+        public void RemoveEventListenerOnInput(UnityAction<CopyInputCheckerResults> aEvent) {m_onInputCallbacks.RemoveListener(aEvent);}
 
         /// <summary>比較対象の文字に対して、正しく入力された時のイベントリスナを追加します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void AddEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onCorrectCallbacks.AddListener(aEvent);
-        }
+        public void AddEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {m_onCorrectCallbacks.AddListener(aEvent);}
 
         /// <summary>比較対象の文字に対して、正しく入力された時のイベントリスナを削除します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void RemoveEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onCorrectCallbacks.RemoveListener(aEvent);
-        }
+        public void RemoveEventListenerOnCorrect(UnityAction<CopyInputCheckerResults> aEvent) {m_onCorrectCallbacks.RemoveListener(aEvent);}
 
         /// <summary>比較対象の文字に対して、ミスタッチした時のイベントリスナを追加します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void AddEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onMissCallbacks.AddListener(aEvent);
-        }
+        public void AddEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {m_onMissCallbacks.AddListener(aEvent);}
 
         /// <summary>比較対象の文字に対して、ミスタッチした時のイベントリスナを削除します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void RemoveEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onMissCallbacks.RemoveListener(aEvent);
-        }
+        public void RemoveEventListenerOnMiss(UnityAction<CopyInputCheckerResults> aEvent) {m_onMissCallbacks.RemoveListener(aEvent);}
 
         /// <summary>比較対象の文字を全て打ちきった時のイベントリスナを追加します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void AddEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onCompleteCallbacks.AddListener(aEvent);
-        }
+        public void AddEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {m_onCompleteCallbacks.AddListener(aEvent);}
 
         /// <summary>比較対象の文字を全て打ちきった時のイベントリスナを削除します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onCompleteCallbacks.RemoveListener(aEvent);
-        }
+        public void RemoveEventListenerOnComplete(UnityAction<CopyInputCheckerResults> aEvent) {m_onCompleteCallbacks.RemoveListener(aEvent);}
 
         /// <summary>比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void AddEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onSetupCallbacks.AddListener(aEvent);
-        }
+        public void AddEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {m_onSetupCallbacks.AddListener(aEvent);}
 
         /// <summary>比較文字がセットされ、セットアップが完了した時のイベントリスナ削除します。</summary>
         /// <param name="aEvent">イベントリスナ</param>
-        public void RemoveEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {
-            m_onSetupCallbacks.RemoveListener(aEvent);
-        }
+        public void RemoveEventListenerOnSetup(UnityAction<CopyInputCheckerResults> aEvent) {m_onSetupCallbacks.RemoveListener(aEvent);}
         #endregion
+
 
         #region 内部メソッド
         /// <summary>指定された文字列を打つ為に必要な中間文字をセット</summary>
@@ -796,6 +734,7 @@ namespace tpInner {
             }
         }
         #endregion
+
 
         #region メンバ
         private ConvertTableMgr m_convertTableMgr;

@@ -30,12 +30,14 @@ namespace tpInner {
     /// </code></example>
     public class ConvertTableMgr{
 
+
         #region 生成
         /// <summary>文字列生成時に使用する、変換テーブルを管理するクラスです。</summary>
         public ConvertTableMgr() {
             CreateDefaultTable();
         }
         #endregion
+
 
         #region メソッド
         /// <summary>キーの入力(KeyCode) => ローマ字文字への変換テーブルを指定</summary>
@@ -152,34 +154,30 @@ namespace tpInner {
         }
         #endregion
 
+
         #region 内部メソッド
         ///<summary>デフォルトの変換テーブルを作成</summary>
         private void CreateDefaultTable() {
-            {
-                TextAsset tmp = new TextAsset();
-                tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
-                if (tmp != null) {SetKeyCode2RomaTable(in tmp);}
-            }
-            {
-                TextAsset tmp = new TextAsset();
-                tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
-                if (tmp != null) {SetRoma2KanaTable(in tmp);}
-            }
-            {
-                TextAsset tmp = new TextAsset();
-                tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
-                if (tmp != null) {SetKeyCode2KanaMidTable(in tmp);}
-            }
-            {
-                TextAsset tmp = new TextAsset();
-                tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/JISkana", typeof(TextAsset)) as TextAsset;
-                if(tmp != null) {SetKanaMid2KanaTable(in tmp);}
-            }
-            {
-                TextAsset tmp = new TextAsset();
-                tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/nummark", typeof(TextAsset)) as TextAsset;
-                if (tmp != null) {SetNumMarkTable(in tmp);}
-            }
+            
+            TextAsset tmp = new TextAsset();
+            tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/qwerty", typeof(TextAsset)) as TextAsset;
+            if (tmp != null) {SetKeyCode2RomaTable(in tmp);}
+            
+            tmp = new TextAsset();
+            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
+            if (tmp != null) {SetRoma2KanaTable(in tmp);}
+            
+            tmp = new TextAsset();
+            tmp = Resources.Load("Scripts/TypeModule/data/KeyCode2Char/JISkana", typeof(TextAsset)) as TextAsset;
+            if (tmp != null) {SetKeyCode2KanaMidTable(in tmp);}
+          
+            tmp = new TextAsset();
+            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/JISkana", typeof(TextAsset)) as TextAsset;
+            if(tmp != null) {SetKanaMid2KanaTable(in tmp);}
+          
+            tmp = new TextAsset();
+            tmp = Resources.Load("Scripts/TypeModule/data/Char2Kana/nummark", typeof(TextAsset)) as TextAsset;
+            if (tmp != null) {SetNumMarkTable(in tmp);}
         }
         #endregion
     }

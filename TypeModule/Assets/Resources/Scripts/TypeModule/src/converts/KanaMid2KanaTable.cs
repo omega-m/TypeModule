@@ -43,6 +43,7 @@ namespace tpInner {
     /// </code></example>
     public class KanaMid2KanaTable{
 
+
         #region 生成
         ///<summary>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
@@ -54,6 +55,7 @@ namespace tpInner {
             CreateTable(in aCSV);
         }
         #endregion
+
 
         #region メソッド
         /// <summary>ひらがなの中間文字列[aKanaMid]から変換できるひらがな文字列を取得。</summary>
@@ -108,10 +110,12 @@ namespace tpInner {
         }
         #endregion
 
+
         #region プロパティ
         /// <summary>ひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
         public int KanaMidMaxLength { get; private set; }
         #endregion 
+
 
         #region 内部メソッド
         ///<summary>ローマ字列からひらがな文字列に変換するためのテーブルを作成</summary>
@@ -135,6 +139,7 @@ namespace tpInner {
             }
         }
         #endregion
+
 
         #region メンバ
         private Dictionary<string, string> m_mid2Kana;  //SortedDictionaryだと、なぜか 「は゜」「は゛」が同じキーとして認識されてエラーが出る

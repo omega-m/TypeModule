@@ -26,6 +26,7 @@ namespace tpInner {
     /// </code></example>
     public class Kana2KanaMidTable{
 
+
         #region 生成
         ///<summary>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
@@ -38,6 +39,7 @@ namespace tpInner {
         }
         #endregion
 
+
         #region メソッド
         /// <summary>ひらがな文字列から変換できる、ひらがな中間文字列があるか。</summary>
         /// <param name="aKana">ひらかな文字列</param>
@@ -45,12 +47,10 @@ namespace tpInner {
         /// </param>
         /// <returns>true:打つことができる文字列がある</returns>
         public bool TryConvert(string aKana, out string aOutKanaMid) {
-            if (m_table.TryGetValue(aKana, out aOutKanaMid)) {
-                return true;
-            }
-            return false;
+            return m_table.TryGetValue(aKana, out aOutKanaMid);
         }
         #endregion
+
 
         #region プロパティ
         /// <summaryひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
@@ -61,6 +61,7 @@ namespace tpInner {
         /// </summary>
         public int KanaMaxLength { get; private set; }
         #endregion 
+
 
         #region 内部メソッド
         ///<summary>ひらがな文字列からひらがな中間文字列に変換するためのテーブルを作成</summary>
@@ -84,6 +85,7 @@ namespace tpInner {
             }
         }
         #endregion
+
 
         #region メンバ
         private Dictionary<string, string> m_table;     //SortedDictionaryだと、なぜか 「は゜」「は゛」が同じキーとして認識されてエラーが出る

@@ -27,6 +27,7 @@ namespace tpInner {
     /// </code></example>
     public class Kana2RomaTable {
 
+
         #region 生成
         ///<summary>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
@@ -38,6 +39,7 @@ namespace tpInner {
             CreateTable(in aCSV);
         }
         #endregion
+
 
         #region メソッド
         /// <summary>ひらがな文字列[aKana]から変換できるローマ字文字列を取得。</summary>
@@ -89,10 +91,12 @@ namespace tpInner {
         }
         #endregion
 
+
         #region プロパティ
         /// <summary>ローマ字列に変換できるひらがな文字列の最大文字数</summary>
         public int KanaMaxLength { get; private set; }
         #endregion 
+
 
         #region 内部メソッド
         ///<summary>ひらがな文字列からローマ字列に変換するためのテーブルを作成</summary>
@@ -118,6 +122,7 @@ namespace tpInner {
         }
         #endregion
      
+
         #region メンバ
         private SortedDictionary<string, List<string>> m_table;
         #endregion

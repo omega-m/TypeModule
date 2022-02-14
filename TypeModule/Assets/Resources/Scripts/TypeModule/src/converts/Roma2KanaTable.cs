@@ -74,6 +74,8 @@ namespace tpInner {
     /// 
     /// </code></example>
     public class Roma2KanaTable{
+
+
         # region 生成
         ///<summary>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
@@ -85,6 +87,7 @@ namespace tpInner {
             CreateTree(aCSV);
         }
         #endregion
+
 
         #region メソッド
         /// <summary>ローマ字列[aRoma]から変換できるひらがな文字列を取得。</summary>
@@ -134,6 +137,7 @@ namespace tpInner {
         }
         #endregion
 
+
         #region 静的メソッド
         /// <summary>ローマ字列[aRoma]の先頭文字が[n]で、先頭文字を[ん]に変換できるかどうかを取得します</summary>
         /// <param name="aRoma">ローマ字列</param>
@@ -144,6 +148,7 @@ namespace tpInner {
         }
         #endregion
 
+
         #region プロパティ
 
         /// <summary>ひらがな文字列に変換できるローマ字列の最大文字数</summary>
@@ -151,6 +156,7 @@ namespace tpInner {
             get { return m_treeRoot.GetRomaMaxLength(); }
         }
         #endregion
+
 
         #region 内部メソッド
         ///<summary>ローマ字列からひらがな文字列に変換するためのツリーを作成</summary>
@@ -187,6 +193,7 @@ namespace tpInner {
         }
         #endregion
 
+
         #region メンバ
         private Roma2KanaNode m_treeRoot;
         #endregion
@@ -214,6 +221,8 @@ namespace tpInner {
     /// 
     /// </code></example>
     public class Roma2KanaNode{
+
+
         #region 生成
         ///<summary>
         /// <para>ルートノード生成関数</para>
@@ -223,6 +232,7 @@ namespace tpInner {
             return new Roma2KanaNode("", "");
         }
         #endregion
+
 
         #region メソッド
         /// <summary>ローマ字列からひらがな文字列に変換する為の、新たな木ノードを追加(場合によっては、内部で再帰的に呼び出します)</summary>
@@ -298,6 +308,7 @@ namespace tpInner {
         }
         #endregion
 
+
         #region プロパティ
         /// <summary>
         /// <para>このノードの末尾アルファベット</para>
@@ -323,38 +334,30 @@ namespace tpInner {
         public string Kana { get; private set; }
 
         /// <summary>このノードの深さ</summary>
-        public int Depth{
-            get { return Roma.Length; }
-        }
+        public int Depth{get { return Roma.Length; }}
 
         private List<Roma2KanaNode> m_children;
         /// <summary>子ノード</summary>
-        public List<Roma2KanaNode> Children{
-            get { return m_children; }
-        }
+        public List<Roma2KanaNode> Children{get { return m_children; }}
 
         private List<string> m_possibilityKanas = new List<string>();
         /// <summary>このノードのローマ字列[Roma]に対して、Romaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧(ソート済み)</summary>
-        public List<string> PossibilityKanas{
-            get { return m_possibilityKanas; }
-        }
+        public List<string> PossibilityKanas{get { return m_possibilityKanas; }}
         #endregion
+
 
         #region 静的メソッド
         /// <summary>アルファベットから、子ノードアクセス用の配列idxを取得します</summary>
         /// <param name="aAlpha">/a-zA-Z/</param>
         /// <returns>aなら0、Dなら4などを返却</returns>
 
-        static public int Alpha2ChildIdx(char aAlpha){
-            return (int)char.ToLower(aAlpha) - (int)'a';
-        }
+        static public int Alpha2ChildIdx(char aAlpha){return (int)char.ToLower(aAlpha) - (int)'a';}
 
         /// <summary>アルファベットの総数を取得</summary>
         /// <returns>a～zの数</returns>
-        static public int AlphaNum(){
-            return (int)'z' - (int)'a' + 1;
-        }
+        static public int AlphaNum(){return (int)'z' - (int)'a' + 1;}
         #endregion
+
 
         #region 内部メソッド
         /// <summary>

@@ -50,6 +50,7 @@ namespace tpInner{
     /// </code></example>
     public class keyCode2CharTable{
 
+
         #region 生成
         ///<summary>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</summary>
         ///<param name="aCSV">
@@ -62,6 +63,7 @@ namespace tpInner{
             IsCheckCapsLock = true;
         }
         #endregion
+
 
         #region メソッド
         ///<summary>キーの入力(KeyCode)から単体文字へ変換</summary>
@@ -85,6 +87,7 @@ namespace tpInner{
         }
         #endregion
 
+
         #region プロパティ
         ///<summary>
         ///<para>CapsLockの状態を反映させるかどうか。</para>
@@ -92,6 +95,7 @@ namespace tpInner{
         /// </summary>
         public bool IsCheckCapsLock { get; set; }
         #endregion
+
 
         #region 内部メソッド
         ///<summary>キーの入力(KeyCode)から単体文字への変換テーブルを作成</summary>
@@ -116,9 +120,11 @@ namespace tpInner{
         }
         #endregion
 
+
         #region メンバ
         private SortedDictionary<int, char> m_map       = new SortedDictionary<int, char>();
         #endregion
+
 
         #region 内部定数
         private const int SHIFT_OFS     = (1 << 9);
