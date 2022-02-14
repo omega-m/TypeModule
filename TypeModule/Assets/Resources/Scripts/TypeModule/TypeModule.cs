@@ -524,11 +524,11 @@ public class TypeModule : MonoBehaviour {
         m_convertTableMgr.IsCheckCapsLock = IsCheckCapsLock;
 
         //インスペクターのファイルアセットで上書き
-        if (KeyCode2RomaCsv != null) {m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);}
-        if (Roma2KanaCsv != null) {m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);}
-        if (KeyCode2KanaMidCsv != null) {m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);}
-        if (KanaMid2KanaCsv != null) {m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);}
-        if (NumMarkCsv != null) {m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);}
+        if (KeyCode2RomaCsv != null) {      m_convertTableMgr.SetKeyCode2RomaTable(in m_keyCode2RomaCsv);}
+        if (Roma2KanaCsv != null) {         m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);}
+        if (KeyCode2KanaMidCsv != null) {   m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);}
+        if (KanaMid2KanaCsv != null) {      m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);}
+        if (NumMarkCsv != null) {           m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);}
     }
 
     ///<summary>キーボードの入力から文字列生成をエミュレートする為のクラスの作成</summary>
