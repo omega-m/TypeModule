@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TypeModule;
 
 public class TextSetter : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        var tp = GetComponent<TypeModule>();
+        var tp = GetComponent<TypeModule.TypeModule>();
         tp.AddEventListenerOnChange(onChange);
         tp.AddEventListenerOnInput(onInput);
     }
@@ -24,10 +25,10 @@ public class TextSetter : MonoBehaviour
     }
     void onChange(InputEmulatorResults res) {
         Debug.Log("onChange");
-        input.text = res.Str;
-        inputRaw.text = res.StrRaw;
+        //input.text = res.Str;
+        //inputRaw.text = res.StrRaw;
     }
 
-    public Text input;
-    public Text inputRaw;
+    //public Text input;
+    //public Text inputRaw;
 }

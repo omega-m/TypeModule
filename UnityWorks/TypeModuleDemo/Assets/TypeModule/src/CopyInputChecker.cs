@@ -4,6 +4,8 @@ using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System;
 
+namespace TypeModule {
+
 /// <summary>
 /// <para>CopyInputCheckerによって処理されたデータへのアクセス用クラスです。</para>
 /// <para>TypeModuleでModeをMODE_COPYにした時、入力発生時のイベントリスナで返却されます。</para>
@@ -11,7 +13,7 @@ using System;
 /// <example><code>
 ///     
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module = GetComponent<TypeModule>();
+/// TypeModule module = GetComponent&lt;TypeModule&gt;();
 /// module.AddEventListeneronInput(onInput);
 ///         
 ///     ...
@@ -35,7 +37,7 @@ using System;
 /// 
 /// module.AddEventListenerOnCorrect(onCorrect);
 /// module.AddEventListenerOnMiss(onMiss);
-/// audioSource = GetComponent<AudioSource>();
+/// audioSource = GetComponent&lt;AudioSource&gt;();
 /// 
 ///     ...
 /// 
@@ -55,15 +57,15 @@ public class CopyInputCheckerResults {
     #region 内部イベントタイプ
     /// <summary>イベント発生時の内部タイプです</summary>
     public enum INNER_EVENT_TYPE{
-        /// <summary>どの入力タイプにも属さない<summary>
+        /// <summary>どの入力タイプにも属さない</summary>
         NONE,
-        /// <summary>正しくタイプされた時<summary>
+        /// <summary>正しくタイプされた時</summary>
         CORRECT,
-        /// <summary>ミスタイプした時<summary>
+        /// <summary>ミスタイプした時</summary>
         MISS,
-        /// <summary>全て打ち終わった時<summary>
+        /// <summary>全て打ち終わった時</summary>
         COMPLETE,
-        /// <summary>内部データクリア・セットアップされた時<summary>
+        /// <summary>内部データクリア・セットアップされた時</summary>
         SETUP,
     }
     #endregion
@@ -111,6 +113,14 @@ public class CopyInputCheckerResults {
         }
     }
 
+    /// <summary>前回入力された文字</summary>
+    public string PrevChar { 
+        get {
+            if (Dirty) { CreateChche(); }
+            return m_prevCharCache; 
+        } 
+    }
+
     /// <summary>前回正しく入力された文字(ミスした時は空文字列)</summary>
     public string PrevCorrectChar {get {return m_params.m_prevCorrectChar;}}
 
@@ -145,7 +155,7 @@ public class CopyInputCheckerResults {
 
     #region 生成
     /// <summary>CopyInputCheckerより作成されます。外からは作成しないでください。</summary>    
-    public CopyInputCheckerResults(in tpInner.CopyInputCheckerParams aParams) {m_params = aParams;}
+    public CopyInputCheckerResults(in Inner.CopyInputCheckerParams aParams) {m_params = aParams;}
     #endregion
 
 
@@ -178,23 +188,29 @@ public class CopyInputCheckerResults {
             m_strYetRawCache += r;
         }
 
+        m_prevCharCache = "";
+        switch (InnerEvent) {
+            case INNER_EVENT_TYPE.CORRECT:  m_prevCharCache = PrevCorrectChar;break;
+            case INNER_EVENT_TYPE.MISS:     m_prevCharCache = PrevMissChar;break;
+        }
         Dirty = false;
     }
     #endregion
 
 
     #region メンバ
-    private tpInner.CopyInputCheckerParams m_params;   //参照
+    private Inner.CopyInputCheckerParams m_params;   //参照
 
     private string m_strDoneCache = "";
     private string m_strYetCache = "";
     private string m_strDoneRawCache = "";
     private string m_strYetRawCache = "";
+    private string m_prevCharCache = "";
     #endregion
 }
 
 
-namespace tpInner {
+namespace Inner {
 
     /// <summary>CopyInputCheckerの内部パラメータクラス。CopyInputCheckerResultsの参照渡しに使用。</summary>
     public class CopyInputCheckerParams {
@@ -224,24 +240,43 @@ namespace tpInner {
 
 
         #region メンバ
-        public string       m_targetStr = "";                   //比較対象の文字列(タイピングのお台文)
-        public List<string> m_strDone = new List<string>();     //既に打ち終わった文字列
-        public List<string> m_strDoneRaws = new List<string>(); //既に打ち終わった文字列(変換前)
-        public string       m_strCurrent;                       //現在打っている文字
-        public string       m_strCurrentRaw;                    //現在打っている文字(変換前)
-        public List<string> m_strYet = new List<string>();      //まだ打っていない文字列
-        public List<string> m_strYetRaws = new List<string>();  //まだ打っていない文字列(変換前)
-        public string       m_prevCorrectChar;                  //前回正しく入力された文字(ミスした時は空文字列)
-        public string       m_prevMissChar;                     //前回ミスしたされた文字(正しく入力された時は空文字列)
-        public int          m_correctNum;                       //正しくタイプした数
-        public int          m_correctCharNum;                   //正しく打てた文字数
-        public int          m_missNum;                          //ミスタイプした数
+        ///<summary>比較対象の文字列(タイピングのお台文)</summary>
+        public string       m_targetStr = "";
+        ///<summary>既に打ち終わった文字列</summary>
+        public List<string> m_strDone = new List<string>();
+        ///<summary>既に打ち終わった文字列(変換前)</summary>
+        public List<string> m_strDoneRaws = new List<string>();
+        ///<summary>現在打っている文字</summary>
+        public string       m_strCurrent;
+        ///<summary>現在打っている文字(変換前)</summary>
+        public string       m_strCurrentRaw;
+        ///<summary>まだ打っていない文字列</summary>
+        public List<string> m_strYet = new List<string>();
+        ///<summary>まだ打っていない文字列(変換前)</summary>
+        public List<string> m_strYetRaws = new List<string>();
+        ///<summary>前回正しく入力された文字(ミスした時は空文字列)</summary>
+        public string       m_prevCorrectChar;                  
+        ///<summary>前回ミスしたされた文字(正しく入力された時は空文字列)</summary>
+        public string       m_prevMissChar;
+        ///<summary>正しくタイプした数</summary>
+        public int          m_correctNum;                       
+        ///<summary>正しく打てた文字数</summary>
+        public int          m_correctCharNum;
+        ///<summary>ミスタイプした数</summary>
+        public int          m_missNum;
+        ///<summary>かな入力方式か</summary>
         public bool         m_isKana;
+        ///<summary>英語の大文字小文字を判定するか</summary>
         public bool         m_isCaseSensitive;
+        ///<summary>文字が打ち終わったか</summary>
         public bool         m_isComplete;
+        ///<summary>直前に発生したUnityイベント</summary>
         public Event        m_event = new Event();
+        ///<summary>内部イベントタイプ</summary>
         public CopyInputCheckerResults.INNER_EVENT_TYPE m_innerEvent;
+        ///<summary>現在打っているローマ字の入力終了部分</summary>
         public string       m_strRomaWorkDone;
+        ///<summary>現在打っているローマ字の未入力部分</summary>
         public string       m_strRomaWorkYet;        
         #endregion
     }
@@ -274,8 +309,9 @@ namespace tpInner {
     ///     ...
     ///     
     /// //直前に入力された文字を取得
-    /// Debug.Log(checker.PrevCorrectChar);         //正しく入力された場合
-    /// Debug.Log(checker.PrevMissChar);            //ミス入力の場合
+    /// Debug.Log(checker.PrevChar);         
+    /// Debug.Log(checker.PrevCorrectChar);         //正しく入力された場合格納
+    /// Debug.Log(checker.PrevMissChar);            //ミス入力の場合格納
     /// 
     /// //その他パラメータにアクセス
     /// Debug.Log(checker.CorrectNum);              //正しくタイプした数
@@ -506,6 +542,9 @@ namespace tpInner {
 
         /// <summary>既に打ち終わった文字列(変換前)</summary>
         public string StrYetRaw {get { return m_results.StrYetRaw; }}
+
+        /// <summary>前回入力された文字</summary>
+        public string PrevChar { get { return m_results.PrevChar; } }
 
         /// <summary>前回正しく入力された文字(ミスした時は空文字列)</summary>
         public string PrevCorrectChar {get { return m_results.PrevCorrectChar; }}
@@ -777,4 +816,5 @@ namespace tpInner {
         private UnityEvent<CopyInputCheckerResults> m_onSetupCallbacks      = new UnityEvent<CopyInputCheckerResults>();
         #endregion
     }
+}
 }

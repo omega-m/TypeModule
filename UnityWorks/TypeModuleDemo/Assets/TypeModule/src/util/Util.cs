@@ -1,7 +1,13 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 
-namespace tpInner {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+using System.Runtime.InteropServices;
+#endif
+
+
+namespace TypeModule {
+namespace Inner {
 
     ///<summary>共通メソッドなどを定義</summary>
     static public class Util {
@@ -207,6 +213,7 @@ namespace tpInner {
 
         /// <summary>日本語用記号文字かどうかチェック</summary>
         /// <param name="aChar">文字</param>
+        /// <param name="isCheckZen">全角文字もチェック</param>
         /// <returns>true:日本語用記号文字である</returns>
         public static bool IsJPSymbol(char aChar, bool isCheckZen = false) {
             for (int i = (JpSymbol.Length - 1); i >= 0; i--) {
@@ -214,11 +221,27 @@ namespace tpInner {
             }
             return false;
         }
-        #endregion
 
-        #region 内部変数
-        /// <summary>半角カタカナ</summary>
-        static readonly string[] HalfSizeKatakana = new string[] { "ｱ", "ｲ", "ｳ", "ｴ", "ｵ", "ｶ", "ｷ", "ｸ", "ｹ", "ｺ", "ｻ", "ｼ", "ｽ", "ｾ", "ｿ", "ﾀ", "ﾁ", "ﾂ", "ﾃ", "ﾄ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ﾔ", "ﾕ", "ﾖ", "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ｵ", "ﾝ", "ｧ", "ｨ", "ｩ", "ｪ", "ｫ", "ｯ", "ｬ", "ｭ", "ｮ", "ｰ", "ｶﾞ", "ｷﾞ", "ｸﾞ", "ｹﾞ", "ｺﾞ", "ｻﾞ", "ｼﾞ", "ｽﾞ", "ｾﾞ", "ｿﾞ", "ﾀﾞ", "ﾁﾞ", "ﾂﾞ", "ﾃﾞ", "ﾄﾞ", "ﾊﾞ", "ﾋﾞ", "ﾌﾞ", "ﾍﾞ", "ﾎﾞ", "ﾊﾟ", "ﾋﾟ", "ﾌﾟ", "ﾍﾟ", "ﾎﾟ", "ｳﾞ" };
+
+        //UnityのCapsLockは、押してある状態か否かで返すので使えない
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+        [DllImport("user32.dll")]
+        public static extern short GetKeyState(int keyCode);
+
+        ///<summary>CapsLock の状態を取得</summary>
+        ///<returns>[true]:CapsLockはOn</returns>
+        public static bool IsCapsLockOn
+            => (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
+#else
+        public static bool IsCapsLockOn => return false;
+#endif
+    #endregion
+
+
+
+    #region 内部変数
+    /// <summary>半角カタカナ</summary>
+    static readonly string[] HalfSizeKatakana = new string[] { "ｱ", "ｲ", "ｳ", "ｴ", "ｵ", "ｶ", "ｷ", "ｸ", "ｹ", "ｺ", "ｻ", "ｼ", "ｽ", "ｾ", "ｿ", "ﾀ", "ﾁ", "ﾂ", "ﾃ", "ﾄ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ﾔ", "ﾕ", "ﾖ", "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ｵ", "ﾝ", "ｧ", "ｨ", "ｩ", "ｪ", "ｫ", "ｯ", "ｬ", "ｭ", "ｮ", "ｰ", "ｶﾞ", "ｷﾞ", "ｸﾞ", "ｹﾞ", "ｺﾞ", "ｻﾞ", "ｼﾞ", "ｽﾞ", "ｾﾞ", "ｿﾞ", "ﾀﾞ", "ﾁﾞ", "ﾂﾞ", "ﾃﾞ", "ﾄﾞ", "ﾊﾞ", "ﾋﾞ", "ﾌﾞ", "ﾍﾞ", "ﾎﾞ", "ﾊﾟ", "ﾋﾟ", "ﾌﾟ", "ﾍﾟ", "ﾎﾟ", "ｳﾞ" };
         /// <summary>全角カタカナ</summary>
         static readonly string[] FullSizeKatakana = new string[] { "ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ", "マ", "ミ", "ム", "メ", "モ", "ヤ", "ユ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "オ", "ン", "ァ", "ィ", "ゥ", "ェ", "ォ", "ッ", "ャ", "ュ", "ョ", "ー", "ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド", "バ", "ビ", "ブ", "ベ", "ボ", "パ", "ピ", "プ", "ペ", "ポ", "ヴ"};
         /// <summary>半角記号</summary>
@@ -233,4 +256,6 @@ namespace tpInner {
         static readonly string[] JpSymbol = new string[] { "、", "。", "・", "「", "」", "ー"};
         #endregion
     }
+}
+
 }

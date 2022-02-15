@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 
-
-namespace tpInner {
+namespace TypeModule { 
+namespace Inner {
 
     /// <summary>文字列生成時に使用する、変換テーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using tpInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -38,7 +38,7 @@ namespace tpInner {
 
 
         #region メソッド
-        /// <summary>キーの入力(KeyCode) => ローマ字文字への変換テーブルを指定</summary>
+        /// <summary>キーの入力(KeyCode) → ローマ字文字への変換テーブルを指定</summary>
         /// <param name="asset">
         /// <para>キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイルアセット</para>
         /// <para>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
@@ -52,7 +52,7 @@ namespace tpInner {
             Key2Roma.EnabledCapsLock = EnabledCapsLock;
         }
 
-        /// <summary>ローマ字文字列 => ひらがな文字列への変換テーブルを指定</summary>
+        /// <summary>ローマ字文字列 → ひらがな文字列への変換テーブルを指定</summary>
         /// <param name="asset">
         /// <para>ローマ字文字列からひらがな文字列への変換テーブルを定義したファイルアセット</para>
         /// <para>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
@@ -67,7 +67,7 @@ namespace tpInner {
         }
 
         /// <summary>
-        /// <para>キーの入力(KeyCode) => ひらがな中間文字への変換テーブルを指定</para>
+        /// <para>キーの入力(KeyCode) → ひらがな中間文字への変換テーブルを指定</para>
         /// <para>JISかな入力など、日本語を直接入力する方式を使用する際に参照します。</para>
         /// </summary>
         /// <param name="asset">
@@ -84,7 +84,7 @@ namespace tpInner {
             Key2kanaMid.EnabledCapsLock = false; //こちらはCapsLockの影響を受けない
         }
 
-        /// <summary>ひらがな中間文字列　=> ひらがな文字列への変換テーブルを指定</summary>
+        /// <summary>ひらがな中間文字列　→ ひらがな文字列への変換テーブルを指定</summary>
         /// <param name="asset">
         /// <para>ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイルアセット</para>
         /// <para>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
@@ -115,22 +115,22 @@ namespace tpInner {
 
 
         #region プロパティ
-        ///<summary>キーの入力(KeyCode) => ローマ字文字への変換テーブル</summary>
+        ///<summary>キーの入力(KeyCode)からローマ字文字への変換テーブル</summary>
         public keyCode2CharTable Key2Roma { get; private set; }
 
-        ///<summaryローマ字文字列 => ひらがな文字列への変換テーブル</summary>
+        ///<summary>ローマ字文字列からひらがな文字列への変換テーブル</summary>
         public Roma2KanaTable Roma2Kana { get; private set; }
 
-        ///<summaryひらがな文字列 => ローマ字文字列への変換テーブル</summary>
+        ///<summary>ひらがな文字列からローマ字文字列への変換テーブル</summary>
         public Kana2RomaTable Kana2Roma { get; private set; }
 
-        ///<summary>キーの入力(KeyCode) => ひらがな中間文字への変換テーブル</summary>
+        ///<summary>キーの入力(KeyCode)からひらがな中間文字への変換テーブル</summary>
         public keyCode2CharTable Key2kanaMid { get; private set; }
 
-        ///<summary>ひらがな中間文字列　=> ひらがな文字列への変換テーブル</summary>
+        ///<summary>ひらがな中間文字列からひらがな文字列への変換テーブル</summary>
         public KanaMid2KanaTable KanaMid2Kana { get; private set; }
 
-        ///<summary>ひらがな文字列 => ひらがな中間文字列　への変換テーブル</summary>
+        ///<summary>ひらがな文字列からひらがな中間文字列　への変換テーブル</summary>
         public Kana2KanaMidTable Kana2KanaMid { get; private set; }
 
         ///<summary>数字と記号の、全角半角の相互変換テーブル</summary>
@@ -179,4 +179,5 @@ namespace tpInner {
         }
         #endregion
     }
+}
 }

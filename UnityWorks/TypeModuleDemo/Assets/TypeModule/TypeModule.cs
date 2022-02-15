@@ -1,7 +1,9 @@
 using UnityEngine;
-using tpInner;
 using Candlelight;
 using UnityEngine.Events;
+using TypeModule.Inner;
+
+namespace TypeModule {
 
 ///<summary>
 ///<para>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</para>
@@ -10,9 +12,12 @@ using UnityEngine.Events;
 /// <example><code>
 ///     ...
 ///     
-/// module = GetComponent<TypeModule>();
+/// TypeModule module = GetComponent&lt;TypeModule&gt;();
 ///     
-/// //文字列生成シミュレーションモード=======================================
+/// 
+/// 
+/// //=======================================================================
+/// //文字列生成シミュレーションモードに変更
 /// module.Mode = TypeModule.MODE.INPUT;
 /// 
 /// //モジュールから状態を取得
@@ -30,6 +35,8 @@ using UnityEngine.Events;
 /// module.BackSpace();         //末尾から1文字削除
 /// module.Clear();             //全ての文字を削除
 /// 
+/// 
+/// 
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
 /// module.AddEventListenerOnChange(onChange);
 /// 
@@ -46,6 +53,7 @@ using UnityEngine.Events;
 /// }
 /// 
 /// 
+/// 
 /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
 /// public AudioSource audioSource;
 /// public AudioClip typeSound;
@@ -56,7 +64,7 @@ using UnityEngine.Events;
 ///
 /// 
 /// module.AddEventListenerOnInput(onInput);
-/// audioSource = GetComponent<AudioSource>();
+/// audioSource = GetComponent&lt;AudioSource&gt;();
 /// 
 ///         ...
 /// 
@@ -72,16 +80,19 @@ using UnityEngine.Events;
 ///         case InputEmulatorResults.INPUT_TYPE.ENTER:
 ///             audioSource.PlayOneShot(enterSound);
 ///             break;
-///     }
+///     }C:\Users\renge\folder\circle\workspace\tp\UnityWorks\TypeModule\Assembly-CSharp.csproj
 /// }
 /// 
 /// 
-/// //指定された文字列が正しく打ててるか、比較するモード=======================================
+/// 
+/// //=======================================================================
+/// //指定された文字列が正しく打ててるか、比較するモードに変更
 /// module.Mode = TypeModule.MODE.COPY;
 /// 
 /// //モードの変更
 /// module.IsKana = true;                  /かな入力入力状態へ
 /// module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
+/// 
 /// 
 /// //比較対象の文字列をセット(内部初期化もされます)
 /// module.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
@@ -97,8 +108,10 @@ using UnityEngine.Events;
 /// Debug.Log(module.MissNum);                 //ミスタイプした数
 /// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
 ///      
+/// 
+/// 
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module.AddEventListeneronInput(onInput);
+/// module.AddEventListenerOnInput(onInput);
 ///         
 ///     ...
 ///     
@@ -112,6 +125,7 @@ using UnityEngine.Events;
 /// }
 /// 
 /// 
+/// 
 /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
 /// public AudioSource audioSource;
 /// public AudioClip correctSound;
@@ -121,7 +135,7 @@ using UnityEngine.Events;
 /// 
 /// module.AddEventListenerOnCorrect(onCorrect);
 /// module.AddEventListenerOnMiss(onMiss);
-/// audioSource = GetComponent<AudioSource>();
+/// audioSource = GetComponent&lt;AudioSource&gt;();
 /// 
 ///     ...
 /// 
@@ -136,7 +150,9 @@ using UnityEngine.Events;
 /// }
 /// 
 /// 
-/// //以下オプションです================================
+/// 
+/// //=======================================================================
+/// //以下オプション
 /// 
 /// //CapsLockの状態を反映させないように切り替え
 /// module.EnabledCapsLock = false;
@@ -182,18 +198,51 @@ public class TypeModule : MonoBehaviour {
             return new Event();
         }
     }
+
+    /// <summary>
+    /// 前回入力された文字(変換前)
+    /// </summary>
+    public string PrevChar { 
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.PrevChar;
+                case MODE.COPY:     return m_copyInputChecker.PrevChar; 
+            }
+            return "";
+        } 
+    }
+
     #endregion
 
 
     #region 【MODE.INPUT】プロパティ
-    /// <summary>【MODE.INPUT】生成された文字列</summary>
-    public string StrInput {get { return m_inputEmulator.Str; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】生成された文字列</para>
+    /// <para>StrDoneと同等の値を返却します。</para>
+    /// <summary></summary>
+    public string StrInput {
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.Str;
+                case MODE.COPY:     return m_copyInputChecker.StrDone;
+            }
+            return "";
+        }
+    }
 
-    /// <summary>【MODE.INPUT】生成された、変換される前の文字列</summary>
-    public string StrRawInput {get { return m_inputEmulator.StrRaw; }}
-
-    /// <summary>【MODE.INPUT】前回入力された文字(変換前)</summary>
-    public string PrevChar {get { return m_inputEmulator.PrevChar; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】生成された、変換される前の文字列</para>
+    /// <para>StrDoneRawと同等の値を返却します。</para>
+    /// </summary>
+    public string StrRawInput {
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.StrRaw;
+                case MODE.COPY:     return m_copyInputChecker.StrDoneRaw;
+            }
+            return "";
+        }
+    }
 
     /// <summary>【MODE.INPUT】前回の入力タイプ</summary>
     public InputEmulatorResults.INPUT_TYPE InputType {get { return m_inputEmulator.InputType; }}
@@ -221,13 +270,16 @@ public class TypeModule : MonoBehaviour {
 
     /// <summary>【MODE.INPUT】文字列が変更された時のイベントリスナを削除します</summary>
     /// <param name="aEvent">イベントリスナ</param>
-    public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {m_inputEmulator.RemoveEventListenerOnChange(aEvent);}
+    public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {m_inputEmulator.RemoveEventListenerOnChange(aEvent); }
     #endregion
 
 
     #region 【MODE.COPY】プロパティ
-    /// <summary>【MODE.COPY】既に打ち終わった文字列</summary>
-    public string StrDone {get { return m_copyInputChecker.StrDone; }}
+    /// <summary>
+    /// <para>【MODE.COPY】既に打ち終わった文字列</para>
+    /// <para>StrInputと同等の値を返却します。</para>
+    /// </summary>
+    public string StrDone {get { return StrInput; }}
 
     /// <summary>【MODE.COPY】現在打っている文字</summary>
     public string StrCurrent {get { return m_copyInputChecker.StrCurrent; }}
@@ -235,8 +287,11 @@ public class TypeModule : MonoBehaviour {
     /// <summary>【MODE.COPY】まだ打っていない文字列</summary>
     public string StrYet {get { return m_copyInputChecker.StrYet; }}
 
-    /// <summary>【MODE.COPY】既に打ち終わった文字列(変換前)</summary>
-    public string StrDoneRaw {get { return m_copyInputChecker.StrDoneRaw; }}
+    /// <summary>
+    /// <para>【MODE.COPY】既に打ち終わった文字列(変換前)</para>
+    /// <para>StrRawInputと同等の値を返却します。</para>
+    /// </summary>
+    public string StrDoneRaw {get { return StrRawInput; }}
 
     /// <summary>【MODE.COPY】 現在打っている文字(変換前)</summary>
     public string StrCurrentRaw {get { return m_copyInputChecker.StrCurrentRaw; }}
@@ -244,11 +299,33 @@ public class TypeModule : MonoBehaviour {
     /// <summary>【MODE.COPY】既に打ち終わった文字列(変換前)</summary>
     public string StrYetRaw {get { return m_copyInputChecker.StrYetRaw; }}
 
-    /// <summary>【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)</summary>
-    public string PrevCorrectChar {get { return m_copyInputChecker.PrevCorrectChar; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】前回打たれた文字</para>
+    /// <para>【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)</para>
+    /// </summary>
+    public string PrevCorrectChar {
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.PrevChar; 
+                case MODE.COPY:     return m_copyInputChecker.PrevCorrectChar; 
+            }
+            return "";
+        }
+    }
 
-    /// <summary>【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)</summary>
-    public string PrevMissChar {get { return m_copyInputChecker.PrevMissChar; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】前回打たれた文字</para>
+    /// <para>【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)</para>
+    /// </summary>
+    public string PrevMissChar {
+        get {
+            switch (Mode) {
+                case MODE.INPUT: return m_inputEmulator.PrevChar;
+                case MODE.COPY: return m_copyInputChecker.PrevMissChar;
+            }
+            return "";
+        }
+    }
 
     /// <summary>【MODE.COPY】正しくタイプした数</summary>
     public int CorrectNum {get { return m_copyInputChecker.CorrectNum; }}
@@ -311,27 +388,47 @@ public class TypeModule : MonoBehaviour {
 
 
     #region インスペクタープロパティ
+    #region
     [Tooltip("文字入力判定モードです。\n" +
         "【INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。\n" +
         "【MODE_COMPARE】 :指定された文字列が正しく打ててるかを確認します。タイピングゲームで、お題の文字を真似して打たせる時に使用してください。")]
     [SerializeField, PropertyBackingField("Mode")] private MODE m_mode = MODE.INPUT;
+    #endregion
+    /// <summary>
+    /// <para>文字入力判定モードです。</para>
+    /// <para>【INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。</para>
+    /// <para>【MODE_COMPARE】 :指定された文字列が正しく打ててるかを確認します。タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</para>
+    /// </summary>
     public MODE Mode {
         get { return m_mode; }
         set { m_mode = value; }
     }
 
+    #region
     [Tooltip("現在入力を受け付けているか\n" +
        "[false]にした場合、入力チェックを行わなくなります。ポーズ時やゲーム外の時に使用してください。")]
     [SerializeField, PropertyBackingField("IsRun")] private bool m_isRun = true;
+    #endregion
+    /// <summary>
+    /// <para>現在入力を受け付けているか</para>
+    /// <para>[false]にした場合、入力チェックを行わなくなります。ポーズ時やゲーム外の時に使用してください。</para>
+    /// </summary>
     public bool IsRun {
         get { return m_isRun; }
         set { m_isRun = value; }
     }
 
+    #region
     [Tooltip("JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。\n" +
         "[INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。\n" +
         "[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2RomaCsv]から文字列生成をエミュレートします。")]
     [SerializeField, PropertyBackingField("IsKana")] private bool m_isKana = false;
+    #endregion
+    /// <summary>
+    /// <para>JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。</para>
+    /// <para>[INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。</para>
+    /// <para>[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2RomaCsv]から文字列生成をエミュレートします。</para>
+    /// </summary>
     public bool IsKana {
         get { return m_isKana; }
         set {
@@ -342,10 +439,17 @@ public class TypeModule : MonoBehaviour {
     }
 
     [Header("Modeが【INPUT】の時の設定")]
+    #region
     [Tooltip("入力モード\n" +
         "[true]英語入力モード\n" +
         "[false]日本語入力モード")]
     [SerializeField, PropertyBackingField("IsInputEng")] private bool m_isInputEng = false;
+    #endregion
+    /// <summary>
+    /// <para>入力モード</para>
+    /// <para>[true]英語入力モード</para>
+    /// <para>[false]日本語入力モード</para>
+    /// </summary>
     public bool IsInputEng {
         get { return m_isInputEng; }
         set {
@@ -354,8 +458,11 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Tooltip("BackSoaceキーを押した時、文字を消すかどうか")]
     [SerializeField, PropertyBackingField("EnabledBS")] private bool m_enabledBS = true;
+    #endregion
+    /// <summary>BackSoaceキーを押した時、文字を消すかどうか</summary>
     public bool EnabledBS {
         get { return m_enabledBS; }
         set {
@@ -364,8 +471,13 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Tooltip("Enterキーを押した時、確定前の文字列を確定するかどうか")]
     [SerializeField, PropertyBackingField("EnabledEnter")] private bool m_enabledEnter = true;
+    #endregion
+    /// <summary>
+    /// <para>Enterキーを押した時、確定前の文字列を確定するかどうか</para>
+    /// </summary>
     public bool EnabledEnter {
         get { return m_enabledEnter; }
         set {
@@ -375,13 +487,21 @@ public class TypeModule : MonoBehaviour {
     }
 
     [Header("Modeが【COPY】の時の設定")]
+    #region
     [Tooltip("比較対象の文字列(タイピングのお台文)\n" +
         "値を変更した時点で、初期化処理を自動で呼び出します。\n" +
         "また、全角半角カタカナはひらがなに、全角アルファベットは半角アルファベットに変換されます。\n" +
         "[含む事が出来る文字]: -_| -_に対応する大文字|ァ-ヴ|ぁ-ゔ\n" +
-        "含めない文字があった場合、エディタ上での実行なら例外を投げて止まります。ビルド版だとその文字が削除され、動き続けます。\n")]
-
+        "含むことのできない文字があった場合、エディタ上での実行なら例外を投げます。ビルド版だとその文字の部分だけ削除され、動き続けます。\n")]
     [SerializeField, PropertyBackingField("TargetStr")] private string m_targetStr = "";
+    #endregion
+    /// <summary>
+    /// <para>比較対象の文字列(タイピングのお台文)</para>
+    /// <para>値を変更した時点で、初期化処理を自動で呼び出します。</para>
+    /// <para>また、全角半角カタカナはひらがなに、全角アルファベットは半角アルファベットに変換されます。</para>
+    /// <para>[含む事が出来る文字]: -_| -_に対応する大文字|ァ-ヴ|ぁ-ゔ</para>
+    /// <para>含むことのできない文字があった場合、エディタ上での実行なら例外を投げます。ビルド版だとその文字の部分だけ削除され、動き続けます。</para>
+    /// </summary>
     public string TargetStr {
         get { return m_targetStr; }
         set {
@@ -392,9 +512,15 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Tooltip("英語の大文字と小文字入力を区別して判定するか\n" +
         "初期化処理が発生した時点で反映されます。")]
     [SerializeField, PropertyBackingField("IsCaseSensitive")] private bool m_isCaseSensitive = false;
+    #endregion
+    /// <summary>
+    /// <para>英語の大文字と小文字入力を区別して判定するか</para>
+    /// <para>初期化処理が発生した時点で反映されます。</para>
+    /// </summary>
     public bool IsCaseSensitive {
         get { return m_isCaseSensitive; }
         set {
@@ -405,6 +531,7 @@ public class TypeModule : MonoBehaviour {
 
     #region 詳細設定
     [Header("以下詳細設定 (指定しなくても動きます)")]
+    #region
     [Tooltip("キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
         "【Assets/Resources/TypeModule/data/KeyCode2Char/qwerty.csv】\n" +
@@ -414,6 +541,17 @@ public class TypeModule : MonoBehaviour {
         "S,115,1,0\n" +
         "s,115,0,0")]
     [SerializeField, PropertyBackingField("KeyCode2RomaCsv")] private TextAsset m_keyCode2RomaCsv;
+    #endregion
+    /// <summary>
+    /// <para>キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイル</para>
+    /// <para>明示的に指定しなかった場合、以下のファイルを読み込みます。</para>
+    /// <para>【Assets/Resources/TypeModule/data/KeyCode2Char/qwerty.csv】</para>
+    /// <para>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
+    /// <para>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction</para>
+    /// <para>例) \n</para>
+    /// <para>S,115,1,0</para>
+    /// <para>s,115,0,0</para>
+    /// </summary>
     public TextAsset KeyCode2RomaCsv {
         get { return m_keyCode2RomaCsv; }
         set {
@@ -426,15 +564,27 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Tooltip("ローマ字文字列からひらがな文字列への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
         "【Assets/Resources/TypeModule/data/Char2Kana/roma.csv】\n" +
         "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
-        "ローマ字文字列,ひらがな文字列\n" +
+        "［形式］ローマ字文字列,ひらがな文字列\n" +
         "例) \n" +
         "a,あ\n" +
         "shi,し")]
     [SerializeField, PropertyBackingField("Roma2KanaCsv")] private TextAsset m_roma2KanaCsv;
+    #endregion
+    /// <summary>
+    /// <para>ローマ字文字列からひらがな文字列への変換テーブルを定義したファイル</para>
+    /// <para>明示的に指定しなかった場合、以下のファイルを読み込みます。</para>
+    /// <para>【Assets/Resources/TypeModule/data/Char2Kana/roma.csv】</para>
+    /// <para>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
+    /// <para>［形式］ローマ字文字列,ひらがな文字列</para>
+    /// <para>例) \n</para>
+    /// <para>a,あ</para>
+    /// <para>shi,し</para>
+    /// </summary>
     public TextAsset Roma2KanaCsv {
         get { return m_roma2KanaCsv; }
         set {
@@ -445,6 +595,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Tooltip("数字と記号の、全角半角の変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
         "【Assets/Resources/TypeModule/data/Char2Kana/nummark.csv】\n" +
@@ -454,6 +605,17 @@ public class TypeModule : MonoBehaviour {
         ".,。\n" +
         "?,？")]
     [SerializeField, PropertyBackingField("NumMarkCsv")] private TextAsset m_numMarkCsv;
+    #endregion
+    /// <summary>
+    /// <para>数字と記号の、全角半角の変換テーブルを定義したファイル</para>
+    /// <para>明示的に指定しなかった場合、以下のファイルを読み込みます。</para>
+    /// <para>【Assets/Resources/TypeModule/data/Char2Kana/nummark.csv】</para>
+    /// <para>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
+    /// <para>［形式］半角文字,全角文字</para>
+    /// <para>例) \n</para>
+    /// <para>.,。</para>
+    /// <para>?,？</para>
+    /// </summary>
     public TextAsset NumMarkCsv {
         get { return m_numMarkCsv; }
         set {
@@ -464,6 +626,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Space(10)]
     [Tooltip("キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイル\n" +
         "JISかな入力など、日本語を直接入力する方式を使用する際に参照します。\n" +
@@ -476,6 +639,19 @@ public class TypeModule : MonoBehaviour {
         "ぬ,49,1,0 \n" +
         "ふ,50,0,0")]
     [SerializeField, PropertyBackingField("KeyCode2KanaMidCsv")] private TextAsset m_keyCode2KanaMidCsv;
+    #endregion
+    /// <summary>
+    /// <para>キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイル</para>
+    /// <para>JISかな入力など、日本語を直接入力する方式を使用する際に参照します。</para>
+    /// <para>明示的に指定しなかった場合、以下のファイルを読み込みます。</para>
+    /// <para>【Assets/Resources/TypeModule/data/KeyCode2Char/JISkana.csv】</para>
+    /// <para>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
+    /// <para>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction</para>
+    /// <para>例) \n</para>
+    /// <para>ぬ,49,0,0</para>
+    /// <para>ぬ,49,1,0</para>
+    /// <para>ふ,50,0,0</para>
+    /// </summary>
     public TextAsset KeyCode2KanaMidCsv {
         get { return m_keyCode2KanaMidCsv; }
         set {
@@ -486,6 +662,7 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Tooltip("ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイル\n" +
         "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
         "【Assets/Resources/TypeModule/data/Char2Kana/JISkana.csv】\n" +
@@ -495,6 +672,17 @@ public class TypeModule : MonoBehaviour {
         "か゛,が\n" +
         "き゛,ぎ")]
     [SerializeField, PropertyBackingField("KanaMid2KanaCsv")] private TextAsset m_kanaMid2KanaCsv;
+    #endregion
+    /// <summary>
+    /// <para>ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイル</para>
+    /// <para>明示的に指定しなかった場合、以下のファイルを読み込みます。</para>
+    /// <para>【Assets/Resources/TypeModule/data/Char2Kana/JISkana.csv】</para>
+    /// <para>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
+    /// <para>［形式］ひらがな中間文字列,ひらがな文字列</para>
+    /// <para>例) \n</para>
+    /// <para>か゛,が</para>
+    /// <para>き゛,ぎ</para>
+    /// </summary>
     public TextAsset KanaMid2KanaCsv {
         get { return m_kanaMid2KanaCsv; }
         set {
@@ -505,10 +693,16 @@ public class TypeModule : MonoBehaviour {
         }
     }
 
+    #region
     [Space(10)]
     [Tooltip("CapsLockの状態を反映させるかどうか。\n" +
        "[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。")]
     [SerializeField, PropertyBackingField("EnabledCapsLock")] private bool m_enabledCapsLock = true;
+    #endregion
+    /// <summary>
+    /// <para>CapsLockの状態を反映させるかどうか。</para>
+    /// <para>[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。</para>
+    /// </summary>
     public bool EnabledCapsLock {
         get { return m_enabledCapsLock; }
         set {
@@ -560,9 +754,6 @@ public class TypeModule : MonoBehaviour {
         CreateCopyInputChecker();
     }
 
-    void Update() {
-    }
-
     private void OnGUI() {
         if (IsRun && Event.current.type == EventType.KeyDown) {
             switch (Mode) {
@@ -579,4 +770,6 @@ public class TypeModule : MonoBehaviour {
     InputEmulator m_inputEmulator;
     CopyInputChecker m_copyInputChecker;
     #endregion
+}
+
 }

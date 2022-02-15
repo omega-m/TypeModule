@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace tpInner {
+namespace TypeModule {
+namespace Inner {
 
 
     /// <summary>数字と記号の、全角と半角を変換する為のテーブルを管理するクラスです。</summary>
     /// /// <example><code>
-    /// using tpInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -124,4 +125,5 @@ namespace tpInner {
         private SortedDictionary<string, string> m_zen2Han = new SortedDictionary<string, string>();
         #endregion
     }
+}
 }

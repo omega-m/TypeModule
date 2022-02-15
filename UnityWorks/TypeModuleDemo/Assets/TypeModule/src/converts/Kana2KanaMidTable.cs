@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace tpInner {
+
+namespace TypeModule { 
+namespace Inner {
 
     /// <summary>
     /// <para>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</para>
     /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
     /// </summary>
     /// <example><code>
-    /// using tpInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -23,7 +25,7 @@ namespace tpInner {
     /// Debug.Log(table.TryConvert("ぱ", out outCvt));           // true
     /// 
     /// </code></example>
-    public class Kana2KanaMidTable{
+    public class Kana2KanaMidTable {
 
 
         #region 生成
@@ -43,7 +45,6 @@ namespace tpInner {
         /// <summary>ひらがな文字列から変換できる、ひらがな中間文字列があるか。</summary>
         /// <param name="aKana">ひらかな文字列</param>
         /// <param name="aOutKanaMid">(変換できる場合)変換先ひらがな中間文字列</param>
-        /// </param>
         /// <returns>true:打つことができる文字列がある</returns>
         public bool TryConvert(string aKana, out string aOutKanaMid) {
             return m_table.TryGetValue(aKana, out aOutKanaMid);
@@ -52,7 +53,7 @@ namespace tpInner {
 
 
         #region プロパティ
-        /// <summaryひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
+        /// <summary>ひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
         public int KanaMidMaxLength { get; private set; }
 
         /// <summary>
@@ -90,5 +91,5 @@ namespace tpInner {
         private Dictionary<string, string> m_table;     //SortedDictionaryだと、なぜか 「は゜」「は゛」が同じキーとして認識されてエラーが出る
         #endregion
     }
-
+}
 }

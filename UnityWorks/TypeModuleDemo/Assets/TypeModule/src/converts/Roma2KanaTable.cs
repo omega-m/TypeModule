@@ -3,7 +3,8 @@ using UnityEngine;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace tpInner {
+namespace TypeModule {
+namespace Inner {
 
     #region メモ
     // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
@@ -19,7 +20,7 @@ namespace tpInner {
 
     /// <summary>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using tpInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -84,6 +85,7 @@ namespace tpInner {
         ///</param>
         public Roma2KanaTable(in TextAsset aCSV){
             CreateTree(aCSV);
+            m_romaMaxLength = m_treeRoot.GetRomaMaxLength(); 
         }
         #endregion
 
@@ -125,7 +127,7 @@ namespace tpInner {
             return false;
         }
 
-        /// <summaryローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧を取得します。(ソート済み)</summary>
+        /// <summary>ローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧を取得します。(ソート済み)</summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
         /// <returns>true:追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧</returns>
         public List<string> GetPossibilityKanas(string aRoma)
@@ -149,11 +151,9 @@ namespace tpInner {
 
 
         #region プロパティ
-
+        private int m_romaMaxLength = 0;
         /// <summary>ひらがな文字列に変換できるローマ字列の最大文字数</summary>
-        public int RomaMaxLength{
-            get { return m_treeRoot.GetRomaMaxLength(); }
-        }
+        public int RomaMaxLength{get { return m_romaMaxLength; }}
         #endregion
 
 
@@ -200,7 +200,7 @@ namespace tpInner {
 
     /// <summary>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</summary>
     /// <example><code>
-    /// using tpInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -386,4 +386,5 @@ namespace tpInner {
         }
         #endregion
     }
+}
 }

@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace tpInner {
+namespace TypeModule {
+namespace Inner {
 
     /// <summary>
     /// <para>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</para>
-    /// <para></para>お台文からガイド用のローマ字列を作成する時などに使用</para>
+    /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
     /// </summary>
     /// <example><code>
-    /// using tpInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -51,11 +52,11 @@ namespace tpInner {
             List<string> romaList;
             if (!m_table.TryGetValue(aKana, out romaList)) { return ""; }
 
-            if(aRomaStart.Length == 0) {
+            if (aRomaStart.Length == 0) {
                 return romaList[0];
             }
-            foreach(string roma in romaList) {
-                if(string.Compare(roma,0,  aRomaStart, 0, aRomaStart.Length) == 0) {
+            foreach (string roma in romaList) {
+                if (string.Compare(roma, 0, aRomaStart, 0, aRomaStart.Length) == 0) {
                     return roma;
                 }
             }
@@ -69,11 +70,11 @@ namespace tpInner {
         /// <para>(ひらがなに対応するローマ字文字列は数種類ある為、先頭部分を指定して絞り込みたい時に使用)</para>
         /// </param>
         /// <returns>true:打つことができる文字列がある</returns>
-        public bool TryConvert(string aKana,out string aOutRoma, string aRomaStart = "") {
+        public bool TryConvert(string aKana, out string aOutRoma, string aRomaStart = "") {
             aOutRoma = "";
             List<string> romaList;
             if (!m_table.TryGetValue(aKana, out romaList)) {
-                return false; 
+                return false;
             }
 
             if (aRomaStart.Length == 0) {
@@ -94,7 +95,7 @@ namespace tpInner {
         #region プロパティ
         /// <summary>ローマ字列に変換できるひらがな文字列の最大文字数</summary>
         public int KanaMaxLength { get; private set; }
-        #endregion 
+        #endregion
 
 
         #region 内部メソッド
@@ -113,17 +114,18 @@ namespace tpInner {
                 if (!m_table.TryGetValue(record[CSV_KANA_FIELD], out romaList)) {
                     m_table.Add(record[CSV_KANA_FIELD], new List<string>());
                     KanaMaxLength = Mathf.Max(KanaMaxLength, record[CSV_KANA_FIELD].Length);
-                    
+
                     romaList = m_table[record[CSV_KANA_FIELD]];
                 }
                 romaList.Add(record[CSV_ROMA_FIELD].ToLower());
             }
         }
         #endregion
-     
+
 
         #region メンバ
         private SortedDictionary<string, List<string>> m_table;
         #endregion
     }
+}
 }
