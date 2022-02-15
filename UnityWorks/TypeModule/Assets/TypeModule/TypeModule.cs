@@ -196,18 +196,51 @@ public class TypeModule : MonoBehaviour {
             return new Event();
         }
     }
+
+    /// <summary>
+    /// 前回入力された文字(変換前)
+    /// </summary>
+    public string PrevChar { 
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.PrevChar;
+                case MODE.COPY:     return m_copyInputChecker.PrevChar; 
+            }
+            return "";
+        } 
+    }
+
     #endregion
 
 
     #region 【MODE.INPUT】プロパティ
-    /// <summary>【MODE.INPUT】生成された文字列</summary>
-    public string StrInput {get { return m_inputEmulator.Str; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】生成された文字列</para>
+    /// <para>StrDoneと同等の値を返却します。</para>
+    /// <summary></summary>
+    public string StrInput {
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.Str;
+                case MODE.COPY:     return m_copyInputChecker.StrDone;
+            }
+            return "";
+        }
+    }
 
-    /// <summary>【MODE.INPUT】生成された、変換される前の文字列</summary>
-    public string StrRawInput {get { return m_inputEmulator.StrRaw; }}
-
-    /// <summary>【MODE.INPUT】前回入力された文字(変換前)</summary>
-    public string PrevChar {get { return m_inputEmulator.PrevChar; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】生成された、変換される前の文字列</para>
+    /// <para>StrDoneRawと同等の値を返却します。</para>
+    /// </summary>
+    public string StrRawInput {
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.StrRaw;
+                case MODE.COPY:     return m_copyInputChecker.StrDoneRaw;
+            }
+            return "";
+        }
+    }
 
     /// <summary>【MODE.INPUT】前回の入力タイプ</summary>
     public InputEmulatorResults.INPUT_TYPE InputType {get { return m_inputEmulator.InputType; }}
@@ -235,13 +268,16 @@ public class TypeModule : MonoBehaviour {
 
     /// <summary>【MODE.INPUT】文字列が変更された時のイベントリスナを削除します</summary>
     /// <param name="aEvent">イベントリスナ</param>
-    public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {m_inputEmulator.RemoveEventListenerOnChange(aEvent);}
+    public void RemoveEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {m_inputEmulator.RemoveEventListenerOnChange(aEvent); }
     #endregion
 
 
     #region 【MODE.COPY】プロパティ
-    /// <summary>【MODE.COPY】既に打ち終わった文字列</summary>
-    public string StrDone {get { return m_copyInputChecker.StrDone; }}
+    /// <summary>
+    /// <para>【MODE.COPY】既に打ち終わった文字列</para>
+    /// <para>StrInputと同等の値を返却します。</para>
+    /// </summary>
+    public string StrDone {get { return StrInput; }}
 
     /// <summary>【MODE.COPY】現在打っている文字</summary>
     public string StrCurrent {get { return m_copyInputChecker.StrCurrent; }}
@@ -249,8 +285,11 @@ public class TypeModule : MonoBehaviour {
     /// <summary>【MODE.COPY】まだ打っていない文字列</summary>
     public string StrYet {get { return m_copyInputChecker.StrYet; }}
 
-    /// <summary>【MODE.COPY】既に打ち終わった文字列(変換前)</summary>
-    public string StrDoneRaw {get { return m_copyInputChecker.StrDoneRaw; }}
+    /// <summary>
+    /// <para>【MODE.COPY】既に打ち終わった文字列(変換前)</para>
+    /// <para>StrRawInputと同等の値を返却します。</para>
+    /// </summary>
+    public string StrDoneRaw {get { return StrRawInput; }}
 
     /// <summary>【MODE.COPY】 現在打っている文字(変換前)</summary>
     public string StrCurrentRaw {get { return m_copyInputChecker.StrCurrentRaw; }}
@@ -258,11 +297,33 @@ public class TypeModule : MonoBehaviour {
     /// <summary>【MODE.COPY】既に打ち終わった文字列(変換前)</summary>
     public string StrYetRaw {get { return m_copyInputChecker.StrYetRaw; }}
 
-    /// <summary>【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)</summary>
-    public string PrevCorrectChar {get { return m_copyInputChecker.PrevCorrectChar; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】前回打たれた文字</para>
+    /// <para>【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)</para>
+    /// </summary>
+    public string PrevCorrectChar {
+        get {
+            switch (Mode) {
+                case MODE.INPUT:    return m_inputEmulator.PrevChar; 
+                case MODE.COPY:     return m_copyInputChecker.PrevCorrectChar; 
+            }
+            return "";
+        }
+    }
 
-    /// <summary>【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)</summary>
-    public string PrevMissChar {get { return m_copyInputChecker.PrevMissChar; }}
+    /// <summary>
+    /// <para>【MODE.INPUT】前回打たれた文字</para>
+    /// <para>【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)</para>
+    /// </summary>
+    public string PrevMissChar {
+        get {
+            switch (Mode) {
+                case MODE.INPUT: return m_inputEmulator.PrevChar;
+                case MODE.COPY: return m_copyInputChecker.PrevMissChar;
+            }
+            return "";
+        }
+    }
 
     /// <summary>【MODE.COPY】正しくタイプした数</summary>
     public int CorrectNum {get { return m_copyInputChecker.CorrectNum; }}

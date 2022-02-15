@@ -111,6 +111,14 @@ public class CopyInputCheckerResults {
         }
     }
 
+    /// <summary>前回入力された文字</summary>
+    public string PrevChar { 
+        get {
+            if (Dirty) { CreateChche(); }
+            return m_prevCharCache; 
+        } 
+    }
+
     /// <summary>前回正しく入力された文字(ミスした時は空文字列)</summary>
     public string PrevCorrectChar {get {return m_params.m_prevCorrectChar;}}
 
@@ -178,6 +186,11 @@ public class CopyInputCheckerResults {
             m_strYetRawCache += r;
         }
 
+        m_prevCharCache = "";
+        switch (InnerEvent) {
+            case INNER_EVENT_TYPE.CORRECT:  m_prevCharCache = PrevCorrectChar;break;
+            case INNER_EVENT_TYPE.MISS:     m_prevCharCache = PrevMissChar;break;
+        }
         Dirty = false;
     }
     #endregion
@@ -190,6 +203,7 @@ public class CopyInputCheckerResults {
     private string m_strYetCache = "";
     private string m_strDoneRawCache = "";
     private string m_strYetRawCache = "";
+    private string m_prevCharCache = "";
     #endregion
 }
 
@@ -293,8 +307,9 @@ namespace TypeModuleInner {
     ///     ...
     ///     
     /// //直前に入力された文字を取得
-    /// Debug.Log(checker.PrevCorrectChar);         //正しく入力された場合
-    /// Debug.Log(checker.PrevMissChar);            //ミス入力の場合
+    /// Debug.Log(checker.PrevChar);         
+    /// Debug.Log(checker.PrevCorrectChar);         //正しく入力された場合格納
+    /// Debug.Log(checker.PrevMissChar);            //ミス入力の場合格納
     /// 
     /// //その他パラメータにアクセス
     /// Debug.Log(checker.CorrectNum);              //正しくタイプした数
@@ -525,6 +540,9 @@ namespace TypeModuleInner {
 
         /// <summary>既に打ち終わった文字列(変換前)</summary>
         public string StrYetRaw {get { return m_results.StrYetRaw; }}
+
+        /// <summary>前回入力された文字</summary>
+        public string PrevChar { get { return m_results.PrevChar; } }
 
         /// <summary>前回正しく入力された文字(ミスした時は空文字列)</summary>
         public string PrevCorrectChar {get { return m_results.PrevCorrectChar; }}
