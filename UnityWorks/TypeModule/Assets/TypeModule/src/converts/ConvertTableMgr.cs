@@ -138,7 +138,6 @@ namespace Inner {
 
 
         private bool m_enabledCapsLock = true;
-
         ///<summary>
         ///<para>CapsLockの状態を反映させるかどうか。</para>
         ///<para>[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。</para>

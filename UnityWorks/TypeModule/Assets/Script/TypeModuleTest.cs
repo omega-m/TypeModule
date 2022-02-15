@@ -11,8 +11,14 @@ public class TypeModuleTest : MonoBehaviour{
     #region Unity共通処理
     void Start(){
         if (IsTest) {
+            //Util=================
             TestUtil();
             TestCsvReadHelper();
+
+            //Converts=================
+            TestConvertTableMgr();
+            TestKana2KanaMidTable();
+            TestKana2RomaTable();
         }
     }
 
@@ -25,7 +31,7 @@ public class TypeModuleTest : MonoBehaviour{
     /// <summary>Util テスト</summary>
     void TestUtil() {
         
-        Debug.Log("TestUtil");
+        Debug.Log("Test Util");
         Debug.Assert(string.Compare(Util.KatakanaToHiragana("あいうえおかきくけこばぴゔんー"), "あいうえおかきくけこばぴゔんー") == 0);
         Debug.Assert(string.Compare(Util.KatakanaToHiragana("アイウエオカキクケコバピヴンー"), "あいうえおかきくけこばぴゔんー") == 0);
         Debug.Assert(string.Compare(Util.KatakanaToHiragana("ｱｲｳｴｵｶｷｸｹｺﾊﾞﾋﾟｳﾞﾝｰ"), "あいうえおかきくけこばぴゔんー") == 0);
@@ -332,6 +338,249 @@ public class TypeModuleTest : MonoBehaviour{
                 dummy = d;
             }
         }
+    }
+
+    /// <summary>ConvertTableMgr テスト</summary>
+    void TestConvertTableMgr() {
+        Debug.Log("Test ConvertTableMgr");
+
+        ConvertTableMgr cvt = new ConvertTableMgr();
+        Debug.Assert(cvt.Key2Roma != null);
+        Debug.Assert(cvt.Roma2Kana != null);
+        Debug.Assert(cvt.Kana2Roma != null);
+        Debug.Assert(cvt.Key2kanaMid != null);
+        Debug.Assert(cvt.KanaMid2Kana != null);
+        Debug.Assert(cvt.Kana2KanaMid != null);
+        Debug.Assert(cvt.Key2Roma != null);
+        Debug.Assert(cvt.NumMarkTable != null);
+
+        cvt.EnabledCapsLock = true;
+        cvt.EnabledCapsLock = false;
+    }
+
+    /// <summary>Kana2KanaMidTable テスト</summary>
+    void TestKana2KanaMidTable() {
+        Debug.Log("Test Kana2KanaMidTable");
+        ConvertTableMgr cvt = new ConvertTableMgr();
+        Kana2KanaMidTable table = cvt.Kana2KanaMid;
+
+        string outCvt = "";
+        Debug.Assert(table.TryConvert("あ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt) == false);
+        Debug.Assert(table.TryConvert("が", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "か゛") == 0);
+        Debug.Assert(table.TryConvert("ぱ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "は゛") == 0);
+        Debug.Assert(table.TryConvert("ぱ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "は゜") == 0);
+        Debug.Assert(table.TryConvert("ゔ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "う゛") == 0);
+        Debug.Assert(table.TryConvert("ぱば", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ゔあ", out outCvt) == false);
+
+        Debug.Assert(table.TryConvert("0", out outCvt) == false);
+        Debug.Assert(table.TryConvert("9", out outCvt) == false);
+        Debug.Assert(table.TryConvert("A", out outCvt) == false);
+        Debug.Assert(table.TryConvert("z", out outCvt) == false);
+        Debug.Assert(table.TryConvert("漢", out outCvt) == false);
+        Debug.Assert(table.TryConvert("０", out outCvt) == false);
+        Debug.Assert(table.TryConvert("９", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ａ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("Ｚ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ア", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ン", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ヴ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｱ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｳ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ﾝ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt) == false);
+        Debug.Assert(table.TryConvert("-", out outCvt) == false);
+        Debug.Assert(table.TryConvert("!", out outCvt) == false);
+        Debug.Assert(table.TryConvert("*", out outCvt) == false);
+        Debug.Assert(table.TryConvert("－", out outCvt) == false);
+        Debug.Assert(table.TryConvert("！", out outCvt) == false);
+        Debug.Assert(table.TryConvert("＊", out outCvt) == false);
+        Debug.Assert(table.TryConvert("「", out outCvt) == false);
+        Debug.Assert(table.TryConvert("」", out outCvt) == false);
+        Debug.Assert(table.TryConvert("　", out outCvt) == false);
+        Debug.Assert(table.TryConvert(" ", out outCvt) == false);
+
+        Debug.Assert(table.KanaMaxLength > 0);
+        Debug.Assert(table.KanaMidMaxLength > 0);
+    }
+
+    /// <summary>Kana2RomaTable テスト</summary>
+    void TestKana2RomaTable() {
+        Debug.Log("Test Kana2RomaTable");
+        ConvertTableMgr cvt = new ConvertTableMgr();
+        Kana2RomaTable table = cvt.Kana2Roma;
+
+        string outCvt = "";
+        Debug.Assert(table.TryConvert("あ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "a") == 0);
+        Debug.Assert(table.TryConvert("ん", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "nn") == 0);
+        Debug.Assert(table.TryConvert("ぱ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "pa") == 0);
+        Debug.Assert(table.TryConvert("ゔ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "vu") == 0);
+        Debug.Assert(table.TryConvert("ー", out outCvt) == false);
+        Debug.Assert(table.TryConvert("は゛", out outCvt) == true);//TryGetValue内部で「ば」として判定するみたい
+        Debug.Assert(string.Compare(outCvt, "ba") == 0);
+        Debug.Assert(table.TryConvert("ばば", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ゔあ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ぎゃ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "gya") == 0);
+
+        Debug.Assert(table.TryConvert("0", out outCvt) == false);
+        Debug.Assert(table.TryConvert("9", out outCvt) == false);
+        Debug.Assert(table.TryConvert("A", out outCvt) == false);
+        Debug.Assert(table.TryConvert("z", out outCvt) == false);
+        Debug.Assert(table.TryConvert("漢", out outCvt) == false);
+        Debug.Assert(table.TryConvert("０", out outCvt) == false);
+        Debug.Assert(table.TryConvert("９", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ａ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("Ｚ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ア", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ン", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ヴ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｱ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｳ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ﾝ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt) == false);
+        Debug.Assert(table.TryConvert("-", out outCvt) == false);
+        Debug.Assert(table.TryConvert("!", out outCvt) == false);
+        Debug.Assert(table.TryConvert("*", out outCvt) == false);
+        Debug.Assert(table.TryConvert("－", out outCvt) == false);
+        Debug.Assert(table.TryConvert("！", out outCvt) == false);
+        Debug.Assert(table.TryConvert("＊", out outCvt) == false);
+        Debug.Assert(table.TryConvert("「", out outCvt) == false);
+        Debug.Assert(table.TryConvert("」", out outCvt) == false);
+        Debug.Assert(table.TryConvert("　", out outCvt) == false);
+        Debug.Assert(table.TryConvert(" ", out outCvt) == false);
+
+        Debug.Assert(table.TryConvert("あ", out outCvt, "i") == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt, "n") == true);
+        Debug.Assert(string.Compare(outCvt, "nn") == 0);
+        Debug.Assert(table.TryConvert("ん", out outCvt, "xn") == true);
+        Debug.Assert(string.Compare(outCvt, "xn") == 0);
+        Debug.Assert(table.TryConvert("い", out outCvt, "i") == true);
+        Debug.Assert(string.Compare(outCvt, "i") == 0);
+        Debug.Assert(table.TryConvert("ゔ", out outCvt, "va") == false);
+        Debug.Assert(table.TryConvert("ちゃ", out outCvt, "tya") == true);
+        Debug.Assert(string.Compare(outCvt, "tya") == 0);
+        Debug.Assert(table.TryConvert("ちゃ", out outCvt, "t") == true);
+        Debug.Assert(string.Compare(outCvt, "tya") == 0);
+        Debug.Assert(table.TryConvert("ちゃ", out outCvt, "c") == true);
+        Debug.Assert(string.Compare(outCvt, "cha") == 0);
+        Debug.Assert(table.TryConvert("ばば", out outCvt, "a") == false);
+        Debug.Assert(table.TryConvert("ゔあ", out outCvt, "a") == false);
+        Debug.Assert(table.TryConvert("ぎゃ", out outCvt, "a") == false);
+
+        Debug.Assert(table.TryConvert("0", out outCvt, "a") == false);
+        Debug.Assert(table.TryConvert("9", out outCvt, "a") == false);
+        Debug.Assert(table.TryConvert("A", out outCvt, "a") == false);
+        Debug.Assert(table.TryConvert("z", out outCvt, "a") == false);
+        Debug.Assert(table.TryConvert("漢", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("０", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("９", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("ａ", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("Ｚ", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("ア", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("ン", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("ヴ", out outCvt, "hoge") == false);
+        Debug.Assert(table.TryConvert("ｱ", out outCvt, "1") == false);
+        Debug.Assert(table.TryConvert("ｳ", out outCvt, "1") == false);
+        Debug.Assert(table.TryConvert("ﾝ", out outCvt, "1") == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt, "3") == false);
+        Debug.Assert(table.TryConvert("-", out outCvt, "あ") == false);
+        Debug.Assert(table.TryConvert("!", out outCvt, "あ") == false);
+        Debug.Assert(table.TryConvert("*", out outCvt, "あ") == false);
+        Debug.Assert(table.TryConvert("－", out outCvt, "ch") == false);
+        Debug.Assert(table.TryConvert("！", out outCvt, "ch") == false);
+        Debug.Assert(table.TryConvert("＊", out outCvt, "ch") == false);
+        Debug.Assert(table.TryConvert("「", out outCvt, "ch") == false);
+        Debug.Assert(table.TryConvert("」", out outCvt, "ch") == false);
+        Debug.Assert(table.TryConvert("　", out outCvt, "ch") == false);
+        Debug.Assert(table.TryConvert(" ", out outCvt) == false);
+
+        Debug.Assert(string.Compare(table.Convert("あ"), "a") == 0);
+        Debug.Assert(string.Compare(table.Convert("ん"), "nn") == 0);
+        Debug.Assert(string.Compare(table.Convert("ぱ"), "pa") == 0);
+        Debug.Assert(string.Compare(table.Convert("ゔ"), "vu") == 0);
+        Debug.Assert(string.Compare(table.Convert("ー"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("は゛"), "ba") == 0); //TryGetValue内部で「ば」として判定するみたい
+        Debug.Assert(string.Compare(table.Convert("ばば"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ゔあ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ぎゃ"), "gya") == 0);
+
+        Debug.Assert(string.Compare(table.Convert("0"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("9"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("A"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("z"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("漢"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("０"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("９"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ａ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("Ｚ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ア"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ン"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ヴ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ｱ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ｳ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ﾝ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ー"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("-"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("!"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("*"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("－"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("！"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("＊"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("「"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("」"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("　"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert(" "), "") == 0);
+
+        Debug.Assert(string.Compare(table.Convert("あ", "i"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ん", "n"), "nn") == 0);
+        Debug.Assert(string.Compare(table.Convert("ん", "xn"), "xn") == 0);
+        Debug.Assert(string.Compare(table.Convert("い", "i"), "i") == 0);
+        Debug.Assert(string.Compare(table.Convert("ゔ", "va"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ちゃ", "tya"), "tya") == 0);
+        Debug.Assert(string.Compare(table.Convert("ちゃ", "t"), "tya") == 0);
+        Debug.Assert(string.Compare(table.Convert("ちゃ", "c"), "cha") == 0);
+        Debug.Assert(string.Compare(table.Convert("ばば", "a"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ゔあ", "a"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ぎゃ", "a"), "") == 0);
+
+        Debug.Assert(string.Compare(table.Convert("0", "a"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("9", "a"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("A", "a"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("z", "a"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("漢", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("０", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("９", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ａ", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("Ｚ", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ア", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ン", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ヴ", "hoge"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ｱ", "1"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ｳ", "1"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ﾝ", "1"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("ー", "3"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("-", "あ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("!", "あ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("*", "あ"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("－", "ch"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("！", "ch"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("＊", "ch"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("「", "ch"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("」", "ch"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert("　", "ch"), "") == 0);
+        Debug.Assert(string.Compare(table.Convert(" "), "") == 0);
+
+        Debug.Assert(table.KanaMaxLength > 0);
     }
     #endregion
 
