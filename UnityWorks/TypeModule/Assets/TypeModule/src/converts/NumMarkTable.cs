@@ -66,17 +66,6 @@ namespace Inner {
             return ret;
         }
 
-        ///<summary>数字と記号を半角から全角に変換します。</summary>
-        ///<param name="aHankaku">半角文字</param>
-        ///<returns>半角を全角に変換した文字</returns>
-        public string HanToZen(string aHankaku) {
-            string ret = "";
-            if(m_han2Zen.TryGetValue(aHankaku, out ret)) {
-                return ret;
-            }
-            return "";
-        }
-
         /// <summary>数字と記号を全角から半角に変換できるかをチェックし、変換できる場合はaOutHankakuに格納</summary>
         /// <param name="aZenkaku">全角文字</param>
         /// <param name="aOutHankaku">(変換可能な場合)全角を半角に変換した文字を格納</param>
@@ -89,17 +78,6 @@ namespace Inner {
             }
             aOutHankaku = str;
             return ret;
-        }
-
-        ///<summary>数字と記号を全角から半角に変換します。</summary>
-        ///<param name="aZenkaku">全角文字</param>
-        ///<returns>全角を半角に変換した文字</returns>
-        public string ZenToHan(string aZenkaku) {
-            string ret = "";
-            if (m_zen2Han.TryGetValue(aZenkaku, out ret)) {
-                return ret;
-            }
-            return "";
         }
         #endregion
 

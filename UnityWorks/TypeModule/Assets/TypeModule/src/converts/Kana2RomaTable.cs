@@ -42,27 +42,6 @@ namespace Inner {
 
 
         #region メソッド
-        /// <summary>ひらがな文字列[aKana]から変換できるローマ字文字列を取得。</summary>
-        /// <param name="aKana">ひらかな文字列</param>
-        /// <param name="aRomaStart">変換先ローマ字文字列の先頭部分を指定
-        /// <para>(ひらがなに対応するローマ字文字列は数種類ある為、先頭部分を指定して絞り込みたい時に使用)</para>
-        /// </param>
-        /// <returns>ローマ字文字列、変換できない場合は空文字列</returns>
-        public string Convert(string aKana, string aRomaStart = "") {
-            List<string> romaList;
-            if (!m_table.TryGetValue(aKana, out romaList)) { return ""; }
-
-            if (aRomaStart.Length == 0) {
-                return romaList[0];
-            }
-            foreach (string roma in romaList) {
-                if (string.Compare(roma, 0, aRomaStart, 0, aRomaStart.Length) == 0) {
-                    return roma;
-                }
-            }
-            return "";
-        }
-
         /// <summary>ひらがな文字列[aKana]から変換できるローマ字文字列があるか</summary>
         /// <param name="aKana">ひらかな文字列</param>
         /// <param name="aOutRoma">(変換できる場合)変換先ローマ字文字列</param>

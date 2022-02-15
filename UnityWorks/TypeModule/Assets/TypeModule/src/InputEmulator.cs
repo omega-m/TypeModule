@@ -332,12 +332,13 @@ namespace Inner {
                     }
 
                     while (p.m_strWork.Length > 0) {
-                        if (cvt.Roma2Kana.CanConvert(p.m_strWork)) {
-                            p.m_strDone.Add(cvt.Roma2Kana.Convert(p.m_strWork));
+                        string outKana = "";
+                        if(cvt.Roma2Kana.TryConvert(p.m_strWork, out outKana)){
+                            p.m_strDone.Add(outKana);
                             p.m_strDoneRaws.Add(p.m_strWork);
                             p.m_strWork = "";
                             break;
-                        } else if (cvt.Roma2Kana.CanConvert(p.m_strWork, true)) {
+                        } else if (cvt.Roma2Kana.HasPossibility(p.m_strWork)) {
                             break;
                         }
 

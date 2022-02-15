@@ -15,14 +15,6 @@ namespace Inner {
     /// KanaMid2KanaTable table = new KanaMid2KanaTable(in csvSrc);
     /// 
     /// 
-    /// //ひらがなの中間文字列から、ひらがな文字列に変換
-    /// Debug.Log(table.Convert("あ"));     //""
-    /// Debug.Log(table.Convert("か゛"));   //"が"
-    /// Debug.Log(table.Convert("か"));     //""
-    /// Debug.Log(table.Convert("は"));     //""
-    /// Debug.Log(table.Convert("は゛"));   //"ば"
-    ///
-    /// 
     /// //ひらがなの中間文字列から、変換できるひらがながあるかを取得
     /// string outCvt;
     /// Debug.Log(table.TryConvert("あ", out outCvt));          // false
@@ -32,14 +24,6 @@ namespace Inner {
     /// Debug.Log(table.TryConvert("か", out outCvt, true));    // true
     /// Debug.Log(table.TryConvert("か゛", out outCvt, true));  // true
     /// 
-    /// 
-    /// //ひらがなの中間文字列から、指定したひらがな文字列へ変換できるかどうかを取得
-    /// Debug.Log(table.CanConvert("は゛", "ば"));            //true
-    /// Debug.Log(table.CanConvert("は゛", "は"));            //false
-    /// Debug.Log(table.CanConvert("は", "ば"));              //false
-    /// //将来打てる可能性があるかもチェック
-    /// Debug.Log(table.CanConvert("は", "ば", true));        //true
-    ///
     /// </code></example>
     public class KanaMid2KanaTable {
 
@@ -58,15 +42,6 @@ namespace Inner {
 
 
         #region メソッド
-        /// <summary>ひらがなの中間文字列[aKanaMid]から変換できるひらがな文字列を取得。</summary>
-        /// <param name="aKanaMid">ひらかな中間文字列</param>
-        /// <returns>ひらがな文字列、変換できない場合は空文字列</returns>
-        public string Convert(string aKanaMid) {
-            string ret;
-            if (!m_mid2Kana.TryGetValue(aKanaMid, out ret)) { return ""; }
-            return ret;
-        }
-
         /// <summary>ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがな文字列があるか</summary>
         /// <param name="aKanaMid">ひらかな中間文字列</param>
         /// <param name="aOutKana">(変換できる場合)変換先ひらがな文字列</param>
@@ -84,27 +59,6 @@ namespace Inner {
                 if (m_mid2Kana.TryGetValue(aKanaMid + "゛", out aOutKana)) {
                     return true;
                 }
-            }
-            return false;
-        }
-
-        /// <summary>ひらがなの中間文字列[aKanaMid]に対して、ひらがな文字列[aKana]を打つことができるか</summary>
-        /// <param name="aKanaMid">ひらがなの中間文字列(例:さ゛)</param>
-        /// <param name="aKana">ひらがな文字列(例:ざ)</param>
-        /// <param name="aIsPossibility">true:[aKanaMid]に、追加でひらがなの中間文字列を足すことで、打つ方法があるかもチェックする</param>
-        /// <returns>true:打つことができる</returns>
-        public bool CanConvert(string aKanaMid, string aKana, bool aIsPossibility = false) {
-            string kanaTmp;
-            if (m_mid2Kana.TryGetValue(aKanaMid, out kanaTmp)) {
-                return (string.Compare(kanaTmp, aKana) == 0);
-            }
-            if (aIsPossibility) {
-                string midTmp;
-                if (!m_Kana2Mid.TryGetValue(aKana, out midTmp)) {
-                    return false;
-                }
-                int cmpLen = aKanaMid.Length;
-                return (string.Compare(midTmp, 0, aKanaMid, 0, cmpLen) == 0);
             }
             return false;
         }

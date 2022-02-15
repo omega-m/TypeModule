@@ -6,74 +6,66 @@ using System.Text.RegularExpressions;
 namespace TypeModule {
 namespace Inner {
 
-    #region メモ
-    // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
-    //
-    // PossibilityKanasに関しては、見つかった地点から下方向に向けて、一致している数を事前にチェックし、そのぶんのデータを返却するだけで終わりそう
-    // しかし、毎回List<string>()として作成し返却すると重いし、かと言って事前に生成しておくと結局使用するメモリ量は同じ位 => list.GetRange() を使うと参照コピーになるみたい　よってメモリ量的には SortedDictionary のがかなりいい
-    //
-    // Convert()   のアクセス速度が n から log2(n)
-    // 頻度が多そうなCanConvert()は　どちらもlog2(n) しかし、木構造のが早期リターンが多い
-    //
-    // とりあえず木構造で実装しておいて、メモリ的な不安が多そうなら書き変えることにします。
-    #endregion
+        #region メモ
+        // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
+        //
+        // PossibilityKanasに関しては、見つかった地点から下方向に向けて、一致している数を事前にチェックし、そのぶんのデータを返却するだけで終わりそう
+        // しかし、毎回List<string>()として作成し返却すると重いし、かと言って事前に生成しておくと結局使用するメモリ量は同じ位 => list.GetRange() を使うと参照コピーになるみたい　よってメモリ量的には SortedDictionary のがかなりいい
+        //
+        // Convert()   のアクセス速度が n から log2(n)
+        // 頻度が多そうなCanConvert()は　どちらもlog2(n) しかし、木構造のが早期リターンが多い
+        //
+        // とりあえず木構造で実装しておいて、メモリ的な不安が多そうなら書き変えることにします。
+        #endregion
 
-    /// <summary>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
-    /// <example><code>
-    /// using Inner;
-    /// 
-    ///     ...
-    ///     
-    /// //初期化処理
-    /// Roma2KanaTable table = new Roma2KanaTable(in csvSrc);
-    /// 
-    /// 
-    /// //ローマ字文字列からひらがな文字列へ変換
-    /// string roma1 = "kya";
-    /// string kana1 = table.Convert(roma1);
-    /// if(kana1.Length &gt; 0){
-    ///     Debug.Log(kana1);    // "きゃ"
-    /// }
-    /// 
-    /// 
-    /// //ローマ字文字列から、変換できるひらがながあるかを取得
-    /// Debug.Log(table.CanConvert("a"));             // false
-    /// Debug.Log(table.CanConvert("sh"));            // false
-    /// Debug.Log(table.CanConvert("shi"));           // true
-    /// //将来変換できる可能性があるかもチェック
-    /// Debug.Log(table.CanConvert("sh", true));      // true
-    /// Debug.Log(table.CanConvert("shi", true));     // true
-    /// 
-    /// 
-    /// //ローマ字文字列から、指定したひらがな文字列へ変換できるかどうかを取得
-    /// string roma2 = "ty";
-    /// string kana2 = "ちゅ";
-    /// Debug.Log(table.CanConvert(roma2, kana2));           // "false"
-    /// //将来打てる可能性があるかもチェック
-    /// Debug.Log(table.CanConvert(roma2, kana2, true));     // "true"
-    ///
-    /// 
-    /// //将来打てる可能性があるひらがな文字列一覧を取得
-    /// List&lt;string&gt; kanaList1 = table.GetPossibilityKanas("tya");
-    /// foreach(string k in kanaList1){
-    ///     Debug.Log(k);                                   // none
-    /// }
-    /// 
-    /// List&lt;string&gt; kanaList2 = table.GetPossibilityKanas("ty");
-    /// foreach(string k in kanaList2){
-    ///     Debug.Log(k);                                   // "ちゃ","ちゅ","ちょ" ... 
-    /// }
-    /// 
-    /// 
-    /// //[n]1回で[ん]に変換する事ができるか
-    /// Debug.Log(Roma2KanaTable.CanConverFirstN("n"));         //false
-    /// Debug.Log(Roma2KanaTable.CanConverFirstN("na"));        //false
-    /// Debug.Log(Roma2KanaTable.CanConverFirstN("nt"));        //true
-    /// Debug.Log(Roma2KanaTable.CanConverFirstN("any"));       //false
-    /// Debug.Log(Roma2KanaTable.CanConverFirstN("nn"));        //false
-    /// 
-    /// </code></example>
-    public class Roma2KanaTable{
+        /// <summary>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
+        /// <example><code>
+        /// using Inner;
+        /// 
+        ///     ...
+        ///     
+        /// //初期化処理
+        /// Roma2KanaTable table = new Roma2KanaTable(in csvSrc);
+        /// 
+        /// 
+        /// //ローマ字文字列からひらがな文字列へ変換
+        /// string roma1 = "kya";
+        /// string kana1 = table.Convert(roma1);
+        /// if(kana1.Length &gt; 0){
+        ///     Debug.Log(kana1);    // "きゃ"
+        /// }
+        /// 
+        /// 
+        /// //ローマ字文字列から、変換できるひらがながあるかをチェックおよび取得
+        /// Debug.Log(table.TryConvert("a"));             // false
+        /// Debug.Log(table.TryConvert("sh"));            // false
+        /// Debug.Log(table.TryConvert("shi"));           // true
+        /// 
+        /// 
+        /// //ローマ字文字列に追加でローマ字を足すことで、ひらがな文字列に変換する事が可能か
+        /// string roma2 = "ty";
+        /// string kana2 = "ちゅ";
+        /// Debug.Log(table.HasPossibility(roma2, kana2));           // "false"
+        /// //将来打てる文字が1つでもあればtrue
+        /// Debug.Log(table.HasPossibility(roma2,));     // "true"
+        /// 
+        /// 
+        /// //将来打てる可能性があるひらがな文字列一覧を取得
+        /// List&lt;string&gt; kanaList1 = table.GetPossibilityKanas("tya");
+        /// foreach(string k in kanaList1){
+        ///     Debug.Log(k);                                   // none
+        /// }
+        /// 
+        /// 
+        /// //[n]1回で[ん]に変換する事ができるか
+        /// Debug.Log(Roma2KanaTable.CanConverFirstN("n"));         //false
+        /// Debug.Log(Roma2KanaTable.CanConverFirstN("na"));        //false
+        /// Debug.Log(Roma2KanaTable.CanConverFirstN("nt"));        //true
+        /// Debug.Log(Roma2KanaTable.CanConverFirstN("any"));       //false
+        /// Debug.Log(Roma2KanaTable.CanConverFirstN("nn"));        //false
+        /// 
+        /// </code></example>
+        public class Roma2KanaTable{
 
 
         # region 生成
@@ -91,45 +83,36 @@ namespace Inner {
 
 
         #region メソッド
-        /// <summary>ローマ字列[aRoma]から変換できるひらがな文字列を取得。</summary>
-        /// <param name="aRoma">ローマ字列</param>
-        /// <returns>ひらがな文字列、変換できない場合は空文字列</returns>
-        public string Convert(string aRoma){
-            Roma2KanaNode node = GetNode(aRoma);
-            if (node == null) { return ""; }
-            return node.Kana;
-        }
-
         /// <summary>ローマ字列[aRoma]に対して、変換できるひらがな文字列があるか</summary>
         /// <param name="aRoma">ローマ字列</param>
-        /// <param name="aIsPossibility">true:[aKanaMid]に、追加でローマ字列を足すことで、打つ方法があるかもチェックする</param>
+        /// <param name="aOutKana">(変換できる場合)変換先ひらがな文字列</param>
         /// <returns>true:打つことができる文字列がある</returns>
-        public bool CanConvert(string aRoma, bool aIsPossibility = false) {
-            Roma2KanaNode node = GetNode(aRoma);
-            if (node == null) {return false;}
-            if (node.HasKana) { return true;}
-            if (aIsPossibility) {return true;}
-            return false;
-        }
-
-        /// <summary>ローマ字列[aRoma]に対して、ひらがな文字列[aKana]を打つことができるか</summary>
-        /// <param name="aRoma">ローマ字列(例:ky)</param>
-        /// <param name="aKana">ひらがな文字列(例:きゃ)</param>
-        /// <param name="aIsPossibility">true:[aRoma]に、追加でローマ字を足すことで、打つ方法があるかもチェックする</param>
-        /// <returns>true:打つ方法がある</returns>
-        public bool CanConvert(string aRoma, string aKana, bool aIsPossibility = false){
+        public bool TryConvert(string aRoma, out string aOutKana) {
+            aOutKana = "";
             Roma2KanaNode node = GetNode(aRoma);
             if (node == null) { return false; }
-            if (string.Compare(node.Kana, aKana) == 0) { return true; }
-            if (aIsPossibility){
-                if (node.PossibilityKanas.BinarySearch(aKana) >= 0) { return true; }
+            if (node.HasKana) {
+                aOutKana = node.Kana;
+                return true; 
             }
             return false;
         }
 
+        /// <summary>ローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで、ひらがな文字列に変換する事が可能か</summary>
+        /// <param name="aRoma">ローマ字列(例:ky)</param>
+        /// <param name="aTargetKana">変換したいひらがな文字列(空文字列も可)</param>
+        /// <returns>true:追加でローマ字を足すことで変換する事が可能なひらがな文字列がある</returns>
+        public bool HasPossibility(string aRoma, string aTargetKana = "") {
+            List<string> pKana = GetPossibilityKanas(aRoma);
+            if(aTargetKana.Length == 0) {
+                return pKana.Count > 0;
+            }
+            return pKana.BinarySearch(aTargetKana) >= 0;
+        }
+
         /// <summary>ローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧を取得します。(ソート済み)</summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
-        /// <returns>true:追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧</returns>
+        /// <returns>追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧</returns>
         public List<string> GetPossibilityKanas(string aRoma)
         {
             Roma2KanaNode node = GetNode(aRoma);
