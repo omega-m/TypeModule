@@ -126,7 +126,7 @@ namespace TypeModuleInner {
             return false;
         }
 
-        /// <summaryローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧を取得します。(ソート済み)</summary>
+        /// <summary>ローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧を取得します。(ソート済み)</summary>
         /// <param name="aRoma">ローマ字列(例:ky)</param>
         /// <returns>true:追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧</returns>
         public List<string> GetPossibilityKanas(string aRoma)
@@ -150,9 +150,9 @@ namespace TypeModuleInner {
 
 
         #region プロパティ
-        public int m_romaMaxLength = 0;
+        private int m_romaMaxLength = 0;
         /// <summary>ひらがな文字列に変換できるローマ字列の最大文字数</summary>
-        public int RomaMaxLength{get { return RomaMaxLength;}}
+        public int RomaMaxLength{get { return m_romaMaxLength; }}
         #endregion
 
 

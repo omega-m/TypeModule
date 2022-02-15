@@ -3,24 +3,6 @@ using UnityEngine;
 
 
 namespace TypeModuleInner{
-    ///<summary>UnityのCapsLockは、押してある状態か否かで返すので使えない</summary>
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-    using System.Runtime.InteropServices;
-    public static class WindowsUtil{
-        [DllImport("user32.dll")]
-        public static extern short GetKeyState(int keyCode);
-
-        ///<summary>CapsLock の状態を取得</summary>
-        ///<returns>[true]:CapsLockはOn</returns>
-        public static bool IsCapsLockOn
-            => (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
-    }
-#else
-    public static class WindowsUtil {
-        public static bool IsCapsLockOn
-            => return false;
-    }
-#endif
 
 
     ///<summary>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</summary>
@@ -79,7 +61,7 @@ namespace TypeModuleInner{
             if (!m_map.TryGetValue(key, out ret)){ret = '\0';}
 
             //CapsLock中なら、アルファベットの大文字小文字を反転
-            if (EnabledCapsLock && WindowsUtil.IsCapsLockOn){
+            if (EnabledCapsLock && Util.IsCapsLockOn){
                 ret = char.IsLower(ret) ? char.ToUpper(ret) : char.IsUpper(ret) ? char.ToLower(ret) : ret;
             }
             return ret;

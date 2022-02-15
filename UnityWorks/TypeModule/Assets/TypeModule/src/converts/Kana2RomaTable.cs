@@ -5,7 +5,7 @@ namespace TypeModuleInner {
 
     /// <summary>
     /// <para>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</para>
-    /// <para></para>お台文からガイド用のローマ字列を作成する時などに使用</para>
+    /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
     /// </summary>
     /// <example><code>
     /// using TypeModuleInner;

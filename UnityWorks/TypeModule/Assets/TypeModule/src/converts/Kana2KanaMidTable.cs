@@ -43,7 +43,6 @@ namespace TypeModuleInner {
         /// <summary>ひらがな文字列から変換できる、ひらがな中間文字列があるか。</summary>
         /// <param name="aKana">ひらかな文字列</param>
         /// <param name="aOutKanaMid">(変換できる場合)変換先ひらがな中間文字列</param>
-        /// </param>
         /// <returns>true:打つことができる文字列がある</returns>
         public bool TryConvert(string aKana, out string aOutKanaMid) {
             return m_table.TryGetValue(aKana, out aOutKanaMid);
@@ -52,7 +51,7 @@ namespace TypeModuleInner {
 
 
         #region プロパティ
-        /// <summaryひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
+        /// <summary>ひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
         public int KanaMidMaxLength { get; private set; }
 
         /// <summary>

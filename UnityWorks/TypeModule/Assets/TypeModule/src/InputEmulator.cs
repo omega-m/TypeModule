@@ -10,7 +10,7 @@ using UnityEngine.Events;
 /// <example><code>
 ///     
 /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// TypeModule module = GetComponent<TypeModule>();
+/// TypeModule module = GetComponent&lt;TypeModule&gt;();
 /// module.AddEventListenerOnChange(onChange);
 ///         
 ///     ...
@@ -34,7 +34,7 @@ using UnityEngine.Events;
 ///         ...
 /// 
 /// module.AddEventListenerOnInput(onInput);
-/// audioSource = GetComponent<AudioSource>();
+/// audioSource = GetComponent&lt;AudioSource&gt;();
 /// 
 ///         ...
 /// 
@@ -59,19 +59,19 @@ public class InputEmulatorResults {
     #region 入力タイプ
     /// <summary>イベント発生時の入力タイプです</summary>
     public enum INPUT_TYPE {
-        /// <summary>どの入力タイプにも属さない<summary>
+        /// <summary>どの入力タイプにも属さない</summary>
         NONE,
-        /// <summary>通常の入力タイプ。キーボードから文字が打たれ、末尾に文字が追加された場合このタイプになります。<summary>
+        /// <summary>通常の入力タイプ。キーボードから文字が打たれ、末尾に文字が追加された場合このタイプになります。</summary>
         INPUT,
-        /// <summary>キーボードからBSキーが打たれ、1文字削除された時にこのタイプになります。<summary>
+        /// <summary>キーボードからBSキーが打たれ、1文字削除された時にこのタイプになります。</summary>
         BS,
-        /// <summary>キーボードからEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。<summary>
+        /// <summary>キーボードからEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。</summary>
         ENTER,
-        /// <summary>プログラム側か、システム側からBSキーが打たれ、1文字削除された時にこのタイプになります。<summary>
+        /// <summary>プログラム側か、システム側からBSキーが打たれ、1文字削除された時にこのタイプになります。</summary>
         BS_FORCE,
-        /// <summary>プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。<summary>
+        /// <summary>プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。</summary>
         ENTER_FORCE,
-        /// <summary>システム側から入力値が全て初期化された<summary>
+        /// <summary>システム側から入力値が全て初期化された</summary>
         CLEAR,
     }
     #endregion
@@ -153,7 +153,7 @@ namespace TypeModuleInner {
 
 
         #region メソッド
-        /// <summary内部データをクリアします。</summary>
+        /// <summary>内部データをクリアします。</summary>
         public void Clear() {
             m_strDone.Clear();
             m_strDoneRaws.Clear();
@@ -166,16 +166,22 @@ namespace TypeModuleInner {
 
 
         #region メンバ
-        public List<string> m_strDone       = new List<string>();       //変換確定済みの文字列
-        public List<string> m_strDoneRaws   = new List<string>();       //変換確定前文字列
-        public string m_strWork         = "";                           //現在チェック中の文字
+        ///<summary>変換確定済みの文字列</summary>
+        public List<string> m_strDone       = new List<string>();
+        ///<summary>変換確定前文字列</summary>
+        public List<string> m_strDoneRaws   = new List<string>();       
+        ///<summary>現在チェック中の文字</summary>
+        public string m_strWork         = "";                           
+        ///<summary>前回入力した文字</summary>
         public string m_prevChar        = "";
+        ///<summary>入力タイプ</summary>
         public InputEmulatorResults.INPUT_TYPE m_inputType;
+        ///<summary>直前に発生したUnityイベント</summary>
         public Event m_event;
         #endregion
     }
 
-    /// <summaryキーボードの入力から文字列生成をエミュレートします</summary>
+    /// <summary>キーボードの入力から文字列生成をエミュレートします</summary>
     /// <example><code>
     ///     
     ///     ...
@@ -246,7 +252,7 @@ namespace TypeModuleInner {
 
 
         #region 生成
-        /// <summaryキーボードの入力から文字列生成をエミュレートします</summary>
+        /// <summary>キーボードの入力から文字列生成をエミュレートします</summary>
         ///<param name="aConvertTableMgr">文字列生成時に使用する、変換テーブルを管理するクラス</param>
         public InputEmulator(in ConvertTableMgr aConvertTableMgr) {
             m_convertTableMgr = aConvertTableMgr;
@@ -257,7 +263,7 @@ namespace TypeModuleInner {
 
 
         #region メソッド
-        /// <summaryキーボードからの入力文字を追加</summary>
+        /// <summary>キーボードからの入力文字を追加</summary>
         /// <param name="aEvent">入力イベント</param>
         public void AddInput(in Event aEvent) {
             var p = m_params;
@@ -381,7 +387,7 @@ namespace TypeModuleInner {
         /// <summary>生成された文字列</summary>
         public string Str {get { return m_results.Str; }}
 
-        /// <summary生成された、変換される前の文字列</summary>
+        /// <summary>生成された、変換される前の文字列</summary>
         public string StrRaw {get { return m_results.StrRaw; }}
 
         /// <summary>前回入力された文字</summary>
@@ -436,7 +442,7 @@ namespace TypeModuleInner {
         /// <param name="aEvent">イベントリスナ</param>
         public void RemoveEventListenerOnInput(UnityAction<InputEmulatorResults> aEvent) {m_onInputCallbacks.RemoveListener(aEvent);}
 
-        /// <summary文字列が変更された時のイベントリスナを追加します</summary>
+        /// <summary>文字列が変更された時のイベントリスナを追加します</summary>
         /// <param name="aEvent">イベントリスナ</param>
         public void AddEventListenerOnChange(UnityAction<InputEmulatorResults> aEvent) {m_onChangeCallbacks.AddListener(aEvent);}
 
