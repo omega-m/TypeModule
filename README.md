@@ -15,6 +15,7 @@ Unityでタイピングゲームを開発する際に必要となる、共通処
 Assets/TypeModule/TypeModule.cs  
 
 TypeModuleを使用したいインスタンスに、以下のようなコードを加えてください。
+    
     using TypeModule;
     
     //管理クラスに割り当てたスクリプトコンポーネントを取得
