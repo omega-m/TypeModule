@@ -10,7 +10,10 @@ public class TypeModuleTest : MonoBehaviour{
 
     #region Unity共通処理
     void Start(){
-        TestUtil();
+        if (IsTest) {
+            TestUtil();
+            TestCsvReadHelper();
+        }
     }
 
     void Update(){
@@ -293,5 +296,49 @@ public class TypeModuleTest : MonoBehaviour{
         Debug.Assert(Util.IsJPSymbol('　') == false);
         Debug.Assert(Util.IsJPSymbol(' ') == false);
     }
+
+    /// <summary>CsvReadHelper テスト</summary>
+    void TestCsvReadHelper() {
+        Debug.Log("TestCsvReadHelper");
+
+        TextAsset csv1 = new TextAsset();
+        csv1 = Resources.Load("TypeModule/data/Char2Kana/nummark", typeof(TextAsset)) as TextAsset;
+        CsvReadHelper helper1 = new CsvReadHelper(csv1);
+
+        Debug.Assert(helper1.FieldMax != 0);
+        Debug.Assert(helper1.RecordNum != 0);
+        string dummy = "";
+        for (int i = 0; i < helper1.RecordNum; ++i){
+            for (int j = 0; j < helper1.FieldMax; ++j){
+                dummy = helper1.Datas[i][j];
+            }
+        }
+        helper1.Load("TypeModule/data/KeyCode2Char/qwerty");
+        for (int i = 0; i < helper1.RecordNum; ++i) {
+            for (int j = 0; j < helper1.FieldMax; ++j) {
+                dummy = helper1.Datas[i][j];
+            }
+        }
+        helper1.Load(csv1);
+        foreach(List<string> record in helper1.Datas){
+            foreach(string d in record){
+                dummy = d;
+            }
+        }
+
+        CsvReadHelper helper2 = new CsvReadHelper("TypeModule/data/KeyCode2Char/qwerty");
+        foreach (List<string> record in helper2.Datas) {
+            foreach (string d in record) {
+                dummy = d;
+            }
+        }
+    }
     #endregion
+
+    #region
+    [Tooltip("テストを行うかどうかのフラグ")]
+    #endregion
+    /// <summary>テストを行うかどうかのフラグ</summary>
+    public bool IsTest = true;
+
 }

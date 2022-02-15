@@ -28,7 +28,7 @@ namespace Inner{
     /// 
     /// //各データにアクセス (1)
     /// for(int i = 0;i &lt; csv.RecordNum;++i){
-    ///     for(int j = 0;j &lt; csv.FieldMax;++i){
+    ///     for(int j = 0;j &lt; csv.FieldMax;++j){
     ///         Debug.Log(csv.Datas[i][j]);
     ///     }
     /// }
