@@ -5,7 +5,9 @@ using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 #endif
 
-namespace TypeModuleInner {
+
+namespace TypeModule {
+namespace Inner {
 
     ///<summary>共通メソッドなどを定義</summary>
     static public class Util {
@@ -254,4 +256,6 @@ namespace TypeModuleInner {
         static readonly string[] JpSymbol = new string[] { "、", "。", "・", "「", "」", "ー"};
         #endregion
     }
+}
+
 }

@@ -2,11 +2,12 @@
 using UnityEngine;
 
 
-namespace TypeModuleInner {
+namespace TypeModule {
+namespace Inner {
 
     /// <summary>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using TypeModuleInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -40,7 +41,7 @@ namespace TypeModuleInner {
     /// Debug.Log(table.CanConvert("は", "ば", true));        //true
     ///
     /// </code></example>
-    public class KanaMid2KanaTable{
+    public class KanaMid2KanaTable {
 
 
         #region 生成
@@ -103,7 +104,7 @@ namespace TypeModuleInner {
                     return false;
                 }
                 int cmpLen = aKanaMid.Length;
-                return (string.Compare(midTmp,0, aKanaMid,0, cmpLen) == 0);
+                return (string.Compare(midTmp, 0, aKanaMid, 0, cmpLen) == 0);
             }
             return false;
         }
@@ -113,7 +114,7 @@ namespace TypeModuleInner {
         #region プロパティ
         /// <summary>ひらがな文字列に変換できるひらがな中間文字列の最大文字数</summary>
         public int KanaMidMaxLength { get; private set; }
-        #endregion 
+        #endregion
 
 
         #region 内部メソッド
@@ -131,7 +132,7 @@ namespace TypeModuleInner {
             foreach (List<string> record in csv.Datas) {
                 m_mid2Kana.Add(record[CSV_KANA_MID_FIELD], record[CSV_KANA_FIELD]);
                 KanaMidMaxLength = Mathf.Max(KanaMidMaxLength, record[CSV_KANA_MID_FIELD].Length);
-                
+
                 if (!m_Kana2Mid.ContainsKey(record[CSV_KANA_FIELD])) {
                     m_Kana2Mid.Add(record[CSV_KANA_FIELD], record[CSV_KANA_MID_FIELD]);
                 }
@@ -145,4 +146,5 @@ namespace TypeModuleInner {
         private Dictionary<string, string> m_Kana2Mid;
         #endregion
     }
+}
 }

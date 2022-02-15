@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace TypeModuleInner{
+namespace TypeModule {
+namespace Inner {
 
 
     ///<summary>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using TypeModuleInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -29,7 +30,7 @@ namespace TypeModuleInner{
     /// }
     /// 
     /// </code></example>
-    public class keyCode2CharTable{
+    public class keyCode2CharTable {
 
 
         #region 生成
@@ -39,7 +40,7 @@ namespace TypeModuleInner{
         ///<para>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFn</para>
         ///<para>［例］S,115,1,0</para>
         ///</param>
-        public keyCode2CharTable(in TextAsset aCSV){
+        public keyCode2CharTable(in TextAsset aCSV) {
             CreateTable(aCSV);
             EnabledCapsLock = true;
         }
@@ -52,16 +53,16 @@ namespace TypeModuleInner{
         ///<param name="aIsShift">Shiftキーが押された状態か</param>
         ///<param name="aIsFn">Fnキーか(2箇所ある\の判別等に使用する為必須)</param>
         ///<returns>単体文字</returns>
-        public char Convert(UnityEngine.KeyCode aKeyCode, bool aIsShift, bool aIsFn){
+        public char Convert(UnityEngine.KeyCode aKeyCode, bool aIsShift, bool aIsFn) {
             char ret;
             int key = (int)aKeyCode;
-            if (aIsShift) {key += SHIFT_OFS; }
+            if (aIsShift) { key += SHIFT_OFS; }
             if (aIsFn) { key += FN_OFS; }
 
-            if (!m_map.TryGetValue(key, out ret)){ret = '\0';}
+            if (!m_map.TryGetValue(key, out ret)) { ret = '\0'; }
 
             //CapsLock中なら、アルファベットの大文字小文字を反転
-            if (EnabledCapsLock && Util.IsCapsLockOn){
+            if (EnabledCapsLock && Util.IsCapsLockOn) {
                 ret = char.IsLower(ret) ? char.ToUpper(ret) : char.IsUpper(ret) ? char.ToLower(ret) : ret;
             }
             return ret;
@@ -81,19 +82,19 @@ namespace TypeModuleInner{
         #region 内部メソッド
         ///<summary>キーの入力(KeyCode)から単体文字への変換テーブルを作成</summary>
         ///<param name="aCSV">変換テーブルを定義したファイル</param>
-        private void CreateTable(in TextAsset aCSV){
+        private void CreateTable(in TextAsset aCSV) {
             const int CSV_CHAR_FIELD = 0;
             const int CSV_KEYCODE_FIELD = 1;
             const int CSV_SHIFT_FIELD = 2;
             const int CSV_FN_FIELD = 3;
 
             CsvReadHelper csv = new CsvReadHelper(in aCSV);
-            foreach (List<string> record in csv.Datas){
+            foreach (List<string> record in csv.Datas) {
                 int key = int.Parse(record[CSV_KEYCODE_FIELD]);
-                if (int.Parse(record[CSV_SHIFT_FIELD]) == 1){
+                if (int.Parse(record[CSV_SHIFT_FIELD]) == 1) {
                     key += SHIFT_OFS;
                 }
-                if (int.Parse(record[CSV_FN_FIELD]) == 1){
+                if (int.Parse(record[CSV_FN_FIELD]) == 1) {
                     key += FN_OFS;
                 }
                 m_map.Add(key, record[CSV_CHAR_FIELD][0]);
@@ -103,13 +104,14 @@ namespace TypeModuleInner{
 
 
         #region メンバ
-        private SortedDictionary<int, char> m_map       = new SortedDictionary<int, char>();
+        private SortedDictionary<int, char> m_map = new SortedDictionary<int, char>();
         #endregion
 
 
         #region 内部定数
-        private const int SHIFT_OFS     = (1 << 9);
-        private const int FN_OFS        = (1 << 10);
-        #endregion 
+        private const int SHIFT_OFS = (1 << 9);
+        private const int FN_OFS = (1 << 10);
+        #endregion
     }
+}
 }

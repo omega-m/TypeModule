@@ -1,165 +1,168 @@
 using UnityEngine;
-using TypeModuleInner;
 using Candlelight;
 using UnityEngine.Events;
+using TypeModule.Inner;
 
-///<summary>
-///<para>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</para>
-///<para>CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。</para>
-/// </summary>
-/// <example><code>
-///     ...
-///     
-/// TypeModule module = GetComponent&lt;TypeModule&gt;();
-///     
-/// 
-/// 
-/// //=======================================================================
-/// //文字列生成シミュレーションモードに変更
-/// module.Mode = TypeModule.MODE.INPUT;
-/// 
-/// //モジュールから状態を取得
-/// Debug.Log(module.Str);
-/// Debug.Log(module.PrevChar);
-/// Debug.Log(module.StrRaw);
-/// 
-/// //モードを変更
-/// module.IsInputEng = true    //英語入力状態へ
-/// module.IsKana     = true;     //かな入力入力状態へ
-/// module.EnabledBS  = true;     //BSで文字を消せるかどうか
-/// 
-/// //プログラムから文字列を操作
-/// module.Enter();             //変換確定前の文字列を確定
-/// module.BackSpace();         //末尾から1文字削除
-/// module.Clear();             //全ての文字を削除
-/// 
-/// 
-/// 
-/// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module.AddEventListenerOnChange(onChange);
-/// 
-///         ...
-/// 
-/// public Text testInput;
-/// public Text testInputRaw;
-/// 
-/// private void onChange(InputEmulatorResults res) {
-///     Debug.Log("onChange");
-///     
-///     testInput.text = res.StrInput;
-///     testInputRaw.text = res.StrRawInput;
-/// }
-/// 
-/// 
-/// 
-/// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
-/// public AudioSource audioSource;
-/// public AudioClip typeSound;
-/// public AudioClip bsSound;
-/// public AudioClip enterSound;
-/// 
-///         ...
-///
-/// 
-/// module.AddEventListenerOnInput(onInput);
-/// audioSource = GetComponent&lt;AudioSource&gt;();
-/// 
-///         ...
-/// 
-/// private void onInput(InputEmulatorResults res){
-///     Debug.Log("onInput");
-///     switch(res.InputType){
-///         case InputEmulatorResults.INPUT_TYPE.INPUT:
-///             audioSource.PlayOneShot(typeSound);
-///             break;
-///         case InputEmulatorResults.INPUT_TYPE.BS:
-///             audioSource.PlayOneShot(bsSound);
-///             break;
-///         case InputEmulatorResults.INPUT_TYPE.ENTER:
-///             audioSource.PlayOneShot(enterSound);
-///             break;
-///     }C:\Users\renge\folder\circle\workspace\tp\UnityWorks\TypeModule\Assembly-CSharp.csproj
-/// }
-/// 
-/// 
-/// 
-/// //=======================================================================
-/// //指定された文字列が正しく打ててるか、比較するモードに変更
-/// module.Mode = TypeModule.MODE.COPY;
-/// 
-/// //モードの変更
-/// module.IsKana = true;                  /かな入力入力状態へ
-/// module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
-/// 
-/// 
-/// //比較対象の文字列をセット(内部初期化もされます)
-/// module.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
-/// 
-/// 
-/// //直前に入力された文字を取得
-/// Debug.Log(module.PrevCorrectChar);         //正しく入力された場合
-/// Debug.Log(module.PrevMissChar);            //ミス入力の場合
-/// 
-/// //パラメータにアクセス
-/// Debug.Log(module.CorrectNum);              //正しくタイプした数
-/// Debug.Log(module.CorrectCharNum);          //正しく打てた文字数
-/// Debug.Log(module.MissNum);                 //ミスタイプした数
-/// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
-///      
-/// 
-/// 
-/// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
-/// module.AddEventListenerOnInput(onInput);
-///         
-///     ...
-///     
-/// public Text testInput;
-/// public Text testInputRaw;
-/// 
-/// private void onInput(CopyInputCheckerResults res) {
-///     Debug.Log("onInput");
-///     testInput.text = res.StrDone + " " + res.StrCurrent + " " + res.StrYet;
-///     testInputRaw.text = res.StrDoneRaw + " " + res.StrCurrentRaw + " " + res.StrYetRaw;
-/// }
-/// 
-/// 
-/// 
-/// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
-/// public AudioSource audioSource;
-/// public AudioClip correctSound;
-/// public AudioClip missSound;
-/// 
-///     ...
-/// 
-/// module.AddEventListenerOnCorrect(onCorrect);
-/// module.AddEventListenerOnMiss(onMiss);
-/// audioSource = GetComponent&lt;AudioSource&gt;();
-/// 
-///     ...
-/// 
-/// private void onCorrect(CopyInputCheckerResults res){
-///     Debug.Log("onCorrect");
-///     audioSource.PlayOneShot(correctSound);
-/// }
-/// 
-/// private void onMiss(CopyInputCheckerResults res){
-///     Debug.Log("onMiss");
-///     audioSource.PlayOneShot(missSound);
-/// }
-/// 
-/// 
-/// 
-/// //=======================================================================
-/// //以下オプション
-/// 
-/// //CapsLockの状態を反映させないように切り替え
-/// module.EnabledCapsLock = false;
-/// 
-/// //入力を受け付けないように切り替え
-/// module.isRun = false;
-/// 
-/// </code></example>
-public class TypeModule : MonoBehaviour {
+namespace TypeModule {
+
+    ///<summary>
+    ///<para>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</para>
+    ///<para>CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。</para>
+    /// </summary>
+    /// <example><code>
+    /// using TypeModule;
+    ///     ...
+    ///     
+    /// TypeModule module = GetComponent&lt;TypeModuleTypeModule.TypeModule&gt;();
+    ///     
+    /// 
+    /// 
+    /// //=======================================================================
+    /// //文字列生成シミュレーションモードに変更
+    /// module.Mode = TypeModule.MODE.INPUT;
+    /// 
+    /// //モジュールから状態を取得
+    /// Debug.Log(module.Str);
+    /// Debug.Log(module.PrevChar);
+    /// Debug.Log(module.StrRaw);
+    /// 
+    /// //モードを変更
+    /// module.IsInputEng = true    //英語入力状態へ
+    /// module.IsKana     = true;     //かな入力入力状態へ
+    /// module.EnabledBS  = true;     //BSで文字を消せるかどうか
+    /// 
+    /// //プログラムから文字列を操作
+    /// module.Enter();             //変換確定前の文字列を確定
+    /// module.BackSpace();         //末尾から1文字削除
+    /// module.Clear();             //全ての文字を削除
+    /// 
+    /// 
+    /// 
+    /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
+    /// module.AddEventListenerOnChange(onChange);
+    /// 
+    ///         ...
+    /// 
+    /// public Text testInput;
+    /// public Text testInputRaw;
+    /// 
+    /// private void onChange(InputEmulatorResults res) {
+    ///     Debug.Log("onChange");
+    ///     
+    ///     testInput.text = res.StrInput;
+    ///     testInputRaw.text = res.StrRawInput;
+    /// }
+    /// 
+    /// 
+    /// 
+    /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+    /// public AudioSource audioSource;
+    /// public AudioClip typeSound;
+    /// public AudioClip bsSound;
+    /// public AudioClip enterSound;
+    /// 
+    ///         ...
+    ///
+    /// 
+    /// module.AddEventListenerOnInput(onInput);
+    /// audioSource = GetComponent&lt;AudioSource&gt;();
+    /// 
+    ///         ...
+    /// 
+    /// private void onInput(InputEmulatorResults res){
+    ///     Debug.Log("onInput");
+    ///     switch(res.InputType){
+    ///         case InputEmulatorResults.INPUT_TYPE.INPUT:
+    ///             audioSource.PlayOneShot(typeSound);
+    ///             break;
+    ///         case InputEmulatorResults.INPUT_TYPE.BS:
+    ///             audioSource.PlayOneShot(bsSound);
+    ///             break;
+    ///         case InputEmulatorResults.INPUT_TYPE.ENTER:
+    ///             audioSource.PlayOneShot(enterSound);
+    ///             break;
+    ///     }C:\Users\renge\folder\circle\workspace\tp\UnityWorks\TypeModule\Assembly-CSharp.csproj
+    /// }
+    /// 
+    /// 
+    /// 
+    /// //=======================================================================
+    /// //指定された文字列が正しく打ててるか、比較するモードに変更
+    /// module.Mode = TypeModule.MODE.COPY;
+    /// 
+    /// //モードの変更
+    /// module.IsKana = true;                  /かな入力入力状態へ
+    /// module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
+    /// 
+    /// 
+    /// //比較対象の文字列をセット(内部初期化もされます)
+    /// module.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";
+    /// 
+    /// 
+    /// //直前に入力された文字を取得
+    /// Debug.Log(module.PrevCorrectChar);         //正しく入力された場合
+    /// Debug.Log(module.PrevMissChar);            //ミス入力の場合
+    /// 
+    /// //パラメータにアクセス
+    /// Debug.Log(module.CorrectNum);              //正しくタイプした数
+    /// Debug.Log(module.CorrectCharNum);          //正しく打てた文字数
+    /// Debug.Log(module.MissNum);                 //ミスタイプした数
+    /// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
+    ///      
+    /// 
+    /// 
+    /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
+    /// module.AddEventListenerOnInput(onInput);
+    ///         
+    ///     ...
+    ///     
+    /// public Text testInput;
+    /// public Text testInputRaw;
+    /// 
+    /// private void onInput(CopyInputCheckerResults res) {
+    ///     Debug.Log("onInput");
+    ///     testInput.text = res.StrDone + " " + res.StrCurrent + " " + res.StrYet;
+    ///     testInputRaw.text = res.StrDoneRaw + " " + res.StrCurrentRaw + " " + res.StrYetRaw;
+    /// }
+    /// 
+    /// 
+    /// 
+    /// //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+    /// public AudioSource audioSource;
+    /// public AudioClip correctSound;
+    /// public AudioClip missSound;
+    /// 
+    ///     ...
+    /// 
+    /// module.AddEventListenerOnCorrect(onCorrect);
+    /// module.AddEventListenerOnMiss(onMiss);
+    /// audioSource = GetComponent&lt;AudioSource&gt;();
+    /// 
+    ///     ...
+    /// 
+    /// private void onCorrect(CopyInputCheckerResults res){
+    ///     Debug.Log("onCorrect");
+    ///     audioSource.PlayOneShot(correctSound);
+    /// }
+    /// 
+    /// private void onMiss(CopyInputCheckerResults res){
+    ///     Debug.Log("onMiss");
+    ///     audioSource.PlayOneShot(missSound);
+    /// }
+    /// 
+    /// 
+    /// 
+    /// //=======================================================================
+    /// //以下オプション
+    /// 
+    /// //CapsLockの状態を反映させないように切り替え
+    /// module.EnabledCapsLock = false;
+    /// 
+    /// //入力を受け付けないように切り替え
+    /// module.isRun = false;
+    /// 
+    /// </code></example>
+    public class TypeModule : MonoBehaviour {
 
 
     #region 入力判定モード
@@ -768,4 +771,6 @@ public class TypeModule : MonoBehaviour {
     InputEmulator m_inputEmulator;
     CopyInputChecker m_copyInputChecker;
     #endregion
+}
+
 }

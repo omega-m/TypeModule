@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
+namespace TypeModule {
+
 /// <summary>
 /// <para>InputEmulatorによって処理されたデータへのアクセス用クラスです。</para>
 /// <para>TypeModuleでModeをINPUTにした時、入力発生時のイベントリスナで返却されます。</para>
@@ -107,7 +109,7 @@ public class InputEmulatorResults {
 
     #region 生成
     /// <summary>InputEmulatorより作成されます。外からは作成しないでください。</summary>    
-    public InputEmulatorResults(in TypeModuleInner.InputEmulatorParams aParams) {m_params = aParams;}
+    public InputEmulatorResults(in Inner.InputEmulatorParams aParams) {m_params = aParams;}
     #endregion
 
 
@@ -138,7 +140,7 @@ public class InputEmulatorResults {
 
 
     #region メンバ
-    private TypeModuleInner.InputEmulatorParams m_params;   //参照
+    private Inner.InputEmulatorParams m_params;   //参照
 
     private string m_strCache       = "";
     private string m_strRawCache    = "";
@@ -146,7 +148,7 @@ public class InputEmulatorResults {
 }
 
 
-namespace TypeModuleInner {
+namespace Inner {
 
     /// <summary>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</summary>
     public class InputEmulatorParams {
@@ -500,4 +502,5 @@ namespace TypeModuleInner {
         private UnityEvent<InputEmulatorResults> m_onChangeCallbacks    = new UnityEvent<InputEmulatorResults>();
         #endregion
     }
+}
 }

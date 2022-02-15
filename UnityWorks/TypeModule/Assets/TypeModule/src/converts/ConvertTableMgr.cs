@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 
-
-namespace TypeModuleInner {
+namespace TypeModule { 
+namespace Inner {
 
     /// <summary>文字列生成時に使用する、変換テーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using TypeModuleInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -179,4 +179,5 @@ namespace TypeModuleInner {
         }
         #endregion
     }
+}
 }

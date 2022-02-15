@@ -8,17 +8,17 @@ Unityでタイピングゲームを開発する際に必要となる、共通処
  
 # Installation
 以下のパッケージを、Unityのプロジェクトにインポートしてください。  
-[TypeModule_v1_0_0](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_0)
+[TypeModule_v1_0_](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_0)
   
 # Usage
 以下のスクリプトを、管理クラスのコンポーネントとして割り当ててください。  
 Assets/TypeModule/TypeModule.cs  
 
 TypeModuleを使用したいインスタンスに、以下のようなコードを加えてください。
-    
+    using TypeModule;
     
     //管理クラスに割り当てたスクリプトコンポーネントを取得
-    TypeModule module = GetComponent<TypeModule>(); 
+    TypeModule module = GetComponent<TypeModule.TypeModule.TypeModule>(); 
         
 
 

@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace TypeModuleInner {
+
+namespace TypeModule { 
+namespace Inner {
 
     /// <summary>
     /// <para>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</para>
     /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
     /// </summary>
     /// <example><code>
-    /// using TypeModuleInner;
+    /// using Inner;
     /// 
     ///     ...
     ///     
@@ -23,7 +25,7 @@ namespace TypeModuleInner {
     /// Debug.Log(table.TryConvert("ぱ", out outCvt));           // true
     /// 
     /// </code></example>
-    public class Kana2KanaMidTable{
+    public class Kana2KanaMidTable {
 
 
         #region 生成
@@ -89,5 +91,5 @@ namespace TypeModuleInner {
         private Dictionary<string, string> m_table;     //SortedDictionaryだと、なぜか 「は゜」「は゛」が同じキーとして認識されてエラーが出る
         #endregion
     }
-
+}
 }
