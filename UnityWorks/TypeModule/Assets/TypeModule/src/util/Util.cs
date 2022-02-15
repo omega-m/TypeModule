@@ -38,7 +38,8 @@ namespace Inner {
         /// <returns>変換後の文字列</returns>
         public static string KatakanaToHiragana(string aStr) {
             StringBuilder sb = new StringBuilder();
-            char[] target = aStr.ToCharArray();
+            string tmp = HanToZen(aStr, ConvertTypes.Katakana);
+            char[] target = tmp.ToCharArray();
             char c;
             for (int i = 0; i < target.Length; i++) {
                 c = target[i];
@@ -60,7 +61,7 @@ namespace Inner {
 
             }
             if ((aType & ConvertTypes.Katakana) != 0) {
-                for (int i = (HalfSizeKatakana.Length - 1); i >= 0; i--) {
+                for (int i = 0; i < HalfSizeKatakana.Length; ++i) {
                     aStr = aStr.Replace(HalfSizeKatakana[i], FullSizeKatakana[i]);
                 }
             }
@@ -69,12 +70,12 @@ namespace Inner {
 
             }
             if ((aType & ConvertTypes.Space) != 0) {
-                for (int i = (HalfSizeSpace.Length - 1); i >= 0; i--) {
+                for (int i = 0; i < HalfSizeSpace.Length; ++i) {
                     aStr = aStr.Replace(HalfSizeSpace[i], FullSizeSpace[i]);
                 }
             }
             if ((aType & ConvertTypes.Symbol) != 0) {
-                for (int i = (HalfSizeSymbol.Length - 1); i >= 0; i--) {
+                for (int i = 0; i < HalfSizeSymbol.Length; ++i) {
                     aStr = aStr.Replace(HalfSizeSymbol[i], FullSizeSymbol[i]);
                 }
             }
@@ -90,7 +91,7 @@ namespace Inner {
                 aStr = ZenToHanAlpha(aStr);
             }
             if ((aType & ConvertTypes.Katakana) != 0) {
-                for (int i = (FullSizeKatakana.Length - 1); i >= 0; i--) {
+                for (int i = 0; i < FullSizeKatakana.Length; ++i) {
                     aStr = aStr.Replace(FullSizeKatakana[i], HalfSizeKatakana[i]);
                 }
             }
@@ -98,12 +99,12 @@ namespace Inner {
                 aStr = ZenToHanNum(aStr);
             }
             if ((aType & ConvertTypes.Space) != 0) {
-                for (int i = (FullSizeSpace.Length - 1); i >= 0; i--) {
+                for (int i = 0; i < FullSizeSpace.Length; ++i) {
                     aStr = aStr.Replace(FullSizeSpace[i], HalfSizeSpace[i]);
                 }
             }
             if ((aType & ConvertTypes.Symbol) != 0) {
-                for (int i = (FullSizeSymbol.Length - 1); i >= 0; i--) {
+                for (int i = 0; i < FullSizeSymbol.Length; ++i) {
                     aStr = aStr.Replace(FullSizeSymbol[i], HalfSizeSymbol[i]);
                 }
             }
@@ -160,36 +161,27 @@ namespace Inner {
         /// <param name="aCh">チェックする文字</param>
         /// <returns>true:ひらがなである</returns>
         public static bool IsHiragana(char aCh) {
-            return ('ぁ' <= aCh && aCh <= 'ゔ');
+            return (aCh == 'ー') || ('ぁ' <= aCh && aCh <= 'ゔ');
         }
 
         /// <summary>全角スペース、半角スペースかどうかチェック</summary>
         /// <param name="aCh">チェックする文字</param>
         /// <returns>true:全角スペース、半角スペースである</returns>
         public static bool IsSpace(char aCh) {
-            for (int i = (FullSizeSpace.Length - 1); i >= 0; i--) {
+            for (int i = 0; i < FullSizeSpace.Length; ++i) {
                 if(aCh == FullSizeSpace[i][0]) { return true; }
             }
-            for (int i = (HalfSizeSpace.Length - 1); i >= 0; i--) {
+            for (int i = 0; i < HalfSizeSpace.Length; ++i) {
                 if (aCh == HalfSizeSpace[i][0]) { return true; }
             }
             return false;
         }
 
-        /// <summary>英語文字かどうかチェック</summary>
+        /// <summary>英語文字かどうかチェック(全角半角どちらも)</summary>
         /// <param name="aChar">文字</param>
-        /// <param name="isCheckZen">全角文字もチェック</param>
         /// <returns>true:英語文字である</returns>
-        public static bool IsAlpha(char aChar, bool isCheckZen = false) {
-            if (char.IsLower(char.ToLower(aChar))) {
-                return true;
-            }
-            if (isCheckZen) {
-                if (char.IsLower(char.ToLower(ZenToHanAlpha(aChar + "")[0]))){
-                    return true;
-                }
-            }
-            return false; 
+        public static bool IsAlpha(char aChar) {
+            return char.IsLower(char.ToLower(aChar));
         }
 
         /// <summary>記号文字かどうかチェック</summary>
@@ -200,11 +192,11 @@ namespace Inner {
             //if (char.IsSymbol(aChar)) {//色々不便なので使わない
             //   return true;
             //}
-            for (int i = (HalfSizeSymbol.Length - 1); i >= 0; i--) {
+            for (int i = 0; i < HalfSizeSymbol.Length; ++i) {
                 if (aChar == HalfSizeSymbol[i][0]) { return true; }
             }
             if (isCheckZen) {
-                for (int i = (FullSizeSymbol.Length - 1); i >= 0; i--) {
+                for (int i = 0; i < FullSizeSymbol.Length; ++i) {
                     if (aChar == FullSizeSymbol[i][0]) { return true; }
                 }
             }
@@ -213,10 +205,9 @@ namespace Inner {
 
         /// <summary>日本語用記号文字かどうかチェック</summary>
         /// <param name="aChar">文字</param>
-        /// <param name="isCheckZen">全角文字もチェック</param>
         /// <returns>true:日本語用記号文字である</returns>
-        public static bool IsJPSymbol(char aChar, bool isCheckZen = false) {
-            for (int i = (JpSymbol.Length - 1); i >= 0; i--) {
+        public static bool IsJPSymbol(char aChar) {
+            for (int i = 0;i < JpSymbol.Length;++i) {
                 if (aChar == JpSymbol[i][0]) { return true; }
             }
             return false;
@@ -241,13 +232,14 @@ namespace Inner {
 
     #region 内部変数
     /// <summary>半角カタカナ</summary>
-    static readonly string[] HalfSizeKatakana = new string[] { "ｱ", "ｲ", "ｳ", "ｴ", "ｵ", "ｶ", "ｷ", "ｸ", "ｹ", "ｺ", "ｻ", "ｼ", "ｽ", "ｾ", "ｿ", "ﾀ", "ﾁ", "ﾂ", "ﾃ", "ﾄ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ﾔ", "ﾕ", "ﾖ", "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ｵ", "ﾝ", "ｧ", "ｨ", "ｩ", "ｪ", "ｫ", "ｯ", "ｬ", "ｭ", "ｮ", "ｰ", "ｶﾞ", "ｷﾞ", "ｸﾞ", "ｹﾞ", "ｺﾞ", "ｻﾞ", "ｼﾞ", "ｽﾞ", "ｾﾞ", "ｿﾞ", "ﾀﾞ", "ﾁﾞ", "ﾂﾞ", "ﾃﾞ", "ﾄﾞ", "ﾊﾞ", "ﾋﾞ", "ﾌﾞ", "ﾍﾞ", "ﾎﾞ", "ﾊﾟ", "ﾋﾟ", "ﾌﾟ", "ﾍﾟ", "ﾎﾟ", "ｳﾞ" };
+    static readonly string[] HalfSizeKatakana = new string[] { "ｱ", "ｲ", "ｳ", "ｴ", "ｵ", "ｶ", "ｷ", "ｸ", "ｹ", "ｺ", "ｻ", "ｼ", "ｽ", "ｾ", "ｿ", "ﾀ", "ﾁ", "ﾂ", "ﾃ", "ﾄ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ﾔ", "ﾕ", "ﾖ", "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ｵ", "ﾝ", "ｧ", "ｨ", "ｩ", "ｪ", "ｫ", "ｯ", "ｬ", "ｭ", "ｮ", "-", "ｶﾞ", "ｷﾞ", "ｸﾞ", "ｹﾞ", "ｺﾞ", "ｻﾞ", "ｼﾞ", "ｽﾞ", "ｾﾞ", "ｿﾞ", "ﾀﾞ", "ﾁﾞ", "ﾂﾞ", "ﾃﾞ", "ﾄﾞ", "ﾊﾞ", "ﾋﾞ", "ﾌﾞ", "ﾍﾞ", "ﾎﾞ", "ﾊﾟ", "ﾋﾟ", "ﾌﾟ", "ﾍﾟ", "ﾎﾟ", "ｳﾞ" };
         /// <summary>全角カタカナ</summary>
         static readonly string[] FullSizeKatakana = new string[] { "ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ", "マ", "ミ", "ム", "メ", "モ", "ヤ", "ユ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "オ", "ン", "ァ", "ィ", "ゥ", "ェ", "ォ", "ッ", "ャ", "ュ", "ョ", "ー", "ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド", "バ", "ビ", "ブ", "ベ", "ボ", "パ", "ピ", "プ", "ペ", "ポ", "ヴ"};
+        //[-]は、[ー－]の順
         /// <summary>半角記号</summary>
-        static readonly string[] HalfSizeSymbol = new string[] { "!", "\"", "#", "$", "%", "&", "'", "(", ")", "=", "~", "|", "-", "^", "\\", "`", "{", "@", "[", "+", "*", "}", ";", ":", "]", "<", ">", "?", ",", ".", "/" };
+        static readonly string[] HalfSizeSymbol = new string[] { "!", "\"", "#", "$", "%", "&", "'", "(", ")", "=", "~", "|", "-", "^", "\\", "`", "{", "@", "[", "+", "*", "}", ";", ":", "]", "<", ">", "?", ",", ".", "/", "_", "-"}; 
         /// <summary>全角記号</summary>
-        static readonly string[] FullSizeSymbol = new string[] { "！", "”", "＃", "＄", "％", "＆", "’", "（", "）", "＝", "～", "｜", "ー", "＾", "￥", "‘", "｛", "＠", "［", "＋", "＊", "｝", "；", "：", "］", "＜", "＞", "？", "，", "．", "／" };
+        static readonly string[] FullSizeSymbol = new string[] { "！", "”", "＃", "＄", "％", "＆", "’", "（", "）", "＝", "～", "｜", "ー", "＾", "￥", "‘", "｛", "＠", "［", "＋", "＊", "｝", "；", "：", "］", "＜", "＞", "？", "，", "．", "／", "＿", "－" };
         /// <summary>半角スペース</summary>
         static readonly string[] HalfSizeSpace = new string[] { " " };
         /// <summary>全角スペース</summary>
