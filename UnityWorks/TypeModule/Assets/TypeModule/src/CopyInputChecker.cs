@@ -413,7 +413,7 @@ public class CopyInputCheckerResults {
                         }
                         //全角チェック
                         string nChZen;
-                        if (cvt.NumMarkTable.TryHanToZen(nCh + "", out nChZen)) {
+                        if (Util.TryHanToZen(nCh + "", out nChZen, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                             if (string.Compare(p.m_strCurrent, nChZen) == 0) {
                                 p.m_event = aEvent;
                                 CorrectType(nCh + "");
@@ -431,7 +431,7 @@ public class CopyInputCheckerResults {
                         p.m_event = aEvent;
                         CorrectType(nCh + "");
                         return;
-                    }else if (cvt.NumMarkTable.TryZenToHan(nCh + "", out nChHan)) {
+                    } else if (Util.TryZenToHan(nCh + "", out nChHan, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                         if (p.m_strCurrentRaw[0] == nChHan[0]) {
                             p.m_event = aEvent;
                             CorrectType(nCh + "");
@@ -711,7 +711,7 @@ public class CopyInputCheckerResults {
                         //ガイド文字の記号数字は半角へ
                         string raw = target[idx] + "";
                         string rawTmp;
-                        if (cvt.NumMarkTable.TryZenToHan(target[idx] + "", out rawTmp)) {
+                        if (Util.TryZenToHan(target[idx] + "", out rawTmp, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                             ////かなの場合、以下の文字は半角に変換しない
                             if (IsKana && Regex.IsMatch(target[idx] + "", "[、。ー・「」]")) {
                             } else {

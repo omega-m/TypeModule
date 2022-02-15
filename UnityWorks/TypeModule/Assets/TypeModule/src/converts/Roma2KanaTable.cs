@@ -83,7 +83,7 @@ namespace TypeModule {
 
 
         #region メソッド
-        /// <summary>ローマ字列[aRoma]に対して、変換できるひらがな文字列があるか</summary>
+        /// <summary>ローマ字列[aRoma]に対して、変換できるひらがながあるかをチェック及び取得</summary>
         /// <param name="aRoma">ローマ字列</param>
         /// <param name="aOutKana">(変換できる場合)変換先ひらがな文字列</param>
         /// <returns>true:打つことができる文字列がある</returns>

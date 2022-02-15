@@ -17,12 +17,18 @@ namespace TypeModule {
         /// Kana2RomaTable table = new Kana2RomaTable(in csvSrc);
         /// 
         /// 
-        /// //ひらがな文字列からローマ字文字列へ変換
-        /// Debug.Log(table.Convert("あ"));          //a
-        /// Debug.Log(table.Convert("ん"));          //nn
-        /// Debug.Log(table.Convert("ん", "x"));     //xn
-        /// Debug.Log(table.Convert("ちゃ"));        //tya
-        /// Debug.Log(table.Convert("ちゃ", "c"));   //cha
+        /// //ひらがな文字列から変換できるローマ字文字列があるかをチェック及び変換
+        /// string outStr;
+        /// Debug.Log(table.TryConvert("あ", out outStr));          //true
+        /// Debug.Log(outStr);                                      //"a"
+        /// Debug.Log(table.TryConvert("ん", out outStr));          //true
+        /// Debug.Log(outStr);                                      //"nn"
+        /// Debug.Log(table.TryConvert("ん", out outStr, "x"));     //true
+        /// Debug.Log(outStr);                                      //"xn"
+        /// Debug.Log(table.TryConvert("ちゃ", out outStr));        //true
+        /// Debug.Log(outStr);                                      //"tya"
+        /// Debug.Log(table.TryConvert("ちゃ", out outStr, "c"));   //true
+        /// Debug.Log(outStr);                                      //"cha"
         /// 
         /// </code></example>
         public class Kana2RomaTable {
@@ -42,7 +48,7 @@ namespace TypeModule {
 
 
             #region メソッド
-            /// <summary>ひらがな文字列[aKana]から変換できるローマ字文字列があるか</summary>
+            /// <summary>ひらがな文字列から変換できるローマ字文字列があるかをチェック及び変換</summary>
             /// <param name="aKana">ひらかな文字列</param>
             /// <param name="aOutRoma">(変換できる場合)変換先ローマ字文字列</param>
             /// <param name="aRomaStart">変換先ローマ字文字列の先頭部分を指定

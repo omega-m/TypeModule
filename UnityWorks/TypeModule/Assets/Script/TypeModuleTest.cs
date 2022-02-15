@@ -40,7 +40,7 @@ public class TypeModuleTest : MonoBehaviour{
 
         Debug.Assert(string.Compare(Util.HanToZen(
             "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&'()=~|-^\\@[`{;:]+*},./<>_", Util.ConvertTypes.All),
-            "０９ＡＢＣｘｙｚ漢字０９ａｂｃＸＹＺあゔんアヴンアヴン！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "０９ＡＢＣｘｙｚ漢字０９ａｂｃＸＹＺあゔんアヴンアヴン！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
         Debug.Assert(string.Compare(Util.HanToZen(
             "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&'()=~|-^\\@[`{;:]+*},./<>_", Util.ConvertTypes.Alphabet),
             "09ＡＢＣｘｙｚ漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&'()=~|-^\\@[`{;:]+*},./<>_") == 0);
@@ -49,56 +49,56 @@ public class TypeModuleTest : MonoBehaviour{
             "０９ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&'()=~|-^\\@[`{;:]+*},./<>_") == 0);
         Debug.Assert(string.Compare(Util.HanToZen(
             "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&'()=~|-^\\@[`{;:]+*},./<>_", Util.ConvertTypes.Symbol),
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
         Debug.Assert(string.Compare(Util.HanToZen(
             "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&'()=~|-^\\@[`{;:]+*},./<>_", Util.ConvertTypes.Katakana),
             "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンアヴン!\"#$%&'()=~|ー^\\@[`{;:]+*},./<>_") == 0);
         Debug.Assert(string.Compare(Util.HanToZen(
             "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&'()=~|-^\\@[`{;:]+*},./<>_", Util.ConvertTypes.Katakana | Util.ConvertTypes.Symbol),
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンアヴン！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンアヴン！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
         Debug.Assert(string.Compare(Util.ZenToHan(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿", Util.ConvertTypes.All),
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿", Util.ConvertTypes.All),
             "09ABCxyz漢字09abcXYZあゔんｱｳﾞﾝｱｳﾞﾝ!\"#$%&\'()=~|-^\\@[`{;:]+*},./<>_") == 0);
         Debug.Assert(string.Compare(Util.ZenToHan(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿", Util.ConvertTypes.Alphabet),
-            "09ABCxyz漢字０９abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿", Util.ConvertTypes.Alphabet),
+            "09ABCxyz漢字０９abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
         Debug.Assert(string.Compare(Util.ZenToHan(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿", Util.ConvertTypes.Number),
-            "09ABCxyz漢字09ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿", Util.ConvertTypes.Number),
+            "09ABCxyz漢字09ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
         Debug.Assert(string.Compare(Util.ZenToHan(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿", Util.ConvertTypes.Symbol),
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿", Util.ConvertTypes.Symbol),
             "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ!\"#$%&\'()=~|-^\\@[`{;:]+*},./<>_") == 0);
         Debug.Assert(string.Compare(Util.ZenToHan(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿", Util.ConvertTypes.Katakana),
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんｱｳﾞﾝｱｳﾞﾝ！”＃＄％＆’（）＝～｜-＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿", Util.ConvertTypes.Katakana),
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんｱｳﾞﾝｱｳﾞﾝ！”＃＄％＆’（）＝～｜-＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
         Debug.Assert(string.Compare(Util.ZenToHan(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿", Util.ConvertTypes.Number | Util.ConvertTypes.Alphabet),
-            "09ABCxyz漢字09abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿", Util.ConvertTypes.Number | Util.ConvertTypes.Alphabet),
+            "09ABCxyz漢字09abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
         Debug.Assert(string.Compare(Util.HanToZenNum(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿"),
-            "０９ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿"),
+            "０９ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
         Debug.Assert(string.Compare(Util.ZenToHanNum(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿"),
-            "09ABCxyz漢字09ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿"),
+            "09ABCxyz漢字09ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
         Debug.Assert(string.Compare(Util.HanToZenAlpha(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿"),
-            "09ＡＢＣｘｙｚ漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿"),
+            "09ＡＢＣｘｙｚ漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
         Debug.Assert(string.Compare(Util.ZenToHanAlpha(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿"),
-            "09ABCxyz漢字０９abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿"),
+            "09ABCxyz漢字０９abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
         Debug.Assert(string.Compare(Util.HanToZenAlNum(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿"),
-            "０９ＡＢＣｘｙｚ漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿"),
+            "０９ＡＢＣｘｙｚ漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
         Debug.Assert(string.Compare(Util.ZenToHanAlNum(
-            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿"),
-            "09ABCxyz漢字09abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠［‘｛；：］＋＊｝，．／＜＞＿") == 0);
+            "09ABCxyz漢字０９ａｂｃＸＹＺあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿"),
+            "09ABCxyz漢字09abcXYZあゔんアヴンｱｳﾞﾝ！”＃＄％＆’（）＝～｜ー＾￥＠「‘｛；：」＋＊｝、。／＜＞＿") == 0);
 
 
         Debug.Assert(Util.IsHiragana('0') == false);
@@ -263,8 +263,8 @@ public class TypeModuleTest : MonoBehaviour{
         Debug.Assert(Util.IsSymbol('－', true) == true);
         Debug.Assert(Util.IsSymbol('！', true) == true);
         Debug.Assert(Util.IsSymbol('＊', true) == true);
-        Debug.Assert(Util.IsSymbol('「', true) == false);
-        Debug.Assert(Util.IsSymbol('」', true) == false);
+        Debug.Assert(Util.IsSymbol('「', true) == true);
+        Debug.Assert(Util.IsSymbol('」', true) == true);
         Debug.Assert(Util.IsSymbol('　', true) == false);
         Debug.Assert(Util.IsSymbol(' ', true) == false);
 
@@ -308,7 +308,7 @@ public class TypeModuleTest : MonoBehaviour{
         Debug.Log("TestCsvReadHelper");
 
         TextAsset csv1 = new TextAsset();
-        csv1 = Resources.Load("TypeModule/data/Char2Kana/nummark", typeof(TextAsset)) as TextAsset;
+        csv1 = Resources.Load("TypeModule/data/Char2Kana/roma", typeof(TextAsset)) as TextAsset;
         CsvReadHelper helper1 = new CsvReadHelper(csv1);
 
         Debug.Assert(helper1.FieldMax != 0);
@@ -352,7 +352,6 @@ public class TypeModuleTest : MonoBehaviour{
         Debug.Assert(cvt.KanaMid2Kana != null);
         Debug.Assert(cvt.Kana2KanaMid != null);
         Debug.Assert(cvt.Key2Roma != null);
-        Debug.Assert(cvt.NumMarkTable != null);
 
         cvt.EnabledCapsLock = true;
         cvt.EnabledCapsLock = false;

@@ -597,37 +597,6 @@ namespace TypeModule {
     }
 
     #region
-    [Tooltip("数字と記号の、全角半角の変換テーブルを定義したファイル\n" +
-        "明示的に指定しなかった場合、以下のファイルを読み込みます。\n" +
-        "【Assets/Resources/TypeModule/data/Char2Kana/nummark.csv】\n" +
-        "独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。\n" +
-        "［形式］半角文字,全角文字\n" +
-        "例) \n" +
-        ".,。\n" +
-        "?,？")]
-    [SerializeField, PropertyBackingField("NumMarkCsv")] private TextAsset m_numMarkCsv;
-    #endregion
-    /// <summary>
-    /// <para>数字と記号の、全角半角の変換テーブルを定義したファイル</para>
-    /// <para>明示的に指定しなかった場合、以下のファイルを読み込みます。</para>
-    /// <para>【Assets/Resources/TypeModule/data/Char2Kana/nummark.csv】</para>
-    /// <para>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</para>
-    /// <para>［形式］半角文字,全角文字</para>
-    /// <para>例) \n</para>
-    /// <para>.,。</para>
-    /// <para>?,？</para>
-    /// </summary>
-    public TextAsset NumMarkCsv {
-        get { return m_numMarkCsv; }
-        set {
-            if (m_numMarkCsv != value) {
-                m_numMarkCsv = value;
-                if (m_convertTableMgr != null) {m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);}
-            }
-        }
-    }
-
-    #region
     [Space(10)]
     [Tooltip("キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイル\n" +
         "JISかな入力など、日本語を直接入力する方式を使用する際に参照します。\n" +
@@ -726,7 +695,6 @@ namespace TypeModule {
         if (Roma2KanaCsv != null) {         m_convertTableMgr.SetRoma2KanaTable(in m_roma2KanaCsv);}
         if (KeyCode2KanaMidCsv != null) {   m_convertTableMgr.SetKeyCode2KanaMidTable(in m_keyCode2KanaMidCsv);}
         if (KanaMid2KanaCsv != null) {      m_convertTableMgr.SetKanaMid2KanaTable(in m_kanaMid2KanaCsv);}
-        if (NumMarkCsv != null) {           m_convertTableMgr.SetNumMarkTable(in m_numMarkCsv);}
     }
 
     ///<summary>キーボードの入力から文字列生成をエミュレートする為のクラスの作成</summary>

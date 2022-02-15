@@ -15,7 +15,7 @@ namespace TypeModule {
         /// KanaMid2KanaTable table = new KanaMid2KanaTable(in csvSrc);
         /// 
         /// 
-        /// //ひらがなの中間文字列から、変換できるひらがながあるかを取得
+        /// //ひらがなの中間文字列から、変換できるひらがながあるかをチェック及び取得
         /// string outCvt;
         /// Debug.Log(table.TryConvert("あ", out outCvt));          // false
         /// Debug.Log(table.TryConvert("か", out outCvt));          // false
@@ -42,7 +42,7 @@ namespace TypeModule {
 
 
             #region メソッド
-            /// <summary>ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがな文字列があるか</summary>
+            /// <summary>ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがながあるかをチェック及び取得</summary>
             /// <param name="aKanaMid">ひらかな中間文字列</param>
             /// <param name="aOutKana">(変換できる場合)変換先ひらがな文字列</param>
             /// <param name="aIsPossibility">true:[aKanaMid]に、追加でひらがなの中間文字列を足すことで、打つ方法があるかもチェックする</param>
