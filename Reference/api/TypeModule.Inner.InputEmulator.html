@@ -1,0 +1,663 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class InputEmulator
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class InputEmulator
+   ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TypeModule.Inner.InputEmulator">
+  
+  
+  <h1 id="TypeModule_Inner_InputEmulator" data-uid="TypeModule.Inner.InputEmulator" class="text-break">Class InputEmulator
+  </h1>
+  <div class="markdown level0 summary"><p>キーボードの入力から文字列生成をエミュレートします</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">InputEmulator</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.Inner.html">TypeModule.Inner</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="TypeModule_Inner_InputEmulator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class InputEmulator</code></pre>
+  </div>
+  <h5 id="TypeModule_Inner_InputEmulator_examples"><strong>Examples</strong></h5>
+  <pre><code>         ...
+
+     //初期化処理
+     ConvertTableMgr table = new ConvertTableMgr();
+     InputEmulator input = new InputEmulator(in table);
+
+         ...
+
+     //KeyCodeから文字を生成
+     private void OnGUI(){
+         if (Event.current.type == EventType.KeyDown) {
+             input.AddInput(Event.current);
+         }
+     }
+
+         ...
+
+     //生成された文字列を取得
+     Debug.Log(input.Str);        //生成された文字列
+     Debug.Log(input.StrRaw);     //生成された、変換される前の文字列
+
+     //直前に入力された文字を取得
+     Debug.Log(input.PrevChar);
+
+     //入力された文字列を全てクリア
+     input.Clear();
+
+         ...
+
+     //入力が発生した時のイベントリスナを追加
+     private void onInput(InputEmulatorResults res) {
+         Debug.Log(&quot;onInput&quot;);
+         Debug.Log(res.Str);
+     }
+     //入力値が変更された時のイベントリスナを追加
+     private void onChange(InputEmulatorResults res) {
+         Debug.Log(&quot;onChange&quot;);
+     }
+
+     input.AddEventListenerOnInput(onInput);
+     input.AddEventListenerOnChange(onChange);
+
+
+     //以下オプションです================================
+
+     //ローマ字入力方式から、かな入力方式に切り替え
+     input.IsKana = true;
+
+     //英語入力モードから、日本語入力モードに切り替え
+     input.IsInputEng = false;
+
+     //バックスペースキーで文字を消せないようにする
+     input.EnabledBS = false;
+
+     //プログラム側から一文字削除
+     input.BackSpace();
+
+     //プログラム側から確定
+     input.Enter();
+
+     //エンターキーの入力から文字を確定しないようにする
+     input.EnabledEnter = false;</code></pre>
+
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator__ctor_" data-uid="TypeModule.Inner.InputEmulator.#ctor*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator__ctor_TypeModule_Inner_ConvertTableMgr__" data-uid="TypeModule.Inner.InputEmulator.#ctor(TypeModule.Inner.ConvertTableMgr@)">InputEmulator(in ConvertTableMgr)</h4>
+  <div class="markdown level1 summary"><p>キーボードの入力から文字列生成をエミュレートします</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputEmulator(in ConvertTableMgr aConvertTableMgr)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.ConvertTableMgr.html">ConvertTableMgr</a></td>
+        <td><span class="parametername">aConvertTableMgr</span></td>
+        <td><p>文字列生成時に使用する、変換テーブルを管理するクラス</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_EnabledBS_" data-uid="TypeModule.Inner.InputEmulator.EnabledBS*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_EnabledBS" data-uid="TypeModule.Inner.InputEmulator.EnabledBS">EnabledBS</h4>
+  <div class="markdown level1 summary"><p>BackSoaceキーを押した時、文字を消すかどうか</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledBS { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_EnabledEnter_" data-uid="TypeModule.Inner.InputEmulator.EnabledEnter*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_EnabledEnter" data-uid="TypeModule.Inner.InputEmulator.EnabledEnter">EnabledEnter</h4>
+  <div class="markdown level1 summary"><p>Enterキーを押した時、確定前の文字列を確定するかどうか</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledEnter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_Event_" data-uid="TypeModule.Inner.InputEmulator.Event*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_Event" data-uid="TypeModule.Inner.InputEmulator.Event">Event</h4>
+  <div class="markdown level1 summary"><p>前回入力発生時のUnityイベント</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Event Event { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Event</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_InputType_" data-uid="TypeModule.Inner.InputEmulator.InputType*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_InputType" data-uid="TypeModule.Inner.InputEmulator.InputType">InputType</h4>
+  <div class="markdown level1 summary"><p>前回の入力タイプ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputEmulatorResults.INPUT_TYPE InputType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.InputEmulatorResults.INPUT_TYPE.html">InputEmulatorResults.INPUT_TYPE</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_IsInputEng_" data-uid="TypeModule.Inner.InputEmulator.IsInputEng*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_IsInputEng" data-uid="TypeModule.Inner.InputEmulator.IsInputEng">IsInputEng</h4>
+  <div class="markdown level1 summary"><p>入力モード</p>
+<p>[true]英語入力モード</p>
+<p>[false]日本語入力モード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInputEng { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_IsKana_" data-uid="TypeModule.Inner.InputEmulator.IsKana*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_IsKana" data-uid="TypeModule.Inner.InputEmulator.IsKana">IsKana</h4>
+  <div class="markdown level1 summary"><p>JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうか</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsKana { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_PrevChar_" data-uid="TypeModule.Inner.InputEmulator.PrevChar*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_PrevChar" data-uid="TypeModule.Inner.InputEmulator.PrevChar">PrevChar</h4>
+  <div class="markdown level1 summary"><p>前回入力された文字</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PrevChar { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_Str_" data-uid="TypeModule.Inner.InputEmulator.Str*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_Str" data-uid="TypeModule.Inner.InputEmulator.Str">Str</h4>
+  <div class="markdown level1 summary"><p>生成された文字列</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Str { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_StrRaw_" data-uid="TypeModule.Inner.InputEmulator.StrRaw*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_StrRaw" data-uid="TypeModule.Inner.InputEmulator.StrRaw">StrRaw</h4>
+  <div class="markdown level1 summary"><p>生成された、変換される前の文字列</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrRaw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_AddEventListenerOnChange_" data-uid="TypeModule.Inner.InputEmulator.AddEventListenerOnChange*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_AddEventListenerOnChange_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.Inner.InputEmulator.AddEventListenerOnChange(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">AddEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>文字列が変更された時のイベントリスナを追加します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_AddEventListenerOnInput_" data-uid="TypeModule.Inner.InputEmulator.AddEventListenerOnInput*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_AddEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.Inner.InputEmulator.AddEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">AddEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>キーボードから文字が入力された時のイベントリスナを追加します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_AddInput_" data-uid="TypeModule.Inner.InputEmulator.AddInput*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_AddInput_UnityEngine_Event__" data-uid="TypeModule.Inner.InputEmulator.AddInput(UnityEngine.Event@)">AddInput(in Event)</h4>
+  <div class="markdown level1 summary"><p>キーボードからの入力文字を追加</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddInput(in Event aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Event</span></td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>入力イベント</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_BackSpace_" data-uid="TypeModule.Inner.InputEmulator.BackSpace*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_BackSpace" data-uid="TypeModule.Inner.InputEmulator.BackSpace">BackSpace()</h4>
+  <div class="markdown level1 summary"><p>プログラム側から、末尾の1文字消します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BackSpace()</code></pre>
+  </div>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_Clear_" data-uid="TypeModule.Inner.InputEmulator.Clear*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_Clear" data-uid="TypeModule.Inner.InputEmulator.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>内部データをクリアします。入力された文字列は全てクリアされます</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_Enter_" data-uid="TypeModule.Inner.InputEmulator.Enter*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_Enter" data-uid="TypeModule.Inner.InputEmulator.Enter">Enter()</h4>
+  <div class="markdown level1 summary"><p>プログラム側から変換確定前の文字列を確定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Enter()</code></pre>
+  </div>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_RemoveEventListenerOnChange_" data-uid="TypeModule.Inner.InputEmulator.RemoveEventListenerOnChange*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_RemoveEventListenerOnChange_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.Inner.InputEmulator.RemoveEventListenerOnChange(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">RemoveEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>文字列が変更された時のイベントリスナを削除します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_RemoveEventListenerOnInput_" data-uid="TypeModule.Inner.InputEmulator.RemoveEventListenerOnInput*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_RemoveEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.Inner.InputEmulator.RemoveEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">RemoveEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>キーボードから文字が入力された時のイベントリスナを削除します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

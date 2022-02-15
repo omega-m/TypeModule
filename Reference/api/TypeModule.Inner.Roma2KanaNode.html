@@ -1,0 +1,559 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Roma2KanaNode
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Roma2KanaNode
+   ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TypeModule.Inner.Roma2KanaNode">
+  
+  
+  <h1 id="TypeModule_Inner_Roma2KanaNode" data-uid="TypeModule.Inner.Roma2KanaNode" class="text-break">Class Roma2KanaNode
+  </h1>
+  <div class="markdown level0 summary"><p>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Roma2KanaNode</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.Inner.html">TypeModule.Inner</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="TypeModule_Inner_Roma2KanaNode_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Roma2KanaNode</code></pre>
+  </div>
+  <h5 id="TypeModule_Inner_Roma2KanaNode_examples"><strong>Examples</strong></h5>
+  <pre><code>     using Inner;
+
+         ...
+
+     //初期化処理
+     Roma2KanaNode root = Roma2KanaNode.CreateRoot();
+
+     //木ノードの追加
+     root.AddNodes(&quot;a&quot;, &quot;あ&quot;);
+     root.AddNodes(&quot;si&quot;, &quot;し&quot;);
+     root.AddNodes(&quot;sa&quot;, &quot;さ&quot;);
+     root.AddNodes(&quot;shi&quot;, &quot;し&quot;);
+     root.AddNodes(&quot;gya&quot;, &quot;ぎゃ&quot;);
+
+     木ノード追加終了後、呼び出してください。
+     root.InitAfterAddNodes();</code></pre>
+
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_Alpha_" data-uid="TypeModule.Inner.Roma2KanaNode.Alpha*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_Alpha" data-uid="TypeModule.Inner.Roma2KanaNode.Alpha">Alpha</h4>
+  <div class="markdown level1 summary"><p>このノードの末尾アルファベット</p>
+<p>ルートノードの場合は[\0]を返却</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char Alpha { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_Children_" data-uid="TypeModule.Inner.Roma2KanaNode.Children*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_Children" data-uid="TypeModule.Inner.Roma2KanaNode.Children">Children</h4>
+  <div class="markdown level1 summary"><p>子ノード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;Roma2KanaNode&gt; Children { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="TypeModule.Inner.Roma2KanaNode.html">Roma2KanaNode</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_Depth_" data-uid="TypeModule.Inner.Roma2KanaNode.Depth*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_Depth" data-uid="TypeModule.Inner.Roma2KanaNode.Depth">Depth</h4>
+  <div class="markdown level1 summary"><p>このノードの深さ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Depth { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_HasKana_" data-uid="TypeModule.Inner.Roma2KanaNode.HasKana*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_HasKana" data-uid="TypeModule.Inner.Roma2KanaNode.HasKana">HasKana</h4>
+  <div class="markdown level1 summary"><p>このノードがひらがな文字列に変換可能かどうか</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasKana { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_Kana_" data-uid="TypeModule.Inner.Roma2KanaNode.Kana*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_Kana" data-uid="TypeModule.Inner.Roma2KanaNode.Kana">Kana</h4>
+  <div class="markdown level1 summary"><p>変換先のひらがな</p>
+<p>ない場合は空文字列が返却されます</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Kana { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_PossibilityKanas_" data-uid="TypeModule.Inner.Roma2KanaNode.PossibilityKanas*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_PossibilityKanas" data-uid="TypeModule.Inner.Roma2KanaNode.PossibilityKanas">PossibilityKanas</h4>
+  <div class="markdown level1 summary"><p>このノードのローマ字列[Roma]に対して、Romaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧(ソート済み)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;string&gt; PossibilityKanas { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_Roma_" data-uid="TypeModule.Inner.Roma2KanaNode.Roma*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_Roma" data-uid="TypeModule.Inner.Roma2KanaNode.Roma">Roma</h4>
+  <div class="markdown level1 summary"><p>このノードまでのローマ字列</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Roma { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode__SetKana_" data-uid="TypeModule.Inner.Roma2KanaNode._SetKana*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode__SetKana_System_String_" data-uid="TypeModule.Inner.Roma2KanaNode._SetKana(System.String)">_SetKana(String)</h4>
+  <div class="markdown level1 summary"><p>外部からは使用しないでください。</p>
+<p>後からこのノードの変換先ひらがなをセット</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void _SetKana(string aKana)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aKana</span></td>
+        <td><p>変換先のひらがな</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_AddNodes_" data-uid="TypeModule.Inner.Roma2KanaNode.AddNodes*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_AddNodes_System_String_System_String_" data-uid="TypeModule.Inner.Roma2KanaNode.AddNodes(System.String,System.String)">AddNodes(String, String)</h4>
+  <div class="markdown level1 summary"><p>ローマ字列からひらがな文字列に変換する為の、新たな木ノードを追加(場合によっては、内部で再帰的に呼び出します)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddNodes(string aRoma, string aKana)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aRoma</span></td>
+        <td><p>ローマ字列</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aKana</span></td>
+        <td><p>変換先のひらがな</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_Alpha2ChildIdx_" data-uid="TypeModule.Inner.Roma2KanaNode.Alpha2ChildIdx*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_Alpha2ChildIdx_System_Char_" data-uid="TypeModule.Inner.Roma2KanaNode.Alpha2ChildIdx(System.Char)">Alpha2ChildIdx(Char)</h4>
+  <div class="markdown level1 summary"><p>アルファベットから、子ノードアクセス用の配列idxを取得します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int Alpha2ChildIdx(char aAlpha)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">aAlpha</span></td>
+        <td><p>/a-zA-Z/</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>aなら0、Dなら4などを返却</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_AlphaNum_" data-uid="TypeModule.Inner.Roma2KanaNode.AlphaNum*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_AlphaNum" data-uid="TypeModule.Inner.Roma2KanaNode.AlphaNum">AlphaNum()</h4>
+  <div class="markdown level1 summary"><p>アルファベットの総数を取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int AlphaNum()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>a～zの数</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_CreateRoot_" data-uid="TypeModule.Inner.Roma2KanaNode.CreateRoot*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_CreateRoot" data-uid="TypeModule.Inner.Roma2KanaNode.CreateRoot">CreateRoot()</h4>
+  <div class="markdown level1 summary"><p>ルートノード生成関数</p>
+<p>外からこのクラスを作成する場合は、この関数を使用してください。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Roma2KanaNode CreateRoot()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.Roma2KanaNode.html">Roma2KanaNode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_GetRomaMaxLength_" data-uid="TypeModule.Inner.Roma2KanaNode.GetRomaMaxLength*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_GetRomaMaxLength" data-uid="TypeModule.Inner.Roma2KanaNode.GetRomaMaxLength">GetRomaMaxLength()</h4>
+  <div class="markdown level1 summary"><p>全ノーツ内で、ローマ字文字列の最長の長さを取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetRomaMaxLength()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>ローマ字列の最長の長さ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Roma2KanaNode_InitAfterAddNodes_" data-uid="TypeModule.Inner.Roma2KanaNode.InitAfterAddNodes*"></a>
+  <h4 id="TypeModule_Inner_Roma2KanaNode_InitAfterAddNodes" data-uid="TypeModule.Inner.Roma2KanaNode.InitAfterAddNodes">InitAfterAddNodes()</h4>
+  <div class="markdown level1 summary"><p>内部の最適化処理。重複削除やソートの処理を行います。</p>
+<p>ノード追加終了後、必ず呼び出してください。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InitAfterAddNodes()</code></pre>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

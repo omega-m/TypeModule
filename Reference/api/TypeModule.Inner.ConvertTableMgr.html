@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ConvertTableMgr
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ConvertTableMgr
+   ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TypeModule.Inner.ConvertTableMgr">
+  
+  
+  <h1 id="TypeModule_Inner_ConvertTableMgr" data-uid="TypeModule.Inner.ConvertTableMgr" class="text-break">Class ConvertTableMgr
+  </h1>
+  <div class="markdown level0 summary"><p>文字列生成時に使用する、変換テーブルを管理するクラスです。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">ConvertTableMgr</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.Inner.html">TypeModule.Inner</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="TypeModule_Inner_ConvertTableMgr_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ConvertTableMgr</code></pre>
+  </div>
+  <h5 id="TypeModule_Inner_ConvertTableMgr_examples"><strong>Examples</strong></h5>
+  <pre><code>    using Inner;
+
+        ...
+
+    //初期化処理
+    ConvertTableMgr table = new ConvertTableMgr();
+
+    //独自に変換テーブルを指定(一例)
+    table.SetKeyCode2RomaTable(in csvSrc);
+
+    //キーコードから文字に変換し、ログに出力
+    private void OnGUI()
+    {
+        if (Event.current.type == EventType.KeyDown &amp;&amp; Event.current.keyCode != KeyCode.None){
+            Debug.Log(table.Key2kanaMid.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+            Debug.Log(table.Key2Roma.Convert(Event.current.keyCode, Event.current.shift, Event.current.functionKey));
+        }
+    }</code></pre>
+
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr__ctor_" data-uid="TypeModule.Inner.ConvertTableMgr.#ctor*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr__ctor" data-uid="TypeModule.Inner.ConvertTableMgr.#ctor">ConvertTableMgr()</h4>
+  <div class="markdown level1 summary"><p>文字列生成時に使用する、変換テーブルを管理するクラスです。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConvertTableMgr()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_EnabledCapsLock_" data-uid="TypeModule.Inner.ConvertTableMgr.EnabledCapsLock*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_EnabledCapsLock" data-uid="TypeModule.Inner.ConvertTableMgr.EnabledCapsLock">EnabledCapsLock</h4>
+  <div class="markdown level1 summary"><p>CapsLockの状態を反映させるかどうか。</p>
+<p>[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledCapsLock { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_Kana2KanaMid_" data-uid="TypeModule.Inner.ConvertTableMgr.Kana2KanaMid*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_Kana2KanaMid" data-uid="TypeModule.Inner.ConvertTableMgr.Kana2KanaMid">Kana2KanaMid</h4>
+  <div class="markdown level1 summary"><p>ひらがな文字列からひらがな中間文字列　への変換テーブル</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Kana2KanaMidTable Kana2KanaMid { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.Kana2KanaMidTable.html">Kana2KanaMidTable</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_Kana2Roma_" data-uid="TypeModule.Inner.ConvertTableMgr.Kana2Roma*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_Kana2Roma" data-uid="TypeModule.Inner.ConvertTableMgr.Kana2Roma">Kana2Roma</h4>
+  <div class="markdown level1 summary"><p>ひらがな文字列からローマ字文字列への変換テーブル</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Kana2RomaTable Kana2Roma { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.Kana2RomaTable.html">Kana2RomaTable</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_KanaMid2Kana_" data-uid="TypeModule.Inner.ConvertTableMgr.KanaMid2Kana*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_KanaMid2Kana" data-uid="TypeModule.Inner.ConvertTableMgr.KanaMid2Kana">KanaMid2Kana</h4>
+  <div class="markdown level1 summary"><p>ひらがな中間文字列からひらがな文字列への変換テーブル</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KanaMid2KanaTable KanaMid2Kana { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.KanaMid2KanaTable.html">KanaMid2KanaTable</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_Key2kanaMid_" data-uid="TypeModule.Inner.ConvertTableMgr.Key2kanaMid*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_Key2kanaMid" data-uid="TypeModule.Inner.ConvertTableMgr.Key2kanaMid">Key2kanaMid</h4>
+  <div class="markdown level1 summary"><p>キーの入力(KeyCode)からひらがな中間文字への変換テーブル</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public keyCode2CharTable Key2kanaMid { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.keyCode2CharTable.html">keyCode2CharTable</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_Key2Roma_" data-uid="TypeModule.Inner.ConvertTableMgr.Key2Roma*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_Key2Roma" data-uid="TypeModule.Inner.ConvertTableMgr.Key2Roma">Key2Roma</h4>
+  <div class="markdown level1 summary"><p>キーの入力(KeyCode)からローマ字文字への変換テーブル</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public keyCode2CharTable Key2Roma { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.keyCode2CharTable.html">keyCode2CharTable</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_NumMarkTable_" data-uid="TypeModule.Inner.ConvertTableMgr.NumMarkTable*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_NumMarkTable" data-uid="TypeModule.Inner.ConvertTableMgr.NumMarkTable">NumMarkTable</h4>
+  <div class="markdown level1 summary"><p>数字と記号の、全角半角の相互変換テーブル</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NumMarkTable NumMarkTable { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.NumMarkTable.html">NumMarkTable</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_Roma2Kana_" data-uid="TypeModule.Inner.ConvertTableMgr.Roma2Kana*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_Roma2Kana" data-uid="TypeModule.Inner.ConvertTableMgr.Roma2Kana">Roma2Kana</h4>
+  <div class="markdown level1 summary"><p>ローマ字文字列からひらがな文字列への変換テーブル</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Roma2KanaTable Roma2Kana { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.Roma2KanaTable.html">Roma2KanaTable</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_SetKanaMid2KanaTable_" data-uid="TypeModule.Inner.ConvertTableMgr.SetKanaMid2KanaTable*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_SetKanaMid2KanaTable_UnityEngine_TextAsset__" data-uid="TypeModule.Inner.ConvertTableMgr.SetKanaMid2KanaTable(UnityEngine.TextAsset@)">SetKanaMid2KanaTable(in TextAsset)</h4>
+  <div class="markdown level1 summary"><p>ひらがな中間文字列　→ ひらがな文字列への変換テーブルを指定</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetKanaMid2KanaTable(in TextAsset asset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td><span class="parametername">asset</span></td>
+        <td><p>ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイルアセット</p>
+<p>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>ひらがな中間文字列,ひらがな文字列</p>
+<p>例)</p>
+<p>か゛,が</p>
+<p>き゛,ぎ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_SetKeyCode2KanaMidTable_" data-uid="TypeModule.Inner.ConvertTableMgr.SetKeyCode2KanaMidTable*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_SetKeyCode2KanaMidTable_UnityEngine_TextAsset__" data-uid="TypeModule.Inner.ConvertTableMgr.SetKeyCode2KanaMidTable(UnityEngine.TextAsset@)">SetKeyCode2KanaMidTable(in TextAsset)</h4>
+  <div class="markdown level1 summary"><p>キーの入力(KeyCode) → ひらがな中間文字への変換テーブルを指定</p>
+<p>JISかな入力など、日本語を直接入力する方式を使用する際に参照します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetKeyCode2KanaMidTable(in TextAsset asset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td><span class="parametername">asset</span></td>
+        <td><p>キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイルアセット</p>
+<p>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>変換先文字,【UnityEngine.KeyCode】, isShift, isFunction</p>
+<p>例)</p>
+<p>ぬ,49,0,0</p>
+<p>ぬ,49,1,0</p>
+<p>ふ,50,0,0</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_SetKeyCode2RomaTable_" data-uid="TypeModule.Inner.ConvertTableMgr.SetKeyCode2RomaTable*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_SetKeyCode2RomaTable_UnityEngine_TextAsset__" data-uid="TypeModule.Inner.ConvertTableMgr.SetKeyCode2RomaTable(UnityEngine.TextAsset@)">SetKeyCode2RomaTable(in TextAsset)</h4>
+  <div class="markdown level1 summary"><p>キーの入力(KeyCode) → ローマ字文字への変換テーブルを指定</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetKeyCode2RomaTable(in TextAsset asset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td><span class="parametername">asset</span></td>
+        <td><p>キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイルアセット</p>
+<p>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>変換先文字,【UnityEngine.KeyCode】, isShift, isFunction</p>
+<p>例)</p>
+<p>S,115,1,0</p>
+<p>s,115,0,0</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_SetNumMarkTable_" data-uid="TypeModule.Inner.ConvertTableMgr.SetNumMarkTable*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_SetNumMarkTable_UnityEngine_TextAsset__" data-uid="TypeModule.Inner.ConvertTableMgr.SetNumMarkTable(UnityEngine.TextAsset@)">SetNumMarkTable(in TextAsset)</h4>
+  <div class="markdown level1 summary"><p>数字と記号の、全角と半角の相互変換用テーブルを指定</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetNumMarkTable(in TextAsset asset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td><span class="parametername">asset</span></td>
+        <td><p>ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイルアセット</p>
+<p>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>半角文字,全角文字</p>
+<p>例)</p>
+<p>.,。</p>
+<p>?,？</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_ConvertTableMgr_SetRoma2KanaTable_" data-uid="TypeModule.Inner.ConvertTableMgr.SetRoma2KanaTable*"></a>
+  <h4 id="TypeModule_Inner_ConvertTableMgr_SetRoma2KanaTable_UnityEngine_TextAsset__" data-uid="TypeModule.Inner.ConvertTableMgr.SetRoma2KanaTable(UnityEngine.TextAsset@)">SetRoma2KanaTable(in TextAsset)</h4>
+  <div class="markdown level1 summary"><p>ローマ字文字列 → ひらがな文字列への変換テーブルを指定</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetRoma2KanaTable(in TextAsset asset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td><span class="parametername">asset</span></td>
+        <td><p>ローマ字文字列からひらがな文字列への変換テーブルを定義したファイルアセット</p>
+<p>以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>ローマ字文字列,ひらがな文字列</p>
+<p>例)</p>
+<p>a,あ</p>
+<p>shi,し</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

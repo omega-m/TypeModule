@@ -1,0 +1,1912 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TypeModule
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TypeModule
+   ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TypeModule.TypeModule">
+  
+  
+  <h1 id="TypeModule_TypeModule" data-uid="TypeModule.TypeModule" class="text-break">Class TypeModule
+  </h1>
+  <div class="markdown level0 summary"><p>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</p>
+<p>CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">UnityEngine.Object</span></div>
+    <div class="level2"><span class="xref">UnityEngine.Component</span></div>
+    <div class="level3"><span class="xref">UnityEngine.Behaviour</span></div>
+    <div class="level4"><span class="xref">UnityEngine.MonoBehaviour</span></div>
+    <div class="level5"><span class="xref">TypeModule</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.Invoke(System.String, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.InvokeRepeating(System.String, System.Single, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine_Auto(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(UnityEngine.Coroutine)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopAllCoroutines()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.print(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.useGUILayout</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.runInEditMode</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.enabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.isActiveAndEnabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.TryGetComponent(System.Type, UnityEngine.Component)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.TryGetComponent&lt;T&gt;(T)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type, System.Collections.Generic.List&lt;UnityEngine.Component&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.CompareTag(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.transform</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.gameObject</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.tag</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetInstanceID()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DontDestroyOnLoad(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindSceneObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeIncludingAssets(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeAll(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.name</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.hideFlags</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.html">TypeModule</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="TypeModule_TypeModule_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TypeModule : MonoBehaviour</code></pre>
+  </div>
+  <h5 id="TypeModule_TypeModule_examples"><strong>Examples</strong></h5>
+  <pre><code>     using TypeModule;
+         ...
+
+     TypeModule module = GetComponent&lt;TypeModuleTypeModule.TypeModule>();
+
+
+
+     //=======================================================================
+     //文字列生成シミュレーションモードに変更
+     module.Mode = TypeModule.MODE.INPUT;
+
+     //モジュールから状態を取得
+     Debug.Log(module.Str);
+     Debug.Log(module.PrevChar);
+     Debug.Log(module.StrRaw);
+
+     //モードを変更
+     module.IsInputEng = true    //英語入力状態へ
+     module.IsKana     = true;     //かな入力入力状態へ
+     module.EnabledBS  = true;     //BSで文字を消せるかどうか
+
+     //プログラムから文字列を操作
+     module.Enter();             //変換確定前の文字列を確定
+     module.BackSpace();         //末尾から1文字削除
+     module.Clear();             //全ての文字を削除
+
+
+
+     //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
+     module.AddEventListenerOnChange(onChange);
+
+             ...
+
+     public Text testInput;
+     public Text testInputRaw;
+
+     private void onChange(InputEmulatorResults res) {
+         Debug.Log(&quot;onChange&quot;);
+
+         testInput.text = res.StrInput;
+         testInputRaw.text = res.StrRawInput;
+     }
+
+
+
+     //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+     public AudioSource audioSource;
+     public AudioClip typeSound;
+     public AudioClip bsSound;
+     public AudioClip enterSound;
+
+             ...
+
+
+     module.AddEventListenerOnInput(onInput);
+     audioSource = GetComponent&lt;AudioSource>();
+
+             ...
+
+     private void onInput(InputEmulatorResults res){
+         Debug.Log(&quot;onInput&quot;);
+         switch(res.InputType){
+             case InputEmulatorResults.INPUT_TYPE.INPUT:
+                 audioSource.PlayOneShot(typeSound);
+                 break;
+             case InputEmulatorResults.INPUT_TYPE.BS:
+                 audioSource.PlayOneShot(bsSound);
+                 break;
+             case InputEmulatorResults.INPUT_TYPE.ENTER:
+                 audioSource.PlayOneShot(enterSound);
+                 break;
+         }C:\Users\renge\folder\circle\workspace\tp\UnityWorks\TypeModule\Assembly-CSharp.csproj
+     }
+
+
+
+     //=======================================================================
+     //指定された文字列が正しく打ててるか、比較するモードに変更
+     module.Mode = TypeModule.MODE.COPY;
+
+     //モードの変更
+     module.IsKana = true;                  /かな入力入力状態へ
+     module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
+
+
+     //比較対象の文字列をセット(内部初期化もされます)
+     module.TargetStr = &quot;こちらは、たいぴんぐするぶんしょうです。&quot;;
+
+
+     //直前に入力された文字を取得
+     Debug.Log(module.PrevCorrectChar);         //正しく入力された場合
+     Debug.Log(module.PrevMissChar);            //ミス入力の場合
+
+     //パラメータにアクセス
+     Debug.Log(module.CorrectNum);              //正しくタイプした数
+     Debug.Log(module.CorrectCharNum);          //正しく打てた文字数
+     Debug.Log(module.MissNum);                 //ミスタイプした数
+     Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
+
+
+
+     //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
+     module.AddEventListenerOnInput(onInput);
+
+         ...
+
+     public Text testInput;
+     public Text testInputRaw;
+
+     private void onInput(CopyInputCheckerResults res) {
+         Debug.Log(&quot;onInput&quot;);
+         testInput.text = res.StrDone + &quot; &quot; + res.StrCurrent + &quot; &quot; + res.StrYet;
+         testInputRaw.text = res.StrDoneRaw + &quot; &quot; + res.StrCurrentRaw + &quot; &quot; + res.StrYetRaw;
+     }
+
+
+
+     //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+     public AudioSource audioSource;
+     public AudioClip correctSound;
+     public AudioClip missSound;
+
+         ...
+
+     module.AddEventListenerOnCorrect(onCorrect);
+     module.AddEventListenerOnMiss(onMiss);
+     audioSource = GetComponent&lt;AudioSource>();
+
+         ...
+
+     private void onCorrect(CopyInputCheckerResults res){
+         Debug.Log(&quot;onCorrect&quot;);
+         audioSource.PlayOneShot(correctSound);
+     }
+
+     private void onMiss(CopyInputCheckerResults res){
+         Debug.Log(&quot;onMiss&quot;);
+         audioSource.PlayOneShot(missSound);
+     }
+
+
+
+     //=======================================================================
+     //以下オプション
+
+     //CapsLockの状態を反映させないように切り替え
+     module.EnabledCapsLock = false;
+
+     //入力を受け付けないように切り替え
+     module.isRun = false;</code></pre>
+
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="TypeModule_TypeModule_CorrectCharNum_" data-uid="TypeModule.TypeModule.CorrectCharNum*"></a>
+  <h4 id="TypeModule_TypeModule_CorrectCharNum" data-uid="TypeModule.TypeModule.CorrectCharNum">CorrectCharNum</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】正しく打てた文字数</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CorrectCharNum { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_CorrectNum_" data-uid="TypeModule.TypeModule.CorrectNum*"></a>
+  <h4 id="TypeModule_TypeModule_CorrectNum" data-uid="TypeModule.TypeModule.CorrectNum">CorrectNum</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】正しくタイプした数</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CorrectNum { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_EnabledBS_" data-uid="TypeModule.TypeModule.EnabledBS*"></a>
+  <h4 id="TypeModule_TypeModule_EnabledBS" data-uid="TypeModule.TypeModule.EnabledBS">EnabledBS</h4>
+  <div class="markdown level1 summary"><p>BackSoaceキーを押した時、文字を消すかどうか</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledBS { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_EnabledCapsLock_" data-uid="TypeModule.TypeModule.EnabledCapsLock*"></a>
+  <h4 id="TypeModule_TypeModule_EnabledCapsLock" data-uid="TypeModule.TypeModule.EnabledCapsLock">EnabledCapsLock</h4>
+  <div class="markdown level1 summary"><p>CapsLockの状態を反映させるかどうか。</p>
+<p>[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledCapsLock { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_EnabledEnter_" data-uid="TypeModule.TypeModule.EnabledEnter*"></a>
+  <h4 id="TypeModule_TypeModule_EnabledEnter" data-uid="TypeModule.TypeModule.EnabledEnter">EnabledEnter</h4>
+  <div class="markdown level1 summary"><p>Enterキーを押した時、確定前の文字列を確定するかどうか</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledEnter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_Event_" data-uid="TypeModule.TypeModule.Event*"></a>
+  <h4 id="TypeModule_TypeModule_Event" data-uid="TypeModule.TypeModule.Event">Event</h4>
+  <div class="markdown level1 summary"><p>前回入力発生時のUnityイベント</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Event Event { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Event</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_InnerEvent_" data-uid="TypeModule.TypeModule.InnerEvent*"></a>
+  <h4 id="TypeModule_TypeModule_InnerEvent" data-uid="TypeModule.TypeModule.InnerEvent">InnerEvent</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】前回の入力タイプ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CopyInputCheckerResults.INNER_EVENT_TYPE InnerEvent { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.CopyInputCheckerResults.INNER_EVENT_TYPE.html">CopyInputCheckerResults.INNER_EVENT_TYPE</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_InputType_" data-uid="TypeModule.TypeModule.InputType*"></a>
+  <h4 id="TypeModule_TypeModule_InputType" data-uid="TypeModule.TypeModule.InputType">InputType</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】前回の入力タイプ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputEmulatorResults.INPUT_TYPE InputType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.InputEmulatorResults.INPUT_TYPE.html">InputEmulatorResults.INPUT_TYPE</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_IsCaseSensitive_" data-uid="TypeModule.TypeModule.IsCaseSensitive*"></a>
+  <h4 id="TypeModule_TypeModule_IsCaseSensitive" data-uid="TypeModule.TypeModule.IsCaseSensitive">IsCaseSensitive</h4>
+  <div class="markdown level1 summary"><p>英語の大文字と小文字入力を区別して判定するか</p>
+<p>初期化処理が発生した時点で反映されます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCaseSensitive { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_IsComplete_" data-uid="TypeModule.TypeModule.IsComplete*"></a>
+  <h4 id="TypeModule_TypeModule_IsComplete" data-uid="TypeModule.TypeModule.IsComplete">IsComplete</h4>
+  <div class="markdown level1 summary"><p>打ち終わったか</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsComplete { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_IsInputEng_" data-uid="TypeModule.TypeModule.IsInputEng*"></a>
+  <h4 id="TypeModule_TypeModule_IsInputEng" data-uid="TypeModule.TypeModule.IsInputEng">IsInputEng</h4>
+  <div class="markdown level1 summary"><p>入力モード</p>
+<p>[true]英語入力モード</p>
+<p>[false]日本語入力モード</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInputEng { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_IsKana_" data-uid="TypeModule.TypeModule.IsKana*"></a>
+  <h4 id="TypeModule_TypeModule_IsKana" data-uid="TypeModule.TypeModule.IsKana">IsKana</h4>
+  <div class="markdown level1 summary"><p>JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。</p>
+<p>[INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。</p>
+<p>[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2RomaCsv]から文字列生成をエミュレートします。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsKana { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_IsRun_" data-uid="TypeModule.TypeModule.IsRun*"></a>
+  <h4 id="TypeModule_TypeModule_IsRun" data-uid="TypeModule.TypeModule.IsRun">IsRun</h4>
+  <div class="markdown level1 summary"><p>現在入力を受け付けているか</p>
+<p>[false]にした場合、入力チェックを行わなくなります。ポーズ時やゲーム外の時に使用してください。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsRun { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_KanaMid2KanaCsv_" data-uid="TypeModule.TypeModule.KanaMid2KanaCsv*"></a>
+  <h4 id="TypeModule_TypeModule_KanaMid2KanaCsv" data-uid="TypeModule.TypeModule.KanaMid2KanaCsv">KanaMid2KanaCsv</h4>
+  <div class="markdown level1 summary"><p>ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイル</p>
+<p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
+<p>【Assets/Resources/TypeModule/data/Char2Kana/JISkana.csv】</p>
+<p>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>［形式］ひらがな中間文字列,ひらがな文字列</p>
+<p>例) \n</p>
+<p>か゛,が</p>
+<p>き゛,ぎ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextAsset KanaMid2KanaCsv { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_KeyCode2KanaMidCsv_" data-uid="TypeModule.TypeModule.KeyCode2KanaMidCsv*"></a>
+  <h4 id="TypeModule_TypeModule_KeyCode2KanaMidCsv" data-uid="TypeModule.TypeModule.KeyCode2KanaMidCsv">KeyCode2KanaMidCsv</h4>
+  <div class="markdown level1 summary"><p>キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイル</p>
+<p>JISかな入力など、日本語を直接入力する方式を使用する際に参照します。</p>
+<p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
+<p>【Assets/Resources/TypeModule/data/KeyCode2Char/JISkana.csv】</p>
+<p>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction</p>
+<p>例) \n</p>
+<p>ぬ,49,0,0</p>
+<p>ぬ,49,1,0</p>
+<p>ふ,50,0,0</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextAsset KeyCode2KanaMidCsv { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_KeyCode2RomaCsv_" data-uid="TypeModule.TypeModule.KeyCode2RomaCsv*"></a>
+  <h4 id="TypeModule_TypeModule_KeyCode2RomaCsv" data-uid="TypeModule.TypeModule.KeyCode2RomaCsv">KeyCode2RomaCsv</h4>
+  <div class="markdown level1 summary"><p>キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイル</p>
+<p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
+<p>【Assets/Resources/TypeModule/data/KeyCode2Char/qwerty.csv】</p>
+<p>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFunction</p>
+<p>例) \n</p>
+<p>S,115,1,0</p>
+<p>s,115,0,0</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextAsset KeyCode2RomaCsv { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_MissNum_" data-uid="TypeModule.TypeModule.MissNum*"></a>
+  <h4 id="TypeModule_TypeModule_MissNum" data-uid="TypeModule.TypeModule.MissNum">MissNum</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】ミスタイプした数</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MissNum { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_Mode_" data-uid="TypeModule.TypeModule.Mode*"></a>
+  <h4 id="TypeModule_TypeModule_Mode" data-uid="TypeModule.TypeModule.Mode">Mode</h4>
+  <div class="markdown level1 summary"><p>文字入力判定モードです。</p>
+<p>【INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。</p>
+<p>【MODE_COMPARE】 :指定された文字列が正しく打ててるかを確認します。タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TypeModule.MODE Mode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.TypeModule.MODE.html">TypeModule.MODE</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_NumMarkCsv_" data-uid="TypeModule.TypeModule.NumMarkCsv*"></a>
+  <h4 id="TypeModule_TypeModule_NumMarkCsv" data-uid="TypeModule.TypeModule.NumMarkCsv">NumMarkCsv</h4>
+  <div class="markdown level1 summary"><p>数字と記号の、全角半角の変換テーブルを定義したファイル</p>
+<p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
+<p>【Assets/Resources/TypeModule/data/Char2Kana/nummark.csv】</p>
+<p>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>［形式］半角文字,全角文字</p>
+<p>例) \n</p>
+<p>.,。</p>
+<p>?,？</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextAsset NumMarkCsv { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_PrevChar_" data-uid="TypeModule.TypeModule.PrevChar*"></a>
+  <h4 id="TypeModule_TypeModule_PrevChar" data-uid="TypeModule.TypeModule.PrevChar">PrevChar</h4>
+  <div class="markdown level1 summary"><p>前回入力された文字(変換前)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PrevChar { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_PrevCorrectChar_" data-uid="TypeModule.TypeModule.PrevCorrectChar*"></a>
+  <h4 id="TypeModule_TypeModule_PrevCorrectChar" data-uid="TypeModule.TypeModule.PrevCorrectChar">PrevCorrectChar</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】前回打たれた文字</p>
+<p>【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PrevCorrectChar { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_PrevMissChar_" data-uid="TypeModule.TypeModule.PrevMissChar*"></a>
+  <h4 id="TypeModule_TypeModule_PrevMissChar" data-uid="TypeModule.TypeModule.PrevMissChar">PrevMissChar</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】前回打たれた文字</p>
+<p>【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PrevMissChar { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_Roma2KanaCsv_" data-uid="TypeModule.TypeModule.Roma2KanaCsv*"></a>
+  <h4 id="TypeModule_TypeModule_Roma2KanaCsv" data-uid="TypeModule.TypeModule.Roma2KanaCsv">Roma2KanaCsv</h4>
+  <div class="markdown level1 summary"><p>ローマ字文字列からひらがな文字列への変換テーブルを定義したファイル</p>
+<p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
+<p>【Assets/Resources/TypeModule/data/Char2Kana/roma.csv】</p>
+<p>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
+<p>［形式］ローマ字文字列,ひらがな文字列</p>
+<p>例) \n</p>
+<p>a,あ</p>
+<p>shi,し</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextAsset Roma2KanaCsv { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrCurrent_" data-uid="TypeModule.TypeModule.StrCurrent*"></a>
+  <h4 id="TypeModule_TypeModule_StrCurrent" data-uid="TypeModule.TypeModule.StrCurrent">StrCurrent</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】現在打っている文字</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrCurrent { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrCurrentRaw_" data-uid="TypeModule.TypeModule.StrCurrentRaw*"></a>
+  <h4 id="TypeModule_TypeModule_StrCurrentRaw" data-uid="TypeModule.TypeModule.StrCurrentRaw">StrCurrentRaw</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】 現在打っている文字(変換前)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrCurrentRaw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrDone_" data-uid="TypeModule.TypeModule.StrDone*"></a>
+  <h4 id="TypeModule_TypeModule_StrDone" data-uid="TypeModule.TypeModule.StrDone">StrDone</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】既に打ち終わった文字列</p>
+<p>StrInputと同等の値を返却します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrDone { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrDoneRaw_" data-uid="TypeModule.TypeModule.StrDoneRaw*"></a>
+  <h4 id="TypeModule_TypeModule_StrDoneRaw" data-uid="TypeModule.TypeModule.StrDoneRaw">StrDoneRaw</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】既に打ち終わった文字列(変換前)</p>
+<p>StrRawInputと同等の値を返却します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrDoneRaw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrInput_" data-uid="TypeModule.TypeModule.StrInput*"></a>
+  <h4 id="TypeModule_TypeModule_StrInput" data-uid="TypeModule.TypeModule.StrInput">StrInput</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrInput { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrRawInput_" data-uid="TypeModule.TypeModule.StrRawInput*"></a>
+  <h4 id="TypeModule_TypeModule_StrRawInput" data-uid="TypeModule.TypeModule.StrRawInput">StrRawInput</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】生成された、変換される前の文字列</p>
+<p>StrDoneRawと同等の値を返却します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrRawInput { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrYet_" data-uid="TypeModule.TypeModule.StrYet*"></a>
+  <h4 id="TypeModule_TypeModule_StrYet" data-uid="TypeModule.TypeModule.StrYet">StrYet</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】まだ打っていない文字列</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrYet { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_StrYetRaw_" data-uid="TypeModule.TypeModule.StrYetRaw*"></a>
+  <h4 id="TypeModule_TypeModule_StrYetRaw" data-uid="TypeModule.TypeModule.StrYetRaw">StrYetRaw</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】既に打ち終わった文字列(変換前)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrYetRaw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_TargetStr_" data-uid="TypeModule.TypeModule.TargetStr*"></a>
+  <h4 id="TypeModule_TypeModule_TargetStr" data-uid="TypeModule.TypeModule.TargetStr">TargetStr</h4>
+  <div class="markdown level1 summary"><p>比較対象の文字列(タイピングのお台文)</p>
+<p>値を変更した時点で、初期化処理を自動で呼び出します。</p>
+<p>また、全角半角カタカナはひらがなに、全角アルファベットは半角アルファベットに変換されます。</p>
+<p>[含む事が出来る文字]: -_| -_に対応する大文字|ァ-ヴ|ぁ-ゔ</p>
+<p>含むことのできない文字があった場合、エディタ上での実行なら例外を投げます。ビルド版だとその文字の部分だけ削除され、動き続けます。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TargetStr { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="TypeModule_TypeModule_AddEventListenerOnChange_" data-uid="TypeModule.TypeModule.AddEventListenerOnChange*"></a>
+  <h4 id="TypeModule_TypeModule_AddEventListenerOnChange_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnChange(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">AddEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】文字列が変更された時のイベントリスナを追加します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_AddEventListenerOnComplete_" data-uid="TypeModule.TypeModule.AddEventListenerOnComplete*"></a>
+  <h4 id="TypeModule_TypeModule_AddEventListenerOnComplete_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnComplete(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを追加します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_AddEventListenerOnCorrect_" data-uid="TypeModule.TypeModule.AddEventListenerOnCorrect*"></a>
+  <h4 id="TypeModule_TypeModule_AddEventListenerOnCorrect_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnCorrect(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを追加します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_AddEventListenerOnInput_" data-uid="TypeModule.TypeModule.AddEventListenerOnInput*"></a>
+  <h4 id="TypeModule_TypeModule_AddEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを追加します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_AddEventListenerOnInput_" data-uid="TypeModule.TypeModule.AddEventListenerOnInput*"></a>
+  <h4 id="TypeModule_TypeModule_AddEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">AddEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを追加します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_AddEventListenerOnMiss_" data-uid="TypeModule.TypeModule.AddEventListenerOnMiss*"></a>
+  <h4 id="TypeModule_TypeModule_AddEventListenerOnMiss_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnMiss(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを追加します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_AddEventListenerOnSetup_" data-uid="TypeModule.TypeModule.AddEventListenerOnSetup*"></a>
+  <h4 id="TypeModule_TypeModule_AddEventListenerOnSetup_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnSetup(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_BackSpace_" data-uid="TypeModule.TypeModule.BackSpace*"></a>
+  <h4 id="TypeModule_TypeModule_BackSpace" data-uid="TypeModule.TypeModule.BackSpace">BackSpace()</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】プログラム側から、末尾の1文字消します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BackSpace()</code></pre>
+  </div>
+  
+  
+  <a id="TypeModule_TypeModule_Clear_" data-uid="TypeModule.TypeModule.Clear*"></a>
+  <h4 id="TypeModule_TypeModule_Clear" data-uid="TypeModule.TypeModule.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>内部の入力データをを全て削除します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  
+  
+  <a id="TypeModule_TypeModule_Enter_" data-uid="TypeModule.TypeModule.Enter*"></a>
+  <h4 id="TypeModule_TypeModule_Enter" data-uid="TypeModule.TypeModule.Enter">Enter()</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】プログラム側から、変換確定前の文字列を確定します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Enter()</code></pre>
+  </div>
+  
+  
+  <a id="TypeModule_TypeModule_RemoveEventListenerOnChange_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnChange*"></a>
+  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnChange_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnChange(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">RemoveEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】文字列が変更された時のイベントリスナを削除します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_RemoveEventListenerOnComplete_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnComplete*"></a>
+  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnComplete_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnComplete(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを削除します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_RemoveEventListenerOnCorrect_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnCorrect*"></a>
+  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnCorrect_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnCorrect(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを削除します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_RemoveEventListenerOnInput_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput*"></a>
+  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを削除します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_RemoveEventListenerOnInput_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput*"></a>
+  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">RemoveEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを削除します</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_RemoveEventListenerOnMiss_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnMiss*"></a>
+  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnMiss_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnMiss(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを削除します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_TypeModule_RemoveEventListenerOnSetup_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnSetup*"></a>
+  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnSetup_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnSetup(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを削除します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt; aEvent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="parametername">aEvent</span></td>
+        <td><p>イベントリスナ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

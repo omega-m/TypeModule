@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class InputEmulatorResults
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class InputEmulatorResults
+   ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TypeModule.InputEmulatorResults">
+  
+  
+  <h1 id="TypeModule_InputEmulatorResults" data-uid="TypeModule.InputEmulatorResults" class="text-break">Class InputEmulatorResults
+  </h1>
+  <div class="markdown level0 summary"><p>InputEmulatorによって処理されたデータへのアクセス用クラスです。</p>
+<p>TypeModuleでModeをINPUTにした時、入力発生時のイベントリスナで返却されます。</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">InputEmulatorResults</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.html">TypeModule</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="TypeModule_InputEmulatorResults_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class InputEmulatorResults</code></pre>
+  </div>
+  <h5 id="TypeModule_InputEmulatorResults_examples"><strong>Examples</strong></h5>
+  <pre><code>    //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
+    TypeModule module = GetComponent&lt;TypeModule>();
+    module.AddEventListenerOnChange(onChange);
+
+        ...
+
+    public Text testInput;
+    public Text testInputRaw;
+
+    private void onChange(InputEmulatorResults res) {
+        Debug.Log(&quot;onChange&quot;);
+
+        testInput.text = res.Str;
+        testInputRaw.text = res.StrRaw;
+    }
+
+    //イベントリスナを追加し、文字が打たれた時にサウンドを再生
+    public AudioSource audioSource;
+    public AudioClip typeSound;
+    public AudioClip bsSound;
+    public AudioClip enterSound;
+
+            ...
+
+    module.AddEventListenerOnInput(onInput);
+    audioSource = GetComponent&lt;AudioSource>();
+
+            ...
+
+    private void onInput(InputEmulatorResults res){
+        Debug.Log(&quot;onInput&quot;);
+        switch(res.InputType){
+            case InputEmulatorResults.INPUT_TYPE.INPUT:
+                audioSource.PlayOneShot(typeSound);
+                break;
+            case InputEmulatorResults.INPUT_TYPE.BS:
+                audioSource.PlayOneShot(bsSound);
+                break;
+            case InputEmulatorResults.INPUT_TYPE.ENTER:
+                audioSource.PlayOneShot(enterSound);
+                break;
+        }
+    }</code></pre>
+
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="TypeModule_InputEmulatorResults__ctor_" data-uid="TypeModule.InputEmulatorResults.#ctor*"></a>
+  <h4 id="TypeModule_InputEmulatorResults__ctor_TypeModule_Inner_InputEmulatorParams__" data-uid="TypeModule.InputEmulatorResults.#ctor(TypeModule.Inner.InputEmulatorParams@)">InputEmulatorResults(in InputEmulatorParams)</h4>
+  <div class="markdown level1 summary"><p>InputEmulatorより作成されます。外からは作成しないでください。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputEmulatorResults(in InputEmulatorParams aParams)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.InputEmulatorParams.html">InputEmulatorParams</a></td>
+        <td><span class="parametername">aParams</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="TypeModule_InputEmulatorResults_Dirty_" data-uid="TypeModule.InputEmulatorResults.Dirty*"></a>
+  <h4 id="TypeModule_InputEmulatorResults_Dirty" data-uid="TypeModule.InputEmulatorResults.Dirty">Dirty</h4>
+  <div class="markdown level1 summary"><p>汚しフラグです。trueになっている時に文字列にアクセスされた場合、データを再度作成します。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Dirty { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_InputEmulatorResults_Event_" data-uid="TypeModule.InputEmulatorResults.Event*"></a>
+  <h4 id="TypeModule_InputEmulatorResults_Event" data-uid="TypeModule.InputEmulatorResults.Event">Event</h4>
+  <div class="markdown level1 summary"><p>入力発生時のイベント</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Event Event { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Event</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_InputEmulatorResults_InputType_" data-uid="TypeModule.InputEmulatorResults.InputType*"></a>
+  <h4 id="TypeModule_InputEmulatorResults_InputType" data-uid="TypeModule.InputEmulatorResults.InputType">InputType</h4>
+  <div class="markdown level1 summary"><p>前回の入力タイプ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputEmulatorResults.INPUT_TYPE InputType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TypeModule.InputEmulatorResults.INPUT_TYPE.html">InputEmulatorResults.INPUT_TYPE</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_InputEmulatorResults_PrevChar_" data-uid="TypeModule.InputEmulatorResults.PrevChar*"></a>
+  <h4 id="TypeModule_InputEmulatorResults_PrevChar" data-uid="TypeModule.InputEmulatorResults.PrevChar">PrevChar</h4>
+  <div class="markdown level1 summary"><p>前回入力された文字(変換前)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PrevChar { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_InputEmulatorResults_Str_" data-uid="TypeModule.InputEmulatorResults.Str*"></a>
+  <h4 id="TypeModule_InputEmulatorResults_Str" data-uid="TypeModule.InputEmulatorResults.Str">Str</h4>
+  <div class="markdown level1 summary"><p>生成された文字列</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Str { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_InputEmulatorResults_StrRaw_" data-uid="TypeModule.InputEmulatorResults.StrRaw*"></a>
+  <h4 id="TypeModule_InputEmulatorResults_StrRaw" data-uid="TypeModule.InputEmulatorResults.StrRaw">StrRaw</h4>
+  <div class="markdown level1 summary"><p>生成された、変換される前の文字列</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StrRaw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
