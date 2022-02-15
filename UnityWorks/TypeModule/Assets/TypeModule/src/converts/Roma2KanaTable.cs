@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace TypeModule {
-namespace Inner {
+    namespace Inner {
 
         #region メモ
         // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
@@ -45,9 +45,9 @@ namespace Inner {
         /// //ローマ字文字列に追加でローマ字を足すことで、ひらがな文字列に変換する事が可能か
         /// string roma2 = "ty";
         /// string kana2 = "ちゅ";
-        /// Debug.Log(table.HasPossibility(roma2, kana2));           // "false"
+        /// Debug.Log(table.HasPossibility(roma2, kana2));  // "true"
         /// //将来打てる文字が1つでもあればtrue
-        /// Debug.Log(table.HasPossibility(roma2,));     // "true"
+        /// Debug.Log(table.HasPossibility(roma2));         // "true"
         /// 
         /// 
         /// //将来打てる可能性があるひらがな文字列一覧を取得
@@ -181,193 +181,193 @@ namespace Inner {
     }
 
 
-    /// <summary>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</summary>
-    /// <example><code>
-    /// using Inner;
-    /// 
-    ///     ...
-    ///     
-    /// //初期化処理
-    /// Roma2KanaNode root = Roma2KanaNode.CreateRoot();
-    ///
-    /// //木ノードの追加
-    /// root.AddNodes("a", "あ");
-    /// root.AddNodes("si", "し");
-    /// root.AddNodes("sa", "さ");
-    /// root.AddNodes("shi", "し");
-    /// root.AddNodes("gya", "ぎゃ");
-    /// 
-    /// 木ノード追加終了後、呼び出してください。
-    /// root.InitAfterAddNodes();
-    /// 
-    /// </code></example>
-    public class Roma2KanaNode{
+        /// <summary>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</summary>
+        /// <example><code>
+        /// using Inner;
+        /// 
+        ///     ...
+        ///     
+        /// //初期化処理
+        /// Roma2KanaNode root = Roma2KanaNode.CreateRoot();
+        ///
+        /// //木ノードの追加
+        /// root.AddNodes("a", "あ");
+        /// root.AddNodes("si", "し");
+        /// root.AddNodes("sa", "さ");
+        /// root.AddNodes("shi", "し");
+        /// root.AddNodes("gya", "ぎゃ");
+        /// 
+        /// 木ノード追加終了後、呼び出してください。
+        /// root.InitAfterAddNodes();
+        /// 
+        /// </code></example>
+        public class Roma2KanaNode{
 
 
-        #region 生成
-        ///<summary>
-        /// <para>ルートノード生成関数</para>
-        /// <para>外からこのクラスを作成する場合は、この関数を使用してください。</para>
-        /// </summary>
-        static public Roma2KanaNode CreateRoot(){
-            return new Roma2KanaNode("", "");
-        }
-        #endregion
-
-
-        #region メソッド
-        /// <summary>ローマ字列からひらがな文字列に変換する為の、新たな木ノードを追加(場合によっては、内部で再帰的に呼び出します)</summary>
-        /// <param name="aRoma">ローマ字列</param>
-        /// <param name="aKana">変換先のひらがな</param>
-        public void AddNodes(string aRoma, string aKana){
-#if UNITY_EDITOR
-            Debug.Assert(aRoma.Length > Depth, "Roma2KanaTable::AddNodes() パラメータの不備");
-            Debug.Assert(aKana.Length > 0, "Roma2KanaTable::AddNodes() パラメータの不備");
-            if (Depth > 0){
-                Debug.Assert(string.Compare(aRoma, 0, Roma, 0, Depth - 1) == 0, "Roma2KanaTable::AddNodes() パラメータの不備");
+            #region 生成
+            ///<summary>
+            /// <para>ルートノード生成関数</para>
+            /// <para>外からこのクラスを作成する場合は、この関数を使用してください。</para>
+            /// </summary>
+            static public Roma2KanaNode CreateRoot(){
+                return new Roma2KanaNode("", "");
             }
-#endif
-            char chAlpha = aRoma[Depth];
-            int chIdx = Alpha2ChildIdx(chAlpha);
+            #endregion
 
-            if(m_children == null){
-                m_children = new List<Roma2KanaNode>();
-                int childNum = AlphaNum();
-                for (int i = 0; i < childNum; ++i){
-                    m_children.Add(null);
+
+            #region メソッド
+            /// <summary>ローマ字列からひらがな文字列に変換する為の、新たな木ノードを追加(場合によっては、内部で再帰的に呼び出します)</summary>
+            /// <param name="aRoma">ローマ字列</param>
+            /// <param name="aKana">変換先のひらがな</param>
+            public void AddNodes(string aRoma, string aKana){
+    #if UNITY_EDITOR
+                Debug.Assert(aRoma.Length > Depth, "Roma2KanaTable::AddNodes() パラメータの不備");
+                Debug.Assert(aKana.Length > 0, "Roma2KanaTable::AddNodes() パラメータの不備");
+                if (Depth > 0){
+                    Debug.Assert(string.Compare(aRoma, 0, Roma, 0, Depth - 1) == 0, "Roma2KanaTable::AddNodes() パラメータの不備");
                 }
+    #endif
+                char chAlpha = aRoma[Depth];
+                int chIdx = Alpha2ChildIdx(chAlpha);
+
+                if(m_children == null){
+                    m_children = new List<Roma2KanaNode>();
+                    int childNum = AlphaNum();
+                    for (int i = 0; i < childNum; ++i){
+                        m_children.Add(null);
+                    }
+                }
+
+                if (aRoma.Length == Depth + 1){ //ひらがな変換可能ノード
+                    if (m_children[chIdx] == null) {
+                        m_children[chIdx] = new Roma2KanaNode(aRoma.Substring(0, Depth + 1), aKana);
+                    }
+                    else{
+                        m_children[chIdx]._SetKana(aKana);                    
+                    }
+
+                }else{//途中のノード
+                    if (m_children[chIdx] == null)
+                    {
+                        m_children[chIdx] = new Roma2KanaNode(aRoma.Substring(0, Depth + 1), "");
+                    }
+                    m_children[chIdx].AddNodes(aRoma, aKana);
+                }
+
+                m_possibilityKanas.Add(string.Copy(aKana));
             }
 
-            if (aRoma.Length == Depth + 1){ //ひらがな変換可能ノード
-                if (m_children[chIdx] == null) {
-                    m_children[chIdx] = new Roma2KanaNode(aRoma.Substring(0, Depth + 1), aKana);
-                }
-                else{
-                    m_children[chIdx]._SetKana(aKana);                    
-                }
+            /// <summary>
+            /// <para>内部の最適化処理。重複削除やソートの処理を行います。</para>
+            /// <para>ノード追加終了後、必ず呼び出してください。</para>
+            /// </summary>
+            public void InitAfterAddNodes(){
+                m_possibilityKanas = m_possibilityKanas.Distinct().ToList();
+                m_possibilityKanas.Sort();
 
-            }else{//途中のノード
-                if (m_children[chIdx] == null)
-                {
-                    m_children[chIdx] = new Roma2KanaNode(aRoma.Substring(0, Depth + 1), "");
-                }
-                m_children[chIdx].AddNodes(aRoma, aKana);
-            }
-
-            m_possibilityKanas.Add(string.Copy(aKana));
-        }
-
-        /// <summary>
-        /// <para>内部の最適化処理。重複削除やソートの処理を行います。</para>
-        /// <para>ノード追加終了後、必ず呼び出してください。</para>
-        /// </summary>
-        public void InitAfterAddNodes(){
-            m_possibilityKanas = m_possibilityKanas.Distinct().ToList();
-            m_possibilityKanas.Sort();
-
-            if(Children != null){
-                foreach(Roma2KanaNode child in Children){
-                    if (child != null){
-                        child.InitAfterAddNodes();
+                if(Children != null){
+                    foreach(Roma2KanaNode child in Children){
+                        if (child != null){
+                            child.InitAfterAddNodes();
+                        }
                     }
                 }
             }
-        }
 
-        /// <summary>全ノーツ内で、ローマ字文字列の最長の長さを取得</summary>
-        /// <returns>ローマ字列の最長の長さ</returns>
-        public int GetRomaMaxLength(){
-            int ret = Depth;
-            if (Children != null){
-                foreach (Roma2KanaNode child in Children){
-                    if (child != null){
-                        ret = Mathf.Max(ret ,child.GetRomaMaxLength());
+            /// <summary>全ノーツ内で、ローマ字文字列の最長の長さを取得</summary>
+            /// <returns>ローマ字列の最長の長さ</returns>
+            public int GetRomaMaxLength(){
+                int ret = Depth;
+                if (Children != null){
+                    foreach (Roma2KanaNode child in Children){
+                        if (child != null){
+                            ret = Mathf.Max(ret ,child.GetRomaMaxLength());
+                        }
                     }
                 }
+                return ret;
             }
-            return ret;
-        }
-        #endregion
+            #endregion
 
 
-        #region プロパティ
-        /// <summary>
-        /// <para>このノードの末尾アルファベット</para>
-        /// <para>ルートノードの場合は[\0]を返却</para>
-        /// </summary>
-        public char Alpha{
-            get{
-                if (Depth == 0) { return '\0'; }
-                return Roma[Roma.Length - 1];
+            #region プロパティ
+            /// <summary>
+            /// <para>このノードの末尾アルファベット</para>
+            /// <para>ルートノードの場合は[\0]を返却</para>
+            /// </summary>
+            public char Alpha{
+                get{
+                    if (Depth == 0) { return '\0'; }
+                    return Roma[Roma.Length - 1];
+                }
             }
-        }
 
-        /// <summary>このノードまでのローマ字列</summary>
-        public string Roma { get; private set; }
+            /// <summary>このノードまでのローマ字列</summary>
+            public string Roma { get; private set; }
 
-        /// <summary>このノードがひらがな文字列に変換可能かどうか</summary>
-        public bool HasKana { get; private set; }
+            /// <summary>このノードがひらがな文字列に変換可能かどうか</summary>
+            public bool HasKana { get; private set; }
 
-        /// <summary>
-        /// <para>変換先のひらがな</para>
-        /// <para>ない場合は空文字列が返却されます</para>
-        /// </summary>
-        public string Kana { get; private set; }
+            /// <summary>
+            /// <para>変換先のひらがな</para>
+            /// <para>ない場合は空文字列が返却されます</para>
+            /// </summary>
+            public string Kana { get; private set; }
 
-        /// <summary>このノードの深さ</summary>
-        public int Depth{get { return Roma.Length; }}
+            /// <summary>このノードの深さ</summary>
+            public int Depth{get { return Roma.Length; }}
 
-        private List<Roma2KanaNode> m_children;
-        /// <summary>子ノード</summary>
-        public List<Roma2KanaNode> Children{get { return m_children; }}
+            private List<Roma2KanaNode> m_children;
+            /// <summary>子ノード</summary>
+            public List<Roma2KanaNode> Children{get { return m_children; }}
 
-        private List<string> m_possibilityKanas = new List<string>();
-        /// <summary>このノードのローマ字列[Roma]に対して、Romaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧(ソート済み)</summary>
-        public List<string> PossibilityKanas{get { return m_possibilityKanas; }}
-        #endregion
-
-
-        #region 静的メソッド
-        /// <summary>アルファベットから、子ノードアクセス用の配列idxを取得します</summary>
-        /// <param name="aAlpha">/a-zA-Z/</param>
-        /// <returns>aなら0、Dなら4などを返却</returns>
-
-        static public int Alpha2ChildIdx(char aAlpha){return (int)char.ToLower(aAlpha) - (int)'a';}
-
-        /// <summary>アルファベットの総数を取得</summary>
-        /// <returns>a～zの数</returns>
-        static public int AlphaNum(){return (int)'z' - (int)'a' + 1;}
-        #endregion
+            private List<string> m_possibilityKanas = new List<string>();
+            /// <summary>このノードのローマ字列[Roma]に対して、Romaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧(ソート済み)</summary>
+            public List<string> PossibilityKanas{get { return m_possibilityKanas; }}
+            #endregion
 
 
-        #region 内部メソッド
-        /// <summary>
-        /// <para>クラス内部からの生成用。</para>
-        /// <para>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</para>
-        /// </summary>
-        /// <param name="aRoma">このノードまでのローマ字列。全て英小文字で入力してください。</param>
-        /// <param name="aKana">変換先のひらがな、ない場合は空文字</param>
-        private Roma2KanaNode(string aRoma, string aKana = ""){
-#if UNITY_EDITOR
-            for (int i = 0; i < aRoma.Length; ++i){
-                Debug.Assert(char.IsLower(aRoma[i]), "Roma2KanaTable::Roma2KanaNode() aRoma内に英語以外の文字を検知");
+            #region 静的メソッド
+            /// <summary>アルファベットから、子ノードアクセス用の配列idxを取得します</summary>
+            /// <param name="aAlpha">/a-zA-Z/</param>
+            /// <returns>aなら0、Dなら4などを返却</returns>
+
+            static public int Alpha2ChildIdx(char aAlpha){return (int)char.ToLower(aAlpha) - (int)'a';}
+
+            /// <summary>アルファベットの総数を取得</summary>
+            /// <returns>a～zの数</returns>
+            static public int AlphaNum(){return (int)'z' - (int)'a' + 1;}
+            #endregion
+
+
+            #region 内部メソッド
+            /// <summary>
+            /// <para>クラス内部からの生成用。</para>
+            /// <para>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</para>
+            /// </summary>
+            /// <param name="aRoma">このノードまでのローマ字列。全て英小文字で入力してください。</param>
+            /// <param name="aKana">変換先のひらがな、ない場合は空文字</param>
+            private Roma2KanaNode(string aRoma, string aKana = ""){
+    #if UNITY_EDITOR
+                for (int i = 0; i < aRoma.Length; ++i){
+                    Debug.Assert(char.IsLower(aRoma[i]), "Roma2KanaTable::Roma2KanaNode() aRoma内に英語以外の文字を検知");
+                }
+    #endif
+                Roma = aRoma;
+                HasKana = (aKana.Length != 0);
+                Kana = aKana;
             }
-#endif
-            Roma = aRoma;
-            HasKana = (aKana.Length != 0);
-            Kana = aKana;
-        }
 
-        /// <summary>
-        /// <para>外部からは使用しないでください。</para>
-        /// <para>後からこのノードの変換先ひらがなをセット</para>
-        /// </summary>
-        /// <param name="aKana">変換先のひらがな</param>
-        public void _SetKana(string aKana){
-            HasKana = (aKana.Length != 0);
-            Kana = aKana;
+            /// <summary>
+            /// <para>外部からは使用しないでください。</para>
+            /// <para>後からこのノードの変換先ひらがなをセット</para>
+            /// </summary>
+            /// <param name="aKana">変換先のひらがな</param>
+            public void _SetKana(string aKana){
+                HasKana = (aKana.Length != 0);
+                Kana = aKana;
+            }
+            #endregion
         }
-        #endregion
     }
-}
 }
