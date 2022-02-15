@@ -84,6 +84,7 @@ namespace TypeModuleInner {
         ///</param>
         public Roma2KanaTable(in TextAsset aCSV){
             CreateTree(aCSV);
+            m_romaMaxLength = m_treeRoot.GetRomaMaxLength(); 
         }
         #endregion
 
@@ -149,11 +150,9 @@ namespace TypeModuleInner {
 
 
         #region プロパティ
-
+        public int m_romaMaxLength = 0;
         /// <summary>ひらがな文字列に変換できるローマ字列の最大文字数</summary>
-        public int RomaMaxLength{
-            get { return m_treeRoot.GetRomaMaxLength(); }
-        }
+        public int RomaMaxLength{get { return RomaMaxLength;}}
         #endregion
 
 
