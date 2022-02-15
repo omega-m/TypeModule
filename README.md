@@ -8,7 +8,7 @@ Unityでタイピングゲームを開発する際に必要となる、共通処
  
 # Installation
 以下のパッケージを、Unityのプロジェクトにインポートしてください。  
-[TypeModule_v1_0_](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_0)
+[TypeModule_v1_0_1](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_1)
   
 # Usage
 以下のスクリプトを、管理クラスのコンポーネントとして割り当ててください。  
