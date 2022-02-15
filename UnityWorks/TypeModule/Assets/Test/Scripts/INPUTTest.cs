@@ -32,10 +32,10 @@ public class INPUTTest : MonoBehaviour
     }
 
     private void onInput(InputEmulatorResults res) {
-        //Debug.Log("onInput");
+        Debug.Log("onInput");
     }
     private void onChange(InputEmulatorResults res) {
-        //Debug.Log("onChange");
+        Debug.Log("onChange");
         textInput.text = res.Str;
         textInputRaw.text = res.StrRaw;
     }

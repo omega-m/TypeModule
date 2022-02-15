@@ -313,7 +313,7 @@ public class InputEmulatorResults {
                             string addStrTmp = p.m_strWork[0] + "";
                             string addStr;
                             p.m_strWork = p.m_strWork.Substring(1);
-                            if (Util.TryHanToZen(addStrTmp + "", out addStr, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
+                            if (!Util.TryHanToZen(addStrTmp + "", out addStr, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                                 addStr = addStrTmp;
                             }
                             p.m_strDone.Add(addStr);
