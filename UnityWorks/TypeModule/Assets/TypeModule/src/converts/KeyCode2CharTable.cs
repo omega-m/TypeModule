@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace tpInner{
+namespace TypeModuleInner{
     ///<summary>UnityのCapsLockは、押してある状態か否かで返すので使えない</summary>
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
     using System.Runtime.InteropServices;
@@ -25,7 +25,7 @@ namespace tpInner{
 
     ///<summary>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using tpInner;
+    /// using TypeModuleInner;
     /// 
     ///     ...
     ///     

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace tpInner {
+namespace TypeModuleInner {
 
     /// <summary>
     /// <para>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</para>
     /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
     /// </summary>
     /// <example><code>
-    /// using tpInner;
+    /// using TypeModuleInner;
     /// 
     ///     ...
     ///     

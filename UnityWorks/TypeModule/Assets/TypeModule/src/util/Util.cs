@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 
-namespace tpInner {
+namespace TypeModuleInner {
 
     ///<summary>共通メソッドなどを定義</summary>
     static public class Util {

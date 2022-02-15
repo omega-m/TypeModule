@@ -5,14 +5,14 @@ using System;
 using System.Text;
 using NotVisualBasic.FileIO;
 
-namespace tpInner{
+namespace TypeModuleInner{
 
     ///<summary>
     ///<para>CSV読み込み用のヘルパークラスです。</para>
     ///<para>このファイルを使用するには、Nugetパッケージ【CsvTextFieldParser】がインストールされている必要があります。</para>
     ///</summary>
     /// <example><code>
-    /// using tpInner;
+    /// using TypeModuleInner;
     /// 
     ///     ...
     ///     

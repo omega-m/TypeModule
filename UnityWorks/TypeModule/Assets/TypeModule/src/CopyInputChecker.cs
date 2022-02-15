@@ -145,7 +145,7 @@ public class CopyInputCheckerResults {
 
     #region 生成
     /// <summary>CopyInputCheckerより作成されます。外からは作成しないでください。</summary>    
-    public CopyInputCheckerResults(in tpInner.CopyInputCheckerParams aParams) {m_params = aParams;}
+    public CopyInputCheckerResults(in TypeModuleInner.CopyInputCheckerParams aParams) {m_params = aParams;}
     #endregion
 
 
@@ -184,7 +184,7 @@ public class CopyInputCheckerResults {
 
 
     #region メンバ
-    private tpInner.CopyInputCheckerParams m_params;   //参照
+    private TypeModuleInner.CopyInputCheckerParams m_params;   //参照
 
     private string m_strDoneCache = "";
     private string m_strYetCache = "";
@@ -194,7 +194,7 @@ public class CopyInputCheckerResults {
 }
 
 
-namespace tpInner {
+namespace TypeModuleInner {
 
     /// <summary>CopyInputCheckerの内部パラメータクラス。CopyInputCheckerResultsの参照渡しに使用。</summary>
     public class CopyInputCheckerParams {

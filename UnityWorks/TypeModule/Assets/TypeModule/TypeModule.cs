@@ -1,5 +1,5 @@
 using UnityEngine;
-using tpInner;
+using TypeModuleInner;
 using Candlelight;
 using UnityEngine.Events;
 
@@ -90,6 +90,7 @@ using UnityEngine.Events;
 /// //モードの変更
 /// module.IsKana = true;                  /かな入力入力状態へ
 /// module.IsCaseSensitive = true;         //英語の大文字と小文字入力を区別
+/// 
 /// 
 /// //比較対象の文字列をセット(内部初期化もされます)
 /// module.TargetStr = "こちらは、たいぴんぐするぶんしょうです。";

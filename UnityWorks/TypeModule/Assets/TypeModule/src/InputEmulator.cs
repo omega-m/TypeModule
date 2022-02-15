@@ -107,7 +107,7 @@ public class InputEmulatorResults {
 
     #region 生成
     /// <summary>InputEmulatorより作成されます。外からは作成しないでください。</summary>    
-    public InputEmulatorResults(in tpInner.InputEmulatorParams aParams) {m_params = aParams;}
+    public InputEmulatorResults(in TypeModuleInner.InputEmulatorParams aParams) {m_params = aParams;}
     #endregion
 
 
@@ -138,7 +138,7 @@ public class InputEmulatorResults {
 
 
     #region メンバ
-    private tpInner.InputEmulatorParams m_params;   //参照
+    private TypeModuleInner.InputEmulatorParams m_params;   //参照
 
     private string m_strCache       = "";
     private string m_strRawCache    = "";
@@ -146,7 +146,7 @@ public class InputEmulatorResults {
 }
 
 
-namespace tpInner {
+namespace TypeModuleInner {
 
     /// <summary>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</summary>
     public class InputEmulatorParams {

@@ -2,11 +2,11 @@
 
 
 
-namespace tpInner {
+namespace TypeModuleInner {
 
     /// <summary>文字列生成時に使用する、変換テーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using tpInner;
+    /// using TypeModuleInner;
     /// 
     ///     ...
     ///     

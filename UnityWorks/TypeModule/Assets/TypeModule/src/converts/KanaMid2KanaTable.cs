@@ -2,11 +2,11 @@
 using UnityEngine;
 
 
-namespace tpInner {
+namespace TypeModuleInner {
 
     /// <summary>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
     /// <example><code>
-    /// using tpInner;
+    /// using TypeModuleInner;
     /// 
     ///     ...
     ///     

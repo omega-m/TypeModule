@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace tpInner {
+namespace TypeModuleInner {
 
 
     /// <summary>数字と記号の、全角と半角を変換する為のテーブルを管理するクラスです。</summary>
     /// /// <example><code>
-    /// using tpInner;
+    /// using TypeModuleInner;
     /// 
     ///     ...
     ///     
