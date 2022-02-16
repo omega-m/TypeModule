@@ -8,7 +8,7 @@ Unityでタイピングゲームを開発する際に必要となる、共通処
  
 # Installation
 以下のパッケージを、Unityのプロジェクトにインポートしてください。  
-[TypeModule_v1_0_1](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_1)
+[TypeModule_v1_0_2](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_2)
   
 # Usage
 以下のスクリプトを、管理クラスのコンポーネントとして割り当ててください。  
@@ -41,7 +41,7 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     module.Enter();             //変換確定前の文字列を確定
     module.BackSpace();         //末尾から1文字削除
     module.Clear();             //全ての文字を削除
-    
+    module.AddInput(KeyCode.A); //Aキーが押されたとして処理
 
 
     //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
@@ -114,6 +114,10 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     Debug.Log(module.MissNum);                 //ミスタイプした数
     Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
          
+    //プログラム側から、入力処理をエミュレート
+    module.Correct();               //正しく一度入力したとして処理
+    module.Miss();                  //ミスタイプしたとして処理
+    module.AddInput(KeyCode.A);     //Aキーが押されたとして処理
 
 
     //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
