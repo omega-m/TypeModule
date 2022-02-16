@@ -20,6 +20,7 @@ public class UnitTest : MonoBehaviour{
             TestKana2KanaMidTable();
             TestKana2RomaTable();
             TestKanaMid2KanaTable();
+            TestKeyCode2CharTable();
         }
     }
 
@@ -612,6 +613,98 @@ public class UnitTest : MonoBehaviour{
         Debug.Assert(table.TryConvert(" ", out outCvt, true) == false);
 
         Debug.Assert(table.KanaMidMaxLength > 0);
+    }
+
+    /// <summary>KeyCode2CharTable テスト</summary>
+    void TestKeyCode2CharTable() {
+        Debug.Log("Test KeyCode2CharTable");
+        ConvertTableMgr cvt = new ConvertTableMgr();
+        
+        KeyCode2CharTable table = cvt.Key2Roma;
+
+        Debug.Assert(table.Convert(KeyCode.Alpha0, false , false) == '0');
+        Debug.Assert(table.Convert(KeyCode.Alpha0, true, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha0, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha0, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, false, false) == '1');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, true, false) == '!');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, false, false) == '9');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, true, false) == ')');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.A, false, false) == 'a');
+        Debug.Assert(table.Convert(KeyCode.A, true, false) == 'A');
+        Debug.Assert(table.Convert(KeyCode.A, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.A, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Z, false, false) == 'z');
+        Debug.Assert(table.Convert(KeyCode.Z, true, false) == 'Z');
+        Debug.Assert(table.Convert(KeyCode.Z, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Z, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backslash, false, false) == '\\');
+        Debug.Assert(table.Convert(KeyCode.Backslash, true, false) == '|');
+        Debug.Assert(table.Convert(KeyCode.Backslash, false, true) == '\\');
+        Debug.Assert(table.Convert(KeyCode.Backslash, true, true) == '_');
+        Debug.Assert(table.Convert(KeyCode.Comma, false, false) == ',');
+        Debug.Assert(table.Convert(KeyCode.Comma, true, false) == '<');
+        Debug.Assert(table.Convert(KeyCode.Comma, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Comma, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, false, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, true, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, false, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, true, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, false, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, true, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, true, true) == '\0');
+
+        table = cvt.Key2kanaMid;
+
+        Debug.Assert(table.Convert(KeyCode.Alpha0, false, false) == 'わ');
+        Debug.Assert(table.Convert(KeyCode.Alpha0, true, false) == 'を');
+        Debug.Assert(table.Convert(KeyCode.Alpha0, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha0, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, false, false) == 'ぬ');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, true, false) == 'ぬ');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha1, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, false, false) == 'よ');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, true, false) == 'ょ');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Alpha9, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.A, false, false) == 'ち');
+        Debug.Assert(table.Convert(KeyCode.A, true, false) == 'ち');
+        Debug.Assert(table.Convert(KeyCode.A, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.A, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Z, false, false) == 'つ');
+        Debug.Assert(table.Convert(KeyCode.Z, true, false) == 'っ');
+        Debug.Assert(table.Convert(KeyCode.Z, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Z, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backslash, false, false) == 'ー');
+        Debug.Assert(table.Convert(KeyCode.Backslash, true, false) == 'ー');
+        Debug.Assert(table.Convert(KeyCode.Backslash, false, true) == 'ろ');
+        Debug.Assert(table.Convert(KeyCode.Backslash, true, true) == 'ろ');
+        Debug.Assert(table.Convert(KeyCode.Comma, false, false) == 'ね');
+        Debug.Assert(table.Convert(KeyCode.Comma, true, false) == '、');
+        Debug.Assert(table.Convert(KeyCode.Comma, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Comma, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, false, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, true, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Return, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, false, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, true, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.Backspace, true, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, false, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, true, false) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, false, true) == '\0');
+        Debug.Assert(table.Convert(KeyCode.DownArrow, true, true) == '\0');
     }
     #endregion
 
