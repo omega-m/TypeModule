@@ -769,6 +769,7 @@ public class CopyInputCheckerResults {
                         if (isThrowEvent) {
                             p.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.COMPLETE;
                             m_onInputCallbacks.Invoke(m_results);
+                            m_onCorrectCallbacks.Invoke(m_results);
                             m_onCompleteCallbacks.Invoke(m_results);
                         }
                         return;

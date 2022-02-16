@@ -88,15 +88,6 @@ public class COPYTest : MonoBehaviour {
     }
     public void OnComplete(CopyInputCheckerResults aResult) {
         Debug.Log("onComplete");
-        Debug.Log("onMiss");
-        m_targetText.text =
-           m_doneColor + aResult.StrDone + m_colorEnd +
-           m_missColor + aResult.StrCurrent + m_colorEnd +
-           aResult.StrYet;
-        m_midText.text =
-         m_doneColor + aResult.StrDoneRaw + m_colorEnd +
-         m_missColor + aResult.StrCurrentRaw + m_colorEnd +
-         aResult.StrYetRaw;
         SetNextTargetStr();
     }
 
