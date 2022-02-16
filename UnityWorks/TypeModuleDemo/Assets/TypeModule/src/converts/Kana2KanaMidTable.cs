@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace TypeModule { 
+namespace tm { 
     namespace Inner {
 
         /// <summary>

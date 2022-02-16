@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace TypeModule {
+namespace tm {
     namespace Inner {
 
         #region メモ

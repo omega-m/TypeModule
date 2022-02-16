@@ -6,7 +6,7 @@ using System.Text;
 using NotVisualBasic.FileIO;
 
 
-namespace TypeModule {
+namespace tm {
     namespace Inner{
 
         ///<summary>

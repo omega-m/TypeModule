@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace TypeModule {
+namespace tm {
     namespace Inner {
 
 

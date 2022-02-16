@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TypeModule;
+using tm;
 using UnityEngine.UI;
 
 public class S01Manager : MonoBehaviour{
@@ -14,7 +14,7 @@ public class S01Manager : MonoBehaviour{
     }
 
     /// <summary>TypeModule OnChangeイベントリスナ</summary>
-    public void TMOnChange(TypeModule.InputEmulatorResults res) {
+    public void TMOnChange(InputEmulatorResults res) {
         m_textInput.text = res.Str;
         m_textInputRaw.text = res.StrRaw;
 
@@ -59,8 +59,8 @@ public class S01Manager : MonoBehaviour{
     #region Unity共通処理
     void Start() {
         //Initialize TypeModule
-        m_tp = GetComponent<TypeModule.TypeModule>();
-        m_tp.Mode = TypeModule.TypeModule.MODE.INPUT;
+        m_tp = GetComponent<TypeModule>();
+        m_tp.Mode = TypeModule.MODE.INPUT;
         m_tp.AddEventListenerOnChange(TMOnChange);
         OnChangeedKeyboardLayout();
         OnChangeedIsEng();
@@ -89,6 +89,6 @@ public class S01Manager : MonoBehaviour{
 
 
     #region メンバ
-    private TypeModule.TypeModule m_tp;
+    private TypeModule m_tp;
     #endregion 
 }

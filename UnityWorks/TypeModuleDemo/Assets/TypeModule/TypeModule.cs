@@ -1,9 +1,9 @@
 using UnityEngine;
 using Candlelight;
 using UnityEngine.Events;
-using TypeModule.Inner;
+using tm.Inner;
 
-namespace TypeModule {
+namespace tm {
 
     ///<summary>
     ///<para>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</para>
@@ -13,7 +13,7 @@ namespace TypeModule {
     /// using TypeModule;
     ///     ...
     ///     
-    /// TypeModule module = GetComponent&lt;TypeModuleTypeModule.TypeModule&gt;();
+    /// TypeModule module = GetComponent&lt;TypeModule&gt;();
     ///     
     /// 
     /// 

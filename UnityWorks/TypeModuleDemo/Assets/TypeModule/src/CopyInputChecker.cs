@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System;
 
-namespace TypeModule {
+namespace tm {
 
 /// <summary>
 /// <para>CopyInputCheckerによって処理されたデータへのアクセス用クラスです。</para>

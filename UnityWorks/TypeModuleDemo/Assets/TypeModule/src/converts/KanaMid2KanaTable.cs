@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace TypeModule {
+namespace tm {
     namespace Inner {
 
         /// <summary>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace TypeModule {
+namespace tm {
 
 /// <summary>
 /// <para>InputEmulatorによって処理されたデータへのアクセス用クラスです。</para>
