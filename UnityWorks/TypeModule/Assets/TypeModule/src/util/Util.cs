@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 #endif
 
 
-namespace TypeModule {
-    namespace Inner {
+namespace tm {
+    namespace inner {
 
         ///<summary>共通メソッドなどを定義</summary>
         static public class Util {

@@ -68,10 +68,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="TypeModule.TypeModule">
+            <article class="content wrap" id="_content" data-uid="tm.TypeModule">
   
   
-  <h1 id="TypeModule_TypeModule" data-uid="TypeModule.TypeModule" class="text-break">Class TypeModule
+  <h1 id="tm_TypeModule" data-uid="tm.TypeModule" class="text-break">Class TypeModule
   </h1>
   <div class="markdown level0 summary"><p>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</p>
 <p>CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。</p>
@@ -386,17 +386,17 @@
       <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.html">TypeModule</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="tm.html">tm</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="TypeModule_TypeModule_syntax">Syntax</h5>
+  <h5 id="tm_TypeModule_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class TypeModule : MonoBehaviour</code></pre>
   </div>
-  <h5 id="TypeModule_TypeModule_examples"><strong>Examples</strong></h5>
-  <pre><code>     using TypeModule;
+  <h5 id="tm_TypeModule_examples"><strong>Examples</strong></h5>
+  <pre><code>     using tm;
          ...
 
-     TypeModule module = GetComponent&lt;TypeModuleTypeModule.TypeModule>();
+     TypeModule module = GetComponent&lt;TypeModule>();
 
 
 
@@ -553,8 +553,8 @@
   </h3>
   
   
-  <a id="TypeModule_TypeModule_CorrectCharNum_" data-uid="TypeModule.TypeModule.CorrectCharNum*"></a>
-  <h4 id="TypeModule_TypeModule_CorrectCharNum" data-uid="TypeModule.TypeModule.CorrectCharNum">CorrectCharNum</h4>
+  <a id="tm_TypeModule_CorrectCharNum_" data-uid="tm.TypeModule.CorrectCharNum*"></a>
+  <h4 id="tm_TypeModule_CorrectCharNum" data-uid="tm.TypeModule.CorrectCharNum">CorrectCharNum</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】正しく打てた文字数</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -579,8 +579,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_CorrectNum_" data-uid="TypeModule.TypeModule.CorrectNum*"></a>
-  <h4 id="TypeModule_TypeModule_CorrectNum" data-uid="TypeModule.TypeModule.CorrectNum">CorrectNum</h4>
+  <a id="tm_TypeModule_CorrectNum_" data-uid="tm.TypeModule.CorrectNum*"></a>
+  <h4 id="tm_TypeModule_CorrectNum" data-uid="tm.TypeModule.CorrectNum">CorrectNum</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】正しくタイプした数</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -605,8 +605,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_EnabledBS_" data-uid="TypeModule.TypeModule.EnabledBS*"></a>
-  <h4 id="TypeModule_TypeModule_EnabledBS" data-uid="TypeModule.TypeModule.EnabledBS">EnabledBS</h4>
+  <a id="tm_TypeModule_EnabledBS_" data-uid="tm.TypeModule.EnabledBS*"></a>
+  <h4 id="tm_TypeModule_EnabledBS" data-uid="tm.TypeModule.EnabledBS">EnabledBS</h4>
   <div class="markdown level1 summary"><p>BackSoaceキーを押した時、文字を消すかどうか</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -631,8 +631,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_EnabledCapsLock_" data-uid="TypeModule.TypeModule.EnabledCapsLock*"></a>
-  <h4 id="TypeModule_TypeModule_EnabledCapsLock" data-uid="TypeModule.TypeModule.EnabledCapsLock">EnabledCapsLock</h4>
+  <a id="tm_TypeModule_EnabledCapsLock_" data-uid="tm.TypeModule.EnabledCapsLock*"></a>
+  <h4 id="tm_TypeModule_EnabledCapsLock" data-uid="tm.TypeModule.EnabledCapsLock">EnabledCapsLock</h4>
   <div class="markdown level1 summary"><p>CapsLockの状態を反映させるかどうか。</p>
 <p>[true]の場合、CapsLock中は、英語の入力に対して大小文字を反転させます。</p>
 </div>
@@ -658,8 +658,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_EnabledEnter_" data-uid="TypeModule.TypeModule.EnabledEnter*"></a>
-  <h4 id="TypeModule_TypeModule_EnabledEnter" data-uid="TypeModule.TypeModule.EnabledEnter">EnabledEnter</h4>
+  <a id="tm_TypeModule_EnabledEnter_" data-uid="tm.TypeModule.EnabledEnter*"></a>
+  <h4 id="tm_TypeModule_EnabledEnter" data-uid="tm.TypeModule.EnabledEnter">EnabledEnter</h4>
   <div class="markdown level1 summary"><p>Enterキーを押した時、確定前の文字列を確定するかどうか</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -684,8 +684,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_Event_" data-uid="TypeModule.TypeModule.Event*"></a>
-  <h4 id="TypeModule_TypeModule_Event" data-uid="TypeModule.TypeModule.Event">Event</h4>
+  <a id="tm_TypeModule_Event_" data-uid="tm.TypeModule.Event*"></a>
+  <h4 id="tm_TypeModule_Event" data-uid="tm.TypeModule.Event">Event</h4>
   <div class="markdown level1 summary"><p>前回入力発生時のUnityイベント</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -710,8 +710,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_InnerEvent_" data-uid="TypeModule.TypeModule.InnerEvent*"></a>
-  <h4 id="TypeModule_TypeModule_InnerEvent" data-uid="TypeModule.TypeModule.InnerEvent">InnerEvent</h4>
+  <a id="tm_TypeModule_InnerEvent_" data-uid="tm.TypeModule.InnerEvent*"></a>
+  <h4 id="tm_TypeModule_InnerEvent" data-uid="tm.TypeModule.InnerEvent">InnerEvent</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】前回の入力タイプ</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -729,15 +729,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="TypeModule.CopyInputCheckerResults.INNER_EVENT_TYPE.html">CopyInputCheckerResults.INNER_EVENT_TYPE</a></td>
+        <td><a class="xref" href="tm.CopyInputCheckerResults.INNER_EVENT_TYPE.html">CopyInputCheckerResults.INNER_EVENT_TYPE</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="TypeModule_TypeModule_InputType_" data-uid="TypeModule.TypeModule.InputType*"></a>
-  <h4 id="TypeModule_TypeModule_InputType" data-uid="TypeModule.TypeModule.InputType">InputType</h4>
+  <a id="tm_TypeModule_InputType_" data-uid="tm.TypeModule.InputType*"></a>
+  <h4 id="tm_TypeModule_InputType" data-uid="tm.TypeModule.InputType">InputType</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】前回の入力タイプ</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -755,15 +755,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="TypeModule.InputEmulatorResults.INPUT_TYPE.html">InputEmulatorResults.INPUT_TYPE</a></td>
+        <td><a class="xref" href="tm.InputEmulatorResults.INPUT_TYPE.html">InputEmulatorResults.INPUT_TYPE</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="TypeModule_TypeModule_IsCaseSensitive_" data-uid="TypeModule.TypeModule.IsCaseSensitive*"></a>
-  <h4 id="TypeModule_TypeModule_IsCaseSensitive" data-uid="TypeModule.TypeModule.IsCaseSensitive">IsCaseSensitive</h4>
+  <a id="tm_TypeModule_IsCaseSensitive_" data-uid="tm.TypeModule.IsCaseSensitive*"></a>
+  <h4 id="tm_TypeModule_IsCaseSensitive" data-uid="tm.TypeModule.IsCaseSensitive">IsCaseSensitive</h4>
   <div class="markdown level1 summary"><p>英語の大文字と小文字入力を区別して判定するか</p>
 <p>初期化処理が発生した時点で反映されます。</p>
 </div>
@@ -789,8 +789,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_IsComplete_" data-uid="TypeModule.TypeModule.IsComplete*"></a>
-  <h4 id="TypeModule_TypeModule_IsComplete" data-uid="TypeModule.TypeModule.IsComplete">IsComplete</h4>
+  <a id="tm_TypeModule_IsComplete_" data-uid="tm.TypeModule.IsComplete*"></a>
+  <h4 id="tm_TypeModule_IsComplete" data-uid="tm.TypeModule.IsComplete">IsComplete</h4>
   <div class="markdown level1 summary"><p>打ち終わったか</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -815,8 +815,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_IsInputEng_" data-uid="TypeModule.TypeModule.IsInputEng*"></a>
-  <h4 id="TypeModule_TypeModule_IsInputEng" data-uid="TypeModule.TypeModule.IsInputEng">IsInputEng</h4>
+  <a id="tm_TypeModule_IsInputEng_" data-uid="tm.TypeModule.IsInputEng*"></a>
+  <h4 id="tm_TypeModule_IsInputEng" data-uid="tm.TypeModule.IsInputEng">IsInputEng</h4>
   <div class="markdown level1 summary"><p>入力モード</p>
 <p>[true]英語入力モード</p>
 <p>[false]日本語入力モード</p>
@@ -843,8 +843,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_IsKana_" data-uid="TypeModule.TypeModule.IsKana*"></a>
-  <h4 id="TypeModule_TypeModule_IsKana" data-uid="TypeModule.TypeModule.IsKana">IsKana</h4>
+  <a id="tm_TypeModule_IsKana_" data-uid="tm.TypeModule.IsKana*"></a>
+  <h4 id="tm_TypeModule_IsKana" data-uid="tm.TypeModule.IsKana">IsKana</h4>
   <div class="markdown level1 summary"><p>JISかな入力など、日本語を直接入力する方式を使用してエミュレートするかどうかのフラグです。</p>
 <p>[INPUT]trueの場合、[m_keyCodeToKanaCsv]から文字列生成をエミュレートします。</p>
 <p>[MODE_COMPARE]trueの場合、日本語と比較する場合は[m_keyCodeToKanaCsv]から、そうでない場合は[m_keyCode2RomaCsv]から文字列生成をエミュレートします。</p>
@@ -871,8 +871,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_IsRun_" data-uid="TypeModule.TypeModule.IsRun*"></a>
-  <h4 id="TypeModule_TypeModule_IsRun" data-uid="TypeModule.TypeModule.IsRun">IsRun</h4>
+  <a id="tm_TypeModule_IsRun_" data-uid="tm.TypeModule.IsRun*"></a>
+  <h4 id="tm_TypeModule_IsRun" data-uid="tm.TypeModule.IsRun">IsRun</h4>
   <div class="markdown level1 summary"><p>現在入力を受け付けているか</p>
 <p>[false]にした場合、入力チェックを行わなくなります。ポーズ時やゲーム外の時に使用してください。</p>
 </div>
@@ -898,8 +898,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_KanaMid2KanaCsv_" data-uid="TypeModule.TypeModule.KanaMid2KanaCsv*"></a>
-  <h4 id="TypeModule_TypeModule_KanaMid2KanaCsv" data-uid="TypeModule.TypeModule.KanaMid2KanaCsv">KanaMid2KanaCsv</h4>
+  <a id="tm_TypeModule_KanaMid2KanaCsv_" data-uid="tm.TypeModule.KanaMid2KanaCsv*"></a>
+  <h4 id="tm_TypeModule_KanaMid2KanaCsv" data-uid="tm.TypeModule.KanaMid2KanaCsv">KanaMid2KanaCsv</h4>
   <div class="markdown level1 summary"><p>ひらがなの中間文字列からひらがな文字列への変換テーブルを定義したファイル</p>
 <p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
 <p>【Assets/Resources/TypeModule/data/Char2Kana/JISkana.csv】</p>
@@ -931,8 +931,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_KeyCode2KanaMidCsv_" data-uid="TypeModule.TypeModule.KeyCode2KanaMidCsv*"></a>
-  <h4 id="TypeModule_TypeModule_KeyCode2KanaMidCsv" data-uid="TypeModule.TypeModule.KeyCode2KanaMidCsv">KeyCode2KanaMidCsv</h4>
+  <a id="tm_TypeModule_KeyCode2KanaMidCsv_" data-uid="tm.TypeModule.KeyCode2KanaMidCsv*"></a>
+  <h4 id="tm_TypeModule_KeyCode2KanaMidCsv" data-uid="tm.TypeModule.KeyCode2KanaMidCsv">KeyCode2KanaMidCsv</h4>
   <div class="markdown level1 summary"><p>キーの入力(KeyCode)からひらがなの中間文字への変換テーブルを定義したファイル</p>
 <p>JISかな入力など、日本語を直接入力する方式を使用する際に参照します。</p>
 <p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
@@ -966,8 +966,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_KeyCode2RomaCsv_" data-uid="TypeModule.TypeModule.KeyCode2RomaCsv*"></a>
-  <h4 id="TypeModule_TypeModule_KeyCode2RomaCsv" data-uid="TypeModule.TypeModule.KeyCode2RomaCsv">KeyCode2RomaCsv</h4>
+  <a id="tm_TypeModule_KeyCode2RomaCsv_" data-uid="tm.TypeModule.KeyCode2RomaCsv*"></a>
+  <h4 id="tm_TypeModule_KeyCode2RomaCsv" data-uid="tm.TypeModule.KeyCode2RomaCsv">KeyCode2RomaCsv</h4>
   <div class="markdown level1 summary"><p>キーの入力(KeyCode)からローマ字文字への変換テーブルを定義したファイル</p>
 <p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
 <p>【Assets/Resources/TypeModule/data/KeyCode2Char/qwerty.csv】</p>
@@ -999,8 +999,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_MissNum_" data-uid="TypeModule.TypeModule.MissNum*"></a>
-  <h4 id="TypeModule_TypeModule_MissNum" data-uid="TypeModule.TypeModule.MissNum">MissNum</h4>
+  <a id="tm_TypeModule_MissNum_" data-uid="tm.TypeModule.MissNum*"></a>
+  <h4 id="tm_TypeModule_MissNum" data-uid="tm.TypeModule.MissNum">MissNum</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】ミスタイプした数</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1025,8 +1025,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_Mode_" data-uid="TypeModule.TypeModule.Mode*"></a>
-  <h4 id="TypeModule_TypeModule_Mode" data-uid="TypeModule.TypeModule.Mode">Mode</h4>
+  <a id="tm_TypeModule_Mode_" data-uid="tm.TypeModule.Mode*"></a>
+  <h4 id="tm_TypeModule_Mode" data-uid="tm.TypeModule.Mode">Mode</h4>
   <div class="markdown level1 summary"><p>文字入力判定モードです。</p>
 <p>【INPUT】   :キーボードの入力を元に、文字列の生成をエミュレートします。</p>
 <p>【MODE_COMPARE】 :指定された文字列が正しく打ててるかを確認します。タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</p>
@@ -1046,15 +1046,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="TypeModule.TypeModule.MODE.html">TypeModule.MODE</a></td>
+        <td><a class="xref" href="tm.TypeModule.MODE.html">TypeModule.MODE</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="TypeModule_TypeModule_PrevChar_" data-uid="TypeModule.TypeModule.PrevChar*"></a>
-  <h4 id="TypeModule_TypeModule_PrevChar" data-uid="TypeModule.TypeModule.PrevChar">PrevChar</h4>
+  <a id="tm_TypeModule_PrevChar_" data-uid="tm.TypeModule.PrevChar*"></a>
+  <h4 id="tm_TypeModule_PrevChar" data-uid="tm.TypeModule.PrevChar">PrevChar</h4>
   <div class="markdown level1 summary"><p>前回入力された文字(変換前)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1079,8 +1079,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_PrevCorrectChar_" data-uid="TypeModule.TypeModule.PrevCorrectChar*"></a>
-  <h4 id="TypeModule_TypeModule_PrevCorrectChar" data-uid="TypeModule.TypeModule.PrevCorrectChar">PrevCorrectChar</h4>
+  <a id="tm_TypeModule_PrevCorrectChar_" data-uid="tm.TypeModule.PrevCorrectChar*"></a>
+  <h4 id="tm_TypeModule_PrevCorrectChar" data-uid="tm.TypeModule.PrevCorrectChar">PrevCorrectChar</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】前回打たれた文字</p>
 <p>【MODE.COPY】前回正しく入力された文字(ミスした時は空文字列)</p>
 </div>
@@ -1106,8 +1106,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_PrevMissChar_" data-uid="TypeModule.TypeModule.PrevMissChar*"></a>
-  <h4 id="TypeModule_TypeModule_PrevMissChar" data-uid="TypeModule.TypeModule.PrevMissChar">PrevMissChar</h4>
+  <a id="tm_TypeModule_PrevMissChar_" data-uid="tm.TypeModule.PrevMissChar*"></a>
+  <h4 id="tm_TypeModule_PrevMissChar" data-uid="tm.TypeModule.PrevMissChar">PrevMissChar</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】前回打たれた文字</p>
 <p>【MODE.COPY】前回ミスしたされた文字(正しく入力された時は空文字列)</p>
 </div>
@@ -1133,8 +1133,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_Roma2KanaCsv_" data-uid="TypeModule.TypeModule.Roma2KanaCsv*"></a>
-  <h4 id="TypeModule_TypeModule_Roma2KanaCsv" data-uid="TypeModule.TypeModule.Roma2KanaCsv">Roma2KanaCsv</h4>
+  <a id="tm_TypeModule_Roma2KanaCsv_" data-uid="tm.TypeModule.Roma2KanaCsv*"></a>
+  <h4 id="tm_TypeModule_Roma2KanaCsv" data-uid="tm.TypeModule.Roma2KanaCsv">Roma2KanaCsv</h4>
   <div class="markdown level1 summary"><p>ローマ字文字列からひらがな文字列への変換テーブルを定義したファイル</p>
 <p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
 <p>【Assets/Resources/TypeModule/data/Char2Kana/roma.csv】</p>
@@ -1166,8 +1166,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrCurrent_" data-uid="TypeModule.TypeModule.StrCurrent*"></a>
-  <h4 id="TypeModule_TypeModule_StrCurrent" data-uid="TypeModule.TypeModule.StrCurrent">StrCurrent</h4>
+  <a id="tm_TypeModule_StrCurrent_" data-uid="tm.TypeModule.StrCurrent*"></a>
+  <h4 id="tm_TypeModule_StrCurrent" data-uid="tm.TypeModule.StrCurrent">StrCurrent</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】現在打っている文字</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1192,8 +1192,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrCurrentRaw_" data-uid="TypeModule.TypeModule.StrCurrentRaw*"></a>
-  <h4 id="TypeModule_TypeModule_StrCurrentRaw" data-uid="TypeModule.TypeModule.StrCurrentRaw">StrCurrentRaw</h4>
+  <a id="tm_TypeModule_StrCurrentRaw_" data-uid="tm.TypeModule.StrCurrentRaw*"></a>
+  <h4 id="tm_TypeModule_StrCurrentRaw" data-uid="tm.TypeModule.StrCurrentRaw">StrCurrentRaw</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】 現在打っている文字(変換前)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1218,8 +1218,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrDone_" data-uid="TypeModule.TypeModule.StrDone*"></a>
-  <h4 id="TypeModule_TypeModule_StrDone" data-uid="TypeModule.TypeModule.StrDone">StrDone</h4>
+  <a id="tm_TypeModule_StrDone_" data-uid="tm.TypeModule.StrDone*"></a>
+  <h4 id="tm_TypeModule_StrDone" data-uid="tm.TypeModule.StrDone">StrDone</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】既に打ち終わった文字列</p>
 <p>StrInputと同等の値を返却します。</p>
 </div>
@@ -1245,8 +1245,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrDoneRaw_" data-uid="TypeModule.TypeModule.StrDoneRaw*"></a>
-  <h4 id="TypeModule_TypeModule_StrDoneRaw" data-uid="TypeModule.TypeModule.StrDoneRaw">StrDoneRaw</h4>
+  <a id="tm_TypeModule_StrDoneRaw_" data-uid="tm.TypeModule.StrDoneRaw*"></a>
+  <h4 id="tm_TypeModule_StrDoneRaw" data-uid="tm.TypeModule.StrDoneRaw">StrDoneRaw</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】既に打ち終わった文字列(変換前)</p>
 <p>StrRawInputと同等の値を返却します。</p>
 </div>
@@ -1272,8 +1272,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrInput_" data-uid="TypeModule.TypeModule.StrInput*"></a>
-  <h4 id="TypeModule_TypeModule_StrInput" data-uid="TypeModule.TypeModule.StrInput">StrInput</h4>
+  <a id="tm_TypeModule_StrInput_" data-uid="tm.TypeModule.StrInput*"></a>
+  <h4 id="tm_TypeModule_StrInput" data-uid="tm.TypeModule.StrInput">StrInput</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1297,8 +1297,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrRawInput_" data-uid="TypeModule.TypeModule.StrRawInput*"></a>
-  <h4 id="TypeModule_TypeModule_StrRawInput" data-uid="TypeModule.TypeModule.StrRawInput">StrRawInput</h4>
+  <a id="tm_TypeModule_StrRawInput_" data-uid="tm.TypeModule.StrRawInput*"></a>
+  <h4 id="tm_TypeModule_StrRawInput" data-uid="tm.TypeModule.StrRawInput">StrRawInput</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】生成された、変換される前の文字列</p>
 <p>StrDoneRawと同等の値を返却します。</p>
 </div>
@@ -1324,8 +1324,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrYet_" data-uid="TypeModule.TypeModule.StrYet*"></a>
-  <h4 id="TypeModule_TypeModule_StrYet" data-uid="TypeModule.TypeModule.StrYet">StrYet</h4>
+  <a id="tm_TypeModule_StrYet_" data-uid="tm.TypeModule.StrYet*"></a>
+  <h4 id="tm_TypeModule_StrYet" data-uid="tm.TypeModule.StrYet">StrYet</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】まだ打っていない文字列</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1350,8 +1350,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_StrYetRaw_" data-uid="TypeModule.TypeModule.StrYetRaw*"></a>
-  <h4 id="TypeModule_TypeModule_StrYetRaw" data-uid="TypeModule.TypeModule.StrYetRaw">StrYetRaw</h4>
+  <a id="tm_TypeModule_StrYetRaw_" data-uid="tm.TypeModule.StrYetRaw*"></a>
+  <h4 id="tm_TypeModule_StrYetRaw" data-uid="tm.TypeModule.StrYetRaw">StrYetRaw</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】既に打ち終わった文字列(変換前)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1376,8 +1376,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_TargetStr_" data-uid="TypeModule.TypeModule.TargetStr*"></a>
-  <h4 id="TypeModule_TypeModule_TargetStr" data-uid="TypeModule.TypeModule.TargetStr">TargetStr</h4>
+  <a id="tm_TypeModule_TargetStr_" data-uid="tm.TypeModule.TargetStr*"></a>
+  <h4 id="tm_TypeModule_TargetStr" data-uid="tm.TypeModule.TargetStr">TargetStr</h4>
   <div class="markdown level1 summary"><p>比較対象の文字列(タイピングのお台文)</p>
 <p>値を変更した時点で、初期化処理を自動で呼び出します。</p>
 <p>また、全角半角カタカナはひらがなに、全角アルファベットは半角アルファベットに変換されます。</p>
@@ -1408,8 +1408,8 @@
   </h3>
   
   
-  <a id="TypeModule_TypeModule_AddEventListenerOnChange_" data-uid="TypeModule.TypeModule.AddEventListenerOnChange*"></a>
-  <h4 id="TypeModule_TypeModule_AddEventListenerOnChange_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnChange(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">AddEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <a id="tm_TypeModule_AddEventListenerOnChange_" data-uid="tm.TypeModule.AddEventListenerOnChange*"></a>
+  <h4 id="tm_TypeModule_AddEventListenerOnChange_UnityEngine_Events_UnityAction_tm_InputEmulatorResults__" data-uid="tm.TypeModule.AddEventListenerOnChange(UnityEngine.Events.UnityAction{tm.InputEmulatorResults})">AddEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】文字列が変更された時のイベントリスナを追加します</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1428,7 +1428,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1437,8 +1437,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_AddEventListenerOnComplete_" data-uid="TypeModule.TypeModule.AddEventListenerOnComplete*"></a>
-  <h4 id="TypeModule_TypeModule_AddEventListenerOnComplete_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnComplete(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_AddEventListenerOnComplete_" data-uid="tm.TypeModule.AddEventListenerOnComplete*"></a>
+  <h4 id="tm_TypeModule_AddEventListenerOnComplete_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.AddEventListenerOnComplete(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">AddEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを追加します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1457,7 +1457,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1466,8 +1466,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_AddEventListenerOnCorrect_" data-uid="TypeModule.TypeModule.AddEventListenerOnCorrect*"></a>
-  <h4 id="TypeModule_TypeModule_AddEventListenerOnCorrect_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnCorrect(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_AddEventListenerOnCorrect_" data-uid="tm.TypeModule.AddEventListenerOnCorrect*"></a>
+  <h4 id="tm_TypeModule_AddEventListenerOnCorrect_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.AddEventListenerOnCorrect(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">AddEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを追加します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1486,7 +1486,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1495,8 +1495,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_AddEventListenerOnInput_" data-uid="TypeModule.TypeModule.AddEventListenerOnInput*"></a>
-  <h4 id="TypeModule_TypeModule_AddEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_AddEventListenerOnInput_" data-uid="tm.TypeModule.AddEventListenerOnInput*"></a>
+  <h4 id="tm_TypeModule_AddEventListenerOnInput_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.AddEventListenerOnInput(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">AddEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを追加します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1515,7 +1515,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1524,8 +1524,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_AddEventListenerOnInput_" data-uid="TypeModule.TypeModule.AddEventListenerOnInput*"></a>
-  <h4 id="TypeModule_TypeModule_AddEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">AddEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <a id="tm_TypeModule_AddEventListenerOnInput_" data-uid="tm.TypeModule.AddEventListenerOnInput*"></a>
+  <h4 id="tm_TypeModule_AddEventListenerOnInput_UnityEngine_Events_UnityAction_tm_InputEmulatorResults__" data-uid="tm.TypeModule.AddEventListenerOnInput(UnityEngine.Events.UnityAction{tm.InputEmulatorResults})">AddEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを追加します</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1544,7 +1544,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1553,8 +1553,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_AddEventListenerOnMiss_" data-uid="TypeModule.TypeModule.AddEventListenerOnMiss*"></a>
-  <h4 id="TypeModule_TypeModule_AddEventListenerOnMiss_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnMiss(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_AddEventListenerOnMiss_" data-uid="tm.TypeModule.AddEventListenerOnMiss*"></a>
+  <h4 id="tm_TypeModule_AddEventListenerOnMiss_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.AddEventListenerOnMiss(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">AddEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを追加します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1573,7 +1573,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1582,8 +1582,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_AddEventListenerOnSetup_" data-uid="TypeModule.TypeModule.AddEventListenerOnSetup*"></a>
-  <h4 id="TypeModule_TypeModule_AddEventListenerOnSetup_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.AddEventListenerOnSetup(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">AddEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_AddEventListenerOnSetup_" data-uid="tm.TypeModule.AddEventListenerOnSetup*"></a>
+  <h4 id="tm_TypeModule_AddEventListenerOnSetup_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.AddEventListenerOnSetup(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">AddEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを追加します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1602,7 +1602,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1611,8 +1611,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_AddInput_" data-uid="TypeModule.TypeModule.AddInput*"></a>
-  <h4 id="TypeModule_TypeModule_AddInput_UnityEngine_KeyCode_System_Boolean_System_Boolean_" data-uid="TypeModule.TypeModule.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean)">AddInput(KeyCode, Boolean, Boolean)</h4>
+  <a id="tm_TypeModule_AddInput_" data-uid="tm.TypeModule.AddInput*"></a>
+  <h4 id="tm_TypeModule_AddInput_UnityEngine_KeyCode_System_Boolean_System_Boolean_" data-uid="tm.TypeModule.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean)">AddInput(KeyCode, Boolean, Boolean)</h4>
   <div class="markdown level1 summary"><p>プログラムから、キー入力を擬似的に追加</p>
 <p>【MODE.COPYの場合】もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</p>
 </div>
@@ -1653,8 +1653,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_BackSpace_" data-uid="TypeModule.TypeModule.BackSpace*"></a>
-  <h4 id="TypeModule_TypeModule_BackSpace" data-uid="TypeModule.TypeModule.BackSpace">BackSpace()</h4>
+  <a id="tm_TypeModule_BackSpace_" data-uid="tm.TypeModule.BackSpace*"></a>
+  <h4 id="tm_TypeModule_BackSpace" data-uid="tm.TypeModule.BackSpace">BackSpace()</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】プログラム側から、末尾の1文字消します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1664,8 +1664,8 @@
   </div>
   
   
-  <a id="TypeModule_TypeModule_Clear_" data-uid="TypeModule.TypeModule.Clear*"></a>
-  <h4 id="TypeModule_TypeModule_Clear" data-uid="TypeModule.TypeModule.Clear">Clear()</h4>
+  <a id="tm_TypeModule_Clear_" data-uid="tm.TypeModule.Clear*"></a>
+  <h4 id="tm_TypeModule_Clear" data-uid="tm.TypeModule.Clear">Clear()</h4>
   <div class="markdown level1 summary"><p>内部の入力データをを全て削除します</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1675,8 +1675,8 @@
   </div>
   
   
-  <a id="TypeModule_TypeModule_Correct_" data-uid="TypeModule.TypeModule.Correct*"></a>
-  <h4 id="TypeModule_TypeModule_Correct_System_Boolean_" data-uid="TypeModule.TypeModule.Correct(System.Boolean)">Correct(Boolean)</h4>
+  <a id="tm_TypeModule_Correct_" data-uid="tm.TypeModule.Correct*"></a>
+  <h4 id="tm_TypeModule_Correct_System_Boolean_" data-uid="tm.TypeModule.Correct(System.Boolean)">Correct(Boolean)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】プログラムから、正しい入力を一回行ったとして処理します。</p>
 <p>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</p>
 </div>
@@ -1705,8 +1705,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_Enter_" data-uid="TypeModule.TypeModule.Enter*"></a>
-  <h4 id="TypeModule_TypeModule_Enter" data-uid="TypeModule.TypeModule.Enter">Enter()</h4>
+  <a id="tm_TypeModule_Enter_" data-uid="tm.TypeModule.Enter*"></a>
+  <h4 id="tm_TypeModule_Enter" data-uid="tm.TypeModule.Enter">Enter()</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】プログラム側から、変換確定前の文字列を確定します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1716,8 +1716,8 @@
   </div>
   
   
-  <a id="TypeModule_TypeModule_Miss_" data-uid="TypeModule.TypeModule.Miss*"></a>
-  <h4 id="TypeModule_TypeModule_Miss_System_Boolean_" data-uid="TypeModule.TypeModule.Miss(System.Boolean)">Miss(Boolean)</h4>
+  <a id="tm_TypeModule_Miss_" data-uid="tm.TypeModule.Miss*"></a>
+  <h4 id="tm_TypeModule_Miss_System_Boolean_" data-uid="tm.TypeModule.Miss(System.Boolean)">Miss(Boolean)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】プログラムから、ミスタイプを一回行ったとして処理します。</p>
 <p>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</p>
 </div>
@@ -1746,8 +1746,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_RemoveEventListenerOnChange_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnChange*"></a>
-  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnChange_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnChange(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">RemoveEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <a id="tm_TypeModule_RemoveEventListenerOnChange_" data-uid="tm.TypeModule.RemoveEventListenerOnChange*"></a>
+  <h4 id="tm_TypeModule_RemoveEventListenerOnChange_UnityEngine_Events_UnityAction_tm_InputEmulatorResults__" data-uid="tm.TypeModule.RemoveEventListenerOnChange(UnityEngine.Events.UnityAction{tm.InputEmulatorResults})">RemoveEventListenerOnChange(UnityAction&lt;InputEmulatorResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】文字列が変更された時のイベントリスナを削除します</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1766,7 +1766,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1775,8 +1775,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_RemoveEventListenerOnComplete_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnComplete*"></a>
-  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnComplete_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnComplete(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_RemoveEventListenerOnComplete_" data-uid="tm.TypeModule.RemoveEventListenerOnComplete*"></a>
+  <h4 id="tm_TypeModule_RemoveEventListenerOnComplete_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.RemoveEventListenerOnComplete(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">RemoveEventListenerOnComplete(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字を全て打ちきった時のイベントリスナを削除します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1795,7 +1795,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1804,8 +1804,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_RemoveEventListenerOnCorrect_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnCorrect*"></a>
-  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnCorrect_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnCorrect(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_RemoveEventListenerOnCorrect_" data-uid="tm.TypeModule.RemoveEventListenerOnCorrect*"></a>
+  <h4 id="tm_TypeModule_RemoveEventListenerOnCorrect_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.RemoveEventListenerOnCorrect(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">RemoveEventListenerOnCorrect(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、正しく入力された時のイベントリスナを削除します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1824,7 +1824,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1833,8 +1833,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_RemoveEventListenerOnInput_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput*"></a>
-  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_RemoveEventListenerOnInput_" data-uid="tm.TypeModule.RemoveEventListenerOnInput*"></a>
+  <h4 id="tm_TypeModule_RemoveEventListenerOnInput_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.RemoveEventListenerOnInput(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">RemoveEventListenerOnInput(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】キーボードからの入力処理を行った時のイベントリスナを削除します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1853,7 +1853,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1862,8 +1862,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_RemoveEventListenerOnInput_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput*"></a>
-  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnInput_UnityEngine_Events_UnityAction_TypeModule_InputEmulatorResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnInput(UnityEngine.Events.UnityAction{TypeModule.InputEmulatorResults})">RemoveEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
+  <a id="tm_TypeModule_RemoveEventListenerOnInput_" data-uid="tm.TypeModule.RemoveEventListenerOnInput*"></a>
+  <h4 id="tm_TypeModule_RemoveEventListenerOnInput_UnityEngine_Events_UnityAction_tm_InputEmulatorResults__" data-uid="tm.TypeModule.RemoveEventListenerOnInput(UnityEngine.Events.UnityAction{tm.InputEmulatorResults})">RemoveEventListenerOnInput(UnityAction&lt;InputEmulatorResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】キーボードから文字が入力された時のイベントリスナを削除します</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1882,7 +1882,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.InputEmulatorResults.html">InputEmulatorResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1891,8 +1891,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_RemoveEventListenerOnMiss_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnMiss*"></a>
-  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnMiss_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnMiss(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_RemoveEventListenerOnMiss_" data-uid="tm.TypeModule.RemoveEventListenerOnMiss*"></a>
+  <h4 id="tm_TypeModule_RemoveEventListenerOnMiss_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.RemoveEventListenerOnMiss(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">RemoveEventListenerOnMiss(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較対象の文字に対して、ミスタッチした時のイベントリスナを削除します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1911,7 +1911,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>
@@ -1920,8 +1920,8 @@
   </table>
   
   
-  <a id="TypeModule_TypeModule_RemoveEventListenerOnSetup_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnSetup*"></a>
-  <h4 id="TypeModule_TypeModule_RemoveEventListenerOnSetup_UnityEngine_Events_UnityAction_TypeModule_CopyInputCheckerResults__" data-uid="TypeModule.TypeModule.RemoveEventListenerOnSetup(UnityEngine.Events.UnityAction{TypeModule.CopyInputCheckerResults})">RemoveEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
+  <a id="tm_TypeModule_RemoveEventListenerOnSetup_" data-uid="tm.TypeModule.RemoveEventListenerOnSetup*"></a>
+  <h4 id="tm_TypeModule_RemoveEventListenerOnSetup_UnityEngine_Events_UnityAction_tm_CopyInputCheckerResults__" data-uid="tm.TypeModule.RemoveEventListenerOnSetup(UnityEngine.Events.UnityAction{tm.CopyInputCheckerResults})">RemoveEventListenerOnSetup(UnityAction&lt;CopyInputCheckerResults&gt;)</h4>
   <div class="markdown level1 summary"><p>【MODE.COPY】比較文字がセットされ、セットアップが完了した時のイベントリスナを削除します。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1940,7 +1940,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="TypeModule.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
+        <td><span class="xref">UnityEngine.Events.UnityAction</span>&lt;<a class="xref" href="tm.CopyInputCheckerResults.html">CopyInputCheckerResults</a>&gt;</td>
         <td><span class="parametername">aEvent</span></td>
         <td><p>イベントリスナ</p>
 </td>

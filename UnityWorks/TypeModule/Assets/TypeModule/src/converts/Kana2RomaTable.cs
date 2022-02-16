@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace TypeModule {
-    namespace Inner {
+namespace tm {
+    namespace inner {
 
         /// <summary>
         /// <para>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</para>
         /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
         /// </summary>
         /// <example><code>
-        /// using Inner;
+        /// using inner;
         /// 
         ///     ...
         ///     

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class InputEmulatorParams
+    <title>Class CsvReadHelper
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class InputEmulatorParams
+    <meta name="title" content="Class CsvReadHelper
    ">
     <meta name="generator" content="docfx 2.59.0.0">
     
@@ -68,18 +68,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="TypeModule.Inner.InputEmulatorParams">
+            <article class="content wrap" id="_content" data-uid="tm.inner.CsvReadHelper">
   
   
-  <h1 id="TypeModule_Inner_InputEmulatorParams" data-uid="TypeModule.Inner.InputEmulatorParams" class="text-break">Class InputEmulatorParams
+  <h1 id="tm_inner_CsvReadHelper" data-uid="tm.inner.CsvReadHelper" class="text-break">Class CsvReadHelper
   </h1>
-  <div class="markdown level0 summary"><p>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</p>
+  <div class="markdown level0 summary"><p>CSV読み込み用のヘルパークラスです。</p>
+<p>このファイルを使用するには、Nugetパッケージ【CsvTextFieldParser】がインストールされている必要があります。</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">InputEmulatorParams</span></div>
+    <div class="level1"><span class="xref">CsvReadHelper</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -105,100 +106,117 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.Inner.html">TypeModule.Inner</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="tm.inner.html">tm.inner</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="TypeModule_Inner_InputEmulatorParams_syntax">Syntax</h5>
+  <h5 id="tm_inner_CsvReadHelper_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class InputEmulatorParams</code></pre>
+    <pre><code class="lang-csharp hljs">public class CsvReadHelper</code></pre>
   </div>
-  <h3 id="fields">Fields
+  <h5 id="tm_inner_CsvReadHelper_examples"><strong>Examples</strong></h5>
+  <pre><code>     using tm;
+     using inner;
+
+         ...
+
+     public TextAsset csvAsset;
+
+         ...
+
+     //csvデータ読み込み(どちらでもOK)
+     CsvReadHelper csv = new CsvReadHelper(in csvAsset);
+     //CsvReadHelper csv = new CsvReadHelper(&quot;filePath&quot;);
+
+     //各データにアクセス (1)
+     for(int i = 0;i &lt; csv.RecordNum;++i){
+         for(int j = 0;j &lt; csv.FieldMax;++j){
+             Debug.Log(csv.Datas[i][j]);
+         }
+     }
+
+     //各データにアクセス (2)
+     foreach(List&lt;string> record in csv.Datas){
+         foreach(string d in record){
+             Debug.Log(d);
+         }
+     }</code></pre>
+
+  <h3 id="constructors">Constructors
   </h3>
   
   
-  <h4 id="TypeModule_Inner_InputEmulatorParams_m_event" data-uid="TypeModule.Inner.InputEmulatorParams.m_event">m_event</h4>
-  <div class="markdown level1 summary"><p>直前に発生したUnityイベント</p>
+  <a id="tm_inner_CsvReadHelper__ctor_" data-uid="tm.inner.CsvReadHelper.#ctor*"></a>
+  <h4 id="tm_inner_CsvReadHelper__ctor_System_String_" data-uid="tm.inner.CsvReadHelper.#ctor(System.String)">CsvReadHelper(String)</h4>
+  <div class="markdown level1 summary"><p>CSV読み込み用のヘルパークラスです。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Event m_event</code></pre>
+    <pre><code class="lang-csharp hljs">public CsvReadHelper(string aFilePath)</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEngine.Event</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="TypeModule_Inner_InputEmulatorParams_m_inputType" data-uid="TypeModule.Inner.InputEmulatorParams.m_inputType">m_inputType</h4>
-  <div class="markdown level1 summary"><p>入力タイプ</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InputEmulatorResults.INPUT_TYPE m_inputType</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="TypeModule.InputEmulatorResults.INPUT_TYPE.html">InputEmulatorResults.INPUT_TYPE</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="TypeModule_Inner_InputEmulatorParams_m_prevChar" data-uid="TypeModule.Inner.InputEmulatorParams.m_prevChar">m_prevChar</h4>
-  <div class="markdown level1 summary"><p>前回入力した文字</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string m_prevChar</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><span class="parametername">aFilePath</span></td>
+        <td><p>CSV(.csv)形式のファイル格納先を指定。Resourceフォルダ内がカレントディレクトリとなります。</p>
+<p>文字コードは[UTF-8]としてください。</p>
+<p>フィールドにコンマ[,]を含む場合は、ダブルクォート[&quot;]で囲む必要があります。</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="TypeModule_Inner_InputEmulatorParams_m_strDone" data-uid="TypeModule.Inner.InputEmulatorParams.m_strDone">m_strDone</h4>
-  <div class="markdown level1 summary"><p>変換確定済みの文字列</p>
+  <a id="tm_inner_CsvReadHelper__ctor_" data-uid="tm.inner.CsvReadHelper.#ctor*"></a>
+  <h4 id="tm_inner_CsvReadHelper__ctor_UnityEngine_TextAsset__" data-uid="tm.inner.CsvReadHelper.#ctor(UnityEngine.TextAsset@)">CsvReadHelper(in TextAsset)</h4>
+  <div class="markdown level1 summary"><p>CSV読み込み用のヘルパークラスです。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;string&gt; m_strDone</code></pre>
+    <pre><code class="lang-csharp hljs">public CsvReadHelper(in TextAsset aFile)</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td><span class="parametername">aFile</span></td>
+        <td><p>CSV(.csv)形式のファイルアセットを指定。文字コードは[UTF-8]としてください。</p>
+<p>フィールドにコンマ[,]を含む場合は、ダブルクォート[&quot;]で囲む必要があります。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="tm_inner_CsvReadHelper_Datas_" data-uid="tm.inner.CsvReadHelper.Datas*"></a>
+  <h4 id="tm_inner_CsvReadHelper_Datas" data-uid="tm.inner.CsvReadHelper.Datas">Datas</h4>
+  <div class="markdown level1 summary"><p>読み込んだCSVデータ</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;List&lt;string&gt;&gt; Datas { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -208,22 +226,23 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="TypeModule_Inner_InputEmulatorParams_m_strDoneRaws" data-uid="TypeModule.Inner.InputEmulatorParams.m_strDoneRaws">m_strDoneRaws</h4>
-  <div class="markdown level1 summary"><p>変換確定前文字列</p>
+  <a id="tm_inner_CsvReadHelper_FieldMax_" data-uid="tm.inner.CsvReadHelper.FieldMax*"></a>
+  <h4 id="tm_inner_CsvReadHelper_FieldMax" data-uid="tm.inner.CsvReadHelper.FieldMax">FieldMax</h4>
+  <div class="markdown level1 summary"><p>フィールド数最大値</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;string&gt; m_strDoneRaws</code></pre>
+    <pre><code class="lang-csharp hljs">public int FieldMax { get; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -233,22 +252,23 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="xref">System.Int32</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="TypeModule_Inner_InputEmulatorParams_m_strWork" data-uid="TypeModule.Inner.InputEmulatorParams.m_strWork">m_strWork</h4>
-  <div class="markdown level1 summary"><p>現在チェック中の文字</p>
+  <a id="tm_inner_CsvReadHelper_RecordNum_" data-uid="tm.inner.CsvReadHelper.RecordNum*"></a>
+  <h4 id="tm_inner_CsvReadHelper_RecordNum" data-uid="tm.inner.CsvReadHelper.RecordNum">RecordNum</h4>
+  <div class="markdown level1 summary"><p>レコード数</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string m_strWork</code></pre>
+    <pre><code class="lang-csharp hljs">public int RecordNum { get; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -258,7 +278,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">System.Int32</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -267,15 +287,65 @@
   </h3>
   
   
-  <a id="TypeModule_Inner_InputEmulatorParams_Clear_" data-uid="TypeModule.Inner.InputEmulatorParams.Clear*"></a>
-  <h4 id="TypeModule_Inner_InputEmulatorParams_Clear" data-uid="TypeModule.Inner.InputEmulatorParams.Clear">Clear()</h4>
-  <div class="markdown level1 summary"><p>内部データをクリアします。</p>
+  <a id="tm_inner_CsvReadHelper_Load_" data-uid="tm.inner.CsvReadHelper.Load*"></a>
+  <h4 id="tm_inner_CsvReadHelper_Load_System_String_" data-uid="tm.inner.CsvReadHelper.Load(System.String)">Load(String)</h4>
+  <div class="markdown level1 summary"><p>CSVファイルデータの読み込み</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+    <pre><code class="lang-csharp hljs">public void Load(string aFilePath)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aFilePath</span></td>
+        <td><p>CSV(.csv)形式のファイル格納先を指定。Resourceフォルダ内がカレントディレクトリとなります。</p>
+<p>文字コードは[UTF-8]としてください。</p>
+<p>フィールドにコンマ[,]を含む場合は、ダブルクォート[&quot;]で囲む必要があります。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="tm_inner_CsvReadHelper_Load_" data-uid="tm.inner.CsvReadHelper.Load*"></a>
+  <h4 id="tm_inner_CsvReadHelper_Load_UnityEngine_TextAsset__" data-uid="tm.inner.CsvReadHelper.Load(UnityEngine.TextAsset@)">Load(in TextAsset)</h4>
+  <div class="markdown level1 summary"><p>CSVファイルデータの読み込み</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Load(in TextAsset aFile)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.TextAsset</span></td>
+        <td><span class="parametername">aFile</span></td>
+        <td><p>CSV(.csv)形式のファイルアセットを指定。文字コードは[UTF-8]としてください。</p>
+<p>フィールドにコンマ[,]を含む場合は、ダブルクォート[&quot;]で囲む必要があります。</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           

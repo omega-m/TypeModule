@@ -68,10 +68,10 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="TypeModule.Inner.Roma2KanaTable">
+            <article class="content wrap" id="_content" data-uid="tm.inner.Roma2KanaTable">
   
   
-  <h1 id="TypeModule_Inner_Roma2KanaTable" data-uid="TypeModule.Inner.Roma2KanaTable" class="text-break">Class Roma2KanaTable
+  <h1 id="tm_inner_Roma2KanaTable" data-uid="tm.inner.Roma2KanaTable" class="text-break">Class Roma2KanaTable
   </h1>
   <div class="markdown level0 summary"><p>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</p>
 </div>
@@ -105,14 +105,15 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.Inner.html">TypeModule.Inner</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="tm.inner.html">tm.inner</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="TypeModule_Inner_Roma2KanaTable_syntax">Syntax</h5>
+  <h5 id="tm_inner_Roma2KanaTable_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class Roma2KanaTable</code></pre>
   </div>
-  <h5 id="TypeModule_Inner_Roma2KanaTable_examples"><strong>Examples</strong></h5>
-  <pre><code>    using Inner;
+  <h5 id="tm_inner_Roma2KanaTable_examples"><strong>Examples</strong></h5>
+  <pre><code>    using tm;
+    using inner;
 
         ...
 
@@ -154,8 +155,8 @@
   </h3>
   
   
-  <a id="TypeModule_Inner_Roma2KanaTable__ctor_" data-uid="TypeModule.Inner.Roma2KanaTable.#ctor*"></a>
-  <h4 id="TypeModule_Inner_Roma2KanaTable__ctor_UnityEngine_TextAsset__" data-uid="TypeModule.Inner.Roma2KanaTable.#ctor(UnityEngine.TextAsset@)">Roma2KanaTable(in TextAsset)</h4>
+  <a id="tm_inner_Roma2KanaTable__ctor_" data-uid="tm.inner.Roma2KanaTable.#ctor*"></a>
+  <h4 id="tm_inner_Roma2KanaTable__ctor_UnityEngine_TextAsset__" data-uid="tm.inner.Roma2KanaTable.#ctor(UnityEngine.TextAsset@)">Roma2KanaTable(in TextAsset)</h4>
   <div class="markdown level1 summary"><p>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -187,8 +188,8 @@
   </h3>
   
   
-  <a id="TypeModule_Inner_Roma2KanaTable_RomaMaxLength_" data-uid="TypeModule.Inner.Roma2KanaTable.RomaMaxLength*"></a>
-  <h4 id="TypeModule_Inner_Roma2KanaTable_RomaMaxLength" data-uid="TypeModule.Inner.Roma2KanaTable.RomaMaxLength">RomaMaxLength</h4>
+  <a id="tm_inner_Roma2KanaTable_RomaMaxLength_" data-uid="tm.inner.Roma2KanaTable.RomaMaxLength*"></a>
+  <h4 id="tm_inner_Roma2KanaTable_RomaMaxLength" data-uid="tm.inner.Roma2KanaTable.RomaMaxLength">RomaMaxLength</h4>
   <div class="markdown level1 summary"><p>ひらがな文字列に変換できるローマ字列の最大文字数</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -215,8 +216,8 @@
   </h3>
   
   
-  <a id="TypeModule_Inner_Roma2KanaTable_CanConverFirstN_" data-uid="TypeModule.Inner.Roma2KanaTable.CanConverFirstN*"></a>
-  <h4 id="TypeModule_Inner_Roma2KanaTable_CanConverFirstN_System_String_" data-uid="TypeModule.Inner.Roma2KanaTable.CanConverFirstN(System.String)">CanConverFirstN(String)</h4>
+  <a id="tm_inner_Roma2KanaTable_CanConverFirstN_" data-uid="tm.inner.Roma2KanaTable.CanConverFirstN*"></a>
+  <h4 id="tm_inner_Roma2KanaTable_CanConverFirstN_System_String_" data-uid="tm.inner.Roma2KanaTable.CanConverFirstN(System.String)">CanConverFirstN(String)</h4>
   <div class="markdown level1 summary"><p>ローマ字列[aRoma]の先頭文字が[n]で、先頭文字を[ん]に変換できるかどうかを取得します</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -260,8 +261,8 @@
   </table>
   
   
-  <a id="TypeModule_Inner_Roma2KanaTable_GetPossibilityKanas_" data-uid="TypeModule.Inner.Roma2KanaTable.GetPossibilityKanas*"></a>
-  <h4 id="TypeModule_Inner_Roma2KanaTable_GetPossibilityKanas_System_String_" data-uid="TypeModule.Inner.Roma2KanaTable.GetPossibilityKanas(System.String)">GetPossibilityKanas(String)</h4>
+  <a id="tm_inner_Roma2KanaTable_GetPossibilityKanas_" data-uid="tm.inner.Roma2KanaTable.GetPossibilityKanas*"></a>
+  <h4 id="tm_inner_Roma2KanaTable_GetPossibilityKanas_System_String_" data-uid="tm.inner.Roma2KanaTable.GetPossibilityKanas(System.String)">GetPossibilityKanas(String)</h4>
   <div class="markdown level1 summary"><p>ローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで変換する事が可能なひらがな文字列の一覧を取得します。(ソート済み)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -305,8 +306,8 @@
   </table>
   
   
-  <a id="TypeModule_Inner_Roma2KanaTable_HasPossibility_" data-uid="TypeModule.Inner.Roma2KanaTable.HasPossibility*"></a>
-  <h4 id="TypeModule_Inner_Roma2KanaTable_HasPossibility_System_String_System_String_" data-uid="TypeModule.Inner.Roma2KanaTable.HasPossibility(System.String,System.String)">HasPossibility(String, String)</h4>
+  <a id="tm_inner_Roma2KanaTable_HasPossibility_" data-uid="tm.inner.Roma2KanaTable.HasPossibility*"></a>
+  <h4 id="tm_inner_Roma2KanaTable_HasPossibility_System_String_System_String_" data-uid="tm.inner.Roma2KanaTable.HasPossibility(System.String,System.String)">HasPossibility(String, String)</h4>
   <div class="markdown level1 summary"><p>ローマ字列[aRoma]に対して、aRomaに追加でローマ字を足すことで、ひらがな文字列に変換する事が可能か</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -356,8 +357,8 @@
   </table>
   
   
-  <a id="TypeModule_Inner_Roma2KanaTable_TryConvert_" data-uid="TypeModule.Inner.Roma2KanaTable.TryConvert*"></a>
-  <h4 id="TypeModule_Inner_Roma2KanaTable_TryConvert_System_String_System_String__" data-uid="TypeModule.Inner.Roma2KanaTable.TryConvert(System.String,System.String@)">TryConvert(String, out String)</h4>
+  <a id="tm_inner_Roma2KanaTable_TryConvert_" data-uid="tm.inner.Roma2KanaTable.TryConvert*"></a>
+  <h4 id="tm_inner_Roma2KanaTable_TryConvert_System_String_System_String__" data-uid="tm.inner.Roma2KanaTable.TryConvert(System.String,System.String@)">TryConvert(String, out String)</h4>
   <div class="markdown level1 summary"><p>ローマ字列[aRoma]に対して、変換できるひらがながあるかをチェック及び取得</p>
 </div>
   <div class="markdown level1 conceptual"></div>

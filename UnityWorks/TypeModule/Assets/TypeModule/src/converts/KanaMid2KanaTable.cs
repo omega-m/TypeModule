@@ -2,12 +2,13 @@
 using UnityEngine;
 
 
-namespace TypeModule {
-    namespace Inner {
+namespace tm {
+    namespace inner {
 
         /// <summary>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
         /// <example><code>
-        /// using Inner;
+        /// using tm;
+        /// using inner;
         /// 
         ///     ...
         ///     

@@ -6,15 +6,16 @@ using System.Text;
 using NotVisualBasic.FileIO;
 
 
-namespace TypeModule {
-    namespace Inner{
+namespace tm {
+    namespace inner{
 
         ///<summary>
         ///<para>CSV読み込み用のヘルパークラスです。</para>
         ///<para>このファイルを使用するには、Nugetパッケージ【CsvTextFieldParser】がインストールされている必要があります。</para>
         ///</summary>
         /// <example><code>
-        /// using Inner;
+        /// using tm;
+        /// using inner;
         /// 
         ///     ...
         ///     

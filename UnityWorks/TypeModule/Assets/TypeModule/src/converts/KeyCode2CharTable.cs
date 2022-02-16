@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace TypeModule {
-    namespace Inner {
+namespace tm {
+    namespace inner {
 
 
         ///<summary>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</summary>
         /// <example><code>
-        /// using Inner;
+        /// using tm;
+        /// using inner;
         /// 
         ///     ...
         ///     

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TypeModule;
+using tm;
 public class INPUTTest : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        m_tp = GetComponent<TypeModule.TypeModule>();
+        m_tp = GetComponent<TypeModule>();
         m_tp.AddEventListenerOnChange(onChange);
         m_tp.AddEventListenerOnInput(onInput);
     }
@@ -47,7 +47,7 @@ public class INPUTTest : MonoBehaviour
         textInputRaw.text = res.StrRaw;
     }
 
-    private TypeModule.TypeModule m_tp = null;
+    private TypeModule m_tp = null;
     public Text textInput;
     public Text textInputRaw;
 }

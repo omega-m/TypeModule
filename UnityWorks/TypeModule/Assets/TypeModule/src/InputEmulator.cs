@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace TypeModule {
+namespace tm {
 
 /// <summary>
 /// <para>InputEmulatorによって処理されたデータへのアクセス用クラスです。</para>
@@ -109,7 +109,7 @@ public class InputEmulatorResults {
 
     #region 生成
     /// <summary>InputEmulatorより作成されます。外からは作成しないでください。</summary>    
-    public InputEmulatorResults(in Inner.InputEmulatorParams aParams) {m_params = aParams;}
+    public InputEmulatorResults(in inner.InputEmulatorParams aParams) {m_params = aParams;}
     #endregion
 
 
@@ -140,7 +140,7 @@ public class InputEmulatorResults {
 
 
     #region メンバ
-    private Inner.InputEmulatorParams m_params;   //参照
+    private inner.InputEmulatorParams m_params;   //参照
 
     private string m_strCache       = "";
     private string m_strRawCache    = "";
@@ -148,7 +148,7 @@ public class InputEmulatorResults {
 }
 
 
-    namespace Inner {
+    namespace inner {
 
         /// <summary>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</summary>
         public class InputEmulatorParams {

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum InputEmulatorResults.INPUT_TYPE
+    <title>Namespace tm.inner
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum InputEmulatorResults.INPUT_TYPE
+    <meta name="title" content="Namespace tm.inner
    ">
     <meta name="generator" content="docfx 2.59.0.0">
     
@@ -68,67 +68,63 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="TypeModule.InputEmulatorResults.INPUT_TYPE">
+            <article class="content wrap" id="_content" data-uid="tm.inner">
   
-  
-  <h1 id="TypeModule_InputEmulatorResults_INPUT_TYPE" data-uid="TypeModule.InputEmulatorResults.INPUT_TYPE" class="text-break">Enum InputEmulatorResults.INPUT_TYPE
+  <h1 id="tm_inner" data-uid="tm.inner" class="text-break">Namespace tm.inner
   </h1>
-  <div class="markdown level0 summary"><p>イベント発生時の入力タイプです</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.html">TypeModule</a></h6>
-  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="TypeModule_InputEmulatorResults_INPUT_TYPE_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum INPUT_TYPE</code></pre>
-  </div>
-  <h3 id="fields">Fields
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
   </h3>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    <thead>
-    <tbody>
-      <tr>
-        <td id="TypeModule_InputEmulatorResults_INPUT_TYPE_BS">BS</td>
-        <td><p>キーボードからBSキーが打たれ、1文字削除された時にこのタイプになります。</p>
-</td>
-      </tr>
-      <tr>
-        <td id="TypeModule_InputEmulatorResults_INPUT_TYPE_BS_FORCE">BS_FORCE</td>
-        <td><p>プログラム側か、システム側からBSキーが打たれ、1文字削除された時にこのタイプになります。</p>
-</td>
-      </tr>
-      <tr>
-        <td id="TypeModule_InputEmulatorResults_INPUT_TYPE_CLEAR">CLEAR</td>
-        <td><p>システム側から入力値が全て初期化された</p>
-</td>
-      </tr>
-      <tr>
-        <td id="TypeModule_InputEmulatorResults_INPUT_TYPE_ENTER">ENTER</td>
-        <td><p>キーボードからEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。</p>
-</td>
-      </tr>
-      <tr>
-        <td id="TypeModule_InputEmulatorResults_INPUT_TYPE_ENTER_FORCE">ENTER_FORCE</td>
-        <td><p>プログラム側か、システム側からEnterキーが打たれ、変換中の文字が確定された時にこのタイプになります。</p>
-</td>
-      </tr>
-      <tr>
-        <td id="TypeModule_InputEmulatorResults_INPUT_TYPE_INPUT">INPUT</td>
-        <td><p>通常の入力タイプ。キーボードから文字が打たれ、末尾に文字が追加された場合このタイプになります。</p>
-</td>
-      </tr>
-      <tr>
-        <td id="TypeModule_InputEmulatorResults_INPUT_TYPE_NONE">NONE</td>
-        <td><p>どの入力タイプにも属さない</p>
-</td>
-      </tr>
-    </tbody>
-  </thead></thead></table>
+      <h4><a class="xref" href="tm.inner.ConvertTableMgr.html">ConvertTableMgr</a></h4>
+      <section><p>文字列生成時に使用する、変換テーブルを管理するクラスです。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.CopyInputChecker.html">CopyInputChecker</a></h4>
+      <section><p>指定された文字列が正しく打ててるかを確認します。</p>
+<p>タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.CopyInputCheckerParams.html">CopyInputCheckerParams</a></h4>
+      <section><p>CopyInputCheckerの内部パラメータクラス。CopyInputCheckerResultsの参照渡しに使用。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.CsvReadHelper.html">CsvReadHelper</a></h4>
+      <section><p>CSV読み込み用のヘルパークラスです。</p>
+<p>このファイルを使用するには、Nugetパッケージ【CsvTextFieldParser】がインストールされている必要があります。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.InputEmulator.html">InputEmulator</a></h4>
+      <section><p>キーボードの入力から文字列生成をエミュレートします</p>
+</section>
+      <h4><a class="xref" href="tm.inner.InputEmulatorParams.html">InputEmulatorParams</a></h4>
+      <section><p>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.Kana2KanaMidTable.html">Kana2KanaMidTable</a></h4>
+      <section><p>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</p>
+<p>お台文からガイド用のローマ字列を作成する時などに使用</p>
+</section>
+      <h4><a class="xref" href="tm.inner.Kana2RomaTable.html">Kana2RomaTable</a></h4>
+      <section><p>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</p>
+<p>お台文からガイド用のローマ字列を作成する時などに使用</p>
+</section>
+      <h4><a class="xref" href="tm.inner.KanaMid2KanaTable.html">KanaMid2KanaTable</a></h4>
+      <section><p>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.KeyCode2CharTable.html">KeyCode2CharTable</a></h4>
+      <section><p>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.Roma2KanaNode.html">Roma2KanaNode</a></h4>
+      <section><p>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</p>
+</section>
+      <h4><a class="xref" href="tm.inner.Roma2KanaTable.html">Roma2KanaTable</a></h4>
+      <section><p>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</p>
+</section>
+      <h4><a class="xref" href="tm.inner.Util.html">Util</a></h4>
+      <section><p>共通メソッドなどを定義</p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="tm.inner.Util.ConvertTypes.html">Util.ConvertTypes</a></h4>
+      <section><p>変換対象のタイプ</p>
+</section>
 </article>
           </div>
           

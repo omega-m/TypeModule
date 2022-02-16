@@ -3,8 +3,8 @@ using UnityEngine;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace TypeModule {
-    namespace Inner {
+namespace tm {
+    namespace inner {
 
         #region メモ
         // 木構造にするのではなく、SortedDictionaryを利用した方がいい？
@@ -20,7 +20,8 @@ namespace TypeModule {
 
         /// <summary>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</summary>
         /// <example><code>
-        /// using Inner;
+        /// using tm;
+        /// using inner;
         /// 
         ///     ...
         ///     
@@ -177,7 +178,8 @@ namespace TypeModule {
 
         /// <summary>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</summary>
         /// <example><code>
-        /// using Inner;
+        /// using tm;
+        /// using inner;
         /// 
         ///     ...
         ///     

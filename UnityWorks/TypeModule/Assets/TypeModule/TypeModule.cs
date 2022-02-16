@@ -1,19 +1,19 @@
 using UnityEngine;
 using Candlelight;
 using UnityEngine.Events;
-using TypeModule.Inner;
+using tm.inner;
 
-namespace TypeModule {
+namespace tm {
 
     ///<summary>
     ///<para>キーボードの入力を元に、文字入力の判定を担当するモジュールです。</para>
     ///<para>CPU処理負荷や、メモリ要領的な問題で、特に理由がない場合は、マネジメントクラスで管理する方が良さそうです。</para>
     /// </summary>
     /// <example><code>
-    /// using TypeModule;
+    /// using tm;
     ///     ...
     ///     
-    /// TypeModule module = GetComponent&lt;TypeModuleTypeModule.TypeModule&gt;();
+    /// TypeModule module = GetComponent&lt;TypeModule&gt;();
     ///     
     /// 
     /// 

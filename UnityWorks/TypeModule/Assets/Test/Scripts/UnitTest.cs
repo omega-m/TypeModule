@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TypeModule;
-using TypeModule.Inner;
+using tm;
+using tm.inner;
 using UnityEditor;
 
 ///<summary>TypeModuleのテスト用</summary>

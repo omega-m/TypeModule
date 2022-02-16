@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum TypeModule.MODE
+    <title>Enum CopyInputCheckerResults.INNER_EVENT_TYPE
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum TypeModule.MODE
+    <meta name="title" content="Enum CopyInputCheckerResults.INNER_EVENT_TYPE
    ">
     <meta name="generator" content="docfx 2.59.0.0">
     
@@ -68,19 +68,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="TypeModule.TypeModule.MODE">
+            <article class="content wrap" id="_content" data-uid="tm.CopyInputCheckerResults.INNER_EVENT_TYPE">
   
   
-  <h1 id="TypeModule_TypeModule_MODE" data-uid="TypeModule.TypeModule.MODE" class="text-break">Enum TypeModule.MODE
+  <h1 id="tm_CopyInputCheckerResults_INNER_EVENT_TYPE" data-uid="tm.CopyInputCheckerResults.INNER_EVENT_TYPE" class="text-break">Enum CopyInputCheckerResults.INNER_EVENT_TYPE
   </h1>
-  <div class="markdown level0 summary"><p>文字入力判定モードです。</p>
+  <div class="markdown level0 summary"><p>イベント発生時の内部タイプです</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="TypeModule.html">TypeModule</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="tm.html">tm</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="TypeModule_TypeModule_MODE_syntax">Syntax</h5>
+  <h5 id="tm_CopyInputCheckerResults_INNER_EVENT_TYPE_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum MODE</code></pre>
+    <pre><code class="lang-csharp hljs">public enum INNER_EVENT_TYPE</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
@@ -93,15 +93,28 @@
     <thead>
     <tbody>
       <tr>
-        <td id="TypeModule_TypeModule_MODE_COPY">COPY</td>
-        <td><p>【TargetStr】で指定された文字列が正しく打ててるかを確認します。</p>
-<p>タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</p>
+        <td id="tm_CopyInputCheckerResults_INNER_EVENT_TYPE_COMPLETE">COMPLETE</td>
+        <td><p>全て打ち終わった時</p>
 </td>
       </tr>
       <tr>
-        <td id="TypeModule_TypeModule_MODE_INPUT">INPUT</td>
-        <td><p>キーボードの入力を元に、文字列の生成をエミュレートします。</p>
-<p>キーボード入力から文字列を取得したい場合に使用してください。</p>
+        <td id="tm_CopyInputCheckerResults_INNER_EVENT_TYPE_CORRECT">CORRECT</td>
+        <td><p>正しくタイプされた時</p>
+</td>
+      </tr>
+      <tr>
+        <td id="tm_CopyInputCheckerResults_INNER_EVENT_TYPE_MISS">MISS</td>
+        <td><p>ミスタイプした時</p>
+</td>
+      </tr>
+      <tr>
+        <td id="tm_CopyInputCheckerResults_INNER_EVENT_TYPE_NONE">NONE</td>
+        <td><p>どの入力タイプにも属さない</p>
+</td>
+      </tr>
+      <tr>
+        <td id="tm_CopyInputCheckerResults_INNER_EVENT_TYPE_SETUP">SETUP</td>
+        <td><p>内部データクリア・セットアップされた時</p>
 </td>
       </tr>
     </tbody>

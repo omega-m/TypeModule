@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TypeModule;
+using tm;
 
 
 public class COPYTest : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
-        m_typeModule = GetComponent<TypeModule.TypeModule>();
+        m_typeModule = GetComponent<TypeModule>();
         m_typeModule.AddEventListenerOnInput(OnInput);
         m_typeModule.AddEventListenerOnCorrect(OnCorrect);
         m_typeModule.AddEventListenerOnMiss(OnMiss);
@@ -107,7 +107,7 @@ public class COPYTest : MonoBehaviour {
 
     private int m_textId = 0;
     public List<string> m_texts = new List<string>();
-    private TypeModule.TypeModule m_typeModule;
+    private TypeModule m_typeModule;
 
     public AudioClip m_missSound;
     public AudioClip m_typeSound;

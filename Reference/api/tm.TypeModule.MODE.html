@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace TypeModule.Inner
+    <title>Enum TypeModule.MODE
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace TypeModule.Inner
+    <meta name="title" content="Enum TypeModule.MODE
    ">
     <meta name="generator" content="docfx 2.59.0.0">
     
@@ -68,63 +68,44 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="TypeModule.Inner">
+            <article class="content wrap" id="_content" data-uid="tm.TypeModule.MODE">
   
-  <h1 id="TypeModule_Inner" data-uid="TypeModule.Inner" class="text-break">Namespace TypeModule.Inner
+  
+  <h1 id="tm_TypeModule_MODE" data-uid="tm.TypeModule.MODE" class="text-break">Enum TypeModule.MODE
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>文字入力判定モードです。</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <h6><strong>Namespace</strong>: <a class="xref" href="tm.html">tm</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="tm_TypeModule_MODE_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum MODE</code></pre>
+  </div>
+  <h3 id="fields">Fields
   </h3>
-      <h4><a class="xref" href="TypeModule.Inner.ConvertTableMgr.html">ConvertTableMgr</a></h4>
-      <section><p>文字列生成時に使用する、変換テーブルを管理するクラスです。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.CopyInputChecker.html">CopyInputChecker</a></h4>
-      <section><p>指定された文字列が正しく打ててるかを確認します。</p>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    <tbody>
+      <tr>
+        <td id="tm_TypeModule_MODE_COPY">COPY</td>
+        <td><p>【TargetStr】で指定された文字列が正しく打ててるかを確認します。</p>
 <p>タイピングゲームで、お題の文字を真似して打たせる時に使用してください。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.CopyInputCheckerParams.html">CopyInputCheckerParams</a></h4>
-      <section><p>CopyInputCheckerの内部パラメータクラス。CopyInputCheckerResultsの参照渡しに使用。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.CsvReadHelper.html">CsvReadHelper</a></h4>
-      <section><p>CSV読み込み用のヘルパークラスです。</p>
-<p>このファイルを使用するには、Nugetパッケージ【CsvTextFieldParser】がインストールされている必要があります。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.InputEmulator.html">InputEmulator</a></h4>
-      <section><p>キーボードの入力から文字列生成をエミュレートします</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.InputEmulatorParams.html">InputEmulatorParams</a></h4>
-      <section><p>InputEmulatorの内部パラメータクラス。InputEmulatorResultsの参照渡しに使用。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.Kana2KanaMidTable.html">Kana2KanaMidTable</a></h4>
-      <section><p>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</p>
-<p>お台文からガイド用のローマ字列を作成する時などに使用</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.Kana2RomaTable.html">Kana2RomaTable</a></h4>
-      <section><p>ひらがな文字列からローマ字列に変換する為のテーブルを管理するクラスです。</p>
-<p>お台文からガイド用のローマ字列を作成する時などに使用</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.KanaMid2KanaTable.html">KanaMid2KanaTable</a></h4>
-      <section><p>ひらがなの中間文字列から、ひらがな文字列に変換する為のテーブルを管理するクラスです。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.KeyCode2CharTable.html">KeyCode2CharTable</a></h4>
-      <section><p>キーの入力(KeyCode)から、単体文字へ変換する為のテーブルを管理するクラスです。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.Roma2KanaNode.html">Roma2KanaNode</a></h4>
-      <section><p>ローマ字列からひらがな文字列に変換する為の、木ノードオブジェクト</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.Roma2KanaTable.html">Roma2KanaTable</a></h4>
-      <section><p>ローマ字列からひらがな文字列に変換する為のテーブルを管理するクラスです。</p>
-</section>
-      <h4><a class="xref" href="TypeModule.Inner.Util.html">Util</a></h4>
-      <section><p>共通メソッドなどを定義</p>
-</section>
-    <h3 id="enums">Enums
-  </h3>
-      <h4><a class="xref" href="TypeModule.Inner.Util.ConvertTypes.html">Util.ConvertTypes</a></h4>
-      <section><p>変換対象のタイプ</p>
-</section>
+</td>
+      </tr>
+      <tr>
+        <td id="tm_TypeModule_MODE_INPUT">INPUT</td>
+        <td><p>キーボードの入力を元に、文字列の生成をエミュレートします。</p>
+<p>キーボード入力から文字列を取得したい場合に使用してください。</p>
+</td>
+      </tr>
+    </tbody>
+  </thead></thead></table>
 </article>
           </div>
           

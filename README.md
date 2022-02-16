@@ -16,16 +16,16 @@ Assets/TypeModule/TypeModule.cs
 
 TypeModuleを使用したいインスタンスに、以下のようなコードを加えてください。
     
-    using TypeModule;
+    using tm;
     
     //管理クラスに割り当てたスクリプトコンポーネントを取得
-    TypeModule module = GetComponent<TypeModule.TypeModule>(); 
+    TypeModule module = GetComponent<TypeModule>(); 
         
 
 
     //=======================================================================
     //文字列生成シミュレーションモードに変更
-    module.Mode = TypeModule.MODE.INPUT;
+    module.Mode = MODE.INPUT;
     
     //モジュールから状態を取得
     Debug.Log(module.Str);
@@ -94,7 +94,7 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     
     //=======================================================================
     //指定された文字列が正しく打ててるか、比較するモードに変更
-    module.Mode = TypeModule.MODE.COPY;
+    module.Mode = MODE.COPY;
     
     //モードの変更
     module.IsKana = true;                  /かな入力入力状態へ
