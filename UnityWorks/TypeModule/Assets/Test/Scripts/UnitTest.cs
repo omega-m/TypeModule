@@ -21,6 +21,7 @@ public class UnitTest : MonoBehaviour{
             TestKana2RomaTable();
             TestKanaMid2KanaTable();
             TestKeyCode2CharTable();
+            TestRoma2KanaTable();
         }
     }
 
@@ -705,6 +706,156 @@ public class UnitTest : MonoBehaviour{
         Debug.Assert(table.Convert(KeyCode.DownArrow, true, false) == '\0');
         Debug.Assert(table.Convert(KeyCode.DownArrow, false, true) == '\0');
         Debug.Assert(table.Convert(KeyCode.DownArrow, true, true) == '\0');
+    }
+
+    /// <summary>KeyCode2CharTable テスト</summary>
+    void TestRoma2KanaTable() {
+        Debug.Log("Test Roma2KanaTable");
+        ConvertTableMgr cvt = new ConvertTableMgr();
+
+        Roma2KanaTable table = cvt.Roma2Kana;
+        string outCvt = "";
+        Debug.Assert(table.TryConvert("a", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "あ") == 0);
+        Debug.Assert(table.TryConvert("nn", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "ん") == 0);
+        Debug.Assert(table.TryConvert("xn", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "ん") == 0);
+        Debug.Assert(table.TryConvert("x", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ch", out outCvt) == false);
+        Debug.Assert(table.TryConvert("vu", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "ゔ") == 0);
+        Debug.Assert(table.TryConvert("aiu", out outCvt) == false);
+        Debug.Assert(table.TryConvert("chm", out outCvt) == false);
+
+
+        Debug.Assert(table.TryConvert("あ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt) == false);
+        Debug.Assert(table.TryConvert("は", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ば", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ぱ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ゔ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt) == false);
+        Debug.Assert(table.TryConvert("は゛", out outCvt) == false);
+        Debug.Assert(table.TryConvert("は゜", out outCvt) == false);
+        Debug.Assert(table.TryConvert("う゛", out outCvt) == false);
+        Debug.Assert(table.TryConvert("は゛ふ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("はあ゜", out outCvt) == false);
+        Debug.Assert(table.TryConvert("゛う゛", out outCvt) == false);
+
+        Debug.Assert(table.TryConvert("ばば", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ゔあ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ぎゃ", out outCvt) == false);
+
+        Debug.Assert(table.TryConvert("0", out outCvt) == false);
+        Debug.Assert(table.TryConvert("9", out outCvt) == false);
+        Debug.Assert(table.TryConvert("A", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "あ") == 0);
+        Debug.Assert(table.TryConvert("z", out outCvt) == false);
+        Debug.Assert(table.TryConvert("漢", out outCvt) == false);
+        Debug.Assert(table.TryConvert("０", out outCvt) == false);
+        Debug.Assert(table.TryConvert("９", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ａ", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "あ") == 0);
+        Debug.Assert(table.TryConvert("Ｚ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ア", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ン", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ヴ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｱ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｳ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ﾝ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt) == false);
+        Debug.Assert(table.TryConvert("-", out outCvt) == false);
+        Debug.Assert(table.TryConvert("!", out outCvt) == false);
+        Debug.Assert(table.TryConvert("*", out outCvt) == false);
+        Debug.Assert(table.TryConvert("－", out outCvt) == false);
+        Debug.Assert(table.TryConvert("！", out outCvt) == false);
+        Debug.Assert(table.TryConvert("＊", out outCvt) == false);
+        Debug.Assert(table.TryConvert("「", out outCvt) == false);
+        Debug.Assert(table.TryConvert("」", out outCvt) == false);
+        Debug.Assert(table.TryConvert("　", out outCvt) == false);
+        Debug.Assert(table.TryConvert(" ", out outCvt) == false);
+
+
+        Debug.Assert(table.HasPossibility("a") == false);
+        Debug.Assert(table.HasPossibility("nn") == false);
+        Debug.Assert(table.HasPossibility("xn") == false);
+        Debug.Assert(table.HasPossibility("x") == true);
+        Debug.Assert(table.HasPossibility("ch") == true);
+        Debug.Assert(table.HasPossibility("vu") == false);
+        Debug.Assert(table.HasPossibility("aiu") == false);
+        Debug.Assert(table.HasPossibility("chm") == false);
+
+        Debug.Assert(table.HasPossibility("あ") == false);
+        Debug.Assert(table.HasPossibility("ん") == false);
+        Debug.Assert(table.HasPossibility("ん") == false);
+        Debug.Assert(table.HasPossibility("は") == false);
+        Debug.Assert(table.HasPossibility("ば") == false);
+        Debug.Assert(table.HasPossibility("ぱ") == false);
+        Debug.Assert(table.HasPossibility("ゔ") == false);
+        Debug.Assert(table.HasPossibility("ー") == false);
+        Debug.Assert(table.HasPossibility("は゛") == false);
+        Debug.Assert(table.HasPossibility("は゜") == false);
+        Debug.Assert(table.HasPossibility("う゛") == false);
+        Debug.Assert(table.HasPossibility("は゛ふ") == false);
+        Debug.Assert(table.HasPossibility("はあ゜") == false);
+        Debug.Assert(table.HasPossibility("゛う゛") == false);
+
+        Debug.Assert(table.HasPossibility("ばば") == false);
+        Debug.Assert(table.HasPossibility("ゔあ") == false);
+        Debug.Assert(table.HasPossibility("ぎゃ") == false);
+
+        Debug.Assert(table.HasPossibility("0") == false);
+        Debug.Assert(table.HasPossibility("9") == false);
+        Debug.Assert(table.HasPossibility("A") == false);
+        Debug.Assert(table.HasPossibility("z") == true);
+        Debug.Assert(table.HasPossibility("漢") == false);
+        Debug.Assert(table.HasPossibility("０") == false);
+        Debug.Assert(table.HasPossibility("９") == false);
+        Debug.Assert(table.HasPossibility("ａ") == false);
+        Debug.Assert(table.HasPossibility("Ｚ") == true);
+        Debug.Assert(table.HasPossibility("ア") == false);
+        Debug.Assert(table.HasPossibility("ン") == false);
+        Debug.Assert(table.HasPossibility("ヴ") == false);
+        Debug.Assert(table.HasPossibility("ｱ") == false);
+        Debug.Assert(table.HasPossibility("ｳ") == false);
+        Debug.Assert(table.HasPossibility("ﾝ") == false);
+        Debug.Assert(table.HasPossibility("ー") == false);
+        Debug.Assert(table.HasPossibility("-") == false);
+        Debug.Assert(table.HasPossibility("!") == false);
+        Debug.Assert(table.HasPossibility("*") == false);
+        Debug.Assert(table.HasPossibility("－") == false);
+        Debug.Assert(table.HasPossibility("！") == false);
+        Debug.Assert(table.HasPossibility("＊") == false);
+        Debug.Assert(table.HasPossibility("「") == false);
+        Debug.Assert(table.HasPossibility("」") == false);
+        Debug.Assert(table.HasPossibility("　") == false);
+        Debug.Assert(table.HasPossibility(" ") == false);
+
+
+        Debug.Assert(table.HasPossibility("a","あ") == false);
+        Debug.Assert(table.HasPossibility("nn", "ん") == false);
+        Debug.Assert(table.HasPossibility("xn", "つ") == false);
+        Debug.Assert(table.HasPossibility("x", "ん") == true);
+        Debug.Assert(table.HasPossibility("x", "んい") == false);
+        Debug.Assert(table.HasPossibility("x", "あ") == false);
+        Debug.Assert(table.HasPossibility("ch", "ちゃ") == true);
+        Debug.Assert(table.HasPossibility("vu", "ゔ") == false);
+        Debug.Assert(table.HasPossibility("aiu", "う") == false);
+        Debug.Assert(table.HasPossibility("chm", "つ") == false);
+
+
+        Debug.Assert(table.GetPossibilityKanas("a").Count == 0);
+        Debug.Assert(table.GetPossibilityKanas("nn").Count == 0);
+        Debug.Assert(table.GetPossibilityKanas("xn").Count == 0);
+        Debug.Assert(table.GetPossibilityKanas("x").Count > 0);
+        Debug.Assert(table.GetPossibilityKanas("t").Count > 0);
+        Debug.Assert(table.GetPossibilityKanas("l").Count > 0);
+        Debug.Assert(table.GetPossibilityKanas("ch").Count > 0);
+        Debug.Assert(table.GetPossibilityKanas("vu").Count == 0);
+        Debug.Assert(table.GetPossibilityKanas("aiu").Count == 0);
+        Debug.Assert(table.GetPossibilityKanas("chm").Count == 0);
     }
     #endregion
 

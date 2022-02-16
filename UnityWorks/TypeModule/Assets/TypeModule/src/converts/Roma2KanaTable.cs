@@ -28,18 +28,12 @@ namespace TypeModule {
         /// Roma2KanaTable table = new Roma2KanaTable(in csvSrc);
         /// 
         /// 
-        /// //ローマ字文字列からひらがな文字列へ変換
-        /// string roma1 = "kya";
-        /// string kana1 = table.Convert(roma1);
-        /// if(kana1.Length &gt; 0){
-        ///     Debug.Log(kana1);    // "きゃ"
-        /// }
-        /// 
         /// 
         /// //ローマ字文字列から、変換できるひらがながあるかをチェックおよび取得
-        /// Debug.Log(table.TryConvert("a"));             // false
-        /// Debug.Log(table.TryConvert("sh"));            // false
-        /// Debug.Log(table.TryConvert("shi"));           // true
+        /// string aOutStr = "";
+        /// Debug.Log(table.TryConvert("a", out aOutStr));             // false
+        /// Debug.Log(table.TryConvert("sh", out aOutStr));            // false
+        /// Debug.Log(table.TryConvert("shi", out aOutStr));           // true
         /// 
         /// 
         /// //ローマ字文字列に追加でローマ字を足すことで、ひらがな文字列に変換する事が可能か
@@ -167,7 +161,7 @@ namespace TypeModule {
                 if (ret.HasKana) { return null; }
                 if (ret.Children == null) { return null; }
                 if (!Util.IsAlpha(aRoma[i])) { return null; }
-                ret = ret.Children[Roma2KanaNode.Alpha2ChildIdx(char.ToLower(aRoma[i]))];
+                ret = ret.Children[Roma2KanaNode.Alpha2ChildIdx(char.ToLower(Util.ZenToHanAlpha(aRoma)[i]))];
                 if (ret == null) { return null; }
             }
             return ret;
