@@ -48,7 +48,7 @@ namespace TypeModule {
             /// <para>s,115,0,0</para>
             /// </param>
             public void SetKeyCode2RomaTable(in TextAsset asset) {
-                Key2Roma = new keyCode2CharTable(asset);
+                Key2Roma = new KeyCode2CharTable(asset);
                 Key2Roma.EnabledCapsLock = EnabledCapsLock;
             }
 
@@ -80,7 +80,7 @@ namespace TypeModule {
             /// <para>ふ,50,0,0</para>
             /// </param>
             public void SetKeyCode2KanaMidTable(in TextAsset asset) {
-                Key2kanaMid = new keyCode2CharTable(asset);
+                Key2kanaMid = new KeyCode2CharTable(asset);
                 Key2kanaMid.EnabledCapsLock = false; //こちらはCapsLockの影響を受けない
             }
 
@@ -103,7 +103,7 @@ namespace TypeModule {
 
             #region プロパティ
             ///<summary>キーの入力(KeyCode)からローマ字文字への変換テーブル</summary>
-            public keyCode2CharTable Key2Roma { get; private set; }
+            public KeyCode2CharTable Key2Roma { get; private set; }
 
             ///<summary>ローマ字文字列からひらがな文字列への変換テーブル</summary>
             public Roma2KanaTable Roma2Kana { get; private set; }
@@ -112,7 +112,7 @@ namespace TypeModule {
             public Kana2RomaTable Kana2Roma { get; private set; }
 
             ///<summary>キーの入力(KeyCode)からひらがな中間文字への変換テーブル</summary>
-            public keyCode2CharTable Key2kanaMid { get; private set; }
+            public KeyCode2CharTable Key2kanaMid { get; private set; }
 
             ///<summary>ひらがな中間文字列からひらがな文字列への変換テーブル</summary>
             public KanaMid2KanaTable KanaMid2Kana { get; private set; }

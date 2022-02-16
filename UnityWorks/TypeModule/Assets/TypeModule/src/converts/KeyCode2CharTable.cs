@@ -13,7 +13,7 @@ namespace TypeModule {
         ///     ...
         ///     
         /// //初期化処理
-        /// keyCode2CharTable table = new keyCode2CharTable(in csvSrc);
+        /// KeyCode2CharTable table = new KeyCode2CharTable(in csvSrc);
         ///     
         /// //CapsLockの状態を無視
         /// table.EnabledCapsLock = false;
@@ -30,7 +30,7 @@ namespace TypeModule {
         /// }
         /// 
         /// </code></example>
-        public class keyCode2CharTable {
+        public class KeyCode2CharTable {
 
 
             #region 生成
@@ -40,7 +40,7 @@ namespace TypeModule {
             ///<para>［形式］変換先文字,【UnityEngine.KeyCode】, isShift, isFn</para>
             ///<para>［例］S,115,1,0</para>
             ///</param>
-            public keyCode2CharTable(in TextAsset aCSV) {
+            public KeyCode2CharTable(in TextAsset aCSV) {
                 CreateTable(aCSV);
                 EnabledCapsLock = true;
             }
@@ -48,7 +48,10 @@ namespace TypeModule {
 
 
             #region メソッド
-            ///<summary>キーの入力(KeyCode)から単体文字へ変換</summary>
+            ///<summary>
+            ///<para>キーの入力(KeyCode)から単体文字へ変換</para>
+            ///<para>変換に対応していない文字は、\0を返却します</para>
+            ///</summary>
             ///<param name="aKeyCode">キーの入力値</param>
             ///<param name="aIsShift">Shiftキーが押された状態か</param>
             ///<param name="aIsFn">Fnキーか(2箇所ある\の判別等に使用する為必須)</param>
