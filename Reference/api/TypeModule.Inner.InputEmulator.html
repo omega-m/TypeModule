@@ -136,9 +136,6 @@
      //直前に入力された文字を取得
      Debug.Log(input.PrevChar);
 
-     //入力された文字列を全てクリア
-     input.Clear();
-
          ...
 
      //入力が発生した時のイベントリスナを追加
@@ -171,6 +168,12 @@
 
      //プログラム側から確定
      input.Enter();
+
+     //プログラムから文字列を操作
+     module.Enter();             //変換確定前の文字列を確定
+     module.BackSpace();         //末尾から1文字削除
+     module.Clear();             //全ての文字を削除
+     module.AddInput(KeyCode.A); //Aキーが押されたとして処理
 
      //エンターキーの入力から文字を確定しないようにする
      input.EnabledEnter = false;</code></pre>
@@ -508,7 +511,7 @@
   
   <a id="TypeModule_Inner_InputEmulator_AddInput_" data-uid="TypeModule.Inner.InputEmulator.AddInput*"></a>
   <h4 id="TypeModule_Inner_InputEmulator_AddInput_UnityEngine_Event__" data-uid="TypeModule.Inner.InputEmulator.AddInput(UnityEngine.Event@)">AddInput(in Event)</h4>
-  <div class="markdown level1 summary"><p>キーボードからの入力文字を追加</p>
+  <div class="markdown level1 summary"><p>キー入力イベントからの入力を追加</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -530,6 +533,48 @@
         <td><span class="parametername">aEvent</span></td>
         <td><p>入力イベント</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_InputEmulator_AddInput_" data-uid="TypeModule.Inner.InputEmulator.AddInput*"></a>
+  <h4 id="TypeModule_Inner_InputEmulator_AddInput_UnityEngine_KeyCode_System_Boolean_System_Boolean_System_Boolean_" data-uid="TypeModule.Inner.InputEmulator.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean,System.Boolean)">AddInput(KeyCode, Boolean, Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddInput(KeyCode aKeyCode, bool aIsShift = false, bool aIsFunction = false, bool aIsOuter = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.KeyCode</span></td>
+        <td><span class="parametername">aKeyCode</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">aIsShift</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">aIsFunction</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">aIsOuter</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

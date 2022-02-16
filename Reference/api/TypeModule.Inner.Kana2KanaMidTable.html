@@ -121,7 +121,7 @@
     Kana2KanaMidTable table = new Kana2KanaMidTable(in csvSrc);
 
 
-    //ひらがな文字列から変換できる、ひらがな中間文字列があるかを取得
+    //ひらがな文字列から変換できる、ひらがな中間文字列があるかチェック及び取得
     string outCvt;
     Debug.Log(table.TryConvert(&quot;あ&quot;, out outCvt));           // false
     Debug.Log(table.TryConvert(&quot;が&quot;, out outCvt));           // true
@@ -220,7 +220,7 @@
   
   <a id="TypeModule_Inner_Kana2KanaMidTable_TryConvert_" data-uid="TypeModule.Inner.Kana2KanaMidTable.TryConvert*"></a>
   <h4 id="TypeModule_Inner_Kana2KanaMidTable_TryConvert_System_String_System_String__" data-uid="TypeModule.Inner.Kana2KanaMidTable.TryConvert(System.String,System.String@)">TryConvert(String, out String)</h4>
-  <div class="markdown level1 summary"><p>ひらがな文字列から変換できる、ひらがな中間文字列があるか。</p>
+  <div class="markdown level1 summary"><p>ひらがな文字列から変換できる、ひらがな中間文字列があるかチェック及び取得</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

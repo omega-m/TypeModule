@@ -329,13 +329,13 @@
   
   
   <a id="TypeModule_Inner_Util_IsAlpha_" data-uid="TypeModule.Inner.Util.IsAlpha*"></a>
-  <h4 id="TypeModule_Inner_Util_IsAlpha_System_Char_System_Boolean_" data-uid="TypeModule.Inner.Util.IsAlpha(System.Char,System.Boolean)">IsAlpha(Char, Boolean)</h4>
-  <div class="markdown level1 summary"><p>英語文字かどうかチェック</p>
+  <h4 id="TypeModule_Inner_Util_IsAlpha_System_Char_" data-uid="TypeModule.Inner.Util.IsAlpha(System.Char)">IsAlpha(Char)</h4>
+  <div class="markdown level1 summary"><p>英語文字かどうかチェック(全角半角どちらも)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsAlpha(char aChar, bool isCheckZen = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool IsAlpha(char aChar)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -351,12 +351,6 @@
         <td><span class="xref">System.Char</span></td>
         <td><span class="parametername">aChar</span></td>
         <td><p>文字</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">isCheckZen</span></td>
-        <td><p>全角文字もチェック</p>
 </td>
       </tr>
     </tbody>
@@ -425,13 +419,13 @@
   
   
   <a id="TypeModule_Inner_Util_IsJPSymbol_" data-uid="TypeModule.Inner.Util.IsJPSymbol*"></a>
-  <h4 id="TypeModule_Inner_Util_IsJPSymbol_System_Char_System_Boolean_" data-uid="TypeModule.Inner.Util.IsJPSymbol(System.Char,System.Boolean)">IsJPSymbol(Char, Boolean)</h4>
+  <h4 id="TypeModule_Inner_Util_IsJPSymbol_System_Char_" data-uid="TypeModule.Inner.Util.IsJPSymbol(System.Char)">IsJPSymbol(Char)</h4>
   <div class="markdown level1 summary"><p>日本語用記号文字かどうかチェック</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsJPSymbol(char aChar, bool isCheckZen = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool IsJPSymbol(char aChar)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -447,12 +441,6 @@
         <td><span class="xref">System.Char</span></td>
         <td><span class="parametername">aChar</span></td>
         <td><p>文字</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">isCheckZen</span></td>
-        <td><p>全角文字もチェック</p>
 </td>
       </tr>
     </tbody>
@@ -610,6 +598,120 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><p>変換後の文字列</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Util_TryHanToZen_" data-uid="TypeModule.Inner.Util.TryHanToZen*"></a>
+  <h4 id="TypeModule_Inner_Util_TryHanToZen_System_String_System_String__TypeModule_Inner_Util_ConvertTypes_" data-uid="TypeModule.Inner.Util.TryHanToZen(System.String,System.String@,TypeModule.Inner.Util.ConvertTypes)">TryHanToZen(String, out String, Util.ConvertTypes)</h4>
+  <div class="markdown level1 summary"><p>全角文字に変換できるかチェック及び取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryHanToZen(this string aStr, out string aOutStr, Util.ConvertTypes aType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aStr</span></td>
+        <td><p>変換する文字列</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aOutStr</span></td>
+        <td><p>（一部でも変換された場合）変換後の文字列</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.Util.ConvertTypes.html">Util.ConvertTypes</a></td>
+        <td><span class="parametername">aType</span></td>
+        <td><p>変換対象のタイプ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true:（一部でも変換された場合）</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="TypeModule_Inner_Util_TryZenToHan_" data-uid="TypeModule.Inner.Util.TryZenToHan*"></a>
+  <h4 id="TypeModule_Inner_Util_TryZenToHan_System_String_System_String__TypeModule_Inner_Util_ConvertTypes_" data-uid="TypeModule.Inner.Util.TryZenToHan(System.String,System.String@,TypeModule.Inner.Util.ConvertTypes)">TryZenToHan(String, out String, Util.ConvertTypes)</h4>
+  <div class="markdown level1 summary"><p>半角文字に変換できるかチェック及び取得</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryZenToHan(this string aStr, out string aOutStr, Util.ConvertTypes aType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aStr</span></td>
+        <td><p>変換する文字列</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">aOutStr</span></td>
+        <td><p>（一部でも変換された場合）変換後の文字列</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TypeModule.Inner.Util.ConvertTypes.html">Util.ConvertTypes</a></td>
+        <td><span class="parametername">aType</span></td>
+        <td><p>変換対象のタイプ</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true:（一部でも変換された場合）</p>
 </td>
       </tr>
     </tbody>

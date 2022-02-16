@@ -415,19 +415,6 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.ConvertTableMgr.Key2Roma
   nameWithType: ConvertTableMgr.Key2Roma
-- uid: TypeModule.Inner.ConvertTableMgr.NumMarkTable
-  name: NumMarkTable
-  href: api/TypeModule.Inner.ConvertTableMgr.html#TypeModule_Inner_ConvertTableMgr_NumMarkTable
-  commentId: P:TypeModule.Inner.ConvertTableMgr.NumMarkTable
-  fullName: TypeModule.Inner.ConvertTableMgr.NumMarkTable
-  nameWithType: ConvertTableMgr.NumMarkTable
-- uid: TypeModule.Inner.ConvertTableMgr.NumMarkTable*
-  name: NumMarkTable
-  href: api/TypeModule.Inner.ConvertTableMgr.html#TypeModule_Inner_ConvertTableMgr_NumMarkTable_
-  commentId: Overload:TypeModule.Inner.ConvertTableMgr.NumMarkTable
-  isSpec: "True"
-  fullName: TypeModule.Inner.ConvertTableMgr.NumMarkTable
-  nameWithType: ConvertTableMgr.NumMarkTable
 - uid: TypeModule.Inner.ConvertTableMgr.Roma2Kana
   name: Roma2Kana
   href: api/TypeModule.Inner.ConvertTableMgr.html#TypeModule_Inner_ConvertTableMgr_Roma2Kana
@@ -489,22 +476,6 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.ConvertTableMgr.SetKeyCode2RomaTable
   nameWithType: ConvertTableMgr.SetKeyCode2RomaTable
-- uid: TypeModule.Inner.ConvertTableMgr.SetNumMarkTable(UnityEngine.TextAsset@)
-  name: SetNumMarkTable(in TextAsset)
-  href: api/TypeModule.Inner.ConvertTableMgr.html#TypeModule_Inner_ConvertTableMgr_SetNumMarkTable_UnityEngine_TextAsset__
-  commentId: M:TypeModule.Inner.ConvertTableMgr.SetNumMarkTable(UnityEngine.TextAsset@)
-  name.vb: SetNumMarkTable(ByRef TextAsset)
-  fullName: TypeModule.Inner.ConvertTableMgr.SetNumMarkTable(in UnityEngine.TextAsset)
-  fullName.vb: TypeModule.Inner.ConvertTableMgr.SetNumMarkTable(ByRef UnityEngine.TextAsset)
-  nameWithType: ConvertTableMgr.SetNumMarkTable(in TextAsset)
-  nameWithType.vb: ConvertTableMgr.SetNumMarkTable(ByRef TextAsset)
-- uid: TypeModule.Inner.ConvertTableMgr.SetNumMarkTable*
-  name: SetNumMarkTable
-  href: api/TypeModule.Inner.ConvertTableMgr.html#TypeModule_Inner_ConvertTableMgr_SetNumMarkTable_
-  commentId: Overload:TypeModule.Inner.ConvertTableMgr.SetNumMarkTable
-  isSpec: "True"
-  fullName: TypeModule.Inner.ConvertTableMgr.SetNumMarkTable
-  nameWithType: ConvertTableMgr.SetNumMarkTable
 - uid: TypeModule.Inner.ConvertTableMgr.SetRoma2KanaTable(UnityEngine.TextAsset@)
   name: SetRoma2KanaTable(in TextAsset)
   href: api/TypeModule.Inner.ConvertTableMgr.html#TypeModule_Inner_ConvertTableMgr_SetRoma2KanaTable_UnityEngine_TextAsset__
@@ -632,6 +603,12 @@ references:
   fullName.vb: TypeModule.Inner.CopyInputChecker.AddInput(ByRef UnityEngine.Event)
   nameWithType: CopyInputChecker.AddInput(in Event)
   nameWithType.vb: CopyInputChecker.AddInput(ByRef Event)
+- uid: TypeModule.Inner.CopyInputChecker.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean,System.Boolean)
+  name: AddInput(KeyCode, Boolean, Boolean, Boolean)
+  href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_AddInput_UnityEngine_KeyCode_System_Boolean_System_Boolean_System_Boolean_
+  commentId: M:TypeModule.Inner.CopyInputChecker.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean,System.Boolean)
+  fullName: TypeModule.Inner.CopyInputChecker.AddInput(UnityEngine.KeyCode, System.Boolean, System.Boolean, System.Boolean)
+  nameWithType: CopyInputChecker.AddInput(KeyCode, Boolean, Boolean, Boolean)
 - uid: TypeModule.Inner.CopyInputChecker.AddInput*
   name: AddInput
   href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_AddInput_
@@ -652,6 +629,19 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.CopyInputChecker.Clear
   nameWithType: CopyInputChecker.Clear
+- uid: TypeModule.Inner.CopyInputChecker.Correct(System.Boolean)
+  name: Correct(Boolean)
+  href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_Correct_System_Boolean_
+  commentId: M:TypeModule.Inner.CopyInputChecker.Correct(System.Boolean)
+  fullName: TypeModule.Inner.CopyInputChecker.Correct(System.Boolean)
+  nameWithType: CopyInputChecker.Correct(Boolean)
+- uid: TypeModule.Inner.CopyInputChecker.Correct*
+  name: Correct
+  href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_Correct_
+  commentId: Overload:TypeModule.Inner.CopyInputChecker.Correct
+  isSpec: "True"
+  fullName: TypeModule.Inner.CopyInputChecker.Correct
+  nameWithType: CopyInputChecker.Correct
 - uid: TypeModule.Inner.CopyInputChecker.CorrectCharNum
   name: CorrectCharNum
   href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_CorrectCharNum
@@ -743,6 +733,19 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.CopyInputChecker.IsKana
   nameWithType: CopyInputChecker.IsKana
+- uid: TypeModule.Inner.CopyInputChecker.Miss(System.Boolean)
+  name: Miss(Boolean)
+  href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_Miss_System_Boolean_
+  commentId: M:TypeModule.Inner.CopyInputChecker.Miss(System.Boolean)
+  fullName: TypeModule.Inner.CopyInputChecker.Miss(System.Boolean)
+  nameWithType: CopyInputChecker.Miss(Boolean)
+- uid: TypeModule.Inner.CopyInputChecker.Miss*
+  name: Miss
+  href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_Miss_
+  commentId: Overload:TypeModule.Inner.CopyInputChecker.Miss
+  isSpec: "True"
+  fullName: TypeModule.Inner.CopyInputChecker.Miss
+  nameWithType: CopyInputChecker.Miss
 - uid: TypeModule.Inner.CopyInputChecker.MissNum
   name: MissNum
   href: api/TypeModule.Inner.CopyInputChecker.html#TypeModule_Inner_CopyInputChecker_MissNum
@@ -1251,6 +1254,12 @@ references:
   fullName.vb: TypeModule.Inner.InputEmulator.AddInput(ByRef UnityEngine.Event)
   nameWithType: InputEmulator.AddInput(in Event)
   nameWithType.vb: InputEmulator.AddInput(ByRef Event)
+- uid: TypeModule.Inner.InputEmulator.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean,System.Boolean)
+  name: AddInput(KeyCode, Boolean, Boolean, Boolean)
+  href: api/TypeModule.Inner.InputEmulator.html#TypeModule_Inner_InputEmulator_AddInput_UnityEngine_KeyCode_System_Boolean_System_Boolean_System_Boolean_
+  commentId: M:TypeModule.Inner.InputEmulator.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean,System.Boolean)
+  fullName: TypeModule.Inner.InputEmulator.AddInput(UnityEngine.KeyCode, System.Boolean, System.Boolean, System.Boolean)
+  nameWithType: InputEmulator.AddInput(KeyCode, Boolean, Boolean, Boolean)
 - uid: TypeModule.Inner.InputEmulator.AddInput*
   name: AddInput
   href: api/TypeModule.Inner.InputEmulator.html#TypeModule_Inner_InputEmulator_AddInput_
@@ -1587,19 +1596,6 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.Kana2RomaTable.Kana2RomaTable
   nameWithType: Kana2RomaTable.Kana2RomaTable
-- uid: TypeModule.Inner.Kana2RomaTable.Convert(System.String,System.String)
-  name: Convert(String, String)
-  href: api/TypeModule.Inner.Kana2RomaTable.html#TypeModule_Inner_Kana2RomaTable_Convert_System_String_System_String_
-  commentId: M:TypeModule.Inner.Kana2RomaTable.Convert(System.String,System.String)
-  fullName: TypeModule.Inner.Kana2RomaTable.Convert(System.String, System.String)
-  nameWithType: Kana2RomaTable.Convert(String, String)
-- uid: TypeModule.Inner.Kana2RomaTable.Convert*
-  name: Convert
-  href: api/TypeModule.Inner.Kana2RomaTable.html#TypeModule_Inner_Kana2RomaTable_Convert_
-  commentId: Overload:TypeModule.Inner.Kana2RomaTable.Convert
-  isSpec: "True"
-  fullName: TypeModule.Inner.Kana2RomaTable.Convert
-  nameWithType: Kana2RomaTable.Convert
 - uid: TypeModule.Inner.Kana2RomaTable.KanaMaxLength
   name: KanaMaxLength
   href: api/TypeModule.Inner.Kana2RomaTable.html#TypeModule_Inner_Kana2RomaTable_KanaMaxLength
@@ -1651,32 +1647,6 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.KanaMid2KanaTable.KanaMid2KanaTable
   nameWithType: KanaMid2KanaTable.KanaMid2KanaTable
-- uid: TypeModule.Inner.KanaMid2KanaTable.CanConvert(System.String,System.String,System.Boolean)
-  name: CanConvert(String, String, Boolean)
-  href: api/TypeModule.Inner.KanaMid2KanaTable.html#TypeModule_Inner_KanaMid2KanaTable_CanConvert_System_String_System_String_System_Boolean_
-  commentId: M:TypeModule.Inner.KanaMid2KanaTable.CanConvert(System.String,System.String,System.Boolean)
-  fullName: TypeModule.Inner.KanaMid2KanaTable.CanConvert(System.String, System.String, System.Boolean)
-  nameWithType: KanaMid2KanaTable.CanConvert(String, String, Boolean)
-- uid: TypeModule.Inner.KanaMid2KanaTable.CanConvert*
-  name: CanConvert
-  href: api/TypeModule.Inner.KanaMid2KanaTable.html#TypeModule_Inner_KanaMid2KanaTable_CanConvert_
-  commentId: Overload:TypeModule.Inner.KanaMid2KanaTable.CanConvert
-  isSpec: "True"
-  fullName: TypeModule.Inner.KanaMid2KanaTable.CanConvert
-  nameWithType: KanaMid2KanaTable.CanConvert
-- uid: TypeModule.Inner.KanaMid2KanaTable.Convert(System.String)
-  name: Convert(String)
-  href: api/TypeModule.Inner.KanaMid2KanaTable.html#TypeModule_Inner_KanaMid2KanaTable_Convert_System_String_
-  commentId: M:TypeModule.Inner.KanaMid2KanaTable.Convert(System.String)
-  fullName: TypeModule.Inner.KanaMid2KanaTable.Convert(System.String)
-  nameWithType: KanaMid2KanaTable.Convert(String)
-- uid: TypeModule.Inner.KanaMid2KanaTable.Convert*
-  name: Convert
-  href: api/TypeModule.Inner.KanaMid2KanaTable.html#TypeModule_Inner_KanaMid2KanaTable_Convert_
-  commentId: Overload:TypeModule.Inner.KanaMid2KanaTable.Convert
-  isSpec: "True"
-  fullName: TypeModule.Inner.KanaMid2KanaTable.Convert
-  nameWithType: KanaMid2KanaTable.Convert
 - uid: TypeModule.Inner.KanaMid2KanaTable.KanaMidMaxLength
   name: KanaMidMaxLength
   href: api/TypeModule.Inner.KanaMid2KanaTable.html#TypeModule_Inner_KanaMid2KanaTable_KanaMidMaxLength
@@ -1706,134 +1676,54 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.KanaMid2KanaTable.TryConvert
   nameWithType: KanaMid2KanaTable.TryConvert
-- uid: TypeModule.Inner.keyCode2CharTable
-  name: keyCode2CharTable
-  href: api/TypeModule.Inner.keyCode2CharTable.html
-  commentId: T:TypeModule.Inner.keyCode2CharTable
-  fullName: TypeModule.Inner.keyCode2CharTable
-  nameWithType: keyCode2CharTable
-- uid: TypeModule.Inner.keyCode2CharTable.#ctor(UnityEngine.TextAsset@)
-  name: keyCode2CharTable(in TextAsset)
-  href: api/TypeModule.Inner.keyCode2CharTable.html#TypeModule_Inner_keyCode2CharTable__ctor_UnityEngine_TextAsset__
-  commentId: M:TypeModule.Inner.keyCode2CharTable.#ctor(UnityEngine.TextAsset@)
-  name.vb: keyCode2CharTable(ByRef TextAsset)
-  fullName: TypeModule.Inner.keyCode2CharTable.keyCode2CharTable(in UnityEngine.TextAsset)
-  fullName.vb: TypeModule.Inner.keyCode2CharTable.keyCode2CharTable(ByRef UnityEngine.TextAsset)
-  nameWithType: keyCode2CharTable.keyCode2CharTable(in TextAsset)
-  nameWithType.vb: keyCode2CharTable.keyCode2CharTable(ByRef TextAsset)
-- uid: TypeModule.Inner.keyCode2CharTable.#ctor*
-  name: keyCode2CharTable
-  href: api/TypeModule.Inner.keyCode2CharTable.html#TypeModule_Inner_keyCode2CharTable__ctor_
-  commentId: Overload:TypeModule.Inner.keyCode2CharTable.#ctor
+- uid: TypeModule.Inner.KeyCode2CharTable
+  name: KeyCode2CharTable
+  href: api/TypeModule.Inner.KeyCode2CharTable.html
+  commentId: T:TypeModule.Inner.KeyCode2CharTable
+  fullName: TypeModule.Inner.KeyCode2CharTable
+  nameWithType: KeyCode2CharTable
+- uid: TypeModule.Inner.KeyCode2CharTable.#ctor(UnityEngine.TextAsset@)
+  name: KeyCode2CharTable(in TextAsset)
+  href: api/TypeModule.Inner.KeyCode2CharTable.html#TypeModule_Inner_KeyCode2CharTable__ctor_UnityEngine_TextAsset__
+  commentId: M:TypeModule.Inner.KeyCode2CharTable.#ctor(UnityEngine.TextAsset@)
+  name.vb: KeyCode2CharTable(ByRef TextAsset)
+  fullName: TypeModule.Inner.KeyCode2CharTable.KeyCode2CharTable(in UnityEngine.TextAsset)
+  fullName.vb: TypeModule.Inner.KeyCode2CharTable.KeyCode2CharTable(ByRef UnityEngine.TextAsset)
+  nameWithType: KeyCode2CharTable.KeyCode2CharTable(in TextAsset)
+  nameWithType.vb: KeyCode2CharTable.KeyCode2CharTable(ByRef TextAsset)
+- uid: TypeModule.Inner.KeyCode2CharTable.#ctor*
+  name: KeyCode2CharTable
+  href: api/TypeModule.Inner.KeyCode2CharTable.html#TypeModule_Inner_KeyCode2CharTable__ctor_
+  commentId: Overload:TypeModule.Inner.KeyCode2CharTable.#ctor
   isSpec: "True"
-  fullName: TypeModule.Inner.keyCode2CharTable.keyCode2CharTable
-  nameWithType: keyCode2CharTable.keyCode2CharTable
-- uid: TypeModule.Inner.keyCode2CharTable.Convert(UnityEngine.KeyCode,System.Boolean,System.Boolean)
+  fullName: TypeModule.Inner.KeyCode2CharTable.KeyCode2CharTable
+  nameWithType: KeyCode2CharTable.KeyCode2CharTable
+- uid: TypeModule.Inner.KeyCode2CharTable.Convert(UnityEngine.KeyCode,System.Boolean,System.Boolean)
   name: Convert(KeyCode, Boolean, Boolean)
-  href: api/TypeModule.Inner.keyCode2CharTable.html#TypeModule_Inner_keyCode2CharTable_Convert_UnityEngine_KeyCode_System_Boolean_System_Boolean_
-  commentId: M:TypeModule.Inner.keyCode2CharTable.Convert(UnityEngine.KeyCode,System.Boolean,System.Boolean)
-  fullName: TypeModule.Inner.keyCode2CharTable.Convert(UnityEngine.KeyCode, System.Boolean, System.Boolean)
-  nameWithType: keyCode2CharTable.Convert(KeyCode, Boolean, Boolean)
-- uid: TypeModule.Inner.keyCode2CharTable.Convert*
+  href: api/TypeModule.Inner.KeyCode2CharTable.html#TypeModule_Inner_KeyCode2CharTable_Convert_UnityEngine_KeyCode_System_Boolean_System_Boolean_
+  commentId: M:TypeModule.Inner.KeyCode2CharTable.Convert(UnityEngine.KeyCode,System.Boolean,System.Boolean)
+  fullName: TypeModule.Inner.KeyCode2CharTable.Convert(UnityEngine.KeyCode, System.Boolean, System.Boolean)
+  nameWithType: KeyCode2CharTable.Convert(KeyCode, Boolean, Boolean)
+- uid: TypeModule.Inner.KeyCode2CharTable.Convert*
   name: Convert
-  href: api/TypeModule.Inner.keyCode2CharTable.html#TypeModule_Inner_keyCode2CharTable_Convert_
-  commentId: Overload:TypeModule.Inner.keyCode2CharTable.Convert
+  href: api/TypeModule.Inner.KeyCode2CharTable.html#TypeModule_Inner_KeyCode2CharTable_Convert_
+  commentId: Overload:TypeModule.Inner.KeyCode2CharTable.Convert
   isSpec: "True"
-  fullName: TypeModule.Inner.keyCode2CharTable.Convert
-  nameWithType: keyCode2CharTable.Convert
-- uid: TypeModule.Inner.keyCode2CharTable.EnabledCapsLock
+  fullName: TypeModule.Inner.KeyCode2CharTable.Convert
+  nameWithType: KeyCode2CharTable.Convert
+- uid: TypeModule.Inner.KeyCode2CharTable.EnabledCapsLock
   name: EnabledCapsLock
-  href: api/TypeModule.Inner.keyCode2CharTable.html#TypeModule_Inner_keyCode2CharTable_EnabledCapsLock
-  commentId: P:TypeModule.Inner.keyCode2CharTable.EnabledCapsLock
-  fullName: TypeModule.Inner.keyCode2CharTable.EnabledCapsLock
-  nameWithType: keyCode2CharTable.EnabledCapsLock
-- uid: TypeModule.Inner.keyCode2CharTable.EnabledCapsLock*
+  href: api/TypeModule.Inner.KeyCode2CharTable.html#TypeModule_Inner_KeyCode2CharTable_EnabledCapsLock
+  commentId: P:TypeModule.Inner.KeyCode2CharTable.EnabledCapsLock
+  fullName: TypeModule.Inner.KeyCode2CharTable.EnabledCapsLock
+  nameWithType: KeyCode2CharTable.EnabledCapsLock
+- uid: TypeModule.Inner.KeyCode2CharTable.EnabledCapsLock*
   name: EnabledCapsLock
-  href: api/TypeModule.Inner.keyCode2CharTable.html#TypeModule_Inner_keyCode2CharTable_EnabledCapsLock_
-  commentId: Overload:TypeModule.Inner.keyCode2CharTable.EnabledCapsLock
+  href: api/TypeModule.Inner.KeyCode2CharTable.html#TypeModule_Inner_KeyCode2CharTable_EnabledCapsLock_
+  commentId: Overload:TypeModule.Inner.KeyCode2CharTable.EnabledCapsLock
   isSpec: "True"
-  fullName: TypeModule.Inner.keyCode2CharTable.EnabledCapsLock
-  nameWithType: keyCode2CharTable.EnabledCapsLock
-- uid: TypeModule.Inner.NumMarkTable
-  name: NumMarkTable
-  href: api/TypeModule.Inner.NumMarkTable.html
-  commentId: T:TypeModule.Inner.NumMarkTable
-  fullName: TypeModule.Inner.NumMarkTable
-  nameWithType: NumMarkTable
-- uid: TypeModule.Inner.NumMarkTable.#ctor(UnityEngine.TextAsset@)
-  name: NumMarkTable(in TextAsset)
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable__ctor_UnityEngine_TextAsset__
-  commentId: M:TypeModule.Inner.NumMarkTable.#ctor(UnityEngine.TextAsset@)
-  name.vb: NumMarkTable(ByRef TextAsset)
-  fullName: TypeModule.Inner.NumMarkTable.NumMarkTable(in UnityEngine.TextAsset)
-  fullName.vb: TypeModule.Inner.NumMarkTable.NumMarkTable(ByRef UnityEngine.TextAsset)
-  nameWithType: NumMarkTable.NumMarkTable(in TextAsset)
-  nameWithType.vb: NumMarkTable.NumMarkTable(ByRef TextAsset)
-- uid: TypeModule.Inner.NumMarkTable.#ctor*
-  name: NumMarkTable
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable__ctor_
-  commentId: Overload:TypeModule.Inner.NumMarkTable.#ctor
-  isSpec: "True"
-  fullName: TypeModule.Inner.NumMarkTable.NumMarkTable
-  nameWithType: NumMarkTable.NumMarkTable
-- uid: TypeModule.Inner.NumMarkTable.HanToZen(System.String)
-  name: HanToZen(String)
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_HanToZen_System_String_
-  commentId: M:TypeModule.Inner.NumMarkTable.HanToZen(System.String)
-  fullName: TypeModule.Inner.NumMarkTable.HanToZen(System.String)
-  nameWithType: NumMarkTable.HanToZen(String)
-- uid: TypeModule.Inner.NumMarkTable.HanToZen*
-  name: HanToZen
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_HanToZen_
-  commentId: Overload:TypeModule.Inner.NumMarkTable.HanToZen
-  isSpec: "True"
-  fullName: TypeModule.Inner.NumMarkTable.HanToZen
-  nameWithType: NumMarkTable.HanToZen
-- uid: TypeModule.Inner.NumMarkTable.TryHanToZen(System.String,System.String@)
-  name: TryHanToZen(String, out String)
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_TryHanToZen_System_String_System_String__
-  commentId: M:TypeModule.Inner.NumMarkTable.TryHanToZen(System.String,System.String@)
-  name.vb: TryHanToZen(String, ByRef String)
-  fullName: TypeModule.Inner.NumMarkTable.TryHanToZen(System.String, out System.String)
-  fullName.vb: TypeModule.Inner.NumMarkTable.TryHanToZen(System.String, ByRef System.String)
-  nameWithType: NumMarkTable.TryHanToZen(String, out String)
-  nameWithType.vb: NumMarkTable.TryHanToZen(String, ByRef String)
-- uid: TypeModule.Inner.NumMarkTable.TryHanToZen*
-  name: TryHanToZen
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_TryHanToZen_
-  commentId: Overload:TypeModule.Inner.NumMarkTable.TryHanToZen
-  isSpec: "True"
-  fullName: TypeModule.Inner.NumMarkTable.TryHanToZen
-  nameWithType: NumMarkTable.TryHanToZen
-- uid: TypeModule.Inner.NumMarkTable.TryZenToHan(System.String,System.String@)
-  name: TryZenToHan(String, out String)
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_TryZenToHan_System_String_System_String__
-  commentId: M:TypeModule.Inner.NumMarkTable.TryZenToHan(System.String,System.String@)
-  name.vb: TryZenToHan(String, ByRef String)
-  fullName: TypeModule.Inner.NumMarkTable.TryZenToHan(System.String, out System.String)
-  fullName.vb: TypeModule.Inner.NumMarkTable.TryZenToHan(System.String, ByRef System.String)
-  nameWithType: NumMarkTable.TryZenToHan(String, out String)
-  nameWithType.vb: NumMarkTable.TryZenToHan(String, ByRef String)
-- uid: TypeModule.Inner.NumMarkTable.TryZenToHan*
-  name: TryZenToHan
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_TryZenToHan_
-  commentId: Overload:TypeModule.Inner.NumMarkTable.TryZenToHan
-  isSpec: "True"
-  fullName: TypeModule.Inner.NumMarkTable.TryZenToHan
-  nameWithType: NumMarkTable.TryZenToHan
-- uid: TypeModule.Inner.NumMarkTable.ZenToHan(System.String)
-  name: ZenToHan(String)
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_ZenToHan_System_String_
-  commentId: M:TypeModule.Inner.NumMarkTable.ZenToHan(System.String)
-  fullName: TypeModule.Inner.NumMarkTable.ZenToHan(System.String)
-  nameWithType: NumMarkTable.ZenToHan(String)
-- uid: TypeModule.Inner.NumMarkTable.ZenToHan*
-  name: ZenToHan
-  href: api/TypeModule.Inner.NumMarkTable.html#TypeModule_Inner_NumMarkTable_ZenToHan_
-  commentId: Overload:TypeModule.Inner.NumMarkTable.ZenToHan
-  isSpec: "True"
-  fullName: TypeModule.Inner.NumMarkTable.ZenToHan
-  nameWithType: NumMarkTable.ZenToHan
+  fullName: TypeModule.Inner.KeyCode2CharTable.EnabledCapsLock
+  nameWithType: KeyCode2CharTable.EnabledCapsLock
 - uid: TypeModule.Inner.Roma2KanaNode
   name: Roma2KanaNode
   href: api/TypeModule.Inner.Roma2KanaNode.html
@@ -2057,38 +1947,6 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.Roma2KanaTable.CanConverFirstN
   nameWithType: Roma2KanaTable.CanConverFirstN
-- uid: TypeModule.Inner.Roma2KanaTable.CanConvert(System.String,System.Boolean)
-  name: CanConvert(String, Boolean)
-  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_CanConvert_System_String_System_Boolean_
-  commentId: M:TypeModule.Inner.Roma2KanaTable.CanConvert(System.String,System.Boolean)
-  fullName: TypeModule.Inner.Roma2KanaTable.CanConvert(System.String, System.Boolean)
-  nameWithType: Roma2KanaTable.CanConvert(String, Boolean)
-- uid: TypeModule.Inner.Roma2KanaTable.CanConvert(System.String,System.String,System.Boolean)
-  name: CanConvert(String, String, Boolean)
-  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_CanConvert_System_String_System_String_System_Boolean_
-  commentId: M:TypeModule.Inner.Roma2KanaTable.CanConvert(System.String,System.String,System.Boolean)
-  fullName: TypeModule.Inner.Roma2KanaTable.CanConvert(System.String, System.String, System.Boolean)
-  nameWithType: Roma2KanaTable.CanConvert(String, String, Boolean)
-- uid: TypeModule.Inner.Roma2KanaTable.CanConvert*
-  name: CanConvert
-  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_CanConvert_
-  commentId: Overload:TypeModule.Inner.Roma2KanaTable.CanConvert
-  isSpec: "True"
-  fullName: TypeModule.Inner.Roma2KanaTable.CanConvert
-  nameWithType: Roma2KanaTable.CanConvert
-- uid: TypeModule.Inner.Roma2KanaTable.Convert(System.String)
-  name: Convert(String)
-  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_Convert_System_String_
-  commentId: M:TypeModule.Inner.Roma2KanaTable.Convert(System.String)
-  fullName: TypeModule.Inner.Roma2KanaTable.Convert(System.String)
-  nameWithType: Roma2KanaTable.Convert(String)
-- uid: TypeModule.Inner.Roma2KanaTable.Convert*
-  name: Convert
-  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_Convert_
-  commentId: Overload:TypeModule.Inner.Roma2KanaTable.Convert
-  isSpec: "True"
-  fullName: TypeModule.Inner.Roma2KanaTable.Convert
-  nameWithType: Roma2KanaTable.Convert
 - uid: TypeModule.Inner.Roma2KanaTable.GetPossibilityKanas(System.String)
   name: GetPossibilityKanas(String)
   href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_GetPossibilityKanas_System_String_
@@ -2102,6 +1960,19 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.Roma2KanaTable.GetPossibilityKanas
   nameWithType: Roma2KanaTable.GetPossibilityKanas
+- uid: TypeModule.Inner.Roma2KanaTable.HasPossibility(System.String,System.String)
+  name: HasPossibility(String, String)
+  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_HasPossibility_System_String_System_String_
+  commentId: M:TypeModule.Inner.Roma2KanaTable.HasPossibility(System.String,System.String)
+  fullName: TypeModule.Inner.Roma2KanaTable.HasPossibility(System.String, System.String)
+  nameWithType: Roma2KanaTable.HasPossibility(String, String)
+- uid: TypeModule.Inner.Roma2KanaTable.HasPossibility*
+  name: HasPossibility
+  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_HasPossibility_
+  commentId: Overload:TypeModule.Inner.Roma2KanaTable.HasPossibility
+  isSpec: "True"
+  fullName: TypeModule.Inner.Roma2KanaTable.HasPossibility
+  nameWithType: Roma2KanaTable.HasPossibility
 - uid: TypeModule.Inner.Roma2KanaTable.RomaMaxLength
   name: RomaMaxLength
   href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_RomaMaxLength
@@ -2115,6 +1986,22 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.Roma2KanaTable.RomaMaxLength
   nameWithType: Roma2KanaTable.RomaMaxLength
+- uid: TypeModule.Inner.Roma2KanaTable.TryConvert(System.String,System.String@)
+  name: TryConvert(String, out String)
+  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_TryConvert_System_String_System_String__
+  commentId: M:TypeModule.Inner.Roma2KanaTable.TryConvert(System.String,System.String@)
+  name.vb: TryConvert(String, ByRef String)
+  fullName: TypeModule.Inner.Roma2KanaTable.TryConvert(System.String, out System.String)
+  fullName.vb: TypeModule.Inner.Roma2KanaTable.TryConvert(System.String, ByRef System.String)
+  nameWithType: Roma2KanaTable.TryConvert(String, out String)
+  nameWithType.vb: Roma2KanaTable.TryConvert(String, ByRef String)
+- uid: TypeModule.Inner.Roma2KanaTable.TryConvert*
+  name: TryConvert
+  href: api/TypeModule.Inner.Roma2KanaTable.html#TypeModule_Inner_Roma2KanaTable_TryConvert_
+  commentId: Overload:TypeModule.Inner.Roma2KanaTable.TryConvert
+  isSpec: "True"
+  fullName: TypeModule.Inner.Roma2KanaTable.TryConvert
+  nameWithType: Roma2KanaTable.TryConvert
 - uid: TypeModule.Inner.Util
   name: Util
   href: api/TypeModule.Inner.Util.html
@@ -2215,12 +2102,12 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.Util.HanToZenNum
   nameWithType: Util.HanToZenNum
-- uid: TypeModule.Inner.Util.IsAlpha(System.Char,System.Boolean)
-  name: IsAlpha(Char, Boolean)
-  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_IsAlpha_System_Char_System_Boolean_
-  commentId: M:TypeModule.Inner.Util.IsAlpha(System.Char,System.Boolean)
-  fullName: TypeModule.Inner.Util.IsAlpha(System.Char, System.Boolean)
-  nameWithType: Util.IsAlpha(Char, Boolean)
+- uid: TypeModule.Inner.Util.IsAlpha(System.Char)
+  name: IsAlpha(Char)
+  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_IsAlpha_System_Char_
+  commentId: M:TypeModule.Inner.Util.IsAlpha(System.Char)
+  fullName: TypeModule.Inner.Util.IsAlpha(System.Char)
+  nameWithType: Util.IsAlpha(Char)
 - uid: TypeModule.Inner.Util.IsAlpha*
   name: IsAlpha
   href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_IsAlpha_
@@ -2254,12 +2141,12 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.Util.IsHiragana
   nameWithType: Util.IsHiragana
-- uid: TypeModule.Inner.Util.IsJPSymbol(System.Char,System.Boolean)
-  name: IsJPSymbol(Char, Boolean)
-  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_IsJPSymbol_System_Char_System_Boolean_
-  commentId: M:TypeModule.Inner.Util.IsJPSymbol(System.Char,System.Boolean)
-  fullName: TypeModule.Inner.Util.IsJPSymbol(System.Char, System.Boolean)
-  nameWithType: Util.IsJPSymbol(Char, Boolean)
+- uid: TypeModule.Inner.Util.IsJPSymbol(System.Char)
+  name: IsJPSymbol(Char)
+  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_IsJPSymbol_System_Char_
+  commentId: M:TypeModule.Inner.Util.IsJPSymbol(System.Char)
+  fullName: TypeModule.Inner.Util.IsJPSymbol(System.Char)
+  nameWithType: Util.IsJPSymbol(Char)
 - uid: TypeModule.Inner.Util.IsJPSymbol*
   name: IsJPSymbol
   href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_IsJPSymbol_
@@ -2306,6 +2193,38 @@ references:
   isSpec: "True"
   fullName: TypeModule.Inner.Util.KatakanaToHiragana
   nameWithType: Util.KatakanaToHiragana
+- uid: TypeModule.Inner.Util.TryHanToZen(System.String,System.String@,TypeModule.Inner.Util.ConvertTypes)
+  name: TryHanToZen(String, out String, Util.ConvertTypes)
+  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_TryHanToZen_System_String_System_String__TypeModule_Inner_Util_ConvertTypes_
+  commentId: M:TypeModule.Inner.Util.TryHanToZen(System.String,System.String@,TypeModule.Inner.Util.ConvertTypes)
+  name.vb: TryHanToZen(String, ByRef String, Util.ConvertTypes)
+  fullName: TypeModule.Inner.Util.TryHanToZen(System.String, out System.String, TypeModule.Inner.Util.ConvertTypes)
+  fullName.vb: TypeModule.Inner.Util.TryHanToZen(System.String, ByRef System.String, TypeModule.Inner.Util.ConvertTypes)
+  nameWithType: Util.TryHanToZen(String, out String, Util.ConvertTypes)
+  nameWithType.vb: Util.TryHanToZen(String, ByRef String, Util.ConvertTypes)
+- uid: TypeModule.Inner.Util.TryHanToZen*
+  name: TryHanToZen
+  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_TryHanToZen_
+  commentId: Overload:TypeModule.Inner.Util.TryHanToZen
+  isSpec: "True"
+  fullName: TypeModule.Inner.Util.TryHanToZen
+  nameWithType: Util.TryHanToZen
+- uid: TypeModule.Inner.Util.TryZenToHan(System.String,System.String@,TypeModule.Inner.Util.ConvertTypes)
+  name: TryZenToHan(String, out String, Util.ConvertTypes)
+  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_TryZenToHan_System_String_System_String__TypeModule_Inner_Util_ConvertTypes_
+  commentId: M:TypeModule.Inner.Util.TryZenToHan(System.String,System.String@,TypeModule.Inner.Util.ConvertTypes)
+  name.vb: TryZenToHan(String, ByRef String, Util.ConvertTypes)
+  fullName: TypeModule.Inner.Util.TryZenToHan(System.String, out System.String, TypeModule.Inner.Util.ConvertTypes)
+  fullName.vb: TypeModule.Inner.Util.TryZenToHan(System.String, ByRef System.String, TypeModule.Inner.Util.ConvertTypes)
+  nameWithType: Util.TryZenToHan(String, out String, Util.ConvertTypes)
+  nameWithType.vb: Util.TryZenToHan(String, ByRef String, Util.ConvertTypes)
+- uid: TypeModule.Inner.Util.TryZenToHan*
+  name: TryZenToHan
+  href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_TryZenToHan_
+  commentId: Overload:TypeModule.Inner.Util.TryZenToHan
+  isSpec: "True"
+  fullName: TypeModule.Inner.Util.TryZenToHan
+  nameWithType: Util.TryZenToHan
 - uid: TypeModule.Inner.Util.ZenToHan(System.String,TypeModule.Inner.Util.ConvertTypes)
   name: ZenToHan(String, Util.ConvertTypes)
   href: api/TypeModule.Inner.Util.html#TypeModule_Inner_Util_ZenToHan_System_String_TypeModule_Inner_Util_ConvertTypes_
@@ -2617,6 +2536,19 @@ references:
   isSpec: "True"
   fullName: TypeModule.TypeModule.AddEventListenerOnSetup
   nameWithType: TypeModule.AddEventListenerOnSetup
+- uid: TypeModule.TypeModule.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean)
+  name: AddInput(KeyCode, Boolean, Boolean)
+  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_AddInput_UnityEngine_KeyCode_System_Boolean_System_Boolean_
+  commentId: M:TypeModule.TypeModule.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean)
+  fullName: TypeModule.TypeModule.AddInput(UnityEngine.KeyCode, System.Boolean, System.Boolean)
+  nameWithType: TypeModule.AddInput(KeyCode, Boolean, Boolean)
+- uid: TypeModule.TypeModule.AddInput*
+  name: AddInput
+  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_AddInput_
+  commentId: Overload:TypeModule.TypeModule.AddInput
+  isSpec: "True"
+  fullName: TypeModule.TypeModule.AddInput
+  nameWithType: TypeModule.AddInput
 - uid: TypeModule.TypeModule.BackSpace
   name: BackSpace()
   href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_BackSpace
@@ -2643,6 +2575,19 @@ references:
   isSpec: "True"
   fullName: TypeModule.TypeModule.Clear
   nameWithType: TypeModule.Clear
+- uid: TypeModule.TypeModule.Correct(System.Boolean)
+  name: Correct(Boolean)
+  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_Correct_System_Boolean_
+  commentId: M:TypeModule.TypeModule.Correct(System.Boolean)
+  fullName: TypeModule.TypeModule.Correct(System.Boolean)
+  nameWithType: TypeModule.Correct(Boolean)
+- uid: TypeModule.TypeModule.Correct*
+  name: Correct
+  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_Correct_
+  commentId: Overload:TypeModule.TypeModule.Correct
+  isSpec: "True"
+  fullName: TypeModule.TypeModule.Correct
+  nameWithType: TypeModule.Correct
 - uid: TypeModule.TypeModule.CorrectCharNum
   name: CorrectCharNum
   href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_CorrectCharNum
@@ -2864,6 +2809,19 @@ references:
   isSpec: "True"
   fullName: TypeModule.TypeModule.KeyCode2RomaCsv
   nameWithType: TypeModule.KeyCode2RomaCsv
+- uid: TypeModule.TypeModule.Miss(System.Boolean)
+  name: Miss(Boolean)
+  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_Miss_System_Boolean_
+  commentId: M:TypeModule.TypeModule.Miss(System.Boolean)
+  fullName: TypeModule.TypeModule.Miss(System.Boolean)
+  nameWithType: TypeModule.Miss(Boolean)
+- uid: TypeModule.TypeModule.Miss*
+  name: Miss
+  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_Miss_
+  commentId: Overload:TypeModule.TypeModule.Miss
+  isSpec: "True"
+  fullName: TypeModule.TypeModule.Miss
+  nameWithType: TypeModule.Miss
 - uid: TypeModule.TypeModule.MissNum
   name: MissNum
   href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_MissNum
@@ -2908,19 +2866,6 @@ references:
   commentId: F:TypeModule.TypeModule.MODE.INPUT
   fullName: TypeModule.TypeModule.MODE.INPUT
   nameWithType: TypeModule.MODE.INPUT
-- uid: TypeModule.TypeModule.NumMarkCsv
-  name: NumMarkCsv
-  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_NumMarkCsv
-  commentId: P:TypeModule.TypeModule.NumMarkCsv
-  fullName: TypeModule.TypeModule.NumMarkCsv
-  nameWithType: TypeModule.NumMarkCsv
-- uid: TypeModule.TypeModule.NumMarkCsv*
-  name: NumMarkCsv
-  href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_NumMarkCsv_
-  commentId: Overload:TypeModule.TypeModule.NumMarkCsv
-  isSpec: "True"
-  fullName: TypeModule.TypeModule.NumMarkCsv
-  nameWithType: TypeModule.NumMarkCsv
 - uid: TypeModule.TypeModule.PrevChar
   name: PrevChar
   href: api/TypeModule.TypeModule.html#TypeModule_TypeModule_PrevChar

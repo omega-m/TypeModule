@@ -121,12 +121,18 @@
     Kana2RomaTable table = new Kana2RomaTable(in csvSrc);
 
 
-    //ひらがな文字列からローマ字文字列へ変換
-    Debug.Log(table.Convert(&quot;あ&quot;));          //a
-    Debug.Log(table.Convert(&quot;ん&quot;));          //nn
-    Debug.Log(table.Convert(&quot;ん&quot;, &quot;x&quot;));     //xn
-    Debug.Log(table.Convert(&quot;ちゃ&quot;));        //tya
-    Debug.Log(table.Convert(&quot;ちゃ&quot;, &quot;c&quot;));   //cha</code></pre>
+    //ひらがな文字列から変換できるローマ字文字列があるかをチェック及び変換
+    string outStr;
+    Debug.Log(table.TryConvert(&quot;あ&quot;, out outStr));          //true
+    Debug.Log(outStr);                                      //&quot;a&quot;
+    Debug.Log(table.TryConvert(&quot;ん&quot;, out outStr));          //true
+    Debug.Log(outStr);                                      //&quot;nn&quot;
+    Debug.Log(table.TryConvert(&quot;ん&quot;, out outStr, &quot;x&quot;));     //true
+    Debug.Log(outStr);                                      //&quot;xn&quot;
+    Debug.Log(table.TryConvert(&quot;ちゃ&quot;, out outStr));        //true
+    Debug.Log(outStr);                                      //&quot;tya&quot;
+    Debug.Log(table.TryConvert(&quot;ちゃ&quot;, out outStr, &quot;c&quot;));   //true
+    Debug.Log(outStr);                                      //&quot;cha&quot;</code></pre>
 
   <h3 id="constructors">Constructors
   </h3>
@@ -193,61 +199,9 @@
   </h3>
   
   
-  <a id="TypeModule_Inner_Kana2RomaTable_Convert_" data-uid="TypeModule.Inner.Kana2RomaTable.Convert*"></a>
-  <h4 id="TypeModule_Inner_Kana2RomaTable_Convert_System_String_System_String_" data-uid="TypeModule.Inner.Kana2RomaTable.Convert(System.String,System.String)">Convert(String, String)</h4>
-  <div class="markdown level1 summary"><p>ひらがな文字列[aKana]から変換できるローマ字文字列を取得。</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Convert(string aKana, string aRomaStart = &quot;&quot;)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">aKana</span></td>
-        <td><p>ひらかな文字列</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">aRomaStart</span></td>
-        <td><p>変換先ローマ字文字列の先頭部分を指定</p>
-<p>(ひらがなに対応するローマ字文字列は数種類ある為、先頭部分を指定して絞り込みたい時に使用)</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>ローマ字文字列、変換できない場合は空文字列</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="TypeModule_Inner_Kana2RomaTable_TryConvert_" data-uid="TypeModule.Inner.Kana2RomaTable.TryConvert*"></a>
   <h4 id="TypeModule_Inner_Kana2RomaTable_TryConvert_System_String_System_String__System_String_" data-uid="TypeModule.Inner.Kana2RomaTable.TryConvert(System.String,System.String@,System.String)">TryConvert(String, out String, String)</h4>
-  <div class="markdown level1 summary"><p>ひらがな文字列[aKana]から変換できるローマ字文字列があるか</p>
+  <div class="markdown level1 summary"><p>ひらがな文字列から変換できるローマ字文字列があるかをチェック及び変換</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

@@ -112,38 +112,22 @@
     <pre><code class="lang-csharp hljs">public class KanaMid2KanaTable</code></pre>
   </div>
   <h5 id="TypeModule_Inner_KanaMid2KanaTable_examples"><strong>Examples</strong></h5>
-  <pre><code>     using Inner;
+  <pre><code>    using Inner;
 
-         ...
+        ...
 
-     //初期化処理
-     KanaMid2KanaTable table = new KanaMid2KanaTable(in csvSrc);
-
-
-     //ひらがなの中間文字列から、ひらがな文字列に変換
-     Debug.Log(table.Convert(&quot;あ&quot;));     //&quot;&quot;
-     Debug.Log(table.Convert(&quot;か゛&quot;));   //&quot;が&quot;
-     Debug.Log(table.Convert(&quot;か&quot;));     //&quot;&quot;
-     Debug.Log(table.Convert(&quot;は&quot;));     //&quot;&quot;
-     Debug.Log(table.Convert(&quot;は゛&quot;));   //&quot;ば&quot;
+    //初期化処理
+    KanaMid2KanaTable table = new KanaMid2KanaTable(in csvSrc);
 
 
-     //ひらがなの中間文字列から、変換できるひらがながあるかを取得
-     string outCvt;
-     Debug.Log(table.TryConvert(&quot;あ&quot;, out outCvt));          // false
-     Debug.Log(table.TryConvert(&quot;か&quot;, out outCvt));          // false
-     Debug.Log(table.TryConvert(&quot;か゛&quot;, out outCvt));        // true
-     //将来変換できる可能性があるかもチェック
-     Debug.Log(table.TryConvert(&quot;か&quot;, out outCvt, true));    // true
-     Debug.Log(table.TryConvert(&quot;か゛&quot;, out outCvt, true));  // true
-
-
-     //ひらがなの中間文字列から、指定したひらがな文字列へ変換できるかどうかを取得
-     Debug.Log(table.CanConvert(&quot;は゛&quot;, &quot;ば&quot;));            //true
-     Debug.Log(table.CanConvert(&quot;は゛&quot;, &quot;は&quot;));            //false
-     Debug.Log(table.CanConvert(&quot;は&quot;, &quot;ば&quot;));              //false
-     //将来打てる可能性があるかもチェック
-     Debug.Log(table.CanConvert(&quot;は&quot;, &quot;ば&quot;, true));        //true</code></pre>
+    //ひらがなの中間文字列から、変換できるひらがながあるかをチェック及び取得
+    string outCvt;
+    Debug.Log(table.TryConvert(&quot;あ&quot;, out outCvt));          // false
+    Debug.Log(table.TryConvert(&quot;か&quot;, out outCvt));          // false
+    Debug.Log(table.TryConvert(&quot;か゛&quot;, out outCvt));        // true
+    //将来変換できる可能性があるかもチェック
+    Debug.Log(table.TryConvert(&quot;か&quot;, out outCvt, true));    // true
+    Debug.Log(table.TryConvert(&quot;か゛&quot;, out outCvt, true));  // true</code></pre>
 
   <h3 id="constructors">Constructors
   </h3>
@@ -210,111 +194,9 @@
   </h3>
   
   
-  <a id="TypeModule_Inner_KanaMid2KanaTable_CanConvert_" data-uid="TypeModule.Inner.KanaMid2KanaTable.CanConvert*"></a>
-  <h4 id="TypeModule_Inner_KanaMid2KanaTable_CanConvert_System_String_System_String_System_Boolean_" data-uid="TypeModule.Inner.KanaMid2KanaTable.CanConvert(System.String,System.String,System.Boolean)">CanConvert(String, String, Boolean)</h4>
-  <div class="markdown level1 summary"><p>ひらがなの中間文字列[aKanaMid]に対して、ひらがな文字列[aKana]を打つことができるか</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CanConvert(string aKanaMid, string aKana, bool aIsPossibility = false)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">aKanaMid</span></td>
-        <td><p>ひらがなの中間文字列(例:さ゛)</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">aKana</span></td>
-        <td><p>ひらがな文字列(例:ざ)</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">aIsPossibility</span></td>
-        <td><p>true:[aKanaMid]に、追加でひらがなの中間文字列を足すことで、打つ方法があるかもチェックする</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p>true:打つことができる</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="TypeModule_Inner_KanaMid2KanaTable_Convert_" data-uid="TypeModule.Inner.KanaMid2KanaTable.Convert*"></a>
-  <h4 id="TypeModule_Inner_KanaMid2KanaTable_Convert_System_String_" data-uid="TypeModule.Inner.KanaMid2KanaTable.Convert(System.String)">Convert(String)</h4>
-  <div class="markdown level1 summary"><p>ひらがなの中間文字列[aKanaMid]から変換できるひらがな文字列を取得。</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Convert(string aKanaMid)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">aKanaMid</span></td>
-        <td><p>ひらかな中間文字列</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>ひらがな文字列、変換できない場合は空文字列</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="TypeModule_Inner_KanaMid2KanaTable_TryConvert_" data-uid="TypeModule.Inner.KanaMid2KanaTable.TryConvert*"></a>
   <h4 id="TypeModule_Inner_KanaMid2KanaTable_TryConvert_System_String_System_String__System_Boolean_" data-uid="TypeModule.Inner.KanaMid2KanaTable.TryConvert(System.String,System.String@,System.Boolean)">TryConvert(String, out String, Boolean)</h4>
-  <div class="markdown level1 summary"><p>ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがな文字列があるか</p>
+  <div class="markdown level1 summary"><p>ひらがなの中間文字列[aKanaMid]に対して、変換できるひらがながあるかをチェック及び取得</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

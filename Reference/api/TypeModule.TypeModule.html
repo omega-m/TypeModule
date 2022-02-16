@@ -418,7 +418,7 @@
      module.Enter();             //変換確定前の文字列を確定
      module.BackSpace();         //末尾から1文字削除
      module.Clear();             //全ての文字を削除
-
+     module.AddInput(KeyCode.A); //Aキーが押されたとして処理
 
 
      //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
@@ -491,6 +491,11 @@
      Debug.Log(module.CorrectCharNum);          //正しく打てた文字数
      Debug.Log(module.MissNum);                 //ミスタイプした数
      Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
+
+     //プログラム側から、入力処理をエミュレート
+     module.Correct();               //正しく一度入力したとして処理
+     module.Miss();                  //ミスタイプしたとして処理
+     module.AddInput(KeyCode.A);     //Aキーが押されたとして処理
 
 
 
@@ -1042,39 +1047,6 @@
     <tbody>
       <tr>
         <td><a class="xref" href="TypeModule.TypeModule.MODE.html">TypeModule.MODE</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="TypeModule_TypeModule_NumMarkCsv_" data-uid="TypeModule.TypeModule.NumMarkCsv*"></a>
-  <h4 id="TypeModule_TypeModule_NumMarkCsv" data-uid="TypeModule.TypeModule.NumMarkCsv">NumMarkCsv</h4>
-  <div class="markdown level1 summary"><p>数字と記号の、全角半角の変換テーブルを定義したファイル</p>
-<p>明示的に指定しなかった場合、以下のファイルを読み込みます。</p>
-<p>【Assets/Resources/TypeModule/data/Char2Kana/nummark.csv】</p>
-<p>独自で指定する場合は、以下のようなCSV(.csv)形式ファイルを用意してください。文字コードは[UTF-8]としてください。</p>
-<p>［形式］半角文字,全角文字</p>
-<p>例) \n</p>
-<p>.,。</p>
-<p>?,？</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TextAsset NumMarkCsv { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">UnityEngine.TextAsset</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -1639,6 +1611,48 @@
   </table>
   
   
+  <a id="TypeModule_TypeModule_AddInput_" data-uid="TypeModule.TypeModule.AddInput*"></a>
+  <h4 id="TypeModule_TypeModule_AddInput_UnityEngine_KeyCode_System_Boolean_System_Boolean_" data-uid="TypeModule.TypeModule.AddInput(UnityEngine.KeyCode,System.Boolean,System.Boolean)">AddInput(KeyCode, Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"><p>プログラムから、キー入力を擬似的に追加</p>
+<p>【MODE.COPYの場合】もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddInput(KeyCode aKeyCode, bool aIsShift = false, bool aIsFunction = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.KeyCode</span></td>
+        <td><span class="parametername">aKeyCode</span></td>
+        <td><p>キーコード</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">aIsShift</span></td>
+        <td><p>SHIFT中か</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">aIsFunction</span></td>
+        <td><p>FUNCTION中か(2箇所ある\の判定に必須。通常はfalseとしてください)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="TypeModule_TypeModule_BackSpace_" data-uid="TypeModule.TypeModule.BackSpace*"></a>
   <h4 id="TypeModule_TypeModule_BackSpace" data-uid="TypeModule.TypeModule.BackSpace">BackSpace()</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】プログラム側から、末尾の1文字消します。</p>
@@ -1661,6 +1675,36 @@
   </div>
   
   
+  <a id="TypeModule_TypeModule_Correct_" data-uid="TypeModule.TypeModule.Correct*"></a>
+  <h4 id="TypeModule_TypeModule_Correct_System_Boolean_" data-uid="TypeModule.TypeModule.Correct(System.Boolean)">Correct(Boolean)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】プログラムから、正しい入力を一回行ったとして処理します。</p>
+<p>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Correct(bool isThrowEvent = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isThrowEvent</span></td>
+        <td><p>true:処理後、登録されたイベントリスナにイベントを投げます</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="TypeModule_TypeModule_Enter_" data-uid="TypeModule.TypeModule.Enter*"></a>
   <h4 id="TypeModule_TypeModule_Enter" data-uid="TypeModule.TypeModule.Enter">Enter()</h4>
   <div class="markdown level1 summary"><p>【MODE.INPUT】プログラム側から、変換確定前の文字列を確定します。</p>
@@ -1670,6 +1714,36 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Enter()</code></pre>
   </div>
+  
+  
+  <a id="TypeModule_TypeModule_Miss_" data-uid="TypeModule.TypeModule.Miss*"></a>
+  <h4 id="TypeModule_TypeModule_Miss_System_Boolean_" data-uid="TypeModule.TypeModule.Miss(System.Boolean)">Miss(Boolean)</h4>
+  <div class="markdown level1 summary"><p>【MODE.COPY】プログラムから、ミスタイプを一回行ったとして処理します。</p>
+<p>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Miss(bool isThrowEvent = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isThrowEvent</span></td>
+        <td><p>true:処理後、登録されたイベントリスナにイベントを投げます</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="TypeModule_TypeModule_RemoveEventListenerOnChange_" data-uid="TypeModule.TypeModule.RemoveEventListenerOnChange*"></a>
