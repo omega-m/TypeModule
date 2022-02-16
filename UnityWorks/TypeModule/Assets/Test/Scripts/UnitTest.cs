@@ -6,7 +6,7 @@ using TypeModule.Inner;
 using UnityEditor;
 
 ///<summary>TypeModuleのテスト用</summary>
-public class TypeModuleTest : MonoBehaviour{
+public class UnitTest : MonoBehaviour{
 
     #region Unity共通処理
     void Start(){
@@ -19,6 +19,7 @@ public class TypeModuleTest : MonoBehaviour{
             TestConvertTableMgr();
             TestKana2KanaMidTable();
             TestKana2RomaTable();
+            TestKanaMid2KanaTable();
         }
     }
 
@@ -26,6 +27,7 @@ public class TypeModuleTest : MonoBehaviour{
         
     }
     #endregion
+
 
     #region 単体テスト
     /// <summary>Util テスト</summary>
@@ -505,9 +507,116 @@ public class TypeModuleTest : MonoBehaviour{
 
         Debug.Assert(table.KanaMaxLength > 0);
     }
+
+    /// <summary>Kana2RomaTable テスト</summary>
+    void TestKanaMid2KanaTable() {
+        Debug.Log("Test KanaMid2KanaTable");
+        ConvertTableMgr cvt = new ConvertTableMgr();
+        KanaMid2KanaTable table = cvt.KanaMid2Kana;
+
+        string outCvt = "";
+        Debug.Assert(table.TryConvert("あ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt) == false);
+        Debug.Assert(table.TryConvert("は", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ば", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ぱ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ゔ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt) == false);
+        Debug.Assert(table.TryConvert("は゛", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "ば") == 0);
+        Debug.Assert(table.TryConvert("は゜", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "ぱ") == 0);
+        Debug.Assert(table.TryConvert("う゛", out outCvt) == true);
+        Debug.Assert(string.Compare(outCvt, "ゔ") == 0);
+        Debug.Assert(table.TryConvert("は゛ふ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("はあ゜", out outCvt) == false);
+        Debug.Assert(table.TryConvert("゛う゛", out outCvt) == false);
+
+        Debug.Assert(table.TryConvert("ばば", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ゔあ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ぎゃ", out outCvt) == false);
+
+        Debug.Assert(table.TryConvert("0", out outCvt) == false);
+        Debug.Assert(table.TryConvert("9", out outCvt) == false);
+        Debug.Assert(table.TryConvert("A", out outCvt) == false);
+        Debug.Assert(table.TryConvert("z", out outCvt) == false);
+        Debug.Assert(table.TryConvert("漢", out outCvt) == false);
+        Debug.Assert(table.TryConvert("０", out outCvt) == false);
+        Debug.Assert(table.TryConvert("９", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ａ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("Ｚ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ア", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ン", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ヴ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｱ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ｳ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ﾝ", out outCvt) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt) == false);
+        Debug.Assert(table.TryConvert("-", out outCvt) == false);
+        Debug.Assert(table.TryConvert("!", out outCvt) == false);
+        Debug.Assert(table.TryConvert("*", out outCvt) == false);
+        Debug.Assert(table.TryConvert("－", out outCvt) == false);
+        Debug.Assert(table.TryConvert("！", out outCvt) == false);
+        Debug.Assert(table.TryConvert("＊", out outCvt) == false);
+        Debug.Assert(table.TryConvert("「", out outCvt) == false);
+        Debug.Assert(table.TryConvert("」", out outCvt) == false);
+        Debug.Assert(table.TryConvert("　", out outCvt) == false);
+        Debug.Assert(table.TryConvert(" ", out outCvt) == false);
+
+
+        Debug.Assert(table.TryConvert("あ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ん", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("は", out outCvt, true) == true);
+        Debug.Assert(string.Compare(outCvt, "ば") == 0);
+        Debug.Assert(table.TryConvert("ば", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ぱ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ゔ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("は゛", out outCvt, true) == true);
+        Debug.Assert(string.Compare(outCvt, "ば") == 0);
+        Debug.Assert(table.TryConvert("は゜", out outCvt, true) == true);
+        Debug.Assert(string.Compare(outCvt, "ぱ") == 0);    
+        Debug.Assert(table.TryConvert("う゛", out outCvt, true) == true);
+        Debug.Assert(string.Compare(outCvt, "ゔ") == 0);
+        Debug.Assert(table.TryConvert("は゛ふ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("はあ゜", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("゛う゛", out outCvt, true) == false);
+
+        Debug.Assert(table.TryConvert("0", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("9", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("A", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("z", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("漢", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("０", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("９", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ａ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("Ｚ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ア", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ン", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ヴ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ｱ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ｳ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ﾝ", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("ー", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("-", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("!", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("*", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("－", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("！", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("＊", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("「", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("」", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert("　", out outCvt, true) == false);
+        Debug.Assert(table.TryConvert(" ", out outCvt, true) == false);
+
+        Debug.Assert(table.KanaMidMaxLength > 0);
+    }
     #endregion
 
-    #region
+
+    #region インスペクターパラメータ
     [Tooltip("テストを行うかどうかのフラグ")]
     #endregion
     /// <summary>テストを行うかどうかのフラグ</summary>
