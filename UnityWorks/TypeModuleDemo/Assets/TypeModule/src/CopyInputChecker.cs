@@ -155,7 +155,7 @@ public class CopyInputCheckerResults {
 
     #region 生成
     /// <summary>CopyInputCheckerより作成されます。外からは作成しないでください。</summary>    
-    public CopyInputCheckerResults(in Inner.CopyInputCheckerParams aParams) {m_params = aParams;}
+    public CopyInputCheckerResults(in inner.CopyInputCheckerParams aParams) {m_params = aParams;}
     #endregion
 
 
@@ -199,7 +199,7 @@ public class CopyInputCheckerResults {
 
 
     #region メンバ
-    private Inner.CopyInputCheckerParams m_params;   //参照
+    private inner.CopyInputCheckerParams m_params;   //参照
 
     private string m_strDoneCache = "";
     private string m_strYetCache = "";
@@ -210,7 +210,7 @@ public class CopyInputCheckerResults {
 }
 
 
-    namespace Inner {
+    namespace inner {
 
         /// <summary>CopyInputCheckerの内部パラメータクラス。CopyInputCheckerResultsの参照渡しに使用。</summary>
         public class CopyInputCheckerParams {

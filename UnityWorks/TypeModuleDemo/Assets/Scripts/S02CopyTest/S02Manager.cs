@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 public class S02Manager : MonoBehaviour {
 
-    #region ƒƒ\ƒbƒh
-    /// <summary>ƒV[ƒ“uS00Menuv‚ğŒÄ‚Ño‚µ</summary>
+    #region ãƒ¡ã‚½ãƒƒãƒ‰
+    /// <summary>ã‚·ãƒ¼ãƒ³ã€ŒS00Menuã€ã‚’å‘¼ã³å‡ºã—</summary>
     public void BackToMenu() {
         SceneManager.LoadScene("S00Menu");
     }
 
 
-    /// <summary>ƒL[ƒ{[ƒh”z—ñ‚ª•Ï‚í‚Á‚½‚ÉŒÄ‚Ño‚³‚ê‚Ü‚·</summary>
+    /// <summary>ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰é…åˆ—ãŒå¤‰ã‚ã£ãŸæ™‚ã«å‘¼ã³å‡ºã•ã‚Œã¾ã™</summary>
     public void OnChangeedKeyboardLayout(int aDummy = 0) {
         switch (m_dropDownInputLayout.value) {
             case 0:
@@ -33,7 +33,7 @@ public class S02Manager : MonoBehaviour {
     #endregion
 
 
-    #region Unity‹¤’Êˆ—
+    #region Unityå…±é€šå‡¦ç†
     void Start() {
         //Initialize TypeModule
         m_tp = GetComponent<TypeModule>();
@@ -48,13 +48,13 @@ public class S02Manager : MonoBehaviour {
     #endregion
 
 
-    #region ƒCƒ“ƒXƒyƒNƒ^ƒƒ“ƒo
+    #region ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¡ãƒ³ãƒ
     public Dropdown m_dropDownInputLayout;
 
     #endregion
 
 
-    #region ƒƒ“ƒo
+    #region ãƒ¡ãƒ³ãƒ
     private TypeModule m_tp;
     #endregion 
 }

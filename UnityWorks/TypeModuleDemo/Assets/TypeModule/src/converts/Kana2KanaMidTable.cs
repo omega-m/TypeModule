@@ -3,14 +3,14 @@ using UnityEngine;
 
 
 namespace tm { 
-    namespace Inner {
+    namespace inner {
 
         /// <summary>
         /// <para>ひらがな文字列からひらがな中間文字列に変換する為のテーブルを管理するクラスです。</para>
         /// <para>お台文からガイド用のローマ字列を作成する時などに使用</para>
         /// </summary>
         /// <example><code>
-        /// using Inner;
+        /// using inner;
         /// 
         ///     ...
         ///     

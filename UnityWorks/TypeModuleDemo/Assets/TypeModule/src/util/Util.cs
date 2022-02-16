@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 
 namespace tm {
-    namespace Inner {
+    namespace inner {
 
         ///<summary>共通メソッドなどを定義</summary>
         static public class Util {
