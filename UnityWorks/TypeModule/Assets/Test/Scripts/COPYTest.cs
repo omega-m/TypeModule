@@ -89,7 +89,6 @@ public class COPYTest : MonoBehaviour {
     public void OnComplete(CopyInputCheckerResults aResult) {
         Debug.Log("onComplete");
         SetNextTargetStr();
-
     }
 
 

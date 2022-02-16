@@ -353,8 +353,8 @@ MonoBehaviour:
   m_isInputEng: 0
   m_enabledBS: 1
   m_enabledEnter: 1
-  m_targetStr: "\u3002\u30FB\u3001\u300C\u300D"
-  m_isCaseSensitive: 1
+  m_targetStr: 
+  m_isCaseSensitive: 0
   m_keyCode2RomaCsv: {fileID: 0}
   m_roma2KanaCsv: {fileID: 0}
   m_keyCode2KanaMidCsv: {fileID: 0}

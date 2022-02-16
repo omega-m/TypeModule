@@ -210,9 +210,6 @@ public class InputEmulatorResults {
         /// //直前に入力された文字を取得
         /// Debug.Log(input.PrevChar);
         /// 
-        /// //入力された文字列を全てクリア
-        /// input.Clear();
-        /// 
         ///     ...
         ///
         /// //入力が発生した時のイベントリスナを追加
@@ -246,6 +243,12 @@ public class InputEmulatorResults {
         /// //プログラム側から確定
         /// input.Enter();
         /// 
+        /// //プログラムから文字列を操作
+        /// module.Enter();             //変換確定前の文字列を確定
+        /// module.BackSpace();         //末尾から1文字削除
+        /// module.Clear();             //全ての文字を削除
+        /// module.AddInput(KeyCode.A); //Aキーが押されたとして処理
+        /// 
         /// //エンターキーの入力から文字を確定しないようにする
         /// input.EnabledEnter = false;
         /// 
@@ -265,37 +268,48 @@ public class InputEmulatorResults {
 
 
             #region メソッド
-            /// <summary>キーボードからの入力文字を追加</summary>
+            /// <summary>キー入力イベントからの入力を追加</summary>
             /// <param name="aEvent">入力イベント</param>
             public void AddInput(in Event aEvent) {
+                //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
+                if (aEvent.keyCode == KeyCode.None) { return; }
+                m_tmpEvent = new Event(aEvent);
+                AddInput(aEvent.keyCode, aEvent.shift, aEvent.functionKey, false);
+            }
+
+            /// <summary>キーコードからの入力を追加<</summary>
+            /// <param name="aKeyCode">キーコード</param>
+            /// <param name="aIsShift">SHIFT中か</param>
+            /// <param name="aIsFunction">FUNCTION中か(2箇所ある\の判定に必須。通常はfalseとしてください)</param>
+            /// <param name="aIsOuter">外のプログラム側から呼び出す場合はtrueとしてください</param>
+            public void AddInput(KeyCode aKeyCode, bool aIsShift = false, bool aIsFunction = false, bool aIsOuter = false) {
                 var p = m_params;
                 var cvt = m_convertTableMgr;
-                if (aEvent.keyCode == KeyCode.None) {//IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
+                if (aIsOuter) {
+                    m_tmpEvent = new Event();
                 }
-                else if (aEvent.keyCode == KeyCode.Return) { //enter
+                if (aKeyCode == KeyCode.Return) { //enter
                     if (EnabledEnter) {
                         p.m_inputType = InputEmulatorResults.INPUT_TYPE.ENTER;
-                        p.m_event = new Event(aEvent);
                         EnterInner();
                         m_onInputCallbacks.Invoke(m_results);
                     }
-                } else if (aEvent.keyCode == KeyCode.Backspace) {//bs
+                } else if (aKeyCode == KeyCode.Backspace) {//bs
                     if (EnabledBS) {
                         p.m_inputType = InputEmulatorResults.INPUT_TYPE.BS;
-                        p.m_event = new Event(aEvent);
                         BackSpaceInner();
                         m_onInputCallbacks.Invoke(m_results);
                     }
                 } else {
                     if (IsInputEng) {//英語入力
-                        char nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                        if (nCh == '\0') {return; }
+                        char nCh = cvt.Key2Roma.Convert(aKeyCode, aIsShift, aIsFunction);
+                        if (nCh == '\0') { return; }
                         p.m_strDone.Add(nCh + "");
                         p.m_strDoneRaws.Add(nCh + "");
                         p.m_prevChar = nCh + "";
                     } else if (IsKana) {//かな入力
-                        char nCh = cvt.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                        if (nCh == '\0') {return; }
+                        char nCh = cvt.Key2kanaMid.Convert(aKeyCode, aIsShift, aIsFunction);
+                        if (nCh == '\0') { return; }
                         p.m_strWork += nCh;
                         p.m_prevChar = nCh + "";
 
@@ -320,8 +334,8 @@ public class InputEmulatorResults {
                             p.m_strDoneRaws.Add(addStrTmp);
                         }
                     } else {//ローマ字入力
-                        char nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
-                        if (nCh == '\0') {return; }
+                        char nCh = cvt.Key2Roma.Convert(aKeyCode, aIsShift, aIsFunction);
+                        if (nCh == '\0') { return; }
                         p.m_strWork += nCh;
                         p.m_prevChar = nCh + "";
 
@@ -333,7 +347,7 @@ public class InputEmulatorResults {
 
                         while (p.m_strWork.Length > 0) {
                             string outKana = "";
-                            if(cvt.Roma2Kana.TryConvert(p.m_strWork, out outKana)){
+                            if (cvt.Roma2Kana.TryConvert(p.m_strWork, out outKana)) {
                                 p.m_strDone.Add(outKana);
                                 p.m_strDoneRaws.Add(p.m_strWork);
                                 p.m_strWork = "";
@@ -353,8 +367,8 @@ public class InputEmulatorResults {
                         }
                     }
                     p.m_inputType = InputEmulatorResults.INPUT_TYPE.INPUT;
-                    p.m_event = new Event(aEvent);
                     m_results.Dirty = true;
+                    p.m_event = m_tmpEvent;
                     m_onChangeCallbacks.Invoke(m_results);
                     m_onInputCallbacks.Invoke(m_results);
                 }
@@ -367,19 +381,21 @@ public class InputEmulatorResults {
                 if (m_results != null) {
                     m_results.Dirty = true;                
                 }
+                m_tmpEvent = new Event();
+                m_params.m_event = m_tmpEvent;
                 m_onChangeCallbacks.Invoke(m_results);
             }
 
             /// <summary>プログラム側から変換確定前の文字列を確定します。</summary>
             public void Enter() {
-                m_params.m_event = new Event();
+                m_tmpEvent = new Event();
                 m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.ENTER_FORCE;
                 EnterInner();
             }
 
             /// <summary>プログラム側から、末尾の1文字消します。</summary>
             public void BackSpace() {
-                m_params.m_event  = new Event();
+                m_tmpEvent = new Event();
                 m_params.m_inputType = InputEmulatorResults.INPUT_TYPE.BS_FORCE;
                 BackSpaceInner();
             }
@@ -469,6 +485,7 @@ public class InputEmulatorResults {
                 }
                 p.m_strWork = "";
                 p.m_prevChar = "";
+                p.m_event = m_tmpEvent;
                 m_results.Dirty = true;
                 m_onChangeCallbacks.Invoke(m_results);
             }
@@ -487,6 +504,7 @@ public class InputEmulatorResults {
                     }
                 }
                 p.m_prevChar = "";
+                p.m_event = m_tmpEvent;
                 m_results.Dirty = true;
                 m_onChangeCallbacks.Invoke(m_results);
             }
@@ -501,6 +519,8 @@ public class InputEmulatorResults {
 
             private UnityEvent<InputEmulatorResults> m_onInputCallbacks     = new UnityEvent<InputEmulatorResults>();
             private UnityEvent<InputEmulatorResults> m_onChangeCallbacks    = new UnityEvent<InputEmulatorResults>();
+
+            private Event m_tmpEvent;
             #endregion
         }
     }

@@ -29,6 +29,13 @@ public class INPUTTest : MonoBehaviour
         if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.F3) {
             m_tp.Enter();
         }
+        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.F4) {
+            m_tp.AddInput(KeyCode.A, true);
+        }
+        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.F5) {
+            m_tp.AddInput(KeyCode.A, false);
+        }
+
     }
 
     private void onInput(InputEmulatorResults res) {

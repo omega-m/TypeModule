@@ -353,8 +353,9 @@ public class CopyInputCheckerResults {
         /// checker.IsCaseSensitive = true;
         /// 
         /// //プログラム側から、入力処理をエミュレート
-        /// checker.Correct();         //正しく一度入力したとして処理
-        /// checker.Miss();            //ミスタイプしたとして処理
+        /// checker.Correct();              //正しく一度入力したとして処理
+        /// checker.Miss();                 //ミスタイプしたとして処理
+        /// checker.AddInput(KeyCode.A);    //Aキーが押されたとして処理
         /// 
         /// </code></example>
         public class CopyInputChecker {
@@ -369,48 +370,60 @@ public class CopyInputCheckerResults {
             public CopyInputChecker(in ConvertTableMgr aConvertTableMgr) {
                 m_convertTableMgr = aConvertTableMgr;
                 m_results = new CopyInputCheckerResults(in m_params);
+                m_tmpEvent = new Event();
             }
             #endregion
 
 
             #region メソッド
             /// <summary>
-            /// <para>キーボードからの入力文字を追加</para>
+            /// <para>キー入力イベントからの入力を追加</para>
             /// <para>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</para>
             /// </summary>
             /// <param name="aEvent">入力イベント</param>
             public void AddInput(in Event aEvent) {
-            
-                if(IsComplete) { return; }
+                 //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
+                if (aEvent.keyCode == KeyCode.None) {return;}
+                m_tmpEvent = aEvent;
+                AddInput(aEvent.keyCode, aEvent.shift, aEvent.functionKey, false);
+            }
+
+
+            /// <summary>
+            /// <para>キーコードからの入力を追加</para>
+            /// <para>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</para>
+            /// </summary>
+            /// <param name="aKeyCode">キーコード</param>
+            /// <param name="aIsShift">SHIFT中か</param>
+            /// <param name="aIsFunction">FUNCTION中か(2箇所ある\の判定に必須。通常はfalseとしてください)</param>
+            /// <param name="aIsOuter">外のプログラム側から呼び出す場合はtrueとしてください</param>
+            public void AddInput(KeyCode aKeyCode, bool aIsShift = false, bool aIsFunction = false, bool aIsOuter = false) {
+                if (IsComplete) { return; }
+                if (aIsOuter) {
+                    m_tmpEvent = new Event();
+                }
                 var p = m_params;
                 var cvt = m_convertTableMgr;
-
-                //IMEによって、1回のキー入力に対して二回呼び出しが発生する為、更新しない
-                if (aEvent.keyCode == KeyCode.None) {return;}
-
                 char nCh;
                 //英語チェック
                 if (p.m_strCurrent.Length == 1) {
-                    nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    nCh = cvt.Key2Roma.Convert(aKeyCode, aIsShift, aIsFunction);
                     if (nCh == '\0') { return; }
                     ////かな且つ、以下の文字ならここで判定しない
                     if (IsKana && Regex.IsMatch(p.m_strCurrent[0] + "", "[、。ー・「」]")) {
                     } else {
                         if (IsCaseSensitive) {
                             if (p.m_strCurrent[0] == nCh) {
-                                p.m_event = aEvent;
                                 CorrectInner(nCh + "");
                                 return;
-                            } else if(Util.IsAlpha(p.m_strCurrent[0])) {
+                            } else if (Util.IsAlpha(p.m_strCurrent[0])) {
                                 //英語入力中で文字が違うならミス判定
-                                p.m_event = aEvent;
                                 p.m_prevMissChar = nCh + "";
                                 MissInner(nCh + "");
                                 return;
                             }
                         } else {
                             if (char.ToLower(p.m_strCurrent[0]) == char.ToLower(nCh)) {
-                                p.m_event = aEvent;
                                 CorrectInner(nCh + "");
                                 return;
                             }
@@ -419,7 +432,6 @@ public class CopyInputCheckerResults {
                         string nChZen;
                         if (Util.TryHanToZen(nCh + "", out nChZen, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                             if (string.Compare(p.m_strCurrent, nChZen) == 0) {
-                                p.m_event = aEvent;
                                 CorrectInner(nCh + "");
                                 return;
                             }
@@ -428,22 +440,20 @@ public class CopyInputCheckerResults {
                 }
                 //かなチェック
                 if (IsKana) {
-                    nCh = cvt.Key2kanaMid.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    nCh = cvt.Key2kanaMid.Convert(aKeyCode, aIsShift, aIsFunction);
                     if (nCh == '\0') { return; }
                     string nChHan;
                     if (p.m_strCurrentRaw[0] == nCh) {
-                        p.m_event = aEvent;
                         CorrectInner(nCh + "");
                         return;
                     } else if (Util.TryZenToHan(nCh + "", out nChHan, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                         if (p.m_strCurrentRaw[0] == nChHan[0]) {
-                            p.m_event = aEvent;
                             CorrectInner(nCh + "");
                             return;
                         }
                     }
                 } else {//ローマ字入力
-                    nCh = cvt.Key2Roma.Convert(aEvent.keyCode, aEvent.shift, aEvent.functionKey);
+                    nCh = cvt.Key2Roma.Convert(aKeyCode, aIsShift, aIsFunction);
                     if (nCh == '\0') { return; }
 
                     //「ん」の単発入力確定処理
@@ -458,7 +468,6 @@ public class CopyInputCheckerResults {
                     }
 
                     if (char.ToLower(p.m_strCurrentRaw[0]) == char.ToLower(nCh)) {
-                        p.m_event = aEvent;
                         CorrectInner(nCh + "");
                         return;
                     }
@@ -480,17 +489,12 @@ public class CopyInputCheckerResults {
                             p.m_strCurrentRaw = outRoma[p.m_strRomaWorkDone.Length] + "";
                             p.m_strRomaWorkYet = outRoma.Substring(p.m_strRomaWorkDone.Length + 1);
                             outRoma = outRoma.Substring(tmpKana.Length);
-                            p.m_event = aEvent;
                             CorrectInner(nCh + "");
                             return;
                         }
                     }
-
                 }
-
                 //ミス
-                p.m_prevMissChar = nCh + "";
-                p.m_event = aEvent;
                 MissInner(nCh + "");
             }
 
@@ -507,6 +511,7 @@ public class CopyInputCheckerResults {
                 m_params.m_isCaseSensitive = m_isCaseSensitive;
                 InitStrYet();
                 CorrectInner("", false);
+                m_tmpEvent = new Event();
                 m_params.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.SETUP;
                 m_onSetupCallbacks.Invoke(m_results);
             }
@@ -518,7 +523,7 @@ public class CopyInputCheckerResults {
             /// <param name="isThrowEvent">true:処理後、登録されたイベントリスナにイベントを投げます</param>
             public void Correct(bool isThrowEvent = true) {
                 if (IsComplete || m_params.m_strCurrent.Length == 0) { return; }
-                m_params.m_event = new Event();
+                m_tmpEvent = new Event();
                 CorrectInner(m_params.m_strCurrent[0] + "", isThrowEvent);
             }
 
@@ -528,7 +533,7 @@ public class CopyInputCheckerResults {
             /// </summary>
             /// <param name="isThrowEvent">true:処理後、登録されたイベントリスナにイベントを投げます</param>
             public void Miss(bool isThrowEvent = true) {
-                m_params.m_event = new Event();
+                m_tmpEvent = new Event();
                 MissInner("", isThrowEvent);
             }
             #endregion
@@ -763,11 +768,12 @@ public class CopyInputCheckerResults {
             /// <param name="isThrowEvent">true:内部でイベントを投げます</param>
             private void CorrectInner(string aPrevChar, bool isThrowEvent = true) {
                 if (IsComplete) { return; }
-                m_params.m_prevCorrectChar = aPrevChar;
-                m_params.m_prevMissChar = "";
+                var p = m_params;
+                p.m_event = m_tmpEvent;
+                p.m_prevCorrectChar = aPrevChar;
+                p.m_prevMissChar = "";
 
                 m_results.Dirty = true;
-                var p = m_params;
                 if (p.m_strCurrentRaw.Length > 0) {
                     p.m_strDoneRaws[p.m_strDoneRaws.Count - 1] += p.m_strCurrentRaw[0];
                     p.m_strRomaWorkDone = p.m_strCurrentRaw[0] + "";
@@ -814,12 +820,13 @@ public class CopyInputCheckerResults {
             /// <param name="isThrowEvent">true:内部でイベントを投げます</param>
             private void MissInner(string aPrevChar, bool isThrowEvent = true) {
                 if (IsComplete) { return; }
+                var p = m_params;
+                p.m_event = m_tmpEvent;
+                p.m_prevMissChar = aPrevChar;
+                p.m_prevCorrectChar = "";
 
-                m_params.m_prevMissChar = aPrevChar;
-                m_params.m_prevCorrectChar = "";
-
-                m_params.m_missNum++;
-                m_params.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.MISS;
+                p.m_missNum++;
+                p.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.MISS;
                 if (isThrowEvent) {
                     m_onInputCallbacks.Invoke(m_results);
                     m_onMissCallbacks.Invoke(m_results);
@@ -839,6 +846,8 @@ public class CopyInputCheckerResults {
             private UnityEvent<CopyInputCheckerResults> m_onMissCallbacks       = new UnityEvent<CopyInputCheckerResults>();
             private UnityEvent<CopyInputCheckerResults> m_onCompleteCallbacks   = new UnityEvent<CopyInputCheckerResults>();
             private UnityEvent<CopyInputCheckerResults> m_onSetupCallbacks      = new UnityEvent<CopyInputCheckerResults>();
+
+            private Event m_tmpEvent = null;
             #endregion
         }
     }

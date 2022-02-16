@@ -35,7 +35,7 @@ namespace TypeModule {
     /// module.Enter();             //変換確定前の文字列を確定
     /// module.BackSpace();         //末尾から1文字削除
     /// module.Clear();             //全ての文字を削除
-    /// 
+    /// module.AddInput(KeyCode.A); //Aキーが押されたとして処理
     /// 
     /// 
     /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
@@ -109,10 +109,11 @@ namespace TypeModule {
     /// Debug.Log(module.MissNum);                 //ミスタイプした数
     /// Debug.Log(module.IsComplete);              //指定文字列を打ち切ったか
     ///      
-    /// 
     /// //プログラム側から、入力処理をエミュレート
-    /// module.Correct();         //正しく一度入力したとして処理
-    /// module.Miss();            //ミスタイプしたとして処理
+    /// module.Correct();               //正しく一度入力したとして処理
+    /// module.Miss();                  //ミスタイプしたとして処理
+    /// module.AddInput(KeyCode.A);     //Aキーが押されたとして処理
+    /// 
     /// 
     /// 
     /// //イベントリスナを追加し、文字列に変更があった時にGUIテキストを修正
@@ -186,13 +187,7 @@ namespace TypeModule {
         #endregion
 
 
-        #region 共通メソッド
-        /// <summary>内部の入力データをを全て削除します</summary>
-        public void Clear() {
-            m_inputEmulator.Clear();
-            m_copyInputChecker.Clear();
-        }
-
+        #region 共通プロパティ
         /// <summary>前回入力発生時のUnityイベント</summary>
         public Event Event {
             get {
@@ -216,7 +211,29 @@ namespace TypeModule {
                 return "";
             } 
         }
+        #endregion
 
+
+        #region 共通メソッド
+        /// <summary>内部の入力データをを全て削除します</summary>
+        public void Clear() {
+            m_inputEmulator.Clear();
+            m_copyInputChecker.Clear();
+        }
+
+        /// <summary>
+        /// <para>プログラムから、キー入力を擬似的に追加</para>
+        /// <para>【MODE.COPYの場合】もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</para>
+        /// </summary>
+        /// <param name="aKeyCode">キーコード</param>
+        /// <param name="aIsShift">SHIFT中か</param>
+        /// <param name="aIsFunction">FUNCTION中か(2箇所ある\の判定に必須。通常はfalseとしてください)</param>
+        public void AddInput(KeyCode aKeyCode, bool aIsShift = false, bool aIsFunction = false) {
+            switch (Mode) {
+                 case MODE.INPUT:   m_inputEmulator.AddInput(aKeyCode, aIsShift, aIsFunction, true); break;
+                case MODE.COPY:     m_copyInputChecker.AddInput(aKeyCode, aIsShift, aIsFunction, true); break;
+            }
+        }
         #endregion
 
 
