@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/S01InputTest.unity
     guid: 4e8968ff24e75484d8b86f510c6e0e7d
+  - enabled: 1
+    path: Assets/Scenes/S02CopyTest.unity
+    guid: 26ecb3865be583946917983f7628de74
   m_configObjects: {}

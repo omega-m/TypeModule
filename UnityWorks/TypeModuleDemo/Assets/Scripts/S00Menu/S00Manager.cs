@@ -13,7 +13,7 @@ public class S00Manager : MonoBehaviour
 
     /// <summary></summary>
     public void StartS02() {
-        Debug.Log("s02");
+        SceneManager.LoadScene("S02CopyTest");
     }
     #endregion 
 
