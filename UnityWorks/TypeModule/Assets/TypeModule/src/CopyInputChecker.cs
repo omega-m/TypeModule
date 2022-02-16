@@ -352,6 +352,10 @@ public class CopyInputCheckerResults {
         /// //英語の大文字と小文字入力を区別して判定する
         /// checker.IsCaseSensitive = true;
         /// 
+        /// //プログラム側から、入力処理をエミュレート
+        /// checker.Correct();         //正しく一度入力したとして処理
+        /// checker.Miss();            //ミスタイプしたとして処理
+        /// 
         /// </code></example>
         public class CopyInputChecker {
 
@@ -372,7 +376,7 @@ public class CopyInputCheckerResults {
             #region メソッド
             /// <summary>
             /// <para>キーボードからの入力文字を追加</para>
-            /// <para>比較対象の文字列がセットされていない場合はなにもしません。</para>
+            /// <para>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</para>
             /// </summary>
             /// <param name="aEvent">入力イベント</param>
             public void AddInput(in Event aEvent) {
@@ -395,19 +399,19 @@ public class CopyInputCheckerResults {
                         if (IsCaseSensitive) {
                             if (p.m_strCurrent[0] == nCh) {
                                 p.m_event = aEvent;
-                                CorrectType(nCh + "");
+                                CorrectInner(nCh + "");
                                 return;
                             } else if(Util.IsAlpha(p.m_strCurrent[0])) {
                                 //英語入力中で文字が違うならミス判定
                                 p.m_event = aEvent;
                                 p.m_prevMissChar = nCh + "";
-                                MissType(nCh + "");
+                                MissInner(nCh + "");
                                 return;
                             }
                         } else {
                             if (char.ToLower(p.m_strCurrent[0]) == char.ToLower(nCh)) {
                                 p.m_event = aEvent;
-                                CorrectType(nCh + "");
+                                CorrectInner(nCh + "");
                                 return;
                             }
                         }
@@ -416,7 +420,7 @@ public class CopyInputCheckerResults {
                         if (Util.TryHanToZen(nCh + "", out nChZen, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                             if (string.Compare(p.m_strCurrent, nChZen) == 0) {
                                 p.m_event = aEvent;
-                                CorrectType(nCh + "");
+                                CorrectInner(nCh + "");
                                 return;
                             }
                         }
@@ -429,12 +433,12 @@ public class CopyInputCheckerResults {
                     string nChHan;
                     if (p.m_strCurrentRaw[0] == nCh) {
                         p.m_event = aEvent;
-                        CorrectType(nCh + "");
+                        CorrectInner(nCh + "");
                         return;
                     } else if (Util.TryZenToHan(nCh + "", out nChHan, Util.ConvertTypes.Number | Util.ConvertTypes.Symbol)) {
                         if (p.m_strCurrentRaw[0] == nChHan[0]) {
                             p.m_event = aEvent;
-                            CorrectType(nCh + "");
+                            CorrectInner(nCh + "");
                             return;
                         }
                     }
@@ -446,7 +450,7 @@ public class CopyInputCheckerResults {
                     if (string.Compare(p.m_strCurrent, "ん") == 0) {
                         string tmpRoma = p.m_strDoneRaws[p.m_strDoneRaws.Count - 1] + nCh;
                         if (Roma2KanaTable.CanConverFirstN(tmpRoma) && p.m_strYet.Count > 0) {
-                            CorrectType(nCh + "", false);
+                            CorrectInner(nCh + "", false);
                             string prevStr = p.m_strDoneRaws[p.m_strDoneRaws.Count - 2];
                             p.m_strDoneRaws[p.m_strDoneRaws.Count - 2] = prevStr.Substring(0, prevStr.Length - 1);
                             p.m_correctNum--;
@@ -455,7 +459,7 @@ public class CopyInputCheckerResults {
 
                     if (char.ToLower(p.m_strCurrentRaw[0]) == char.ToLower(nCh)) {
                         p.m_event = aEvent;
-                        CorrectType(nCh + "");
+                        CorrectInner(nCh + "");
                         return;
                     }
 
@@ -477,7 +481,7 @@ public class CopyInputCheckerResults {
                             p.m_strRomaWorkYet = outRoma.Substring(p.m_strRomaWorkDone.Length + 1);
                             outRoma = outRoma.Substring(tmpKana.Length);
                             p.m_event = aEvent;
-                            CorrectType(nCh + "");
+                            CorrectInner(nCh + "");
                             return;
                         }
                     }
@@ -487,7 +491,7 @@ public class CopyInputCheckerResults {
                 //ミス
                 p.m_prevMissChar = nCh + "";
                 p.m_event = aEvent;
-                MissType(nCh + "");
+                MissInner(nCh + "");
             }
 
             /// <summary>
@@ -502,9 +506,30 @@ public class CopyInputCheckerResults {
                 m_params.m_isKana = m_isKana;
                 m_params.m_isCaseSensitive = m_isCaseSensitive;
                 InitStrYet();
-                CorrectType("", false);
+                CorrectInner("", false);
                 m_params.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.SETUP;
                 m_onSetupCallbacks.Invoke(m_results);
+            }
+
+            /// <summary>
+            /// <para>プログラムから、正しい入力を一回行ったとして処理します。</para>
+            /// <para>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</para>
+            /// </summary>
+            /// <param name="isThrowEvent">true:処理後、登録されたイベントリスナにイベントを投げます</param>
+            public void Correct(bool isThrowEvent = true) {
+                if (IsComplete || m_params.m_strCurrent.Length == 0) { return; }
+                m_params.m_event = new Event();
+                CorrectInner(m_params.m_strCurrent[0] + "", isThrowEvent);
+            }
+
+            /// <summary>
+            /// <para>プログラムから、ミスタイプを一回行ったとして処理します。</para>
+            /// <para>もし、TargetStrに文字列がセットされていない場合や、既に打ち切っている状態の場合は何もしません。</para>
+            /// </summary>
+            /// <param name="isThrowEvent">true:処理後、登録されたイベントリスナにイベントを投げます</param>
+            public void Miss(bool isThrowEvent = true) {
+                m_params.m_event = new Event();
+                MissInner("", isThrowEvent);
             }
             #endregion
 
@@ -736,7 +761,7 @@ public class CopyInputCheckerResults {
             /// <summary>正しく打てた時の処理　現在打っている文字を更新</summary>
             /// <param name="aPrevChar">今回打った文字</param>
             /// <param name="isThrowEvent">true:内部でイベントを投げます</param>
-            private void CorrectType(string aPrevChar, bool isThrowEvent = true) {
+            private void CorrectInner(string aPrevChar, bool isThrowEvent = true) {
                 if (IsComplete) { return; }
                 m_params.m_prevCorrectChar = aPrevChar;
                 m_params.m_prevMissChar = "";
@@ -769,7 +794,6 @@ public class CopyInputCheckerResults {
                         if (isThrowEvent) {
                             p.m_innerEvent = CopyInputCheckerResults.INNER_EVENT_TYPE.COMPLETE;
                             m_onInputCallbacks.Invoke(m_results);
-                            m_onCorrectCallbacks.Invoke(m_results);
                             m_onCompleteCallbacks.Invoke(m_results);
                         }
                         return;
@@ -788,7 +812,7 @@ public class CopyInputCheckerResults {
             /// <summary>ミスした時の処理</summary>
             /// <param name="aPrevChar">今回打った文字</param>
             /// <param name="isThrowEvent">true:内部でイベントを投げます</param>
-            private void MissType(string aPrevChar, bool isThrowEvent = true) {
+            private void MissInner(string aPrevChar, bool isThrowEvent = true) {
                 if (IsComplete) { return; }
 
                 m_params.m_prevMissChar = aPrevChar;
