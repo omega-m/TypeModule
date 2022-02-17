@@ -16,8 +16,8 @@ public class S01Manager : MonoBehaviour{
         SceneManager.LoadScene("S00Menu");
     }
 
-    /// <summary>TypeModule OnInputイベントリスナ</summary>
-    public void TMOnInput(InputEmulatorResults res) {
+    /// <summary>TypeModule OnChangeイベントリスナ</summary>
+    public void TmOnChange(InputEmulatorResults res) {
         m_textInput.text = res.Str;
         m_textInputRaw.text = res.StrRaw;
 
@@ -64,7 +64,7 @@ public class S01Manager : MonoBehaviour{
         //Initialize TypeModule
         m_tp = GetComponent<TypeModule>();
         m_tp.Mode = TypeModule.MODE.INPUT;
-        m_tp.AddEventListenerOnInput(TMOnInput);
+        m_tp.AddEventListenerOnChange(TmOnChange);
         OnChangeedKeyboardLayout();
         OnChangeedIsEng();
     }
