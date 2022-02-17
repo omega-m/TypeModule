@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Timers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using tm;
 using UnityEngine.UI;
+using tm;
 
+
+/// <summary>S02CopyTestのマネージャークラス</summary>
 public class S02Manager : MonoBehaviour {
 
     #region 状態
@@ -28,6 +32,8 @@ public class S02Manager : MonoBehaviour {
         SetupTypeModule();
 
         m_canvasMenu.enabled = false;
+        m_canvasCountdown.enabled = false;
+
         ChangeState(STATE.MENU);
     }
 
@@ -97,7 +103,24 @@ public class S02Manager : MonoBehaviour {
     #region 【COUNTDOWN】メソッド
     /// <summary>【COUNTDOWN】更新処理</summary>
     private void UpdateCountDown() {
-        //Debug.Log("COUNTDOWN");
+        switch (m_step) {
+            case 0:
+                m_textCountDown.text = "3";
+                m_timer = new System.Timers.Timer(3000 - 1);
+                m_timer.AutoReset = false;
+                m_timer.Enabled = true;
+                m_timer.Elapsed += OnTimerTick;
+                m_timer.Start();
+                m_canvasCountdown.enabled = true;
+                m_step++;
+                break;
+        }
+    }
+
+    /// <summary>【COUNTDOWN】タイマー更新イベント</summary>
+
+    private void OnTimerTick(System.Object aSource, ElapsedEventArgs e) {
+        m_textCountDown.text = e.SignalTime.Second.ToString();
     }
     #endregion
 
@@ -148,12 +171,18 @@ public class S02Manager : MonoBehaviour {
 
     [Space(10)]
     public Canvas m_canvasMenu;
+    public Canvas m_canvasCountdown;
+
+    [Space(10)]
+    public Text m_textCountDown;
     #endregion
 
 
     #region メンバ
     private TypeModule m_tp;
     private STATE m_state = STATE.MENU;
-    private int m_step = 0; 
+    private int m_step = 0;
+
+    private System.Timers.Timer m_timer;
     #endregion 
 }

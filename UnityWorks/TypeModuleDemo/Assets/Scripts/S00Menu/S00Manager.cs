@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>S00Menuのマネージャークラス</summary>
 public class S00Manager : MonoBehaviour
 {
     #region メソッド
@@ -27,5 +29,4 @@ public class S00Manager : MonoBehaviour
 
     }
     #endregion 
-
 }
