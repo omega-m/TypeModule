@@ -252,7 +252,7 @@ namespace tm {
             public static bool IsCapsLockOn
                 => (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
     #else
-            public static bool IsCapsLockOn => return false;
+            public static bool IsCapsLockOn => false;
     #endif
         #endregion
 
