@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour{
     public void StartTimer(float aInitTime) {
         RemainTime = aInitTime;
         StartTimer();
+        IsCompleted = false;
     }
 
     /// <summary>

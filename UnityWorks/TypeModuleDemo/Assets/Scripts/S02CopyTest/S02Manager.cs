@@ -152,8 +152,8 @@ public class S02Manager : MonoBehaviour {
                 p.m_stopwatch.StartStopwatch();
                 m_tp.TargetStr = p.m_odaiSet[p.m_odaiIdx];
 
-                m_textCorrect.enabled = true;
-                m_textMiss.enabled = true;
+                m_textInputRaw.enabled = true;
+                m_textInput.enabled = true;
                 m_textCorrect.text = p.m_totalCorrectKey.ToString();
                 m_textMiss.text = p.m_totalMissKey.ToString();
                 m_textAccuracy.text = "100.0";
@@ -255,8 +255,8 @@ public class S02Manager : MonoBehaviour {
     private void UpdateResult() {
         switch (m_step) {
             case 0:
-                m_textCorrect.enabled = false;
-                m_textMiss.enabled = false;
+                m_textInput.enabled = false;
+                m_textInputRaw.enabled = false;
 
                 m_otucare.enabled = true;
                 m_btnToMenu.SetActive(true);
