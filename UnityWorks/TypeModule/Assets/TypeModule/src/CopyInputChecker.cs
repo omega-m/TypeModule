@@ -408,7 +408,9 @@ public class CopyInputCheckerResults {
                 //英語チェック
                 if (p.m_strCurrent.Length == 1) {
                     nCh = cvt.Key2Roma.Convert(aKeyCode, aIsShift, aIsFunction);
-                    if (nCh == '\0') { return; }
+
+                    if (IsKana && aKeyCode == KeyCode.Alpha0 && aIsShift == true && aIsFunction == false) {
+                    } else if (nCh == '\0') { return; }
                     ////かな且つ、以下の文字ならここで判定しない
                     if (IsKana && Regex.IsMatch(p.m_strCurrent[0] + "", "[、。ー・「」]")) {
                     } else {
