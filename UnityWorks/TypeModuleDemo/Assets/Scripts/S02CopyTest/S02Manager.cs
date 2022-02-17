@@ -151,10 +151,22 @@ public class S02Manager : MonoBehaviour {
                 m_canvasGame.enabled = true;
                 p.m_stopwatch.StartStopwatch();
                 m_tp.TargetStr = p.m_odaiSet[p.m_odaiIdx];
+
+                m_textCorrect.enabled = true;
+                m_textMiss.enabled = true;
+                m_textCorrect.text = p.m_totalCorrectKey.ToString();
+                m_textMiss.text = p.m_totalMissKey.ToString();
+                m_textAccuracy.text = "100.0";
+
                 m_tp.IsRun = true;
+
+                m_otucare.enabled = false;
+                m_btnToMenu.SetActive(false);
                 m_step++;
                 break;
             case 1:
+                m_textTime.text = p.m_stopwatch.Time.ToString("F1");
+                m_textKeysec.text = p.KeySec.ToString("F1");
                 break;
         }
     }
@@ -163,7 +175,9 @@ public class S02Manager : MonoBehaviour {
     /// <param name="res">入力の状態</param>
     private void TMOnSetup(CopyInputCheckerResults res) {
         //Debug.Log("TMOnSetup");
+        var p = m_gameParams;
         SetInputText(true);
+        m_textOjaiIdx.text = String.Format("{0:00}", p.m_odaiIdx + 1)+ " / " + String.Format("{0:00}", p.m_odaiSet.Count);
     }
 
     /// <summary>【GAME】キーが打たれた時のイベント</summary>
@@ -178,6 +192,8 @@ public class S02Manager : MonoBehaviour {
         //Debug.Log("TMOnCorrect");
         var p = m_gameParams;
         p.m_totalCorrectKey++;
+        m_textCorrect.text = p.m_totalCorrectKey.ToString();
+        m_textAccuracy.text = p.AccuracyRate.ToString("F1");
         SetInputText(true);
         m_audioSource.PlayOneShot(m_audioCorrect);
     }
@@ -188,6 +204,8 @@ public class S02Manager : MonoBehaviour {
         //Debug.Log("TMOnMiss");
         var p = m_gameParams;
         p.m_totalMissKey++;
+        m_textMiss.text = p.m_totalMissKey.ToString();
+        m_textAccuracy.text = p.AccuracyRate.ToString("F1");
         SetInputText(false);
         m_audioSource.PlayOneShot(m_audioMiss);
     }
@@ -235,7 +253,25 @@ public class S02Manager : MonoBehaviour {
     #region 【RESULT】メソッド
     /// <summary>【RESULT】更新処理</summary>
     private void UpdateResult() {
-        Debug.Log("RESULT");
+        switch (m_step) {
+            case 0:
+                m_textCorrect.enabled = false;
+                m_textMiss.enabled = false;
+
+                m_otucare.enabled = true;
+                m_btnToMenu.SetActive(true);
+                m_step++;
+                break;
+            case 1:
+                 break;
+        }
+    }
+
+    /// <summary>戻るボタンが押された時に呼び出されます</summary>
+    public void OnClickToMenu() {
+        if (m_state != STATE.RESULT) { return; }
+        m_canvasGame.enabled = false;
+        ChangeState(STATE.MENU);
     }
     #endregion
 
@@ -278,9 +314,19 @@ public class S02Manager : MonoBehaviour {
     [Space(10)]
     public Text m_textInput;
     public Text m_textInputRaw;
+    public Text m_textOjaiIdx;
+    public Text m_textTime;
+    public Text m_textKeysec;
+    public Text m_textCorrect;
+    public Text m_textMiss;
+    public Text m_textAccuracy;
 
     public AudioClip m_audioCorrect;
     public AudioClip m_audioMiss;
+
+    [Space(10)]
+    public Text m_otucare;
+    public GameObject m_btnToMenu;
     #endregion
 
 

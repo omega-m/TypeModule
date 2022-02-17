@@ -409,9 +409,8 @@ public class CopyInputCheckerResults {
                 if (p.m_strCurrent.Length == 1) {
                     nCh = cvt.Key2Roma.Convert(aKeyCode, aIsShift, aIsFunction);
 
-                    //0+Shiftは対応する文字が無いため、かな用に特別処理
-                    if(IsKana && aKeyCode == KeyCode.Alpha0 && aIsShift == true && aIsFunction == false) {
-                    }else if (nCh == '\0') { return; }
+                    if (IsKana && aKeyCode == KeyCode.Alpha0 && aIsShift == true && aIsFunction == false) {
+                    } else if (nCh == '\0') { return; }
                     ////かな且つ、以下の文字ならここで判定しない
                     if (IsKana && Regex.IsMatch(p.m_strCurrent[0] + "", "[、。ー・「」]")) {
                     } else {
@@ -779,7 +778,7 @@ public class CopyInputCheckerResults {
                 m_results.Dirty = true;
                 if (p.m_strCurrentRaw.Length > 0) {
                     p.m_strDoneRaws[p.m_strDoneRaws.Count - 1] += p.m_strCurrentRaw[0];
-                    p.m_strRomaWorkDone = p.m_strCurrentRaw[0] + "";
+                    p.m_strRomaWorkDone += p.m_strCurrentRaw[0] + "";
                     p.m_strCurrentRaw = p.m_strCurrentRaw.Substring(1);
                     if (p.m_strRomaWorkYet.Length == 0) {
                         p.m_strDone[p.m_strDone.Count - 1] += p.m_strCurrent;

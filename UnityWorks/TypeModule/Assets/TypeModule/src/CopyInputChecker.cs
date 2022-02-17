@@ -778,7 +778,7 @@ public class CopyInputCheckerResults {
                 m_results.Dirty = true;
                 if (p.m_strCurrentRaw.Length > 0) {
                     p.m_strDoneRaws[p.m_strDoneRaws.Count - 1] += p.m_strCurrentRaw[0];
-                    p.m_strRomaWorkDone = p.m_strCurrentRaw[0] + "";
+                    p.m_strRomaWorkDone += p.m_strCurrentRaw[0] + "";
                     p.m_strCurrentRaw = p.m_strCurrentRaw.Substring(1);
                     if (p.m_strRomaWorkYet.Length == 0) {
                         p.m_strDone[p.m_strDone.Count - 1] += p.m_strCurrent;
