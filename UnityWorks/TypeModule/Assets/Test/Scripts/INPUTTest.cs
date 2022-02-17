@@ -20,7 +20,7 @@ public class INPUTTest : MonoBehaviour
 
     private void OnGUI() {
         //test
-        if(Event.current.type == EventType.KeyDown  && Event.current.keyCode == KeyCode.F1) {
+        if (Event.current.type == EventType.KeyDown  && Event.current.keyCode == KeyCode.F1) {
             m_tp.Clear();
         }
         if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.F2) {

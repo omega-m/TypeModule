@@ -430,7 +430,7 @@ MonoBehaviour:
   m_mode: 0
   m_isRun: 1
   m_isKana: 1
-  m_isInputEng: 0
+  m_isInputEng: 1
   m_enabledBS: 1
   m_enabledEnter: 1
   m_targetStr: 
