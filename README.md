@@ -8,7 +8,7 @@ Unityでタイピングゲームを開発する際に必要となる、共通処
  
 # Installation
 以下のパッケージを、Unityのプロジェクトにインポートしてください。  
-[TypeModule_v1_0_4](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_4)
+[TypeModule_v1_0_](https://github.com/omega-m/TypeModule/releases/tag/TypeModule_v_1_0_5)
   
 # Usage
 以下のスクリプトを、管理クラスのコンポーネントとして割り当ててください。  
@@ -161,7 +161,13 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     
 # DEMO
 
-作成中です。
+デモ1. キーボードの入力値から文字列を生成
+デモ2. 一般のタイピングゲーム風ゲーム
+
+https://xs821899.xsrv.jp/wp-content/uploads/unity/TypeModuleDemo/index.html
+
+デモ用プロジェクトは、以下の階層に入っています。
+UnityWorks/TypeModuleDemo/
 
 # Note
 
