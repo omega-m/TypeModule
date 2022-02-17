@@ -161,12 +161,14 @@ TypeModuleを使用したいインスタンスに、以下のようなコード�
     
 # DEMO
 
-デモ1. キーボードの入力値から文字列を生成
-デモ2. 一般のタイピングゲーム風ゲーム
+デモ確認用
+https://xs821899.xsrv.jp/wp-content/uploads/unity/TypeModuleDemo/index.html  
 
-https://xs821899.xsrv.jp/wp-content/uploads/unity/TypeModuleDemo/index.html
+1. キーボードの入力値から文字列を生成  
+2. 一般のタイピングゲーム風ゲーム  
 
-デモ用プロジェクトは、以下の階層に入っています。
+
+上記のプロジェクトは、以下の階層に入っています。  
 UnityWorks/TypeModuleDemo/
 
 # Note
